@@ -1,0 +1,33 @@
+name: Update Call Center JSON
+
+on:
+  push:
+    paths:
+      - 'data/csv/**'   # trigger only if CSV files change
+  schedule:
+    - cron: '0 0 * * *' # optional: run daily at midnight UTC
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pandas
+
+      - name: Convert CSV to JSON
+        run: python scripts/csv_to_json.py
+
+      - name: Commit and Push JSON
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add data/calls_agents.json data/drop_calls.json
+          git commit -m "Update JSON from CSV" || echo "No changes"
+          git push
