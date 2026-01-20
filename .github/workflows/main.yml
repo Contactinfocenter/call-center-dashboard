@@ -3,8 +3,8 @@ name: CSV to JSON Automation
 on:
   push:
     paths:
-      - "dist/data/*.csv"
-      - "scripts/csv_to_json.py"
+      - "call-center-dashboard/dist/data/*.csv"
+      - "call-center-dashboard/scripts/csv_to_json.py"
 
 jobs:
   build:
@@ -25,12 +25,12 @@ jobs:
           pip install pandas
 
       - name: Convert CSV to JSON
-        run: python scripts/csv_to_json.py
+        run: python call-center-dashboard/scripts/csv_to_json.py
 
       - name: Commit generated JSON
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add dist/data/*.json
-          git commit -m "Auto update dashboard JSON" || echo "No changes to commit"
+          git add call-center-dashboard/dist/data/*.json
+          git commit -m "Auto update dashboard JSON" || echo "No changes"
           git push
