@@ -1,0 +1,186 @@
+[
+  {
+    "date": "2026-01-18",
+    "hour": 0,
+    "inbound": 16,
+    "outbound": 12,
+    "total_calls": 28,
+    "agents": 4
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 1,
+    "inbound": 6,
+    "outbound": 5,
+    "total_calls": 11,
+    "agents": 2
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 2,
+    "inbound": 5,
+    "outbound": 2,
+    "total_calls": 7,
+    "agents": 2
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 3,
+    "inbound": 0,
+    "outbound": 2,
+    "total_calls": 2,
+    "agents": 1
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 4,
+    "inbound": 1,
+    "outbound": 1,
+    "total_calls": 2,
+    "agents": 2
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 6,
+    "inbound": 6,
+    "outbound": 1,
+    "total_calls": 7,
+    "agents": 2
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 7,
+    "inbound": 10,
+    "outbound": 7,
+    "total_calls": 17,
+    "agents": 3
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 8,
+    "inbound": 26,
+    "outbound": 7,
+    "total_calls": 33,
+    "agents": 4
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 9,
+    "inbound": 36,
+    "outbound": 9,
+    "total_calls": 45,
+    "agents": 8
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 10,
+    "inbound": 77,
+    "outbound": 41,
+    "total_calls": 118,
+    "agents": 11
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 11,
+    "inbound": 71,
+    "outbound": 27,
+    "total_calls": 98,
+    "agents": 12
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 12,
+    "inbound": 66,
+    "outbound": 37,
+    "total_calls": 103,
+    "agents": 11
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 13,
+    "inbound": 50,
+    "outbound": 49,
+    "total_calls": 99,
+    "agents": 14
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 14,
+    "inbound": 51,
+    "outbound": 43,
+    "total_calls": 94,
+    "agents": 19
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 15,
+    "inbound": 54,
+    "outbound": 23,
+    "total_calls": 77,
+    "agents": 20
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 16,
+    "inbound": 60,
+    "outbound": 27,
+    "total_calls": 87,
+    "agents": 21
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 17,
+    "inbound": 63,
+    "outbound": 15,
+    "total_calls": 78,
+    "agents": 16
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 18,
+    "inbound": 93,
+    "outbound": 35,
+    "total_calls": 128,
+    "agents": 13
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 19,
+    "inbound": 71,
+    "outbound": 41,
+    "total_calls": 112,
+    "agents": 11
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 20,
+    "inbound": 67,
+    "outbound": 55,
+    "total_calls": 122,
+    "agents": 10
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 21,
+    "inbound": 61,
+    "outbound": 56,
+    "total_calls": 117,
+    "agents": 12
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 22,
+    "inbound": 41,
+    "outbound": 33,
+    "total_calls": 74,
+    "agents": 12
+  },
+  {
+    "date": "2026-01-18",
+    "hour": 23,
+    "inbound": 24,
+    "outbound": 12,
+    "total_calls": 36,
+    "agents": 3
+  }
+]
