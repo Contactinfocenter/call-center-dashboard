@@ -2,7 +2,7 @@ import pandas as pd
 import json
 import glob
 import os
-import numpy as np  # for np.nan
+import numpy as np
 
 REPO_ROOT = os.path.dirname(os.path.dirname(__file__))
 CALLS_DIR = os.path.join(REPO_ROOT, "dist", "data", "call_logs")
@@ -45,7 +45,7 @@ for file in call_files:
         df["answer_status"] = "Not Answered"
         df.loc[df["status"].str.upper() == "FCR", "answer_status"] = "FCR"
 
-        # Clean NaN properly
+        # Clean NaN
         df = df.replace([pd.NA, np.nan], None)
 
         for _, row in df.iterrows():
@@ -59,7 +59,14 @@ for file in call_files:
 
             entry = {}
             for col, val in row.items():
-                entry[col] = None if pd.isna(val) else val
+                if pd.isna(val):
+                    entry[col] = None
+                elif isinstance(val, pd.Timestamp):
+                    entry[col] = val.isoformat()
+                elif isinstance(val, float) and val.is_integer():
+                    entry[col] = int(val)
+                else:
+                    entry[col] = val
 
             entry["direction"] = row["direction"]
             entry["answer_status"] = row["answer_status"]
@@ -90,7 +97,7 @@ for file in drop_files:
     fname = os.path.basename(file)
     print(f"Processing drop file: {fname}")
     try:
-        # Read as proper CSV (comma separated, has header)
+        # Read as proper CSV with header
         df = pd.read_csv(
             file,
             encoding='utf-8',
@@ -101,13 +108,12 @@ for file in drop_files:
         # Normalize columns
         df.columns = [c.strip().lower().replace(' ', '_').replace('-', '_') for c in df.columns]
 
-        # Debug
         print(f"  Parsed rows: {len(df)}")
         if len(df) > 0:
             print(f"  Columns: {list(df.columns)}")
             print(f"  First 3 rows:\n{df.head(3).to_string(index=False)}")
 
-        # Combine date + time if present
+        # If 'date' and 'time' exist, parse datetime
         if 'date' in df.columns and 'time' in df.columns:
             df['datetime_str'] = df['date'] + ' ' + df['time']
             df['datetime'] = pd.to_datetime(df['datetime_str'], errors='coerce')
@@ -130,7 +136,14 @@ for file in drop_files:
 
             entry = {}
             for col, val in row.items():
-                entry[col] = None if pd.isna(val) else val
+                if pd.isna(val):
+                    entry[col] = None
+                elif isinstance(val, pd.Timestamp):
+                    entry[col] = val.isoformat()
+                elif isinstance(val, float) and val.is_integer():
+                    entry[col] = int(val)
+                else:
+                    entry[col] = val
 
             drop_records["records"][date_str][key] = entry
 
