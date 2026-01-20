@@ -24,8 +24,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas
 
-      - name: Convert CSV to JSON
-        run: python call-center-dashboard/scripts/csv_to_json.py
+     - name: Convert CSV to JSON
+  working-directory: scripts
+  run: python csv_to_json.py
 
       - name: Commit generated JSON
         run: |
