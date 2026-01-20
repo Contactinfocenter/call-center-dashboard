@@ -1,3 +1,1059 @@
 {
-  "records": {}
+  "records": {
+    "2026-01-18": {
+      "1973574900_1768723496000": {
+        "campaign_name": "Direct_Agent_English",
+        "date": "2026-01-18",
+        "time": "8:04:56",
+        "status": "DROP",
+        "phone_number": 1973574900,
+        "datetime_str": "1/18/2026 8:04:56",
+        "datetime": "2026-01-18T08:04:56"
+      },
+      "1881486248_1768725643000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "8:40:43",
+        "status": "DROP",
+        "phone_number": 1881486248,
+        "datetime_str": "1/18/2026 8:40:43",
+        "datetime": "2026-01-18T08:40:43"
+      },
+      "1795880054_1768731181000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "10:13:01",
+        "status": "DROP",
+        "phone_number": 1795880054,
+        "datetime_str": "1/18/2026 10:13:01",
+        "datetime": "2026-01-18T10:13:01"
+      },
+      "1722062112_1768732771000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "10:39:31",
+        "status": "DROP",
+        "phone_number": 1722062112,
+        "datetime_str": "1/18/2026 10:39:31",
+        "datetime": "2026-01-18T10:39:31"
+      },
+      "1714442409_1768732801000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "10:40:01",
+        "status": "DROP",
+        "phone_number": 1714442409,
+        "datetime_str": "1/18/2026 10:40:01",
+        "datetime": "2026-01-18T10:40:01"
+      },
+      "1772405420_1768732880000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "10:41:20",
+        "status": "DROP",
+        "phone_number": 1772405420,
+        "datetime_str": "1/18/2026 10:41:20",
+        "datetime": "2026-01-18T10:41:20"
+      },
+      "1784594047_1768732887000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "10:41:27",
+        "status": "DROP",
+        "phone_number": 1784594047,
+        "datetime_str": "1/18/2026 10:41:27",
+        "datetime": "2026-01-18T10:41:27"
+      },
+      "1711986726_1768733712000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "10:55:12",
+        "status": "DROP",
+        "phone_number": 1711986726,
+        "datetime_str": "1/18/2026 10:55:12",
+        "datetime": "2026-01-18T10:55:12"
+      },
+      "1755628876_1768737878000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "12:04:38",
+        "status": "DROP",
+        "phone_number": 1755628876,
+        "datetime_str": "1/18/2026 12:04:38",
+        "datetime": "2026-01-18T12:04:38"
+      },
+      "1723079763_1768737878000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "12:04:38",
+        "status": "DROP",
+        "phone_number": 1723079763,
+        "datetime_str": "1/18/2026 12:04:38",
+        "datetime": "2026-01-18T12:04:38"
+      },
+      "1914219305_1768737945000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "12:05:45",
+        "status": "DROP",
+        "phone_number": 1914219305,
+        "datetime_str": "1/18/2026 12:05:45",
+        "datetime": "2026-01-18T12:05:45"
+      },
+      "1621016366_1768738032000": {
+        "campaign_name": "SALESINBOUND",
+        "date": "2026-01-18",
+        "time": "12:07:12",
+        "status": "DROP",
+        "phone_number": 1621016366,
+        "datetime_str": "1/18/2026 12:07:12",
+        "datetime": "2026-01-18T12:07:12"
+      },
+      "9658372270_1768738049000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "12:07:29",
+        "status": "DROP",
+        "phone_number": 9658372270,
+        "datetime_str": "1/18/2026 12:07:29",
+        "datetime": "2026-01-18T12:07:29"
+      },
+      "1619725531_1768738227000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "12:10:27",
+        "status": "DROP",
+        "phone_number": 1619725531,
+        "datetime_str": "1/18/2026 12:10:27",
+        "datetime": "2026-01-18T12:10:27"
+      },
+      "1723183296_1768740112000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "12:41:52",
+        "status": "DROP",
+        "phone_number": 1723183296,
+        "datetime_str": "1/18/2026 12:41:52",
+        "datetime": "2026-01-18T12:41:52"
+      },
+      "1965475605_1768740331000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "12:45:31",
+        "status": "DROP",
+        "phone_number": 1965475605,
+        "datetime_str": "1/18/2026 12:45:31",
+        "datetime": "2026-01-18T12:45:31"
+      },
+      "1965475605_1768740434000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "12:47:14",
+        "status": "DROP",
+        "phone_number": 1965475605,
+        "datetime_str": "1/18/2026 12:47:14",
+        "datetime": "2026-01-18T12:47:14"
+      },
+      "1560004852_1768740692000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "12:51:32",
+        "status": "DROP",
+        "phone_number": 1560004852,
+        "datetime_str": "1/18/2026 12:51:32",
+        "datetime": "2026-01-18T12:51:32"
+      },
+      "1729365120_1768742120000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "13:15:20",
+        "status": "DROP",
+        "phone_number": 1729365120,
+        "datetime_str": "1/18/2026 13:15:20",
+        "datetime": "2026-01-18T13:15:20"
+      },
+      "1729365120_1768742627000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "13:23:47",
+        "status": "DROP",
+        "phone_number": 1729365120,
+        "datetime_str": "1/18/2026 13:23:47",
+        "datetime": "2026-01-18T13:23:47"
+      },
+      "1764042766_1768743171000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "13:32:51",
+        "status": "DROP",
+        "phone_number": 1764042766,
+        "datetime_str": "1/18/2026 13:32:51",
+        "datetime": "2026-01-18T13:32:51"
+      },
+      "1727118615_1768743270000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "13:34:30",
+        "status": "DROP",
+        "phone_number": 1727118615,
+        "datetime_str": "1/18/2026 13:34:30",
+        "datetime": "2026-01-18T13:34:30"
+      },
+      "9658372270_1768743492000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "13:38:12",
+        "status": "DROP",
+        "phone_number": 9658372270,
+        "datetime_str": "1/18/2026 13:38:12",
+        "datetime": "2026-01-18T13:38:12"
+      },
+      "1840379551_1768744200000": {
+        "campaign_name": "SYLHEL_SUPPORT",
+        "date": "2026-01-18",
+        "time": "13:50:00",
+        "status": "DROP",
+        "phone_number": 1840379551,
+        "datetime_str": "1/18/2026 13:50:00",
+        "datetime": "2026-01-18T13:50:00"
+      },
+      "1711080168_1768744298000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "13:51:38",
+        "status": "DROP",
+        "phone_number": 1711080168,
+        "datetime_str": "1/18/2026 13:51:38",
+        "datetime": "2026-01-18T13:51:38"
+      },
+      "1840379551_1768744350000": {
+        "campaign_name": "SYLHEL_SUPPORT",
+        "date": "2026-01-18",
+        "time": "13:52:30",
+        "status": "DROP",
+        "phone_number": 1840379551,
+        "datetime_str": "1/18/2026 13:52:30",
+        "datetime": "2026-01-18T13:52:30"
+      },
+      "1778733226_1768744378000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "13:52:58",
+        "status": "DROP",
+        "phone_number": 1778733226,
+        "datetime_str": "1/18/2026 13:52:58",
+        "datetime": "2026-01-18T13:52:58"
+      },
+      "1840379551_1768744398000": {
+        "campaign_name": "SYLHEL_SUPPORT",
+        "date": "2026-01-18",
+        "time": "13:53:18",
+        "status": "DROP",
+        "phone_number": 1840379551,
+        "datetime_str": "1/18/2026 13:53:18",
+        "datetime": "2026-01-18T13:53:18"
+      },
+      "1969480255_1768745221000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "14:07:01",
+        "status": "DROP",
+        "phone_number": 1969480255,
+        "datetime_str": "1/18/2026 14:07:01",
+        "datetime": "2026-01-18T14:07:01"
+      },
+      "1816549260_1768746619000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "14:30:19",
+        "status": "DROP",
+        "phone_number": 1816549260,
+        "datetime_str": "1/18/2026 14:30:19",
+        "datetime": "2026-01-18T14:30:19"
+      },
+      "1713343167_1768746730000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "14:32:10",
+        "status": "DROP",
+        "phone_number": 1713343167,
+        "datetime_str": "1/18/2026 14:32:10",
+        "datetime": "2026-01-18T14:32:10"
+      },
+      "1840379551_1768759649000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "18:07:29",
+        "status": "DROP",
+        "phone_number": 1840379551,
+        "datetime_str": "1/18/2026 18:07:29",
+        "datetime": "2026-01-18T18:07:29"
+      },
+      "1840379551_1768759732000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "18:08:52",
+        "status": "DROP",
+        "phone_number": 1840379551,
+        "datetime_str": "1/18/2026 18:08:52",
+        "datetime": "2026-01-18T18:08:52"
+      },
+      "1831640480_1768761314000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "18:35:14",
+        "status": "DROP",
+        "phone_number": 1831640480,
+        "datetime_str": "1/18/2026 18:35:14",
+        "datetime": "2026-01-18T18:35:14"
+      },
+      "1999760577_1768761398000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "18:36:38",
+        "status": "DROP",
+        "phone_number": 1999760577,
+        "datetime_str": "1/18/2026 18:36:38",
+        "datetime": "2026-01-18T18:36:38"
+      },
+      "1712346217_1768761472000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "18:37:52",
+        "status": "DROP",
+        "phone_number": 1712346217,
+        "datetime_str": "1/18/2026 18:37:52",
+        "datetime": "2026-01-18T18:37:52"
+      },
+      "1712346217_1768761513000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "18:38:33",
+        "status": "DROP",
+        "phone_number": 1712346217,
+        "datetime_str": "1/18/2026 18:38:33",
+        "datetime": "2026-01-18T18:38:33"
+      },
+      "1631836882_1768762651000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "18:57:31",
+        "status": "DROP",
+        "phone_number": 1631836882,
+        "datetime_str": "1/18/2026 18:57:31",
+        "datetime": "2026-01-18T18:57:31"
+      },
+      "1752474030_1768762653000": {
+        "campaign_name": "Any_Service_Bangla",
+        "date": "2026-01-18",
+        "time": "18:57:33",
+        "status": "DROP",
+        "phone_number": 1752474030,
+        "datetime_str": "1/18/2026 18:57:33",
+        "datetime": "2026-01-18T18:57:33"
+      },
+      "9638950806_1768762823000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:00:23",
+        "status": "DROP",
+        "phone_number": 9638950806,
+        "datetime_str": "1/18/2026 19:00:23",
+        "datetime": "2026-01-18T19:00:23"
+      },
+      "1752474030_1768762896000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:01:36",
+        "status": "DROP",
+        "phone_number": 1752474030,
+        "datetime_str": "1/18/2026 19:01:36",
+        "datetime": "2026-01-18T19:01:36"
+      },
+      "1302514773_1768762917000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:01:57",
+        "status": "DROP",
+        "phone_number": 1302514773,
+        "datetime_str": "1/18/2026 19:01:57",
+        "datetime": "2026-01-18T19:01:57"
+      },
+      "1329722286_1768763271000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:07:51",
+        "status": "DROP",
+        "phone_number": 1329722286,
+        "datetime_str": "1/18/2026 19:07:51",
+        "datetime": "2026-01-18T19:07:51"
+      },
+      "9611039241_1768763423000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:10:23",
+        "status": "DROP",
+        "phone_number": 9611039241,
+        "datetime_str": "1/18/2026 19:10:23",
+        "datetime": "2026-01-18T19:10:23"
+      },
+      "9658428929_1768763613000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "19:13:33",
+        "status": "DROP",
+        "phone_number": 9658428929,
+        "datetime_str": "1/18/2026 19:13:33",
+        "datetime": "2026-01-18T19:13:33"
+      },
+      "1603046870_1768763652000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:14:12",
+        "status": "DROP",
+        "phone_number": 1603046870,
+        "datetime_str": "1/18/2026 19:14:12",
+        "datetime": "2026-01-18T19:14:12"
+      },
+      "1713806826_1768763766000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:16:06",
+        "status": "DROP",
+        "phone_number": 1713806826,
+        "datetime_str": "1/18/2026 19:16:06",
+        "datetime": "2026-01-18T19:16:06"
+      },
+      "9658428929_1768763871000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:17:51",
+        "status": "DROP",
+        "phone_number": 9658428929,
+        "datetime_str": "1/18/2026 19:17:51",
+        "datetime": "2026-01-18T19:17:51"
+      },
+      "1742836509_1768764749000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:32:29",
+        "status": "DROP",
+        "phone_number": 1742836509,
+        "datetime_str": "1/18/2026 19:32:29",
+        "datetime": "2026-01-18T19:32:29"
+      },
+      "1752474030_1768764814000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:33:34",
+        "status": "DROP",
+        "phone_number": 1752474030,
+        "datetime_str": "1/18/2026 19:33:34",
+        "datetime": "2026-01-18T19:33:34"
+      },
+      "1742836509_1768764956000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:35:56",
+        "status": "DROP",
+        "phone_number": 1742836509,
+        "datetime_str": "1/18/2026 19:35:56",
+        "datetime": "2026-01-18T19:35:56"
+      },
+      "1759499499_1768765549000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:45:49",
+        "status": "DROP",
+        "phone_number": 1759499499,
+        "datetime_str": "1/18/2026 19:45:49",
+        "datetime": "2026-01-18T19:45:49"
+      },
+      "9658174624_1768765696000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:48:16",
+        "status": "DROP",
+        "phone_number": 9658174624,
+        "datetime_str": "1/18/2026 19:48:16",
+        "datetime": "2026-01-18T19:48:16"
+      },
+      "9658341910_1768766009000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:53:29",
+        "status": "DROP",
+        "phone_number": 9658341910,
+        "datetime_str": "1/18/2026 19:53:29",
+        "datetime": "2026-01-18T19:53:29"
+      },
+      "9658341910_1768766773000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:06:13",
+        "status": "DROP",
+        "phone_number": 9658341910,
+        "datetime_str": "1/18/2026 20:06:13",
+        "datetime": "2026-01-18T20:06:13"
+      },
+      "9638746044_1768766811000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:06:51",
+        "status": "DROP",
+        "phone_number": 9638746044,
+        "datetime_str": "1/18/2026 20:06:51",
+        "datetime": "2026-01-18T20:06:51"
+      },
+      "1766104814_1768767036000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:10:36",
+        "status": "DROP",
+        "phone_number": 1766104814,
+        "datetime_str": "1/18/2026 20:10:36",
+        "datetime": "2026-01-18T20:10:36"
+      },
+      "1711378307_1768767062000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:11:02",
+        "status": "DROP",
+        "phone_number": 1711378307,
+        "datetime_str": "1/18/2026 20:11:02",
+        "datetime": "2026-01-18T20:11:02"
+      },
+      "9638700468_1768767062000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:11:02",
+        "status": "DROP",
+        "phone_number": 9638700468,
+        "datetime_str": "1/18/2026 20:11:02",
+        "datetime": "2026-01-18T20:11:02"
+      },
+      "1747902950_1768767094000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:11:34",
+        "status": "DROP",
+        "phone_number": 1747902950,
+        "datetime_str": "1/18/2026 20:11:34",
+        "datetime": "2026-01-18T20:11:34"
+      },
+      "1410001170_1768767152000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:12:32",
+        "status": "DROP",
+        "phone_number": 1410001170,
+        "datetime_str": "1/18/2026 20:12:32",
+        "datetime": "2026-01-18T20:12:32"
+      },
+      "1759499499_1768768384000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:33:04",
+        "status": "DROP",
+        "phone_number": 1759499499,
+        "datetime_str": "1/18/2026 20:33:04",
+        "datetime": "2026-01-18T20:33:04"
+      },
+      "1755532345_1768768627000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:37:07",
+        "status": "DROP",
+        "phone_number": 1755532345,
+        "datetime_str": "1/18/2026 20:37:07",
+        "datetime": "2026-01-18T20:37:07"
+      },
+      "1723175398_1768768672000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:37:52",
+        "status": "DROP",
+        "phone_number": 1723175398,
+        "datetime_str": "1/18/2026 20:37:52",
+        "datetime": "2026-01-18T20:37:52"
+      },
+      "1581448482_1768768680000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:38:00",
+        "status": "DROP",
+        "phone_number": 1581448482,
+        "datetime_str": "1/18/2026 20:38:00",
+        "datetime": "2026-01-18T20:38:00"
+      },
+      "1581448482_1768768763000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:39:23",
+        "status": "DROP",
+        "phone_number": 1581448482,
+        "datetime_str": "1/18/2026 20:39:23",
+        "datetime": "2026-01-18T20:39:23"
+      },
+      "1977148403_1768768794000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:39:54",
+        "status": "DROP",
+        "phone_number": 1977148403,
+        "datetime_str": "1/18/2026 20:39:54",
+        "datetime": "2026-01-18T20:39:54"
+      },
+      "1622372189_1768768974000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:42:54",
+        "status": "DROP",
+        "phone_number": 1622372189,
+        "datetime_str": "1/18/2026 20:42:54",
+        "datetime": "2026-01-18T20:42:54"
+      },
+      "1730450018_1768769036000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:43:56",
+        "status": "DROP",
+        "phone_number": 1730450018,
+        "datetime_str": "1/18/2026 20:43:56",
+        "datetime": "2026-01-18T20:43:56"
+      },
+      "1581448482_1768769173000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:46:13",
+        "status": "DROP",
+        "phone_number": 1581448482,
+        "datetime_str": "1/18/2026 20:46:13",
+        "datetime": "2026-01-18T20:46:13"
+      },
+      "1730450018_1768769351000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:49:11",
+        "status": "DROP",
+        "phone_number": 1730450018,
+        "datetime_str": "1/18/2026 20:49:11",
+        "datetime": "2026-01-18T20:49:11"
+      },
+      "9658488456_1768769479000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:51:19",
+        "status": "DROP",
+        "phone_number": 9658488456,
+        "datetime_str": "1/18/2026 20:51:19",
+        "datetime": "2026-01-18T20:51:19"
+      },
+      "1846881702_1768769604000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:53:24",
+        "status": "DROP",
+        "phone_number": 1846881702,
+        "datetime_str": "1/18/2026 20:53:24",
+        "datetime": "2026-01-18T20:53:24"
+      },
+      "1799162647_1768769747000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:55:47",
+        "status": "DROP",
+        "phone_number": 1799162647,
+        "datetime_str": "1/18/2026 20:55:47",
+        "datetime": "2026-01-18T20:55:47"
+      },
+      "1868671484_1768769808000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:56:48",
+        "status": "DROP",
+        "phone_number": 1868671484,
+        "datetime_str": "1/18/2026 20:56:48",
+        "datetime": "2026-01-18T20:56:48"
+      },
+      "1930531476_1768770715000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:11:55",
+        "status": "DROP",
+        "phone_number": 1930531476,
+        "datetime_str": "1/18/2026 21:11:55",
+        "datetime": "2026-01-18T21:11:55"
+      },
+      "1715084729_1768770833000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:13:53",
+        "status": "DROP",
+        "phone_number": 1715084729,
+        "datetime_str": "1/18/2026 21:13:53",
+        "datetime": "2026-01-18T21:13:53"
+      },
+      "1794406664_1768771265000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:21:05",
+        "status": "DROP",
+        "phone_number": 1794406664,
+        "datetime_str": "1/18/2026 21:21:05",
+        "datetime": "2026-01-18T21:21:05"
+      },
+      "1759895551_1768771636000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:27:16",
+        "status": "DROP",
+        "phone_number": 1759895551,
+        "datetime_str": "1/18/2026 21:27:16",
+        "datetime": "2026-01-18T21:27:16"
+      },
+      "1799162647_1768772747000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:45:47",
+        "status": "DROP",
+        "phone_number": 1799162647,
+        "datetime_str": "1/18/2026 21:45:47",
+        "datetime": "2026-01-18T21:45:47"
+      },
+      "1882633501_1768773078000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:51:18",
+        "status": "DROP",
+        "phone_number": 1882633501,
+        "datetime_str": "1/18/2026 21:51:18",
+        "datetime": "2026-01-18T21:51:18"
+      },
+      "1905048425_1768773187000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:53:07",
+        "status": "DROP",
+        "phone_number": 1905048425,
+        "datetime_str": "1/18/2026 21:53:07",
+        "datetime": "2026-01-18T21:53:07"
+      },
+      "1404814961_1768773248000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "21:54:08",
+        "status": "DROP",
+        "phone_number": 1404814961,
+        "datetime_str": "1/18/2026 21:54:08",
+        "datetime": "2026-01-18T21:54:08"
+      },
+      "1882633501_1768773264000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "21:54:24",
+        "status": "DROP",
+        "phone_number": 1882633501,
+        "datetime_str": "1/18/2026 21:54:24",
+        "datetime": "2026-01-18T21:54:24"
+      },
+      "9697065062_1768773273000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:54:33",
+        "status": "DROP",
+        "phone_number": 9697065062,
+        "datetime_str": "1/18/2026 21:54:33",
+        "datetime": "2026-01-18T21:54:33"
+      },
+      "1799162647_1768773318000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:55:18",
+        "status": "DROP",
+        "phone_number": 1799162647,
+        "datetime_str": "1/18/2026 21:55:18",
+        "datetime": "2026-01-18T21:55:18"
+      },
+      "1300360215_1768773337000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:55:37",
+        "status": "DROP",
+        "phone_number": 1300360215,
+        "datetime_str": "1/18/2026 21:55:37",
+        "datetime": "2026-01-18T21:55:37"
+      },
+      "1869976566_1768773460000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:57:40",
+        "status": "DROP",
+        "phone_number": 1869976566,
+        "datetime_str": "1/18/2026 21:57:40",
+        "datetime": "2026-01-18T21:57:40"
+      },
+      "1775952983_1768773466000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:57:46",
+        "status": "DROP",
+        "phone_number": 1775952983,
+        "datetime_str": "1/18/2026 21:57:46",
+        "datetime": "2026-01-18T21:57:46"
+      },
+      "1882633501_1768775127000": {
+        "campaign_name": "Any_Service_Bangla",
+        "date": "2026-01-18",
+        "time": "22:25:27",
+        "status": "DROP",
+        "phone_number": 1882633501,
+        "datetime_str": "1/18/2026 22:25:27",
+        "datetime": "2026-01-18T22:25:27"
+      },
+      "1776450303_1768779620000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "23:40:20",
+        "status": "DROP",
+        "phone_number": 1776450303,
+        "datetime_str": "1/18/2026 23:40:20",
+        "datetime": "2026-01-18T23:40:20"
+      },
+      "1892227129_1768779772000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "23:42:52",
+        "status": "DROP",
+        "phone_number": 1892227129,
+        "datetime_str": "1/18/2026 23:42:52",
+        "datetime": "2026-01-18T23:42:52"
+      },
+      "1717158399_1768779798000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "23:43:18",
+        "status": "DROP",
+        "phone_number": 1717158399,
+        "datetime_str": "1/18/2026 23:43:18",
+        "datetime": "2026-01-18T23:43:18"
+      },
+      "1970790020_1768739209000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "12:26:49",
+        "status": "TIMEOT",
+        "phone_number": 1970790020,
+        "datetime_str": "1/18/2026 12:26:49",
+        "datetime": "2026-01-18T12:26:49"
+      },
+      "1970790020_1768739473000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "12:31:13",
+        "status": "TIMEOT",
+        "phone_number": 1970790020,
+        "datetime_str": "1/18/2026 12:31:13",
+        "datetime": "2026-01-18T12:31:13"
+      },
+      "1743523829_1768740404000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "12:46:44",
+        "status": "TIMEOT",
+        "phone_number": 1743523829,
+        "datetime_str": "1/18/2026 12:46:44",
+        "datetime": "2026-01-18T12:46:44"
+      },
+      "1622065706_1768740918000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "12:55:18",
+        "status": "TIMEOT",
+        "phone_number": 1622065706,
+        "datetime_str": "1/18/2026 12:55:18",
+        "datetime": "2026-01-18T12:55:18"
+      },
+      "1348060153_1768743177000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "13:32:57",
+        "status": "TIMEOT",
+        "phone_number": 1348060153,
+        "datetime_str": "1/18/2026 13:32:57",
+        "datetime": "2026-01-18T13:32:57"
+      },
+      "1917773065_1768751213000": {
+        "campaign_name": "SALESINBOUND",
+        "date": "2026-01-18",
+        "time": "15:46:53",
+        "status": "TIMEOT",
+        "phone_number": 1917773065,
+        "datetime_str": "1/18/2026 15:46:53",
+        "datetime": "2026-01-18T15:46:53"
+      },
+      "1754674348_1768759685000": {
+        "campaign_name": "SYLHETIN",
+        "date": "2026-01-18",
+        "time": "18:08:05",
+        "status": "TIMEOT",
+        "phone_number": 1754674348,
+        "datetime_str": "1/18/2026 18:08:05",
+        "datetime": "2026-01-18T18:08:05"
+      },
+      "1603046870_1768763920000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:18:40",
+        "status": "TIMEOT",
+        "phone_number": 1603046870,
+        "datetime_str": "1/18/2026 19:18:40",
+        "datetime": "2026-01-18T19:18:40"
+      },
+      "9639112255_1768764798000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:33:18",
+        "status": "TIMEOT",
+        "phone_number": 9639112255,
+        "datetime_str": "1/18/2026 19:33:18",
+        "datetime": "2026-01-18T19:33:18"
+      },
+      "9658036828_1768765058000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "19:37:38",
+        "status": "TIMEOT",
+        "phone_number": 9658036828,
+        "datetime_str": "1/18/2026 19:37:38",
+        "datetime": "2026-01-18T19:37:38"
+      },
+      "9638838925_1768765106000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:38:26",
+        "status": "TIMEOT",
+        "phone_number": 9638838925,
+        "datetime_str": "1/18/2026 19:38:26",
+        "datetime": "2026-01-18T19:38:26"
+      },
+      "1766104814_1768765181000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:39:41",
+        "status": "TIMEOT",
+        "phone_number": 1766104814,
+        "datetime_str": "1/18/2026 19:39:41",
+        "datetime": "2026-01-18T19:39:41"
+      },
+      "1314276637_1768765710000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "19:48:30",
+        "status": "TIMEOT",
+        "phone_number": 1314276637,
+        "datetime_str": "1/18/2026 19:48:30",
+        "datetime": "2026-01-18T19:48:30"
+      },
+      "1919600860_1768767110000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:11:50",
+        "status": "TIMEOT",
+        "phone_number": 1919600860,
+        "datetime_str": "1/18/2026 20:11:50",
+        "datetime": "2026-01-18T20:11:50"
+      },
+      "1711030301_1768768665000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "20:37:45",
+        "status": "TIMEOT",
+        "phone_number": 1711030301,
+        "datetime_str": "1/18/2026 20:37:45",
+        "datetime": "2026-01-18T20:37:45"
+      },
+      "1585935101_1768769394000": {
+        "campaign_name": "Billing_Querie_bang",
+        "date": "2026-01-18",
+        "time": "20:49:54",
+        "status": "TIMEOT",
+        "phone_number": 1585935101,
+        "datetime_str": "1/18/2026 20:49:54",
+        "datetime": "2026-01-18T20:49:54"
+      },
+      "1402579813_1768771148000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:19:08",
+        "status": "TIMEOT",
+        "phone_number": 1402579813,
+        "datetime_str": "1/18/2026 21:19:08",
+        "datetime": "2026-01-18T21:19:08"
+      },
+      "1670080560_1768771358000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:22:38",
+        "status": "TIMEOT",
+        "phone_number": 1670080560,
+        "datetime_str": "1/18/2026 21:22:38",
+        "datetime": "2026-01-18T21:22:38"
+      },
+      "1610124212_1768771604000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:26:44",
+        "status": "TIMEOT",
+        "phone_number": 1610124212,
+        "datetime_str": "1/18/2026 21:26:44",
+        "datetime": "2026-01-18T21:26:44"
+      },
+      "1707701398_1768771649000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:27:29",
+        "status": "TIMEOT",
+        "phone_number": 1707701398,
+        "datetime_str": "1/18/2026 21:27:29",
+        "datetime": "2026-01-18T21:27:29"
+      },
+      "1840569850_1768771748000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:29:08",
+        "status": "TIMEOT",
+        "phone_number": 1840569850,
+        "datetime_str": "1/18/2026 21:29:08",
+        "datetime": "2026-01-18T21:29:08"
+      },
+      "9697065062_1768771796000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:29:56",
+        "status": "TIMEOT",
+        "phone_number": 9697065062,
+        "datetime_str": "1/18/2026 21:29:56",
+        "datetime": "2026-01-18T21:29:56"
+      },
+      "1815111549_1768771821000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:30:21",
+        "status": "TIMEOT",
+        "phone_number": 1815111549,
+        "datetime_str": "1/18/2026 21:30:21",
+        "datetime": "2026-01-18T21:30:21"
+      },
+      "1300360215_1768773121000": {
+        "campaign_name": "Direct_Agent_Banla",
+        "date": "2026-01-18",
+        "time": "21:52:01",
+        "status": "TIMEOT",
+        "phone_number": 1300360215,
+        "datetime_str": "1/18/2026 21:52:01",
+        "datetime": "2026-01-18T21:52:01"
+      }
+    }
+  }
 }
