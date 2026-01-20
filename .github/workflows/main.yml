@@ -3,7 +3,7 @@ name: Update Call Center JSON
 on:
   push:
     paths:
-      - 'data/csv/**'   # trigger only if CSV files change
+      - 'dist/data/**'   # trigger only if CSV files change
   schedule:
     - cron: '0 0 * * *' # optional: run daily at midnight UTC
 
