@@ -4,12 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - 'dist/data/*.csv'                # Adjust if your CSVs are elsewhere
-      - 'scripts/csv_to_json.py'
-  workflow_dispatch:                     # Lets you run manually from Actions tab
+      - 'dist/data/call_logs/*.csv'      # Triggers on new/updated call logs
+      - 'dist/data/drops/*.csv'          # Triggers on new/updated drops
+      - 'scripts/csv_to_json.py'         # Triggers on script changes
+  workflow_dispatch:                     # Manual run from Actions tab
 
 permissions:
-  contents: write                        # Needed for git commit & push
+  contents: write                        # Required for commit + push
 
 jobs:
   build:
@@ -18,7 +19,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0                 # Allows git commit later
+          fetch-depth: 0                 # Full history for git commit
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -36,7 +37,9 @@ jobs:
           ls -la
           ls -la dist/ || echo "dist/ missing"
           ls -la dist/data/ || echo "dist/data missing"
-          ls -la scripts/ || echo "scripts/ missing"
+          ls -la dist/data/call_logs/ || echo "call_logs missing"
+          ls -la dist/data/drops/ || echo "drops missing"
+          ls -la data/ || echo "data/ (output) missing"
           ls -la scripts/csv* || echo "csv_to_json.py not found"
 
       - name: Convert CSV to JSON
@@ -47,6 +50,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add dist/data/*.json || true
-          git commit -m "Auto-update JSON from CSV" || echo "No changes to commit"
-          git push || echo "Push skipped"
+          git add data/*.json || true
+          git commit -m "Auto-update calls_agents.json and drops_summary.json from CSV" || echo "No changes to commit"
+          git push || echo "Push skipped (no changes or protected branch)"
