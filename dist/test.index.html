@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hourly Call Volume Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
+    h1 { text-align: center; color: #2c3e50; }
+    #chart-container { height: 600px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 20px; max-width: 1400px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <h1>Hourly Call Volume & Drop Rate</h1>
+  <div id="chart-container" style="height: 450px; min-height: 350px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 15px; max-width: 1400px; margin: 0 auto;"></div>
+
+<script>
+  const chart = echarts.init(document.getElementById('chart-container'));
+
+  async function loadAndRenderChart() {
+    try {
+      // Load call logs
+      const callRes = await fetch('../data/detailed_call_logs.json');
+      const callData = await callRes.json();
+
+      // Load drop logs
+      const dropRes = await fetch('../data/detailed_drop_calls.json');
+      const dropData = await dropRes.json();
+
+      // Aggregate by hour (00–23)
+      const hourlyCalls = Array(24).fill().map(() => ({
+        inbound: 0,
+        outbound: 0,
+        total: 0,
+        agents: new Set(),
+        dropCount: 0
+      }));
+
+      // Fill call data
+      Object.values(callData.records || {}).flatMap(day => Object.values(day)).forEach(call => {
+        const hour = new Date(call.call_date).getHours();
+        if (hour >= 0 && hour < 24) {
+          const h = hourlyCalls[hour];
+          h.total++;
+          if (call.direction === 'inbound') h.inbound++;
+          else h.outbound++;
+          if (call.full_name) h.agents.add(call.full_name);
+        }
+      });
+
+      // Fill drop data
+      Object.values(dropData.records || {}).flatMap(day => Object.values(day)).forEach(drop => {
+        const hour = new Date(drop.datetime).getHours();
+        if (hour >= 0 && hour < 24) {
+          hourlyCalls[hour].dropCount++;
+        }
+      });
+
+      // === Filter out hours with zero activity ===
+      const activeHours = hourlyCalls
+        .map((h, i) => ({ hour: i, ...h }))
+        .filter(h => h.total > 0 || h.dropCount > 0);
+
+      // Build chart data
+      const categories = activeHours.map(h => `${h.hour.toString().padStart(2, '0')}:00`);
+      const inbound    = activeHours.map(h => h.inbound);
+      const outbound   = activeHours.map(h => h.outbound);
+      const totalCalls = activeHours.map(h => h.total);
+      const agents     = activeHours.map(h => h.agents.size);
+      
+      // CHANGE 1: Use null instead of 0 so the line doesn't draw for 0%
+      const dropPercent = activeHours.map(h => 
+        h.dropCount > 0 ? ((h.dropCount / h.total) * 100).toFixed(1) : null
+      );
+
+      // Peak hours detection
+      const threshold = totalCalls.slice().sort((a,b)=>b-a)[Math.floor(totalCalls.length*0.2)] || Math.max(...totalCalls);
+      const peakHours = [];
+      totalCalls.forEach((v, i) => {
+        if (v >= threshold) peakHours.push([{ xAxis: categories[i] }, { xAxis: categories[i] }]);
+      });
+
+      const option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'cross' },
+          formatter: function(params) {
+            const idx = params[0].dataIndex;
+            const callsPerAgent = agents[idx] > 0 ? (totalCalls[idx] / agents[idx]).toFixed(2) : 'N/A';
+            
+            // CHANGE 2: Logic to hide the Drop line in tooltip if it's 0
+            const dropValue = activeHours[idx].dropCount;
+            const dropLine = dropValue > 0 
+              ? `Drop: ${dropPercent[idx]}% (${dropValue} drops)<br/>` 
+              : '';
+
+            return `
+              <strong>${categories[idx]}</strong><br/>
+              Total Calls: ${totalCalls[idx]}<br/>
+              Inbound: ${inbound[idx]} | Outbound: ${outbound[idx]}<br/>
+              ${dropLine}
+              Agents: ${agents[idx]}<br/>
+              Calls/Agent: ${callsPerAgent}
+            `;
+          }
+        },
+        legend: { top: 0, data:['Total Calls','Agents','Drop %'] },
+        grid: { left:'4%', right:'9%', bottom:'4%', containLabel:true },
+        xAxis: { type:'category', data: categories },
+        yAxis: [
+          { type:'value', name:'Total Calls' },
+          { type:'value', name:'Agents', position:'right' },
+          { type:'value', name:'Drop %', position:'right', offset:60, axisLabel:{formatter:'{value}%'} }
+        ],
+        series: [
+          {
+            name:'Total Calls',
+            type:'bar',
+            barWidth:'40%',
+            data: totalCalls,
+            markArea: {
+              itemStyle: { color:'rgba(255,200,0,0.2)' },
+              data: peakHours
+            }
+          },
+          {
+            name:'Agents',
+            type:'line',
+            yAxisIndex:1,
+            smooth:true,
+            symbolSize:8,
+            data:agents
+          },
+          {
+            name:'Drop %',
+            type:'line',
+            yAxisIndex:2,
+            smooth:true,
+            symbol:'triangle',
+            symbolSize:9,
+            // CHANGE 3: Ensure line breaks instead of connecting through nulls
+            connectNulls: false, 
+            data:dropPercent
+          }
+        ]
+      };
+
+      chart.setOption(option);
+      window.addEventListener('resize', ()=>chart.resize());
+
+    } catch (err) {
+      console.error('Failed to load data:', err);
+      document.body.innerHTML += '<p style="color:red; text-align:center;">Error loading data. Check console.</p>';
+    }
+  }
+
+  loadAndRenderChart();
+</script>
+</body>
+</html>
