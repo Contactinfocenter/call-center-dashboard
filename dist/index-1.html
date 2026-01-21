@@ -1178,6 +1178,7 @@
       const option = {
         backgroundColor: 'transparent',
         title: { 
+          show: false,
           text: 'Hourly Call Performance', 
           left: 'center', 
           top: 0,
@@ -1186,7 +1187,7 @@
         legend: { 
           left: 'left', 
           top: 0, 
-          icon: 'rect', // Tabler uses rectangular legend icons
+          icon: 'rect', 
           itemWidth: 12,
           itemHeight: 12,
           data: ['Total Calls', 'Agents', 'Drop %'],
@@ -1216,7 +1217,7 @@
             `;
           }
         },
-        grid: { left: '3%', right: '12%', top: 80, bottom: '5%', containLabel: true },
+        grid: { left: '3%', right: '5%', top: 80, bottom: '5%', containLabel: true },
         xAxis: { 
           type: 'category', 
           data: categories,
