@@ -52,23 +52,19 @@ for file in call_files:
     fname = os.path.basename(file)
     print(f"Processing call log: {fname}")
     try:
-        # Read with latin1 fallback + skip bad lines
         df = pd.read_csv(file, encoding='latin1', on_bad_lines='warn', low_memory=False)
         if df.empty:
             print("  → Empty file, skipped")
             continue
 
-        # Normalize columns
         df.columns = [c.strip().lower().replace(' ', '_').replace('-', '_') for c in df.columns]
 
-        # Parse call_date
         df["call_date"] = df["call_date"].apply(parse_datetime)
         df = df.dropna(subset=["call_date"])
 
         df["date"] = df["call_date"].dt.strftime("%Y-%m-%d")
 
-        # Direction logic (customize as needed)
-        df["direction"] = "inbound"  # default
+        df["direction"] = "inbound"
         if "campaign_id" in df.columns:
             df["campaign_id"] = df["campaign_id"].astype(str).str.upper().str.strip()
             df.loc[df["campaign_id"].isin(["CARNIVAL", "SYLHET", "DIRECT_AGENT_BANLA"]), "direction"] = "outbound"
@@ -77,7 +73,6 @@ for file in call_files:
         if "status" in df.columns:
             df.loc[df["status"].str.upper() == "FCR", "answer_status"] = "FCR"
 
-        # Clean NaN / inf
         df = df.replace([pd.NA, np.nan, np.inf, -np.inf], None)
 
         added = 0
@@ -90,8 +85,17 @@ for file in call_files:
             timestamp_ms = int(row["call_date"].timestamp() * 1000)
             key = f"{phone}_{timestamp_ms}"
 
-            entry = row.to_dict()
-            entry = {k: v for k, v in entry.items() if pd.notna(v)}  # remove nulls
+            entry = {}
+            for col, val in row.items():
+                if pd.isna(val):
+                    entry[col] = None
+                elif isinstance(val, pd.Timestamp):
+                    entry[col] = val.isoformat()          # ← FIXED: No more Timestamp error
+                elif isinstance(val, (float, int)) and pd.notna(val):
+                    entry[col] = int(val) if val.is_integer() else float(val)
+                else:
+                    entry[col] = val
+
             entry["direction"] = row.get("direction", "inbound")
             entry["answer_status"] = row.get("answer_status", "Not Answered")
 
@@ -134,19 +138,18 @@ for file in drop_files:
 
         df.columns = [c.strip().lower().replace(' ', '_').replace('-', '_') for c in df.columns]
 
-        # Combine date + time if separate
         if 'date' in df.columns and 'time' in df.columns:
             df['datetime_str'] = df['date'].astype(str) + ' ' + df['time'].astype(str)
             df['datetime'] = df['datetime_str'].apply(parse_datetime)
         elif 'datetime' in df.columns:
             df['datetime'] = df['datetime'].apply(parse_datetime)
         else:
-            print("  No usable datetime column found — skipping file")
+            print("  No datetime column — skipping")
             continue
 
-        invalid_dt = df['datetime'].isna().sum()
-        if invalid_dt > 0:
-            print(f"  {invalid_dt} rows with invalid datetime skipped")
+        invalid = df['datetime'].isna().sum()
+        if invalid > 0:
+            print(f"  Skipped {invalid} invalid datetimes")
 
         df = df.dropna(subset=['datetime'])
         df['date'] = df['datetime'].dt.strftime("%Y-%m-%d")
@@ -161,15 +164,24 @@ for file in drop_files:
             timestamp_ms = int(row["datetime"].timestamp() * 1000)
             key = f"{phone}_{timestamp_ms}"
 
-            entry = row.to_dict()
-            entry = {k: v for k, v in entry.items() if pd.notna(v)}
+            entry = {}
+            for col, val in row.items():
+                if pd.isna(val):
+                    entry[col] = None
+                elif isinstance(val, pd.Timestamp):
+                    entry[col] = val.isoformat()          # ← FIXED here too
+                elif isinstance(val, (float, int)) and pd.notna(val):
+                    entry[col] = int(val) if val.is_integer() else float(val)
+                else:
+                    entry[col] = val
+
             drop_records["records"][date_str][key] = entry
             added += 1
 
         print(f"  Added {added} drop records from {fname}")
 
     except Exception as e:
-        print(f"Critical error in {fname}: {str(e)}")
+        print(f"Error in {fname}: {str(e)}")
 
 with open(OUTPUT_DROPS, "w", encoding="utf-8") as f:
     json.dump(drop_records, f, indent=2, ensure_ascii=False)
