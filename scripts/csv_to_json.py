@@ -18,20 +18,22 @@ print("Call logs dir:", CALLS_DIR, "exists?", os.path.isdir(CALLS_DIR))
 print("Drops dir:", DROPS_DIR, "exists?", os.path.isdir(DROPS_DIR))
 
 # ────────────────────────────────────────────────
-# Helper: robust datetime parsing
+# Helper: robust datetime parsing – FIXED for 1/18/2026 8:04:56
 # ────────────────────────────────────────────────
 def parse_datetime(dt_str):
     if not dt_str or pd.isna(dt_str):
         return None
     dt_str = str(dt_str).strip()
     
-    # Normalize common separators
-    dt_str = dt_str.replace('/', '-').replace('.', '-')
+    # Replace slash with dash for consistency
+    dt_str = dt_str.replace('/', '-')
     
     formats = [
         "%m-%d-%Y %H:%M:%S",      # 1-18-2026 8:04:56
         "%m-%d-%Y %H:%M",         # 1-18-2026 8:04
         "%m-%d-%Y",               # 1-18-2026
+        "%-m-%-d-%Y %H:%M:%S",    # 1-18-2026 8:04:56 (no leading zero)
+        "%-m-%-d-%Y",             # 1-18-2026
         "%Y-%m-%d %H:%M:%S",
         "%Y-%m-%d %H:%M",
         "%Y-%m-%d",
@@ -41,19 +43,20 @@ def parse_datetime(dt_str):
     
     for fmt in formats:
         try:
-            return pd.to_datetime(dt_str, format=fmt)
+            dt = datetime.strptime(dt_str, fmt)
+            return pd.Timestamp(dt)
         except ValueError:
             continue
     
-    # Final fallback — pandas guess
+    # Fallback: pandas auto-detect
     try:
         return pd.to_datetime(dt_str, errors='raise')
     except Exception as e:
-        print(f"  Failed to parse datetime: '{dt_str}' → {e}")
+        print(f"  Failed to parse: '{dt_str}' → {e}")
         return None
 
 # ────────────────────────────────────────────────
-# DETAILED CALL LOGS
+# DETAILED CALL LOGS (unchanged – already working)
 # ────────────────────────────────────────────────
 call_records = {"records": {}}
 call_files = sorted(glob.glob(os.path.join(CALLS_DIR, "*.csv")))
@@ -71,9 +74,9 @@ for file in call_files:
         df.columns = [c.strip().lower().replace(' ', '_').replace('-', '_') for c in df.columns]
         
         df["call_date"] = df["call_date"].apply(parse_datetime)
-        invalid_calls = df["call_date"].isna().sum()
-        if invalid_calls > 0:
-            print(f"  Skipped {invalid_calls} rows with invalid call_date")
+        invalid = df["call_date"].isna().sum()
+        if invalid > 0:
+            print(f"  Skipped {invalid} invalid call_date rows")
         df = df.dropna(subset=["call_date"])
         
         df["date"] = df["call_date"].dt.strftime("%Y-%m-%d")
@@ -135,7 +138,7 @@ print(f"Total call records: {sum(len(day.values()) for day in call_records['reco
 print(f"Days covered: {len(call_records['records'])}")
 
 # ────────────────────────────────────────────────
-# DETAILED DROP CALLS
+# DETAILED DROP CALLS – FIXED PARSER
 # ────────────────────────────────────────────────
 drop_records = {"records": {}}
 drop_files = sorted(glob.glob(os.path.join(DROPS_DIR, "*.csv")))
@@ -160,32 +163,28 @@ for file in drop_files:
         print(f"  Columns found: {list(df.columns)}")
         
         if 'date' in df.columns and 'time' in df.columns:
-            # Fix time format: add seconds if missing
+            # Force time to HH:MM:SS
             df['time'] = df['time'].astype(str).apply(
-                lambda x: x.strip() + ':00' if x.strip() and len(x.strip().split(':')) == 2 else x.strip()
+                lambda x: x.strip() + ':00' if x.strip() and ':' in x and len(x.split(':')) == 2 else x.strip()
             )
-            df['datetime_str'] = df['date'].astype(str).str.strip() + ' ' + df['time']
+            df['datetime_str'] = df['date'].astype(str).str.strip() + ' ' + df['time'].str.strip()
             df['datetime'] = df['datetime_str'].apply(parse_datetime)
             
-            # Debug output
-            print(f"  Sample datetime_str (first 5): {df['datetime_str'].head(5).tolist()}")
-            print(f"  Sample parsed (first 5): {df['datetime'].head(5).tolist()}")
+            # Debug: show what we're trying to parse
+            print(f"  Sample raw datetime_str (first 5): {df['datetime_str'].head(5).tolist()}")
+            print(f"  Sample parsed datetime (first 5): {df['datetime'].head(5).tolist()}")
         elif 'datetime' in df.columns:
             df['datetime'] = df['datetime'].apply(parse_datetime)
         else:
-            print("  No usable date/time columns — skipping file")
+            print("  No date/time columns found — skipping")
             continue
         
         invalid_count = df['datetime'].isna().sum()
-        print(f"  Total rows: {len(df)}, Invalid datetime: {invalid_count}")
-        
-        if invalid_count > 0:
-            print("  First few failed datetime_str:")
-            print(df[df['datetime'].isna()]['datetime_str'].head(5).tolist())
+        print(f"  Total rows before dropna: {len(df)}, Invalid datetime: {invalid_count}")
         
         df = df.dropna(subset=['datetime'])
         if df.empty:
-            print(f"  WARNING: All rows dropped after datetime parsing in {fname}")
+            print(f"  WARNING: All rows dropped — no valid datetimes in {fname}")
             continue
         
         df['date'] = df['datetime'].dt.strftime("%Y-%m-%d")
