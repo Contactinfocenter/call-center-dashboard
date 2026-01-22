@@ -18,22 +18,22 @@ print("Call logs dir:", CALLS_DIR, "exists?", os.path.isdir(CALLS_DIR))
 print("Drops dir:", DROPS_DIR, "exists?", os.path.isdir(DROPS_DIR))
 
 # ────────────────────────────────────────────────
-# Helper: robust datetime parsing – FIXED for 1/18/2026 8:04:56
+# Helper: robust datetime parsing
 # ────────────────────────────────────────────────
 def parse_datetime(dt_str):
     if not dt_str or pd.isna(dt_str):
         return None
     dt_str = str(dt_str).strip()
     
-    # Replace slash with dash for consistency
+    # Normalize slashes to dashes
     dt_str = dt_str.replace('/', '-')
     
     formats = [
         "%m-%d-%Y %H:%M:%S",      # 1-18-2026 8:04:56
         "%m-%d-%Y %H:%M",         # 1-18-2026 8:04
         "%m-%d-%Y",               # 1-18-2026
-        "%-m-%-d-%Y %H:%M:%S",    # 1-18-2026 8:04:56 (no leading zero)
-        "%-m-%-d-%Y",             # 1-18-2026
+        "%-m-%-d-%Y %H:%M:%S",    # 1-18-2026 8:04:56 (no zero pad)
+        "%-m-%-d-%Y",
         "%Y-%m-%d %H:%M:%S",
         "%Y-%m-%d %H:%M",
         "%Y-%m-%d",
@@ -43,12 +43,11 @@ def parse_datetime(dt_str):
     
     for fmt in formats:
         try:
-            dt = datetime.strptime(dt_str, fmt)
-            return pd.Timestamp(dt)
+            return pd.to_datetime(dt_str, format=fmt)
         except ValueError:
             continue
     
-    # Fallback: pandas auto-detect
+    # Fallback
     try:
         return pd.to_datetime(dt_str, errors='raise')
     except Exception as e:
@@ -56,7 +55,7 @@ def parse_datetime(dt_str):
         return None
 
 # ────────────────────────────────────────────────
-# DETAILED CALL LOGS (unchanged – already working)
+# DETAILED CALL LOGS
 # ────────────────────────────────────────────────
 call_records = {"records": {}}
 call_files = sorted(glob.glob(os.path.join(CALLS_DIR, "*.csv")))
@@ -114,8 +113,10 @@ for file in call_files:
                     continue
                 elif isinstance(val, pd.Timestamp):
                     entry[col] = val.isoformat()
-                elif isinstance(val, (float, int)):
+                elif isinstance(val, float):
                     entry[col] = int(val) if val.is_integer() else float(val)
+                elif isinstance(val, int):
+                    entry[col] = val
                 else:
                     entry[col] = val
             
@@ -138,7 +139,7 @@ print(f"Total call records: {sum(len(day.values()) for day in call_records['reco
 print(f"Days covered: {len(call_records['records'])}")
 
 # ────────────────────────────────────────────────
-# DETAILED DROP CALLS – FIXED PARSER
+# DETAILED DROP CALLS – FIXED
 # ────────────────────────────────────────────────
 drop_records = {"records": {}}
 drop_files = sorted(glob.glob(os.path.join(DROPS_DIR, "*.csv")))
@@ -163,20 +164,20 @@ for file in drop_files:
         print(f"  Columns found: {list(df.columns)}")
         
         if 'date' in df.columns and 'time' in df.columns:
-            # Force time to HH:MM:SS
+            # Pad time if only HH:MM
             df['time'] = df['time'].astype(str).apply(
-                lambda x: x.strip() + ':00' if x.strip() and ':' in x and len(x.split(':')) == 2 else x.strip()
+                lambda x: x.strip() + ':00' if x.strip() and len(x.strip().split(':')) == 2 else x.strip()
             )
             df['datetime_str'] = df['date'].astype(str).str.strip() + ' ' + df['time'].str.strip()
             df['datetime'] = df['datetime_str'].apply(parse_datetime)
             
-            # Debug: show what we're trying to parse
+            # Debug samples
             print(f"  Sample raw datetime_str (first 5): {df['datetime_str'].head(5).tolist()}")
             print(f"  Sample parsed datetime (first 5): {df['datetime'].head(5).tolist()}")
         elif 'datetime' in df.columns:
             df['datetime'] = df['datetime'].apply(parse_datetime)
         else:
-            print("  No date/time columns found — skipping")
+            print("  No date/time columns — skipping")
             continue
         
         invalid_count = df['datetime'].isna().sum()
@@ -184,7 +185,7 @@ for file in drop_files:
         
         df = df.dropna(subset=['datetime'])
         if df.empty:
-            print(f"  WARNING: All rows dropped — no valid datetimes in {fname}")
+            print(f"  WARNING: All rows dropped after parsing in {fname}")
             continue
         
         df['date'] = df['datetime'].dt.strftime("%Y-%m-%d")
@@ -211,8 +212,10 @@ for file in drop_files:
                     continue
                 elif isinstance(val, pd.Timestamp):
                     entry[col] = val.isoformat()
-                elif isinstance(val, (float, int)):
+                elif isinstance(val, float):
                     entry[col] = int(val) if val.is_integer() else float(val)
+                elif isinstance(val, int):
+                    entry[col] = val
                 else:
                     entry[col] = val
             
