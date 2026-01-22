@@ -6,11 +6,11 @@ on:
     paths:
       - 'dist/data/call_logs/*.csv'
       - 'dist/data/drops/*.csv'
-      - 'scripts/csv_to_json.py'           # trigger when script changes too
-  workflow_dispatch:                       # allow manual trigger from Actions tab
+      - 'scripts/csv_to_json.py'
+  workflow_dispatch:
 
 permissions:
-  contents: write                          # required to commit & push back
+  contents: write
 
 jobs:
   convert-and-commit:
@@ -20,13 +20,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0                    # needed for proper git commit history
+          fetch-depth: 0
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
+          # No cache line → avoids the error completely
 
       - name: Install dependencies
         run: |
@@ -35,45 +35,36 @@ jobs:
 
       - name: Verify folder structure (debug)
         run: |
-          echo "Current working directory:"
           pwd
-          echo "Listing root:"
           ls -la
-          echo "dist/data/call_logs:"
-          ls -la dist/data/call_logs/ || echo "→ directory not found"
-          echo "dist/data/drops:"
-          ls -la dist/data/drops/ || echo "→ directory not found"
-          echo "scripts folder:"
-          ls -la scripts/ || echo "→ scripts folder not found"
-          echo "csv_to_json.py exists?"
-          ls -la scripts/csv_to_json.py || echo "→ script missing"
+          ls -la dist/data/call_logs/ || echo "call_logs missing"
+          ls -la dist/data/drops/ || echo "drops missing"
+          ls -la data/ || echo "output data/ missing"
+          ls -la scripts/csv_to_json.py || echo "script missing"
 
       - name: Run CSV → JSON conversion
         working-directory: ${{ github.workspace }}/scripts
         run: python csv_to_json.py
         env:
-          PYTHONUNBUFFERED: 1               # better real-time output
+          PYTHONUNBUFFERED: 1
 
       - name: Commit and push generated JSON files
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           
-          # Stage only the files we care about
           git add data/detailed_call_logs.json data/detailed_drop_calls.json || true
           
-          # Only commit if there are changes
-          git diff --staged --quiet || git commit -m "chore: auto-update detailed JSON from new CSV files"
+          git diff --staged --quiet || git commit -m "chore: auto-update detailed JSON from CSV [ci skip]"
           
-          # Push (will fail gracefully if branch is protected)
           git push origin HEAD:main || echo "Push skipped (no changes or protected branch)"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload generated JSON as artifact (for debugging)
+      - name: Upload generated JSON (debug)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: generated-json-files
+          name: generated-json
           path: data/*.json
           if-no-files-found: warn
