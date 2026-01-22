@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hourly Call Volume Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
+    h1 { text-align: center; color: #2c3e50; }
+    #chart-container { height: 600px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 20px; max-width: 1400px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <h1>Hourly Call Volume & Drop Rate</h1>
+  <div id="chart-container" style="height: 450px; min-height: 350px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 15px; max-width: 1400px; margin: 0 auto;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+
+
+
+<script>
+  // Global Styling Constants
+  const TABLER_BLUE   = '#206bc4';
+  const TABLER_GREEN  = '#2fb344';
+  const TABLER_YELLOW = '#f59f00';
+  const TABLER_GRAY   = '#9ca3af';
+  const TABLER_GRID   = '#f1f5f9';
+
+  const chartAvg = echarts.init(document.getElementById('chart-container'));
+
+  async function loadAverageChart() {
+    try {
+      const [callRes, dropRes] = await Promise.all([
+        fetch('../data/detailed_call_logs.json'),
+        fetch('../data/detailed_drop_calls.json')
+      ]);
+      const callData = await callRes.json();
+      const dropData = await dropRes.json();
+
+      const allUniqueDays = new Set([...Object.keys(callData.records || {}), ...Object.keys(dropData.records || {})]);
+      const dayCount = allUniqueDays.size || 1; 
+
+      const hourlyCalls = Array(24).fill().map(() => ({ inbound: 0, outbound: 0, total: 0, dropCount: 0 }));
+      
+      // TRACKING AGENTS PER DAY (Matches Spreadsheet: 13+14+9 = 36)
+      const hourlyAgentsByDay = Array(24).fill().map(() => ({}));
+
+      Object.entries(callData.records || {}).forEach(([date, dayRecords]) => {
+        Object.values(dayRecords).forEach(call => {
+          const hour = new Date(call.call_date).getHours();
+          if (hour >= 0 && hour < 24) {
+            const h = hourlyCalls[hour];
+            h.total++;
+            if (call.direction === 'inbound') h.inbound++; else h.outbound++;
+            
+            if (call.full_name) {
+              if (!hourlyAgentsByDay[hour][date]) {
+                hourlyAgentsByDay[hour][date] = new Set();
+              }
+              hourlyAgentsByDay[hour][date].add(call.full_name);
+            }
+          }
+        });
+      });
+
+      Object.values(dropData.records || {}).flatMap(day => Object.values(day)).forEach(drop => {
+        const hour = new Date(drop.datetime).getHours();
+        if (hour >= 0 && hour < 24) hourlyCalls[hour].dropCount++;
+      });
+
+      const activeHours = hourlyCalls.map((h, i) => {
+          // Spreadsheet Math: (Unique Agents Day 1 + Day 2 + Day 3) / 3
+          const dayCounts = Object.values(hourlyAgentsByDay[i]).map(set => set.size);
+          const sumOfAgents = dayCounts.reduce((a, b) => a + b, 0);
+          const avgAgents = dayCounts.length > 0 ? Math.round(sumOfAgents / dayCount) : 0;
+
+          return { 
+            hour: i, 
+            total: Math.ceil(h.total / dayCount),
+            inbound: Math.ceil(h.inbound / dayCount),
+            outbound: Math.ceil(h.outbound / dayCount),
+            dropCountRaw: h.dropCount / dayCount,
+            agentCount: avgAgents 
+          };
+      }).filter(h => h.total > 0 || h.dropCountRaw > 0);
+
+      const categories = activeHours.map(h => `${h.hour.toString().padStart(2, '0')}:00`);
+      const totalCalls = activeHours.map(h => h.total);
+      const agents     = activeHours.map(h => h.agentCount);
+      const dropPercent = activeHours.map(h =>
+        h.dropCountRaw > 0
+          ? ((h.dropCountRaw / h.total) * 100).toFixed(1)
+          : null
+      );
+      const sortedTotals = [...totalCalls].sort((a, b) => b - a);
+      const threshold = sortedTotals[Math.floor(totalCalls.length * 0.2)] || Math.max(...totalCalls);
+      const peakHours = [];
+      totalCalls.forEach((v, i) => {
+        if (v >= threshold && v > 0) peakHours.push([{ xAxis: categories[i], itemStyle: { color: 'rgba(245, 159, 0, 0.12)' } }, { xAxis: categories[i] }]);
+      });
+
+      chartAvg.setOption(getOriginalOption(categories, totalCalls, activeHours.map(h=>h.inbound), activeHours.map(h=>h.outbound), agents, dropPercent, peakHours, true, activeHours));
+    } catch (e) { console.error(e); }
+  }
+
+  function getOriginalOption(categories, totalCalls, inbound, outbound, agents, dropPercent, peakHours, isAvg, activeData) {
+    return {
+      backgroundColor: 'transparent',
+      legend: {
+  left: 'left',
+  top: 0,
+  icon: 'rect',
+  itemWidth: 12,
+  itemHeight: 12,
+  textStyle: { color: TABLER_GRAY, fontSize: 12 },
+  data: [
+    {
+      name: 'Total Calls',
+      icon: 'rect',
+      itemStyle: { color: TABLER_BLUE }     // matches bar color
+    },
+    {
+      name: 'Agents',
+      icon: 'rect',                         // or 'circle' / 'line' if you prefer
+      itemStyle: { color: TABLER_GREEN }    // ← now matches the green line
+    },
+    {
+      name: 'Drop %',
+      icon: 'rect',
+      itemStyle: { color: TABLER_YELLOW }   // matches dashed yellow line
+    }
+  ]
+},
+      
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(0,0,0,0.02)' } },
+        backgroundColor: '#ffffff',
+        borderColor: '#e6e8eb',
+        textStyle: { color: '#1d273b' },
+        formatter: function(params) {
+          const idx = params[0].dataIndex;
+          const h = activeData[idx];
+          const callsPerAgent = agents[idx] > 0 ? (totalCalls[idx] / agents[idx]).toFixed(2) : '0';
+          const dropDisp = h.dropCountRaw.toFixed(1);
+          const dropLine = h.dropCountRaw > 0 
+            ? `<span style="color:${TABLER_YELLOW}">●</span> Drop: <b>${dropPercent[idx]}%</b> (${dropDisp} avg)<br/>` 
+            : '';
+
+          // Exact layout with line breaks and formatting
+          return `
+            <div style="font-weight: 600; border-bottom: 1px solid ${TABLER_GRID}; margin-bottom: 8px; padding-bottom: 4px;">
+              ${categories[idx]} (Avg/Day)
+            </div>
+            <span style="color:${TABLER_BLUE}">●</span> Total Calls: <b>${totalCalls[idx]}</b> <small style="color:${TABLER_GRAY}">(In:${inbound[idx]} Out:${outbound[idx]})</small><br/>
+            ${dropLine}
+            <span style="color:${TABLER_GREEN}">●</span> Agents: <b>${agents[idx]}</b><br/>
+            <span style="color:#626976">●</span> Efficiency: <b>${callsPerAgent}</b> calls/agent
+          `;
+        }
+      },
+      grid: { left: '3%', right: '5%', top: 60, bottom: '5%', containLabel: true },
+      xAxis: { type: 'category', data: categories, axisLine: { lineStyle: { color: TABLER_GRID } }, axisLabel: { color: TABLER_GRAY } },
+      yAxis: [
+        { type: 'value', name: 'Avg Calls', splitLine: { lineStyle: { color: TABLER_GRID } }, axisLabel: { color: TABLER_GRAY } },
+        { type: 'value', name: 'Agents', position: 'right', splitLine: { show: false }, axisLabel: { color: TABLER_GRAY } },
+        { type: 'value', name: 'Drop %', position: 'right', offset: 50, axisLabel: { formatter: '{value}%', color: TABLER_GRAY }, splitLine: { show: false } }
+      ],
+      series: [
+        { name: 'Total Calls', type: 'bar', barWidth: '40%', data: totalCalls, itemStyle: { borderRadius: [2, 2, 0, 0], color: TABLER_BLUE }, markArea: { silent: true, data: peakHours } },
+        { name: 'Agents', type: 'line', yAxisIndex: 1, smooth: true, showSymbol: false, lineStyle: { width: 3, color: TABLER_GREEN }, data: agents },
+        { name: 'Drop %', type: 'line', yAxisIndex: 2, connectNulls: false, symbol: 'circle', symbolSize: 8, lineStyle: { width: 2, type: 'dashed', color: TABLER_YELLOW }, itemStyle: { color: TABLER_YELLOW, borderColor: '#fff' }, data: dropPercent }
+      ]
+    };
+  }
+
+  loadAverageChart();
+  window.addEventListener('resize', () => { chartAvg.resize(); });
+</script>
+</body>
+</html>
