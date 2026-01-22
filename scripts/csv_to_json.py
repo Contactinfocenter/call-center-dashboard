@@ -137,21 +137,30 @@ for file in drop_files:
             continue
 
         df.columns = [c.strip().lower().replace(' ', '_').replace('-', '_') for c in df.columns]
+        print(f"  Columns found: {list(df.columns)}")
 
         if 'date' in df.columns and 'time' in df.columns:
+            # Pad time if missing seconds (e.g. "8:04:56" → ok, "8:40" → "8:40:00")
+            df['time'] = df['time'].astype(str).apply(lambda x: x + ':00' if len(x.split(':')) == 2 else x)
             df['datetime_str'] = df['date'].astype(str) + ' ' + df['time'].astype(str)
             df['datetime'] = df['datetime_str'].apply(parse_datetime)
         elif 'datetime' in df.columns:
             df['datetime'] = df['datetime'].apply(parse_datetime)
         else:
-            print("  No datetime column — skipping")
+            print("  No 'date'+'time' or 'datetime' column — skipping")
             continue
 
-        invalid = df['datetime'].isna().sum()
-        if invalid > 0:
-            print(f"  Skipped {invalid} invalid datetimes")
+        invalid_count = df['datetime'].isna().sum()
+        print(f"  Total rows: {len(df)}, Invalid datetime: {invalid_count}")
+        if invalid_count > 0 and invalid_count == len(df):
+            print("  All rows failed parsing — sample datetime_str:")
+            print(df['datetime_str'].head(5).to_list())
 
         df = df.dropna(subset=['datetime'])
+        if df.empty:
+            print(f"  WARNING: All rows dropped after datetime parsing in {fname}")
+            continue
+
         df['date'] = df['datetime'].dt.strftime("%Y-%m-%d")
 
         added = 0
@@ -169,7 +178,7 @@ for file in drop_files:
                 if pd.isna(val):
                     entry[col] = None
                 elif isinstance(val, pd.Timestamp):
-                    entry[col] = val.isoformat()          # ← FIXED here too
+                    entry[col] = val.isoformat()
                 elif isinstance(val, (float, int)) and pd.notna(val):
                     entry[col] = int(val) if val.is_integer() else float(val)
                 else:
@@ -182,10 +191,3 @@ for file in drop_files:
 
     except Exception as e:
         print(f"Error in {fname}: {str(e)}")
-
-with open(OUTPUT_DROPS, "w", encoding="utf-8") as f:
-    json.dump(drop_records, f, indent=2, ensure_ascii=False)
-
-print(f"Saved detailed drop logs → {OUTPUT_DROPS}")
-print(f"Total drop records: {sum(len(day.values()) for day in drop_records['records'].values())}")
-print(f"Days covered: {len(drop_records['records'])}")
