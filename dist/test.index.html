@@ -15,143 +15,177 @@
   <h1>Hourly Call Volume & Drop Rate</h1>
   <div id="chart-container" style="height: 450px; min-height: 350px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 15px; max-width: 1400px; margin: 0 auto;"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+
+<div id="chart-container" style="width: 100%; height: 500px; background-color: #ffffff;"></div>
+
 <script>
   const chart = echarts.init(document.getElementById('chart-container'));
 
+  // Tabler Dashboard Color Palette
+  const TABLER_BLUE   = '#206bc4'; // Primary
+  const TABLER_GREEN  = '#2fb344'; // Success (Agents)
+  const TABLER_YELLOW = '#f59f00'; // Warning (Drops)
+  const TABLER_GRAY   = '#9ca3af'; // Text/Muted
+  const TABLER_GRID   = '#f1f5f9'; // Light borders
+
   async function loadAndRenderChart() {
     try {
-      // Load call logs
       const callRes = await fetch('../data/detailed_call_logs.json');
       const callData = await callRes.json();
-
-      // Load drop logs
       const dropRes = await fetch('../data/detailed_drop_calls.json');
       const dropData = await dropRes.json();
 
-      // Aggregate by hour (00–23)
       const hourlyCalls = Array(24).fill().map(() => ({
-        inbound: 0,
-        outbound: 0,
-        total: 0,
-        agents: new Set(),
-        dropCount: 0
+        inbound: 0, outbound: 0, total: 0, agents: new Set(), dropCount: 0
       }));
 
-      // Fill call data
+      // Data Processing
       Object.values(callData.records || {}).flatMap(day => Object.values(day)).forEach(call => {
         const hour = new Date(call.call_date).getHours();
         if (hour >= 0 && hour < 24) {
           const h = hourlyCalls[hour];
           h.total++;
-          if (call.direction === 'inbound') h.inbound++;
-          else h.outbound++;
+          if (call.direction === 'inbound') h.inbound++; else h.outbound++;
           if (call.full_name) h.agents.add(call.full_name);
         }
       });
 
-      // Fill drop data
       Object.values(dropData.records || {}).flatMap(day => Object.values(day)).forEach(drop => {
         const hour = new Date(drop.datetime).getHours();
-        if (hour >= 0 && hour < 24) {
-          hourlyCalls[hour].dropCount++;
-        }
+        if (hour >= 0 && hour < 24) hourlyCalls[hour].dropCount++;
       });
 
-      // === Filter out hours with zero activity ===
       const activeHours = hourlyCalls
         .map((h, i) => ({ hour: i, ...h }))
         .filter(h => h.total > 0 || h.dropCount > 0);
 
-      // Build chart data
       const categories = activeHours.map(h => `${h.hour.toString().padStart(2, '0')}:00`);
+      const totalCalls = activeHours.map(h => h.total);
       const inbound    = activeHours.map(h => h.inbound);
       const outbound   = activeHours.map(h => h.outbound);
-      const totalCalls = activeHours.map(h => h.total);
       const agents     = activeHours.map(h => h.agents.size);
-      
-      // CHANGE 1: Use null instead of 0 so the line doesn't draw for 0%
-      const dropPercent = activeHours.map(h => 
-        h.dropCount > 0 ? ((h.dropCount / h.total) * 100).toFixed(1) : null
-      );
+      const dropPercent = activeHours.map(h => h.dropCount > 0 ? ((h.dropCount / h.total) * 100).toFixed(1) : null);
 
-      // Peak hours detection
-      const threshold = totalCalls.slice().sort((a,b)=>b-a)[Math.floor(totalCalls.length*0.2)] || Math.max(...totalCalls);
+      // Automatic Peak Detection
+      const sortedTotals = [...totalCalls].sort((a, b) => b - a);
+      const threshold = sortedTotals[Math.floor(totalCalls.length * 0.2)] || Math.max(...totalCalls);
       const peakHours = [];
       totalCalls.forEach((v, i) => {
-        if (v >= threshold) peakHours.push([{ xAxis: categories[i] }, { xAxis: categories[i] }]);
+        if (v >= threshold && v > 0) {
+          peakHours.push([{ xAxis: categories[i], itemStyle: { color: 'rgba(32, 107, 196, 0.04)' } }, { xAxis: categories[i] }]);
+        }
       });
 
       const option = {
+        backgroundColor: 'transparent',
+        title: { 
+          text: 'Hourly Call Performance', 
+          left: 'center', 
+          top: 0,
+          textStyle: { color: '#1d273b', fontSize: 16, fontWeight: 600 }
+        },
+        legend: { 
+          left: 'left', 
+          top: 0, 
+          icon: 'rect', // Tabler uses rectangular legend icons
+          itemWidth: 12,
+          itemHeight: 12,
+          data: ['Total Calls', 'Agents', 'Drop %'],
+          textStyle: { color: TABLER_GRAY, fontSize: 12 }
+        },
         tooltip: {
           trigger: 'axis',
-          axisPointer: { type: 'cross' },
+          axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(0,0,0,0.02)' } },
+          backgroundColor: '#ffffff',
+          borderColor: '#e6e8eb',
+          textStyle: { color: '#1d273b' },
           formatter: function(params) {
             const idx = params[0].dataIndex;
-            const callsPerAgent = agents[idx] > 0 ? (totalCalls[idx] / agents[idx]).toFixed(2) : 'N/A';
-            
-            // CHANGE 2: Logic to hide the Drop line in tooltip if it's 0
-            const dropValue = activeHours[idx].dropCount;
-            const dropLine = dropValue > 0 
-              ? `Drop: ${dropPercent[idx]}% (${dropValue} drops)<br/>` 
+            const callsPerAgent = agents[idx] > 0 ? (totalCalls[idx] / agents[idx]).toFixed(2) : '0';
+            const dropLine = activeHours[idx].dropCount > 0 
+              ? `<span style="color:${TABLER_YELLOW}">●</span> Drop: <b>${dropPercent[idx]}%</b> (${activeHours[idx].dropCount})<br/>` 
               : '';
 
             return `
-              <strong>${categories[idx]}</strong><br/>
-              Total Calls: ${totalCalls[idx]}<br/>
-              Inbound: ${inbound[idx]} | Outbound: ${outbound[idx]}<br/>
+              <div style="font-weight: 600; border-bottom: 1px solid ${TABLER_GRID}; margin-bottom: 8px; padding-bottom: 4px;">
+                ${categories[idx]}
+              </div>
+              <span style="color:${TABLER_BLUE}">●</span> Total: <b>${totalCalls[idx]}</b> <small style="color:${TABLER_GRAY}">(In:${inbound[idx]} Out:${outbound[idx]})</small><br/>
               ${dropLine}
-              Agents: ${agents[idx]}<br/>
-              Calls/Agent: ${callsPerAgent}
+              <span style="color:${TABLER_GREEN}">●</span> Agents: <b>${agents[idx]}</b><br/>
+              <span style="color:#626976">●</span> Avg: <b>${callsPerAgent}</b> calls/agent
             `;
           }
         },
-        legend: { top: 0, data:['Total Calls','Agents','Drop %'] },
-        grid: { left:'4%', right:'9%', bottom:'4%', containLabel:true },
-        xAxis: { type:'category', data: categories },
+        grid: { left: '3%', right: '12%', top: 80, bottom: '5%', containLabel: true },
+        xAxis: { 
+          type: 'category', 
+          data: categories,
+          axisLine: { lineStyle: { color: TABLER_GRID } },
+          axisLabel: { color: TABLER_GRAY }
+        },
         yAxis: [
-          { type:'value', name:'Total Calls' },
-          { type:'value', name:'Agents', position:'right' },
-          { type:'value', name:'Drop %', position:'right', offset:60, axisLabel:{formatter:'{value}%'} }
+          { 
+            type: 'value', 
+            name: 'Calls',
+            splitLine: { lineStyle: { color: TABLER_GRID } },
+            axisLabel: { color: TABLER_GRAY }
+          },
+          { 
+            type: 'value', 
+            name: 'Agents', 
+            position: 'right',
+            splitLine: { show: false },
+            axisLabel: { color: TABLER_GRAY }
+          },
+          { 
+            type: 'value', 
+            name: 'Drop %', 
+            position: 'right', 
+            offset: 50, 
+            axisLabel: { formatter: '{value}%', color: TABLER_GRAY }, 
+            splitLine: { show: false } 
+          }
         ],
         series: [
           {
-            name:'Total Calls',
-            type:'bar',
-            barWidth:'40%',
+            name: 'Total Calls',
+            type: 'bar',
+            barWidth: '40%',
             data: totalCalls,
-            markArea: {
-              itemStyle: { color:'rgba(255,200,0,0.2)' },
-              data: peakHours
-            }
+            itemStyle: { borderRadius: [2, 2, 0, 0], color: TABLER_BLUE },
+            markArea: { silent: true, data: peakHours }
           },
           {
-            name:'Agents',
-            type:'line',
-            yAxisIndex:1,
-            smooth:true,
-            symbolSize:8,
-            data:agents
+            name: 'Agents',
+            type: 'line',
+            yAxisIndex: 1,
+            smooth: true,
+            showSymbol: false,
+            lineStyle: { width: 3, color: TABLER_GREEN },
+            itemStyle: { color: TABLER_GREEN },
+            data: agents
           },
           {
-            name:'Drop %',
-            type:'line',
-            yAxisIndex:2,
-            smooth:true,
-            symbol:'triangle',
-            symbolSize:9,
-            // CHANGE 3: Ensure line breaks instead of connecting through nulls
-            connectNulls: false, 
-            data:dropPercent
+            name: 'Drop %',
+            type: 'line',
+            yAxisIndex: 2,
+            connectNulls: false,
+            symbol: 'circle',
+            symbolSize: 8,
+            lineStyle: { width: 2, type: 'dashed', color: TABLER_YELLOW },
+            itemStyle: { color: TABLER_YELLOW, borderWeight: 2, borderColor: '#fff' },
+            data: dropPercent
           }
         ]
       };
 
       chart.setOption(option);
-      window.addEventListener('resize', ()=>chart.resize());
+      window.addEventListener('resize', () => chart.resize());
 
     } catch (err) {
-      console.error('Failed to load data:', err);
-      document.body.innerHTML += '<p style="color:red; text-align:center;">Error loading data. Check console.</p>';
+      console.error('Render Error:', err);
     }
   }
 
