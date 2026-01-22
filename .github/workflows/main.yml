@@ -4,69 +4,52 @@ on:
   push:
     branches: [main]
     paths:
-      - 'dist/data/call_logs/*.csv'
-      - 'dist/data/drops/*.csv'
-      - 'scripts/csv_to_json.py'
-  workflow_dispatch:                     # allows manual trigger from Actions tab
+      - 'dist/data/call_logs/*.csv'      # Triggers on new/updated call logs
+      - 'dist/data/drops/*.csv'          # Triggers on new/updated drops
+      - 'scripts/csv_to_json.py'         # Triggers on script changes
+  workflow_dispatch:                     # Manual run from Actions tab
 
 permissions:
-  contents: write                        # needed to commit & push
+  contents: write                        # Required for commit + push
 
 jobs:
-  convert-and-update:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0                 # full history needed for clean commits
+          fetch-depth: 0                 # Full history for git commit
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'                   # cache pip packages → faster runs
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pandas
 
-      - name: Debug - Folder & file check
+      - name: Debug - Show folder structure
         run: |
           pwd
-          ls -la dist/data/call_logs/ || echo "call_logs folder missing or empty"
-          ls -la dist/data/drops/     || echo "drops folder missing or empty"
-          ls -la scripts/csv_to_json.py || echo "script not found"
-          ls -la data/                || echo "output data/ folder missing"
+          ls -la
+          ls -la dist/ || echo "dist/ missing"
+          ls -la dist/data/ || echo "dist/data missing"
+          ls -la dist/data/call_logs/ || echo "call_logs missing"
+          ls -la dist/data/drops/ || echo "drops missing"
+          ls -la data/ || echo "data/ (output) missing"
+          ls -la scripts/csv* || echo "csv_to_json.py not found"
 
-      - name: Generate JSON files from CSV
-        working-directory: ${{ github.workspace }}/scripts
+      - name: Convert CSV to JSON
+        working-directory: scripts
         run: python csv_to_json.py
-        env:
-          PYTHONUNBUFFERED: 1            # better real-time output in logs
 
-      - name: Commit updated JSON files (if changed)
+      - name: Commit generated JSON
         run: |
-          git config user.name "GitHub Actions Bot"
+          git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-
-          # Only stage the exact files your script creates
-          git add data/detailed_call_logs.json data/detailed_drop_calls.json || true
-
-          # Only commit if there are actual changes
-          git diff --staged --quiet || git commit -m "chore: auto-update detailed JSON from new CSV files [ci skip]"
-
-          # Push (will fail gracefully if branch is protected)
-          git push origin HEAD:main || echo "Push skipped (no changes or protected branch)"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload generated JSON as artifact (debug / fallback)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: generated-json-files
-          path: data/*.json
-          if-no-files-found: warn
+          git add data/*.json || true
+          git commit -m "Auto-update calls_agents.json and drops_summary.json from CSV" || echo "No changes to commit"
+          git push || echo "Push skipped (no changes or protected branch)"
