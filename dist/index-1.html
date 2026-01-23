@@ -19,6 +19,12 @@
     <!-- BEGIN DEMO STYLES -->
     <link href="./preview/css/demo.css?1767679296" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+
+  <!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<!-- Flatpickr JS (add before your custom script) -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- END DEMO STYLES -->
     <!-- BEGIN CUSTOM FONT -->
     <style>
@@ -712,28 +718,171 @@
         <main id="content" class="page-body">
           <div class="container-xl my-auto">
 
+  <div class="col-12">
+    <div class="row row-cards">
+      <!-- Card 1: Total Calls -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card card-sm">
+          <div class="card-body p-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <span class="bg-primary text-white avatar avatar-sm">
+                  <!-- Phone icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
+                  </svg>
+                </span>
+              </div>
+              <div class="col">
+                <div class="h3 mb-0 fw-bold" id="kpiTotalCalls">0</div>
+                <div class="text-secondary">Total Calls</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Active Agents -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card card-sm">
+          <div class="card-body p-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <span class="bg-success text-white avatar avatar-sm">
+                  <!-- Headset icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h3a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-3v-7"></path>
+                    <path d="M21 12h-3a2 2 0 0 0 -2 2v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2 -2v-5"></path>
+                    <path d="M9 7v10"></path>
+                    <path d="M15 7v10"></path>
+                  </svg>
+                </span>
+              </div>
+              <div class="col">
+                <div class="h3 mb-0 fw-bold text-success" id="kpiActiveAgents">0</div>
+                <div class="text-secondary">Active Agents</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Top Performer -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card card-sm">
+          <div class="card-body p-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <span class="bg-indigo text-white avatar avatar-sm">
+                  <!-- Trophy icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 21h8"></path>
+                    <path d="M12 17v4"></path>
+                    <path d="M7 4h10"></path>
+                    <path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path>
+                  </svg>
+                </span>
+              </div>
+              <div class="col">
+                <div class="h3 mb-0 fw-bold text-indigo text-truncate" id="kpiTopAgent">—</div>
+                <div class="text-secondary">Top Performer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Avg Handle Time -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card card-sm">
+          <div class="card-body p-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <span class="bg-orange text-white avatar avatar-sm">
+                  <!-- Clock icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                    <path d="M12 12l0 -4"></path>
+                    <path d="M12 12l3 3"></path>
+                  </svg>
+                </span>
+              </div>
+              <div class="col">
+                <div class="h3 mb-0 fw-bold text-orange" id="kpiAvgAHT">0:00</div>
+                <div class="text-secondary">Avg Handle Time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Avg Repeat % -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card card-sm">
+          <div class="card-body p-3">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <span class="bg-danger text-white avatar avatar-sm">
+                  <!-- Refresh/Repeat icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+                    <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+                  </svg>
+                </span>
+              </div>
+              <div class="col">
+                <div class="h3 mb-0 fw-bold text-danger" id="kpiRepeatPct">0%</div>
+                <div class="text-secondary">Avg Repeat %</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>            
+
+
 <div class="col-12 mt-3">
   <div class="card">
     <div class="card-body "> 
       <h3 class="card-title -mb-2">Hourly Call Volume & Drop Rate</h3>
  
-      <div id="chart-container" style="height: 420px; width: 100%;"></div>
+      <div id="mainchart" style="height: 420px; width: 100%;"></div>
     </div>
   </div>
 </div>
 
+<!-- Volume Chart Controls & Container -->
+<div class="card mt-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">Call Volume – Today vs Historical Average</h3>
+    <div class="d-flex align-items-center gap-3">
+      <select id="volumeRangeSelect" class="form-select form-select-sm w-auto">
+        <option value="7">Last 7 Days</option>
+        <option value="30" selected>Last 30 Days</option>
+        <option value="all">All Time</option>
+        <option value="custom">Custom Range</option>
+      </select>
 
-<label style="display:block;margin:16px 0 6px;color:#6b7280;font-size:14px;">
-  Select Date
-</label>
+      <!-- Date Picker for single day -->
+      <div class="d-flex align-items-center gap-2">
+        <label class="form-label mb-0">Date:</label>
+        <input type="text" id="datePicker" class="form-control form-control-sm" style="width: 160px;" placeholder="Select date">
+      </div>
 
-<select id="dateSelect"
-  style="padding:8px 12px;border:1px solid #e5e7eb;border-radius:6px;
-         font-size:14px;min-width:180px;">
-</select>
-
-
-<div id="chart-container-selected" style="height:360px;margin-top:32px;"></div>
+      <!-- Custom Range (hidden by default) -->
+      <div id="customRangeInputs" style="display: none; align-items: center; gap: 0.75rem;">
+        <input type="text" id="rangeStart" class="form-control form-control-sm" placeholder="Start date" style="width: 140px;">
+        <span>to</span>
+        <input type="text" id="rangeEnd" class="form-control form-control-sm" placeholder="End date" style="width: 140px;">
+        <button class="btn btn-primary btn-sm" id="applyCustomRange">Apply</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div id="chart-call-volume" style="height: 400px; width: 100%;"></div>
+  </div>
+</div>
 
 
           </div>
@@ -1128,184 +1277,10 @@
       });
     </script>
     <!-- END PAGE SCRIPTS -->
+     <script src="final.js"></script>
 
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
 
-  // =======================
-  // COLORS (UNCHANGED)
-  // =======================
-  const TABLER_BLUE   = '#206bc4';
-  const TABLER_GREEN  = '#2fb344';
-  const TABLER_YELLOW = '#f59f00';
-  const TABLER_GRAY   = '#9ca3af';
-  const TABLER_GRID   = '#f1f5f9';
-
-  const chartAvg      = echarts.init(document.getElementById('chart-container'));
-  const chartSelected = echarts.init(document.getElementById('chart-container-selected'));
-
-  let callData = {};
-  let dropData = {};
-
-  // =======================
-  // LOAD DATA ONCE
-  // =======================
-  async function loadData() {
-    const [c, d] = await Promise.all([
-      fetch('../data/detailed_call_logs.json'),
-      fetch('../data/detailed_drop_calls.json')
-    ]);
-    callData = await c.json();
-    dropData = await d.json();
-  }
-
-  // =======================
-  // AVG CHART (YOUR LOGIC)
-  // =======================
-  function renderAvgChart() {
-    const dates = Object.keys(callData.records || {});
-    const dayCount = dates.length || 1;
-
-    const hourly = Array(24).fill().map(() => ({
-      inbound:0, outbound:0, total:0, drop:0, agentsByDay:{}
-    }));
-
-    dates.forEach(date => {
-      Object.values(callData.records[date]).forEach(c => {
-        const h = new Date(c.call_date).getHours();
-        if (h < 0 || h > 23) return;
-
-        hourly[h].total++;
-        c.direction === 'inbound' ? hourly[h].inbound++ : hourly[h].outbound++;
-
-        if (c.full_name) {
-          hourly[h].agentsByDay[date] ??= new Set();
-          hourly[h].agentsByDay[date].add(c.full_name);
-        }
-      });
-    });
-
-    Object.values(dropData.records || {}).flatMap(d => Object.values(d))
-      .forEach(d => {
-        const h = new Date(d.datetime).getHours();
-        if (h >= 0 && h < 24) hourly[h].drop++;
-      });
-
-    const active = hourly.map((h,i) => {
-      const agentSum = Object.values(h.agentsByDay).reduce((a,s)=>a+s.size,0);
-      return {
-        hour:i,
-        total:Math.ceil(h.total/dayCount),
-        inbound:Math.ceil(h.inbound/dayCount),
-        outbound:Math.ceil(h.outbound/dayCount),
-        dropRaw:h.drop/dayCount,
-        agents:Math.round(agentSum/dayCount)
-      };
-    }).filter(h => h.total || h.dropRaw);
-
-    applyChart(chartAvg, active, true);
-  }
-
-  // =======================
-  // SELECTED DATE CHART
-  // =======================
-  function renderSelectedChart(date) {
-    const hourly = Array(24).fill().map(() => ({
-      inbound:0, outbound:0, total:0, drop:0, agents:new Set()
-    }));
-
-    Object.values(callData.records[date] || {}).forEach(c => {
-      const h = new Date(c.call_date).getHours();
-      if (h < 0 || h > 23) return;
-
-      hourly[h].total++;
-      c.direction === 'inbound' ? hourly[h].inbound++ : hourly[h].outbound++;
-      if (c.full_name) hourly[h].agents.add(c.full_name);
-    });
-
-    Object.values(dropData.records?.[date] || {}).forEach(d => {
-      const h = new Date(d.datetime).getHours();
-      if (h >= 0 && h < 24) hourly[h].drop++;
-    });
-
-    const active = hourly.map((h,i)=>({
-      hour:i,
-      total:h.total,
-      inbound:h.inbound,
-      outbound:h.outbound,
-      dropRaw:h.drop,
-      agents:h.agents.size
-    })).filter(h => h.total || h.dropRaw);
-
-    applyChart(chartSelected, active, false);
-  }
-
-  // =======================
-  // COMMON RENDER (STYLE SAFE)
-  // =======================
-  function applyChart(chart, data, isAvg) {
-    const categories = data.map(d => `${String(d.hour).padStart(2,'0')}:00`);
-    const totals = data.map(d => d.total);
-    const inbound = data.map(d => d.inbound);
-    const outbound = data.map(d => d.outbound);
-    const agents = data.map(d => d.agents);
-    const dropPct = data.map(d =>
-      d.total ? ((d.dropRaw/d.total)*100).toFixed(1) : null
-    );
-
-    chart.setOption(
-      getOriginalOption(
-        categories,
-        totals,
-        inbound,
-        outbound,
-        agents,
-        dropPct,
-        [],
-        isAvg,
-        data
-      ),
-      true
-    );
-  }
-
-  // =======================
-  // DATE SELECTOR
-  // =======================
-  function initDateSelector() {
-    const sel = document.getElementById('dateSelect');
-    const dates = Object.keys(callData.records || {}).sort().reverse();
-
-    dates.forEach(d => {
-      const o = document.createElement('option');
-      o.value = d;
-      o.textContent = d;
-      sel.appendChild(o);
-    });
-
-    if (dates.length) renderSelectedChart(dates[0]);
-
-    sel.addEventListener('change', e => {
-      renderSelectedChart(e.target.value);
-    });
-  }
-
-  // =======================
-  // BOOTSTRAP
-  // =======================
-  loadData().then(() => {
-    renderAvgChart();
-    initDateSelector();
-  });
-
-  window.addEventListener('resize', () => {
-    chartAvg.resize();
-    chartSelected.resize();
-  });
-
-});
-</script>
 
 
 

@@ -83,7 +83,7 @@ for file in call_files:
         df["direction"] = "inbound"
         if "campaign_id" in df.columns:
             df["campaign_id"] = df["campaign_id"].astype(str).str.upper().str.strip()
-            df.loc[df["campaign_id"].isin(["CARNIVAL", "SYLHET", "DIRECT_AGENT_BANLA"]), "direction"] = "outbound"
+            df.loc[df["campaign_id"].isin(["CARNIVAL", "SYLHET"]), "direction"] = "outbound"
         
         df["answer_status"] = "Not Answered"
         if "status" in df.columns:
