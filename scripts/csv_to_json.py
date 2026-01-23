@@ -79,21 +79,29 @@ for file in call_files:
         
         df["date"] = df["call_date"].dt.strftime("%Y-%m-%d")
         
-        # Direction handling: trust CSV column if present, otherwise default
+        # ── Direction handling: trust CSV column if present ──────────────
         if "direction" in df.columns:
-            print(f"  Using manual 'direction' column from CSV")
+            print(f"  Using manual 'direction' column from CSV (not overwriting)")
             df["direction"] = df["direction"].astype(str).str.lower().str.strip()
-            # Clean common typos/variations
-            df["direction"] = df["direction"].replace(["out bound", "out-bound", "out"], "outbound")
-            df["direction"] = df["direction"].replace(["in bound", "in-bound", "in"], "inbound")
+            # Clean common variations/typos
+            df["direction"] = df["direction"].replace(
+                ["out bound", "out-bound", "out", "outboud", "outbnd"], "outbound"
+            )
+            df["direction"] = df["direction"].replace(
+                ["in bound", "in-bound", "in", "inboud", "inbnd"], "inbound"
+            )
         else:
             print(f"  No 'direction' column in CSV – defaulting to 'inbound'")
             df["direction"] = "inbound"
         
-        # Log direction stats for verification
+        # Log direction stats for quick verification
         if "direction" in df.columns:
-            print(f"  Direction distribution in {fname}:")
-            print(df["direction"].value_counts().to_dict())
+            direction_stats = df["direction"].value_counts().to_dict()
+            print(f"  Direction distribution in {fname}: {direction_stats}")
+            total = sum(direction_stats.values())
+            inbound_pct = direction_stats.get("inbound", 0) / total * 100 if total > 0 else 0
+            outbound_pct = direction_stats.get("outbound", 0) / total * 100 if total > 0 else 0
+            print(f"    Inbound: {direction_stats.get('inbound', 0)} ({inbound_pct:.1f}%) | Outbound: {direction_stats.get('outbound', 0)} ({outbound_pct:.1f}%)")
         
         df["answer_status"] = "Not Answered"
         if "status" in df.columns:
@@ -130,7 +138,7 @@ for file in call_files:
                 else:
                     entry[col] = val
             
-            # Ensure direction is always included
+            # Always include direction (from CSV or default)
             entry["direction"] = row.get("direction", "inbound")
             
             entry["answer_status"] = row.get("answer_status", "Not Answered")
