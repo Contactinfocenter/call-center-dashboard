@@ -34,7 +34,6 @@
   // ── KPI Render with debug ────────────────────────────────────────────
 function renderKPIs(records) {
   if (!records || Object.keys(records).length === 0) {
-    console.warn("No records data for KPIs");
     document.querySelectorAll('[id^="kpi"]').forEach(el => el.textContent = "—");
     return;
   }
@@ -42,28 +41,36 @@ function renderKPIs(records) {
   let totalCalls = 0;
   let inboundCount = 0;
   let outboundCount = 0;
-  let totalAhtSum = 0;
+  let totalAhtSeconds = 0;
+
   const agentCallCounts = {};
   const dailyRepeatPercentages = [];
 
-  // Only these two are outbound — same as Python
-  const outboundList = ["CARNIVAL", "SYLHET"];
-
   for (const dateKey in records) {
     const dayRecords = records[dateKey] || {};
+    const seenCalls = new Set(); // ✅ dedup per day
     const dailyInboundCallerCounts = {};
     let dailyInboundTotal = 0;
-    let dailyInboundRepeats = 0;
 
     for (const callId in dayRecords) {
       const call = dayRecords[callId];
       if (!call) continue;
 
+      // ── Dedup: phone + minute ──
+      const minuteKey =
+        call.phone_number + '_' +
+        new Date(call.call_date).toISOString().slice(0,16);
+
+      if (seenCalls.has(minuteKey)) continue;
+      seenCalls.add(minuteKey);
+
       totalCalls++;
 
-      // Use the same classification rule as Python
-      const cid = (call.campaign_id || "").toUpperCase().trim();
-      if (outboundList.includes(cid)) {
+      // Direction (strict)
+      const dir = (call.direction || '').toLowerCase().trim();
+      const direction = dir === 'outbound' ? 'outbound' : 'inbound';
+
+      if (direction === 'outbound') {
         outboundCount++;
       } else {
         inboundCount++;
@@ -71,60 +78,68 @@ function renderKPIs(records) {
 
         const phone = call.phone_number;
         if (phone) {
-          dailyInboundCallerCounts[phone] = (dailyInboundCallerCounts[phone] || 0) + 1;
+          dailyInboundCallerCounts[phone] =
+            (dailyInboundCallerCounts[phone] || 0) + 1;
         }
       }
 
-      totalAhtSum += parseFloat(call.acht) || 0;
+      totalAhtSeconds += Number(call.acht) || 0;
 
-      const agent = (call.full_name || "Unknown").trim();
-      if (agent !== "Unknown") {
+      const agent = (call.full_name || '').trim();
+      if (agent) {
         agentCallCounts[agent] = (agentCallCounts[agent] || 0) + 1;
       }
     }
 
+    // Repeat %
     if (dailyInboundTotal > 0) {
       let repeats = 0;
-      for (const count of Object.values(dailyInboundCallerCounts)) {
-        if (count > 1) repeats += (count - 1);
-      }
+      Object.values(dailyInboundCallerCounts).forEach(c => {
+        if (c > 1) repeats += (c - 1);
+      });
       dailyRepeatPercentages.push((repeats / dailyInboundTotal) * 100);
     }
   }
 
-  const repeatPctAvg = dailyRepeatPercentages.length > 0
-    ? Math.round(dailyRepeatPercentages.reduce((a, b) => a + b, 0) / dailyRepeatPercentages.length)
+  const avgRepeatPct = dailyRepeatPercentages.length
+    ? Math.round(dailyRepeatPercentages.reduce((a,b)=>a+b,0) / dailyRepeatPercentages.length)
     : 0;
 
-  // Update KPI cards
-  document.getElementById("kpiTotalCalls").innerHTML = `
-    ${totalCalls.toLocaleString()}
-    <div style="font-size: 0.65em; margin-top: 4px; font-weight: 500;">
-      <span style="color: #206bc4;">In: ${inboundCount.toLocaleString()}</span>
-      <span style="color: #9ca3af; margin: 0 4px;">|</span>
-      <span style="color: #2fb344;">Out: ${outboundCount.toLocaleString()}</span>
-    </div>`;
-
-  document.getElementById("kpiRepeatPct").textContent = repeatPctAvg + "%";
-  document.getElementById("kpiAvgAHT").textContent = formatSecondsToMinutes(totalCalls > 0 ? Math.round(totalAhtSum / totalCalls) : 0);
-  document.getElementById("kpiActiveAgents").textContent = Object.keys(agentCallCounts).length.toLocaleString();
+  const avgAHT = totalCalls
+    ? Math.round(totalAhtSeconds / totalCalls)
+    : 0;
 
   let topAgent = "—", maxCalls = 0;
   for (const [agent, count] of Object.entries(agentCallCounts)) {
-    if (count > maxCalls) { maxCalls = count; topAgent = agent; }
+    if (count > maxCalls) {
+      maxCalls = count;
+      topAgent = agent;
+    }
   }
+
+  // ── Render KPIs ──
+  document.getElementById("kpiTotalCalls").innerHTML = `
+    ${totalCalls.toLocaleString()}
+    <div style="font-size:0.65em;margin-top:4px;font-weight:500">
+      <span style="color:#206bc4">In: ${inboundCount.toLocaleString()}</span>
+      <span style="color:#9ca3af;margin:0 4px;">|</span>
+      <span style="color:#2fb344">Out: ${outboundCount.toLocaleString()}</span>
+    </div>
+  `;
+
+  document.getElementById("kpiRepeatPct").textContent = avgRepeatPct + "%";
+  document.getElementById("kpiAvgAHT").textContent = formatSecondsToMinutes(avgAHT);
+  document.getElementById("kpiActiveAgents").textContent = Object.keys(agentCallCounts).length;
   document.getElementById("kpiTopAgent").textContent = topAgent;
 
-  console.log("KPIs rendered:", {
+  console.log("✅ KPI FINAL MATCH", {
     totalCalls,
     inboundCount,
     outboundCount,
-    repeatPctAvg,
-    avgAHT: totalCalls > 0 ? Math.round(totalAhtSum / totalCalls) : 0,
-    activeAgents: Object.keys(agentCallCounts).length,
-    topAgent
+    check: totalCalls === inboundCount + outboundCount
   });
 }
+
 
   // ── Average Hourly Chart ─────────────────────────────────────────────
   async function loadAndRenderDashboard() {
