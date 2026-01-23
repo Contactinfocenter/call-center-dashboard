@@ -47,7 +47,6 @@ def parse_datetime(dt_str):
         except ValueError:
             continue
     
-    # Fallback
     try:
         return pd.to_datetime(dt_str, errors='raise')
     except Exception as e:
@@ -80,10 +79,21 @@ for file in call_files:
         
         df["date"] = df["call_date"].dt.strftime("%Y-%m-%d")
         
-        df["direction"] = "inbound"
-        if "campaign_id" in df.columns:
-            df["campaign_id"] = df["campaign_id"].astype(str).str.upper().str.strip()
-            df.loc[df["campaign_id"].isin(["CARNIVAL", "SYLHET"]), "direction"] = "outbound"
+        # Direction handling: trust CSV column if present, otherwise default
+        if "direction" in df.columns:
+            print(f"  Using manual 'direction' column from CSV")
+            df["direction"] = df["direction"].astype(str).str.lower().str.strip()
+            # Clean common typos/variations
+            df["direction"] = df["direction"].replace(["out bound", "out-bound", "out"], "outbound")
+            df["direction"] = df["direction"].replace(["in bound", "in-bound", "in"], "inbound")
+        else:
+            print(f"  No 'direction' column in CSV – defaulting to 'inbound'")
+            df["direction"] = "inbound"
+        
+        # Log direction stats for verification
+        if "direction" in df.columns:
+            print(f"  Direction distribution in {fname}:")
+            print(df["direction"].value_counts().to_dict())
         
         df["answer_status"] = "Not Answered"
         if "status" in df.columns:
@@ -120,7 +130,9 @@ for file in call_files:
                 else:
                     entry[col] = val
             
+            # Ensure direction is always included
             entry["direction"] = row.get("direction", "inbound")
+            
             entry["answer_status"] = row.get("answer_status", "Not Answered")
             
             call_records["records"][date_str][key] = entry
@@ -139,7 +151,7 @@ print(f"Total call records: {sum(len(day.values()) for day in call_records['reco
 print(f"Days covered: {len(call_records['records'])}")
 
 # ────────────────────────────────────────────────
-# DETAILED DROP CALLS – FIXED
+# DETAILED DROP CALLS (unchanged – already good)
 # ────────────────────────────────────────────────
 drop_records = {"records": {}}
 drop_files = sorted(glob.glob(os.path.join(DROPS_DIR, "*.csv")))
@@ -164,14 +176,12 @@ for file in drop_files:
         print(f"  Columns found: {list(df.columns)}")
         
         if 'date' in df.columns and 'time' in df.columns:
-            # Pad time if only HH:MM
             df['time'] = df['time'].astype(str).apply(
                 lambda x: x.strip() + ':00' if x.strip() and len(x.strip().split(':')) == 2 else x.strip()
             )
             df['datetime_str'] = df['date'].astype(str).str.strip() + ' ' + df['time'].str.strip()
             df['datetime'] = df['datetime_str'].apply(parse_datetime)
             
-            # Debug samples
             print(f"  Sample raw datetime_str (first 5): {df['datetime_str'].head(5).tolist()}")
             print(f"  Sample parsed datetime (first 5): {df['datetime'].head(5).tolist()}")
         elif 'datetime' in df.columns:
