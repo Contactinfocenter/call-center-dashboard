@@ -3,12 +3,17 @@ import json
 import os
 from datetime import datetime
 
-# ── CONFIGURATION ────────────────────────────────────────────────────────
-ANSWERED_FOLDER     = "dist/data/call_logs"     # Answered calls CSVs
-DROPS_FOLDER        = "dist/data/drops"         # Dropped calls CSVs
-OUTPUT_DIR          = "dist/data/calls"         # Output folder
-OUTPUT_JSON         = os.path.join(OUTPUT_DIR, "all_calls.json")
-DATE_FORMAT_IN_CSV  = "%m/%d/%Y %H:%M"          # For answered calls date/time
+# ── DYNAMIC PATHING ──────────────────────────────────────────────────────
+# Get the absolute path of the scripts folder
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# Get the project root (one level up from scripts)
+ROOT_DIR = os.path.dirname(SCRIPT_DIR)
+
+ANSWERED_FOLDER  = os.path.join(ROOT_DIR, "dist/data/call_logs")
+DROPS_FOLDER     = os.path.join(ROOT_DIR, "dist/data/drops")
+OUTPUT_DIR       = os.path.join(ROOT_DIR, "dist/data/calls")
+OUTPUT_JSON      = os.path.join(OUTPUT_DIR, "all_calls.json")
+DATE_FORMAT_IN_CSV = "%m/%d/%Y %H:%M"
 
 # Create output dir if needed
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -17,7 +22,12 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 final_calls = {"calls": {}}
 
 # ── 1. Process answered calls CSVs ──────────────────────────────────────
-answered_files = [f for f in os.listdir(ANSWERED_FOLDER) if f.lower().endswith(".csv")]
+if not os.path.exists(ANSWERED_FOLDER):
+    print(f"Directory not found: {ANSWERED_FOLDER}")
+    answered_files = []
+else:
+    answered_files = [f for f in os.listdir(ANSWERED_FOLDER) if f.lower().endswith(".csv")]
+
 answered_files.sort()
 print("Answered CSV files found:", answered_files)
 
@@ -38,6 +48,8 @@ for filename in answered_files:
     for index, row in df.iterrows():
         phone = row.get("phone_number")
         raw_dt = row.get("call_date")
+        
+        # Default ID
         call_id = f"{date_key}_{index}"
 
         if raw_dt and phone:
@@ -70,7 +82,12 @@ for filename in answered_files:
         final_calls["calls"][date_key][call_id] = formatted
 
 # ── 2. Process dropped calls CSVs ───────────────────────────────────────
-drops_files = [f for f in os.listdir(DROPS_FOLDER) if f.lower().endswith(".csv")]
+if not os.path.exists(DROPS_FOLDER):
+    print(f"Directory not found: {DROPS_FOLDER}")
+    drops_files = []
+else:
+    drops_files = [f for f in os.listdir(DROPS_FOLDER) if f.lower().endswith(".csv")]
+
 drops_files.sort()
 print("Dropped CSV files found:", drops_files)
 
@@ -84,7 +101,7 @@ for filename in drops_files:
         print(f"ERROR reading {filename}: {e}")
         continue
 
-    # Extract date from filename (e.g., "Drop_2026-01-18.csv" → "2026-01-18")
+    # Extract date from filename (e.g., "2026-01-01.csv" → "2026-01-01")
     date_key = filename.replace("Drop_", "").replace(".csv", "").strip()
 
     if date_key not in final_calls["calls"]:
@@ -120,8 +137,9 @@ for filename in drops_files:
         final_calls["calls"][date_key][call_id] = formatted
 
 # ── Final stats & save ──────────────────────────────────────────────────
+total_days = len(final_calls["calls"])
 total_records = sum(len(final_calls["calls"][d]) for d in final_calls["calls"])
-print(f"\nTotal records merged: {total_records}")
+print(f"\nTotal records merged: {total_records} across {total_days} days.")
 
 if total_records > 0:
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:

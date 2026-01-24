@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - 'dist/data/call_logs/*.csv'      # Triggers on new/updated call logs
-      - 'dist/data/drops/*.csv'          # Triggers on new/updated drops
-      - 'scripts/csv_to_json.py'         # Triggers on script changes
-  workflow_dispatch:                     # Manual run from Actions tab
+      - 'dist/data/call_logs/*.csv'
+      - 'dist/data/drops/*.csv'
+      - 'scripts/csv_to_json.py'
+  workflow_dispatch:
 
 permissions:
-  contents: write                        # Required for commit + push
+  contents: write
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0                 # Full history for git commit
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -31,25 +31,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas
 
-      - name: Debug - Show folder structure
-        run: |
-          pwd
-          ls -la
-          ls -la dist/ || echo "dist/ missing"
-          ls -la dist/data/ || echo "dist/data missing"
-          ls -la dist/data/call_logs/ || echo "call_logs missing"
-          ls -la dist/data/drops/ || echo "drops missing"
-          ls -la data/ || echo "data/ (output) missing"
-          ls -la scripts/csv* || echo "csv_to_json.py not found"
-
       - name: Convert CSV to JSON
-        working-directory: scripts
-        run: python csv_to_json.py
+        # Run from root so relative paths in Python are easier to debug if needed
+        run: python scripts/csv_to_json.py
 
       - name: Commit generated JSON
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add data/*.json || true
-          git commit -m "Auto-update calls_agents.json and drops_summary.json from CSV" || echo "No changes to commit"
-          git push || echo "Push skipped (no changes or protected branch)"
+          # Ensure we add the specific output directory defined in the script
+          git add dist/data/calls/*.json || true
+          git commit -m "Auto-update call data from CSV" || echo "No changes to commit"
+          git push || echo "Push skipped"
