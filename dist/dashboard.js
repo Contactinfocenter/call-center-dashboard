@@ -1,4 +1,4 @@
-const MASTER_DATA_URL = "https://raw.githubusercontent.com/Contactinfocenter/dashboard-data/main/data/calls/all_calls.json";
+const MASTER_DATA_URL = "https://raw.githubusercontent.com/Contactinfocenter/call-center-dashboard/main/dist/data/calls/all_calls.json";
 
 let rawData = {};
 let agentList = [];
