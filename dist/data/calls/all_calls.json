@@ -3290,19 +3290,6 @@
         "direction": "inbound",
         "is_drop": false
       },
-      "1602656860_1767265500000": {
-        "call_date": "2026-01-01 11:05:00",
-        "phone_number": 1602656860.0,
-        "status": "A",
-        "full_name": "Outbound Auto Dial",
-        "campaign_id": "CARNIVAL",
-        "address3": "Brahmanbaria",
-        "email": "1257497",
-        "comments": "Blank Field",
-        "acht": 0.0,
-        "direction": "outbound",
-        "is_drop": false
-      },
       "1898797581_1767265500000": {
         "call_date": "2026-01-01 11:05:00",
         "phone_number": 1898797581.0,
@@ -5758,19 +5745,6 @@
         "comments": "No Internet",
         "acht": 77.0,
         "direction": "inbound",
-        "is_drop": false
-      },
-      "1322845815_1767273720000": {
-        "call_date": "2026-01-01 13:22:00",
-        "phone_number": 1322845815.0,
-        "status": "A",
-        "full_name": "Outbound Auto Dial",
-        "campaign_id": "CARNIVAL",
-        "address3": "Kuliarchar_ACR-2",
-        "email": "1291543",
-        "comments": "Billing Queries",
-        "acht": 0.0,
-        "direction": "outbound",
         "is_drop": false
       },
       "1322845815_1767273780000": {
@@ -10492,9 +10466,9 @@
         "direction": "inbound",
         "is_drop": false
       },
-      "8801330000000_1767283680000": {
+      "8800000000000_1767283680000": {
         "call_date": "2026-01-01 16:08:00",
-        "phone_number": 8801330000000.0,
+        "phone_number": 8800000000000.0,
         "status": "A",
         "full_name": "Sunny Roy",
         "campaign_id": "SYLHET",
@@ -13001,9 +12975,9 @@
         "direction": "outbound",
         "is_drop": false
       },
-      "8801330000000_1767287940000": {
+      "8800000000000_1767287940000": {
         "call_date": "2026-01-01 17:19:00",
-        "phone_number": 8801330000000.0,
+        "phone_number": 8800000000000.0,
         "status": "A",
         "full_name": "Sunny Roy",
         "campaign_id": "SYLHET",
@@ -13040,9 +13014,9 @@
         "direction": "inbound",
         "is_drop": false
       },
-      "8801310000000_1767288120000": {
+      "8800000000000_1767288120000": {
         "call_date": "2026-01-01 17:22:00",
-        "phone_number": 8801310000000.0,
+        "phone_number": 8800000000000.0,
         "status": "A",
         "full_name": "Sunny Roy",
         "campaign_id": "SYLHET",
@@ -13118,9 +13092,9 @@
         "direction": "outbound",
         "is_drop": false
       },
-      "8801310000000_1767288180000": {
+      "8800000000000_1767288180000": {
         "call_date": "2026-01-01 17:23:00",
-        "phone_number": 8801310000000.0,
+        "phone_number": 8800000000000.0,
         "status": "A",
         "full_name": "Sunny Roy",
         "campaign_id": "SYLHET",
@@ -14028,9 +14002,9 @@
         "direction": "outbound",
         "is_drop": false
       },
-      "8801310000000_1767290340000": {
+      "8800000000000_1767290340000": {
         "call_date": "2026-01-01 17:59:00",
-        "phone_number": 8801310000000.0,
+        "phone_number": 8800000000000.0,
         "status": "A",
         "full_name": "Sunny Roy",
         "campaign_id": "SYLHET",
