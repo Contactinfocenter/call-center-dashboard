@@ -1284,6 +1284,7 @@ function renderCallVolumeChart() {
   window.addEventListener('resize', callVolumeChart.resizeListener);
 }
 
+
 // ==================== REPEAT RATE CHART ====================
 function renderRepeatRateChartForSelectedDate() {
   // 1. Destroy previous instance
