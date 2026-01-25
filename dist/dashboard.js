@@ -66,6 +66,7 @@ function getCallsForDate(dateStr) {
   return {};
 }
 
+
 function destroyChart(chart) {
   if (chart) {
     if (typeof chart.dispose === 'function') chart.dispose();
@@ -73,6 +74,7 @@ function destroyChart(chart) {
   }
   return null;
 }
+
 
 // Global state for table filters
 let summaryDateRange = { start: null, end: null };
