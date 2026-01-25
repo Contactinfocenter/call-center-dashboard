@@ -307,75 +307,191 @@ async function loadDataFromGitHub() {
 // ==================== DATA PROCESSING ====================
 function processRawData() {
   agentStats = {};
+
   for (const dateKey in rawData) {
     const calls = rawData[dateKey] || {};
+
     for (const callId in calls) {
       const call = calls[callId];
       if (!call) continue;
 
-      const agent = (call.full_name || "Unknown").trim();
+      // 🔴 Skip DROP calls completely for agent stats
+      if (call.is_drop === true || call.status === "DROP") continue;
+
+      const agent = (call.full_name || "").trim();
+      if (!agent) continue; // skip unknown agents
+
       const phone = call.phone_number || null;
       const status = call.status || "";
       const acht = safeNum(call.acht);
+      const direction = call.direction || "";
       const callDate = call.call_date ? new Date(call.call_date) : null;
 
       if (!agentStats[agent]) {
         agentStats[agent] = {
           total: 0,
+          inbound: 0,
+          outbound: 0,
           fcr: 0,
           nonFcr: 0,
           ahtSum: 0,
           uniqueCallers: new Set(),
           callerCounts: {},
-          hourly: Array(24).fill().map(() => [])
+          hourly: Array.from({ length: 24 }, () => [])
         };
       }
 
       const s = agentStats[agent];
+
+      // ✅ Total valid calls
       s.total++;
       s.ahtSum += acht;
-      if (status === "FCR") s.fcr++; else s.nonFcr++;
+
+      // ✅ Direction split
+      if (direction === "inbound") {
+        s.inbound++;
+
+        // ✅ FCR only for inbound
+        if (status === "FCR") s.fcr++;
+        else s.nonFcr++;
+
+      } else if (direction === "outbound") {
+        s.outbound++;
+      }
+
+      // ✅ Unique caller tracking
       if (phone) {
         s.uniqueCallers.add(phone);
         s.callerCounts[phone] = (s.callerCounts[phone] || 0) + 1;
       }
-      if (callDate && !isNaN(callDate)) {
+
+      // ✅ Hourly AHT (valid time only)
+      if (callDate instanceof Date && !isNaN(callDate)) {
         const hr = callDate.getHours();
         s.hourly[hr].push(acht);
       }
     }
   }
 
+  // ✅ Sorted agent list
   agentList = Object.keys(agentStats).sort((a, b) => a.localeCompare(b));
 }
 
+
 // ==================== KPIs ====================
 function renderKPIs() {
-  const totalCalls = Object.values(agentStats).reduce((a, s) => a + s.total, 0);
-  const activeAgents = agentList.length;
-  const avgAht = totalCalls ? Math.round(Object.values(agentStats).reduce((a, s) => a + s.ahtSum, 0) / totalCalls) : 0;
+  /* ===========================
+     Agent-based KPIs
+     =========================== */
 
-  const topAgentEntry = Object.entries(agentStats).sort((a, b) => b[1].total - a[1].total)[0];
+  const totalCalls = Object.values(agentStats)
+    .reduce((a, s) => a + s.total, 0);
+
+  const activeAgents = agentList.length;
+
+  const avgAht = totalCalls
+    ? Math.round(
+        Object.values(agentStats).reduce((a, s) => a + s.ahtSum, 0) / totalCalls
+      )
+    : 0;
+
+  const topAgentEntry = Object.entries(agentStats)
+    .sort((a, b) => b[1].total - a[1].total)[0];
+
   const topAgent = topAgentEntry ? topAgentEntry[0] : '—';
 
-  let repeatCalls = 0;
-  let totalCallsAll = 0;
+  /* ===========================
+     Inbound / Outbound counts
+     =========================== */
+
+  let inboundCount = 0;
+  let outboundCount = 0;
+
+  for (const dateKey in rawData) {
+    const calls = rawData[dateKey] || {};
+
+    for (const id in calls) {
+      const c = calls[id];
+      if (!c || c.is_drop === true) continue;
+
+      if (c.direction === "inbound") inboundCount++;
+      else if (c.direction === "outbound") outboundCount++;
+    }
+  }
+
+  /* ===========================
+   Avg FCR % (Inbound only)
+   =========================== */
+
+let inboundAnswered = 0;
+let inboundFcr = 0;
+
+for (const dateKey in rawData) {
+  const calls = rawData[dateKey] || {};
+
+  for (const id in calls) {
+    const c = calls[id];
+    if (!c || c.is_drop === true) continue;
+    if (c.direction !== "inbound") continue;
+
+    inboundAnswered++;
+
+    if (c.status === "FCR") inboundFcr++;
+  }
+}
+
+const avgFcrPct = inboundAnswered
+  ? Math.round((inboundFcr / inboundAnswered) * 100)
+  : 0;
+
+  /* ===========================
+     Inbound Repeat %
+     =========================== */
+
+  let inboundTotal = 0;
+  let inboundRepeat = 0;
+
   for (const dateKey in rawData) {
     const calls = rawData[dateKey] || {};
     const callerCount = {};
+
     for (const id in calls) {
-      totalCallsAll++;
-      const phone = calls[id].phone_number;
-      if (phone) callerCount[phone] = (callerCount[phone] || 0) + 1;
+      const c = calls[id];
+      if (!c || c.is_drop === true) continue;
+      if (c.direction !== "inbound") continue;
+
+      inboundTotal++;
+
+      const phone = c.phone_number;
+      if (!phone) continue;
+
+      callerCount[phone] = (callerCount[phone] || 0) + 1;
     }
+
     for (const count of Object.values(callerCount)) {
-      if (count > 1) repeatCalls += (count - 1);
+      if (count > 1) inboundRepeat += (count - 1);
     }
   }
-  const repeatPct = totalCallsAll ? Math.round((repeatCalls / totalCallsAll) * 100) : 0;
+
+  const repeatPct = inboundTotal
+    ? Math.round((inboundRepeat / inboundTotal) * 100)
+    : 0;
+
+  /* ===========================
+     KPI Rendering
+     =========================== */
 
   const kpiTotalCallsEl = document.getElementById('kpiTotalCalls');
-  if (kpiTotalCallsEl) kpiTotalCallsEl.textContent = totalCalls.toLocaleString();
+  if (kpiTotalCallsEl) {
+    kpiTotalCallsEl.innerHTML = `
+      ${totalCalls.toLocaleString()}
+      <div style="font-size:0.65em;margin-top:4px;font-weight:500">
+        <span style="color:#206bc4">In: ${inboundCount.toLocaleString()}</span>
+        <span style="color:#9ca3af;margin:0 4px;">|</span>
+        <span style="color:#2fb344">Out: ${outboundCount.toLocaleString()}</span>
+      </div>
+    `;
+  }
 
   const kpiActiveAgentsEl = document.getElementById('kpiActiveAgents');
   if (kpiActiveAgentsEl) kpiActiveAgentsEl.textContent = activeAgents;
@@ -388,7 +504,12 @@ function renderKPIs() {
 
   const kpiRepeatPctEl = document.getElementById('kpiRepeatPct');
   if (kpiRepeatPctEl) kpiRepeatPctEl.textContent = repeatPct + '%';
+  const avgFcrPctEl = document.getElementById('avgFcrPct');
+  if (avgFcrPctEl) avgFcrPctEl.textContent = avgFcrPct + '%';
+
 }
+
+
 
 // ==================== AGENT CHIPS ====================
 const agentColors = [
@@ -993,66 +1114,53 @@ function renderTalkTimeComparisonChart(agent) {
 }
 
 // ==================== VOLUME CALCULATIONS ====================
-function computeAvgHourlyVolume() {
-  const h = Array(24).fill(0);
-  let days = 0;
-  for (const date in rawData) {
-    const calls = rawData[date] || {};
-    const daily = Array(24).fill(0);
-    let has = false;
-    for (const id in calls) {
-      const d = new Date(calls[id].call_date);
-      if (!isNaN(d)) { daily[d.getHours()]++; has = true; }
-    }
-    if (has) { days++; daily.forEach((c, i) => h[i] += c); }
-  }
-  return h.map(v => days ? Math.round(v / days) : 0);
-}
+// Returns array[24] of call counts per hour (drop-safe)
+function computeHourlyVolume(dateStr, options = {}) {
+  const hours = Array(24).fill(0);
+  const calls = rawData[dateStr] || {};
 
-function computeSelectedDateHourlyVolume(dateStr) {
-  const calls = getCallsForDate(dateStr);
-  const h = Array(24).fill(0);
   for (const id in calls) {
-    const d = new Date(calls[id].call_date);
-    if (!isNaN(d)) h[d.getHours()]++;
-  }
-  return h.map(v => v > 0 ? v : null);
-}
+    const c = calls[id];
+    if (!c) continue;
+    if (options.excludeDrop && c.is_drop === true) continue;
+    if (options.direction && c.direction !== options.direction) continue;
 
-function computeRangeHourlyAverage(startDateStr, endDateStr) {
-  const start = new Date(startDateStr);
-  const end = new Date(endDateStr);
-  end.setHours(23, 59, 59, 999);
+    const callDate = c.call_date ? new Date(c.call_date) : null;
+    if (!callDate || isNaN(callDate)) continue;
 
-  const hourlyTotals = Array(24).fill(0);
-  let daysCount = 0;
-
-  for (const dateKey in rawData) {
-    const date = new Date(dateKey);
-    if (isNaN(date.getTime())) continue;
-    if (date >= start && date <= end) {
-      const calls = rawData[dateKey] || {};
-      const daily = Array(24).fill(0);
-      let hasData = false;
-
-      for (const id in calls) {
-        const callDate = new Date(calls[id].call_date);
-        if (!isNaN(callDate.getTime())) {
-          const hour = callDate.getHours();
-          daily[hour]++;
-          hasData = true;
-        }
-      }
-
-      if (hasData) {
-        daysCount++;
-        daily.forEach((count, h) => hourlyTotals[h] += count);
-      }
-    }
+    const hr = callDate.getHours();
+    hours[hr]++;
   }
 
-  return hourlyTotals.map(total => daysCount > 0 ? Math.round(total / daysCount) : 0);
+  return hours;
 }
+
+// Average hourly volume over a range of dates (drop-safe)
+function computeRangeHourlyAverage(startDate, endDate, options = {}) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const sumHours = Array(24).fill(0);
+  let dayCount = 0;
+
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const dateStr = d.toISOString().split('T')[0];
+    const hourly = computeHourlyVolume(dateStr, options);
+    if (!hourly) continue;
+
+    for (let i = 0; i < 24; i++) sumHours[i] += hourly[i];
+    dayCount++;
+  }
+
+  return dayCount ? sumHours.map(v => Math.round(v / dayCount)) : Array(24).fill(0);
+}
+
+// Average across all dates
+function computeAllTimeAvgHourly(options = {}) {
+  const dates = Object.keys(rawData);
+  if (!dates.length) return Array(24).fill(0);
+  return computeRangeHourlyAverage(dates[0], dates[dates.length - 1], options);
+}
+
 
 // ==================== RANGE CONTROLS ====================
 function initRangeControls() {
@@ -1089,33 +1197,36 @@ function initRangeControls() {
 function renderCallVolumeChart() {
   destroyChart(callVolumeChart);
 
-  const todayData = computeSelectedDateHourlyVolume(selectedDate);
+  // Today's hourly data
+  const inboundToday = computeHourlyVolume(selectedDate, { excludeDrop: true, direction: 'inbound' });
+  const outboundToday = computeHourlyVolume(selectedDate, { excludeDrop: true, direction: 'outbound' });
 
-  let rangeAvgData = null;
+  let rangeAvgInbound = null;
+  let rangeAvgOutbound = null;
   let rangeLabel = null;
 
   const rangeSelect = document.getElementById('volumeRangeSelect');
   const mode = rangeSelect ? rangeSelect.value : '30';
 
   if (mode === 'all') {
-    rangeAvgData = computeAvgHourlyVolume();
-    rangeLabel = 'Daily Average (All Time)';
+    rangeAvgInbound = computeAllTimeAvgHourly({ excludeDrop: true, direction: 'inbound' });
+    rangeAvgOutbound = computeAllTimeAvgHourly({ excludeDrop: true, direction: 'outbound' });
+    rangeLabel = 'Daily Avg (All Time)';
   } else if (mode === '7' || mode === '30') {
     const daysBack = mode === '7' ? 7 : 30;
     const endDate = new Date(selectedDate);
     const startDate = new Date(endDate);
     startDate.setDate(endDate.getDate() - daysBack + 1);
 
-    rangeAvgData = computeRangeHourlyAverage(
-      startDate.toISOString().split('T')[0],
-      selectedDate
-    );
+    rangeAvgInbound = computeRangeHourlyAverage(startDate.toISOString().split('T')[0], selectedDate, { excludeDrop: true, direction: 'inbound' });
+    rangeAvgOutbound = computeRangeHourlyAverage(startDate.toISOString().split('T')[0], selectedDate, { excludeDrop: true, direction: 'outbound' });
     rangeLabel = `Daily Avg (Last ${daysBack} Days)`;
   } else if (mode === 'custom') {
     const start = document.getElementById('rangeStart')?.value;
     const end = document.getElementById('rangeEnd')?.value;
     if (start && end && start <= end) {
-      rangeAvgData = computeRangeHourlyAverage(start, end);
+      rangeAvgInbound = computeRangeHourlyAverage(start, end, { excludeDrop: true, direction: 'inbound' });
+      rangeAvgOutbound = computeRangeHourlyAverage(start, end, { excludeDrop: true, direction: 'outbound' });
       rangeLabel = `Daily Avg (${formatDateDisplay(start)} – ${formatDateDisplay(end)})`;
     }
   }
@@ -1126,89 +1237,64 @@ function renderCallVolumeChart() {
   callVolumeChart = echarts.init(chartDom);
 
   const primaryColor = '#3874ff';
+  const outboundColor = '#2fb344';
   const rangeColor = '#10b981';
   const textColor = '#64748b';
 
   const fullHours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 
-  const allValues = [...(rangeAvgData || []), ...todayData.filter(v => v !== null)];
+  // Determine chart max
+  const allValues = [...(rangeAvgInbound || []), ...(rangeAvgOutbound || []), ...inboundToday, ...outboundToday];
   const dataMax = allValues.length ? Math.max(...allValues) : 100;
   const niceMax = dataMax === 0 ? 100 : Math.ceil((dataMax + 9) / 10) * 10;
 
   const option = {
     tooltip: {
-  trigger: 'axis',
-  backgroundColor: 'transparent',
-  borderWidth: 0,
-  padding: 0,
-  axisPointer: {
-    type: 'line',
-    lineStyle: { color: '#cbd5e1' }
-  },
-  formatter: function (params) {
-    const hour = params[0].name;
-
-    params.sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
-
-    let rows = '';
-    params.forEach(p => {
-      if (p.value == null) return;
-
-      rows += `
-        <div style="display:flex;align-items:center;margin-top:6px;">
-          <span style="
-            display:inline-block;
-            width:11px;
-            height:11px;
-            border-radius:50%;
-            background:${p.color};
-            margin-right:10px;
-            box-shadow:0 1px 3px rgba(0,0,0,0.15);
-          "></span>
-
-          <span style="
-            color:#64748b;
-            font-size:13px;
+      trigger: 'axis',
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      padding: 0,
+      axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1' } },
+      formatter: function (params) {
+        const hour = params[0].name;
+        params.sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
+        let rows = '';
+        params.forEach(p => {
+          if (p.value == null) return;
+          rows += `
+            <div style="display:flex;align-items:center;margin-top:6px;">
+              <span style="
+                display:inline-block;
+                width:11px;
+                height:11px;
+                border-radius:50%;
+                background:${p.color};
+                margin-right:10px;
+                box-shadow:0 1px 3px rgba(0,0,0,0.15);
+              "></span>
+              <span style="color:#64748b;font-size:13px;">${p.seriesName}:</span>
+              <span style="font-weight:700;margin-left:8px;color:#1e293b;">${p.value} calls</span>
+            </div>
+          `;
+        });
+        return `
+          <div style="
+            padding:10px 14px;
+            background:rgba(255,255,255,0.96);
+            border:1px solid #e2e8f0;
+            border-radius:6px;
+            box-shadow:0 4px 16px rgba(0,0,0,0.12);
+            font-family:Inter, system-ui, sans-serif;
+            font-size:14px;
+            min-width:210px;
+            pointer-events:none;
           ">
-            ${p.seriesName}:
-          </span>
-
-          <span style="
-            font-weight:700;
-            margin-left:8px;
-            color:#1e293b;
-          ">
-            ${p.value} calls
-          </span>
-        </div>
-      `;
-    });
-
-    return `
-      <div style="
-        padding:10px 14px;
-        background:rgba(255,255,255,0.96);
-        border:1px solid #e2e8f0;
-        border-radius:6px;
-        box-shadow:0 4px 16px rgba(0,0,0,0.12);
-        font-family:Inter, system-ui, sans-serif;
-        font-size:14px;
-        min-width:210px;
-        pointer-events:none;
-      ">
-        <div style="
-          font-weight:600;
-          color:#1e293b;
-          margin-bottom:8px;
-          font-size:15px;
-        ">
-          ${hour}
-        </div>
-        ${rows}
-      </div>
-    `;
-  }
-},
+            <div style="font-weight:600;color:#1e293b;margin-bottom:8px;font-size:15px;">${hour}</div>
+            ${rows}
+          </div>
+        `;
+      }
+    },
     legend: {
       show: true,
       orient: 'horizontal',
@@ -1221,29 +1307,15 @@ function renderCallVolumeChart() {
       textStyle: { color: textColor, fontSize: 13, fontWeight: 500 },
       inactiveColor: '#cbd5e1'
     },
-    grid: {
-      left: '3%',
-      right: '4%',
-      top: '10%',
-      bottom: '2%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: fullHours,
-      axisLabel: { color: textColor, interval: i => i % 6 === 0 }
-    },
-    yAxis: {
-      type: 'value',
-      max: niceMax,
-      min: 0,
-      show: false
-    },
+    grid: { left: '3%', right: '4%', top: '10%', bottom: '2%', containLabel: true },
+    xAxis: { type: 'category', data: fullHours, axisLabel: { color: textColor, interval: i => i % 6 === 0 } },
+    yAxis: { type: 'value', max: niceMax, min: 0, show: false },
     series: [
-      rangeAvgData && {
-        name: rangeLabel || 'Range Average',
+      // Optional range avg
+      rangeAvgInbound && {
+        name: `Inbound ${rangeLabel}`,
         type: 'line',
-        data: rangeAvgData,
+        data: rangeAvgInbound,
         smooth: true,
         showSymbol: false,
         z: 6,
@@ -1256,10 +1328,27 @@ function renderCallVolumeChart() {
           ])
         }
       },
-      {
-        name: formatDateDisplay(selectedDate),
+      rangeAvgOutbound && {
+        name: `Outbound ${rangeLabel}`,
         type: 'line',
-        data: todayData,
+        data: rangeAvgOutbound,
+        smooth: true,
+        showSymbol: false,
+        z: 6,
+        itemStyle: { color: outboundColor },
+        lineStyle: { width: 2, color: outboundColor, shadowBlur: 6, shadowColor: 'rgba(47, 179, 68, 0.3)' },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: 'rgba(47, 179, 68, 0.2)' },
+            { offset: 1, color: 'rgba(47, 179, 68, 0)' }
+          ])
+        }
+      },
+      // Today inbound
+      {
+        name: `Inbound ${formatDateDisplay(selectedDate)}`,
+        type: 'line',
+        data: inboundToday,
         smooth: true,
         symbol: 'circle',
         symbolSize: 8,
@@ -1272,17 +1361,180 @@ function renderCallVolumeChart() {
             { offset: 1, color: 'rgba(56, 116, 255, 0)' }
           ])
         },
-        emphasis: {
-          itemStyle: { borderWidth: 3, shadowBlur: 10, shadowColor: 'rgba(56, 116, 255, 0.5)' }
-        }
+        emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 10, shadowColor: 'rgba(56, 116, 255, 0.5)' } }
+      },
+      // Today outbound
+      {
+        name: `Outbound ${formatDateDisplay(selectedDate)}`,
+        type: 'line',
+        data: outboundToday,
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 8,
+        z: 10,
+        itemStyle: { color: outboundColor, borderColor: '#fff', borderWidth: 2 },
+        lineStyle: { width: 2, color: outboundColor, shadowBlur: 8, shadowColor: 'rgba(47, 179, 68, 0.25)' },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: 'rgba(47, 179, 68, 0.2)' },
+            { offset: 1, color: 'rgba(47, 179, 68, 0)' }
+          ])
+        },
+        emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 10, shadowColor: 'rgba(47, 179, 68, 0.5)' } }
       }
     ].filter(Boolean)
   };
 
   callVolumeChart.setOption(option);
+
+  // Remove old resize listener if exists
+  if (callVolumeChart.resizeListener) window.removeEventListener('resize', callVolumeChart.resizeListener);
   callVolumeChart.resizeListener = () => callVolumeChart.resize();
   window.addEventListener('resize', callVolumeChart.resizeListener);
 }
+
+
+//Capacity-chart
+
+// ===========================
+// Global Styling Constants
+// ===========================
+const TABLER_BLUE   = '#206bc4';
+const TABLER_GREEN  = '#2fb344';
+const TABLER_YELLOW = '#f59f00';
+const TABLER_GRAY   = '#9ca3af';
+const TABLER_GRID   = '#f1f5f9';
+
+const chartAvg = echarts.init(document.getElementById('capacity-chart'));
+
+async function loadAverageChartMerged() {
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/Contactinfocenter/call-center-dashboard/main/dist/data/calls/all_calls.json');
+    const rawData = await res.json();
+
+    const allDates = Object.keys(rawData.calls || {});
+    const dayCount = allDates.length || 1;
+
+    // Initialize hourly stats
+    const hourlyCalls = Array.from({ length: 24 }, () => ({ inbound: 0, outbound: 0, total: 0, dropCount: 0 }));
+    const hourlyAgentsByDay = Array.from({ length: 24 }, () => ({}));
+
+    // Process all calls
+    Object.entries(rawData.calls || {}).forEach(([date, dayCalls]) => {
+      Object.values(dayCalls).forEach(call => {
+        if (!call) return;
+
+        const hour = new Date(call.call_date).getHours();
+        if (hour < 0 || hour > 23) return;
+
+        const h = hourlyCalls[hour];
+        if (!call.is_drop) {
+          h.total++;
+          if (call.direction === 'inbound') h.inbound++;
+          else if (call.direction === 'outbound') h.outbound++;
+
+          if (call.full_name) {
+            if (!hourlyAgentsByDay[hour][date]) hourlyAgentsByDay[hour][date] = new Set();
+            hourlyAgentsByDay[hour][date].add(call.full_name);
+          }
+        } else {
+          h.dropCount++;
+        }
+      });
+    });
+
+    // Compute hourly averages
+    const activeHours = hourlyCalls.map((h, i) => {
+      const dayCounts = Object.values(hourlyAgentsByDay[i]).map(set => set.size);
+      const avgAgents = dayCounts.length ? Math.round(dayCounts.reduce((a,b)=>a+b,0)/dayCount) : 0;
+      return {
+        hour: i,
+        total: Math.ceil(h.total / dayCount),
+        inbound: Math.ceil(h.inbound / dayCount),
+        outbound: Math.ceil(h.outbound / dayCount),
+        dropCountRaw: h.dropCount / dayCount,
+        agentCount: avgAgents
+      };
+    }).filter(h => h.total > 0 || h.dropCountRaw > 0);
+
+    const categories = activeHours.map(h => `${h.hour.toString().padStart(2,'0')}:00`);
+    const totalCalls = activeHours.map(h => h.total);
+    const inbound = activeHours.map(h => h.inbound);
+    const outbound = activeHours.map(h => h.outbound);
+    const agents = activeHours.map(h => h.agentCount);
+    const dropPercent = activeHours.map(h => h.dropCountRaw > 0 ? ((h.dropCountRaw / h.total) * 100).toFixed(1) : null);
+
+    // Highlight peak hours
+    const sortedTotals = [...totalCalls].sort((a,b)=>b-a);
+    const threshold = sortedTotals[Math.floor(totalCalls.length*0.2)] || Math.max(...totalCalls);
+    const peakHours = [];
+    totalCalls.forEach((v,i) => {
+      if (v >= threshold && v > 0) peakHours.push([{ xAxis: categories[i], itemStyle: { color: 'rgba(245,159,0,0.12)' } }, { xAxis: categories[i] }]);
+    });
+
+    chartAvg.setOption(getMergedChartOption(categories, totalCalls, inbound, outbound, agents, dropPercent, peakHours, activeHours));
+  } catch (e) { console.error(e); }
+}
+
+function getMergedChartOption(categories, totalCalls, inbound, outbound, agents, dropPercent, peakHours, activeData) {
+  return {
+    backgroundColor: 'transparent',
+    legend: {
+      left: 'left',
+      top: 0,
+      icon: 'rect',
+      itemWidth: 12,
+      itemHeight: 12,
+      textStyle: { color: TABLER_GRAY, fontSize: 12 },
+      data: [
+        { name: 'Total Calls', icon: 'rect', itemStyle: { color: TABLER_BLUE } },
+        { name: 'Agents', icon: 'rect', itemStyle: { color: TABLER_GREEN } },
+        { name: 'Drop %', icon: 'rect', itemStyle: { color: TABLER_YELLOW } }
+      ]
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(0,0,0,0.02)' } },
+      backgroundColor: '#ffffff',
+      borderColor: '#e6e8eb',
+      textStyle: { color: '#1d273b' },
+      formatter: function(params) {
+        const idx = params[0].dataIndex;
+        const h = activeData[idx];
+        const callsPerAgent = agents[idx] > 0 ? (totalCalls[idx]/agents[idx]).toFixed(2) : '0';
+        const dropDisp = h.dropCountRaw.toFixed(1);
+        const dropLine = h.dropCountRaw > 0 ? `<span style="color:${TABLER_YELLOW}">●</span> Drop: <b>${dropPercent[idx]}%</b> (${dropDisp} avg)<br/>` : '';
+
+        return `
+          <div style="font-weight:600; border-bottom:1px solid ${TABLER_GRID}; margin-bottom:8px; padding-bottom:4px;">
+            ${categories[idx]} (Avg/Day)
+          </div>
+          <span style="color:${TABLER_BLUE}">●</span> Total Calls: <b>${totalCalls[idx]}</b> 
+          <small style="color:${TABLER_GRAY}">(In:${inbound[idx]} Out:${outbound[idx]})</small><br/>
+          ${dropLine}
+          <span style="color:${TABLER_GREEN}">●</span> Agents: <b>${agents[idx]}</b><br/>
+          <span style="color:#626976">●</span> Efficiency: <b>${callsPerAgent}</b> calls/agent
+        `;
+      }
+    },
+    grid: { left: '3%', right: '5%', top: 60, bottom: '5%', containLabel: true },
+    xAxis: { type: 'category', data: categories, axisLine: { lineStyle: { color: TABLER_GRID } }, axisLabel: { color: TABLER_GRAY } },
+    yAxis: [
+      { type: 'value', name: 'Avg Calls', splitLine: { lineStyle: { color: TABLER_GRID } }, axisLabel: { color: TABLER_GRAY } },
+      { type: 'value', name: 'Agents', position: 'right', splitLine: { show:false }, axisLabel: { color: TABLER_GRAY } },
+      { type: 'value', name: 'Drop %', position: 'right', offset: 50, axisLabel: { formatter:'{value}%', color: TABLER_GRAY }, splitLine: { show:false } }
+    ],
+    series: [
+      { name:'Total Calls', type:'bar', barWidth:'40%', data:totalCalls, itemStyle:{ borderRadius:[2,2,0,0], color: TABLER_BLUE }, markArea:{ silent:true, data:peakHours } },
+      { name:'Agents', type:'line', yAxisIndex:1, smooth:true, showSymbol:false, lineStyle:{ width:3, color:TABLER_GREEN }, data:agents },
+      { name:'Drop %', type:'line', yAxisIndex:2, connectNulls:false, symbol:'circle', symbolSize:8, lineStyle:{ width:2, type:'dashed', color:TABLER_YELLOW }, itemStyle:{ color:TABLER_YELLOW, borderColor:'#fff' }, data:dropPercent }
+    ]
+  };
+}
+
+// Initialize chart
+loadAverageChartMerged();
+window.addEventListener('resize', () => chartAvg.resize());
 
 
 // ==================== REPEAT RATE CHART ====================
