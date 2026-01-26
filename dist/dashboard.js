@@ -98,7 +98,6 @@ function calculateFilteredAgentStats(startDate = null, endDate = null) {
     const endNum = endDate ? getNumericDate(endDate) : null;
 
     for (const dateKey in rawData) {
-        // dateKey is "2025-12-20"
         const currentNum = getNumericDate(dateKey);
         if (!currentNum) continue;
 
@@ -111,15 +110,23 @@ function calculateFilteredAgentStats(startDate = null, endDate = null) {
             const call = calls[callId];
             if (!call) continue;
 
+            // ── Exclude dropped calls ────────────────────────────────────────
+            if (call.is_drop === true || call.status?.toUpperCase() === "DROP") {
+                continue;  // Skip this call completely
+            }
+
             const agent = (call.full_name || "Unknown").trim();
             const callTimestamp = Date.parse(call.call_date);
             if (isNaN(callTimestamp)) continue; 
 
             if (!filteredStats[agent]) {
                 filteredStats[agent] = {
-                    total: 0, fcr: 0, ahtSum: 0,
+                    total: 0, 
+                    fcr: 0, 
+                    ahtSum: 0,
                     uniqueCallers: new Set(),
-                    firstPerDay: {}, lastPerDay: {}
+                    firstPerDay: {}, 
+                    lastPerDay: {}
                 };
             }
 
@@ -127,11 +134,18 @@ function calculateFilteredAgentStats(startDate = null, endDate = null) {
             s.total++;
             s.ahtSum += (parseFloat(call.acht) || 0);
             if (call.status === "FCR") s.fcr++;
-            if (call.phone_number) s.uniqueCallers.add(call.phone_number);
+
+            if (call.phone_number) {
+                s.uniqueCallers.add(call.phone_number);
+            }
 
             const dayKey = call.call_date.split(' ')[0]; 
-            if (!s.firstPerDay[dayKey] || callTimestamp < s.firstPerDay[dayKey]) s.firstPerDay[dayKey] = callTimestamp;
-            if (!s.lastPerDay[dayKey] || callTimestamp > s.lastPerDay[dayKey]) s.lastPerDay[dayKey] = callTimestamp;
+            if (!s.firstPerDay[dayKey] || callTimestamp < s.firstPerDay[dayKey]) {
+                s.firstPerDay[dayKey] = callTimestamp;
+            }
+            if (!s.lastPerDay[dayKey] || callTimestamp > s.lastPerDay[dayKey]) {
+                s.lastPerDay[dayKey] = callTimestamp;
+            }
         }
     }
     return filteredStats;
@@ -228,6 +242,110 @@ function renderAgentSummaryTable() {
     `;
 }
 
+function calculateMonthlyAgentRankings() {
+  const monthlyStats = {};
+
+  for (const dateKey in rawData) {
+    const date = new Date(dateKey);
+    const monthKey = date.toISOString().slice(0, 7); // "2026-01"
+
+    if (!monthlyStats[monthKey]) {
+      monthlyStats[monthKey] = {};
+    }
+
+    const calls = rawData[dateKey] || {};
+    for (const id in calls) {
+      const c = calls[id];
+      if (!c || c.is_drop || c.status === "DROP") continue;
+
+      const agent = (c.full_name || "Unknown").trim();
+      if (!monthlyStats[monthKey][agent]) {
+        monthlyStats[monthKey][agent] = { totalCalls: 0 };
+      }
+      monthlyStats[monthKey][agent].totalCalls++;
+    }
+  }
+
+  // Now rank each month
+  const rankings = {};
+  Object.keys(monthlyStats).sort().forEach(month => {
+    const agents = Object.entries(monthlyStats[month])
+      .map(([agent, data]) => ({ agent, calls: data.totalCalls }))
+      .sort((a, b) => b.calls - a.calls)
+      .slice(0, 5); // Top 5
+
+    rankings[month] = agents;
+  });
+
+  return rankings;
+}
+
+// Helper function to format month (add this once, anywhere in your script)
+function formatMonthKey(monthKey) {
+  if (!monthKey || !/^\d{4}-\d{2}$/.test(monthKey)) return monthKey;
+  
+  const [year, month] = monthKey.split('-');
+  const shortMonth = new Date(2020, Number(month) - 1, 1)
+    .toLocaleString('en-US', { month: 'short' });
+  
+  const shortYear = year.slice(-2); // '26' from 2026
+  
+  return `${shortMonth}'${shortYear}`;
+}
+
+function renderMonthlyRankings() {
+  const container = document.getElementById('monthlyRankingsTable');
+  if (!container) return;
+
+  const rankings = calculateMonthlyAgentRankings();
+
+  if (Object.keys(rankings).length === 0) {
+    container.innerHTML = `
+      <p class="text-center text-muted py-4">
+        <i class="ti ti-info-circle me-2"></i>No monthly data available
+      </p>
+    `;
+    return;
+  }
+
+  let html = `
+    <table class="table table-bordered table-hover table-sm">
+      <thead class="bg-primary text-white">
+        <tr>
+          <th class="text-center">Month</th>
+          <th>Rank 1</th>
+          <th>Rank 2</th>
+          <th>Rank 3</th>
+          <th>Rank 4</th>
+          <th>Rank 5</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  // Sort months newest → oldest (most recent at top)
+  Object.keys(rankings)
+    .sort((a, b) => b.localeCompare(a))
+    .forEach(month => {
+      const top5 = rankings[month];
+      html += `<tr><td class="fw-bold text-center">${formatMonthKey(month)}</td>`;
+
+      for (let i = 0; i < 5; i++) {
+        const entry = top5[i];
+        html += `<td class="text-nowrap">
+          ${entry ? `${entry.agent} <small class="text-muted">(${entry.calls})</small>` : '—'}
+        </td>`;
+      }
+
+      html += '</tr>';
+    });
+
+  html += '</tbody></table>';
+
+  container.innerHTML = html;
+}
+
+
 // ==================== DATA LOADING ====================
 async function loadDataFromGitHub() {
   const reloadBtn = document.getElementById('btnReload');
@@ -266,6 +384,7 @@ async function loadDataFromGitHub() {
       renderCallVolumeChart();
       renderRepeatRateChartForSelectedDate();
       renderAgentSummaryTable();
+      renderMonthlyRankings()
       
 
       // NEW: Initialize the new chart in Team Average mode (null = team only)
@@ -317,7 +436,7 @@ function processRawData() {
       const call = calls[callId];
       if (!call) continue;
 
-      // 🔴 Skip DROP calls completely for agent stats
+      // Skip DROP calls completely for agent stats
       if (call.is_drop === true || call.status === "DROP") continue;
 
       const agent = (call.full_name || "").trim();
@@ -345,15 +464,15 @@ function processRawData() {
 
       const s = agentStats[agent];
 
-      // ✅ Total valid calls
+      // Total valid calls
       s.total++;
       s.ahtSum += acht;
 
-      // ✅ Direction split
+      // Direction split
       if (direction === "inbound") {
         s.inbound++;
 
-        // ✅ FCR only for inbound
+        // FCR only for inbound
         if (status === "FCR") s.fcr++;
         else s.nonFcr++;
 
@@ -361,13 +480,13 @@ function processRawData() {
         s.outbound++;
       }
 
-      // ✅ Unique caller tracking
+      // Unique caller tracking
       if (phone) {
         s.uniqueCallers.add(phone);
         s.callerCounts[phone] = (s.callerCounts[phone] || 0) + 1;
       }
 
-      // ✅ Hourly AHT (valid time only)
+      // Hourly AHT (valid time only)
       if (callDate instanceof Date && !isNaN(callDate)) {
         const hr = callDate.getHours();
         s.hourly[hr].push(acht);
@@ -375,16 +494,13 @@ function processRawData() {
     }
   }
 
-  // ✅ Sorted agent list
+  // Sorted agent list
   agentList = Object.keys(agentStats).sort((a, b) => a.localeCompare(b));
 }
 
 
 // ==================== KPIs ====================
 function renderKPIs() {
-  /* ===========================
-     Agent-based KPIs
-     =========================== */
 
   const totalCalls = Object.values(agentStats)
     .reduce((a, s) => a + s.total, 0);
@@ -402,10 +518,6 @@ function renderKPIs() {
 
   const topAgent = topAgentEntry ? topAgentEntry[0] : '—';
 
-  /* ===========================
-     Inbound / Outbound counts
-     =========================== */
-
   let inboundCount = 0;
   let outboundCount = 0;
 
@@ -421,9 +533,6 @@ function renderKPIs() {
     }
   }
 
-  /* ===========================
-   Avg FCR % (Inbound only)
-   =========================== */
 
 let inboundAnswered = 0;
 let inboundFcr = 0;
@@ -1199,21 +1308,22 @@ function initRangeControls() {
 function renderCallVolumeChart() {
   destroyChart(callVolumeChart);
 
-  // Today's hourly data
+  // Today's hourly data (Excluding drops)
   const inboundToday = computeHourlyVolume(selectedDate, { excludeDrop: true, direction: 'inbound' });
   const outboundToday = computeHourlyVolume(selectedDate, { excludeDrop: true, direction: 'outbound' });
 
   let rangeAvgInbound = null;
   let rangeAvgOutbound = null;
-  let rangeLabel = null;
+  let rangeLabel = "";
 
   const rangeSelect = document.getElementById('volumeRangeSelect');
   const mode = rangeSelect ? rangeSelect.value : '30';
 
+  // ── UPDATED SHORT FORM LABELS ──────────────────────────────────────────
   if (mode === 'all') {
     rangeAvgInbound = computeAllTimeAvgHourly({ excludeDrop: true, direction: 'inbound' });
     rangeAvgOutbound = computeAllTimeAvgHourly({ excludeDrop: true, direction: 'outbound' });
-    rangeLabel = 'Daily Avg (All Time)';
+    rangeLabel = 'All Time'; 
   } else if (mode === '7' || mode === '30') {
     const daysBack = mode === '7' ? 7 : 30;
     const endDate = new Date(selectedDate);
@@ -1222,131 +1332,105 @@ function renderCallVolumeChart() {
 
     rangeAvgInbound = computeRangeHourlyAverage(startDate.toISOString().split('T')[0], selectedDate, { excludeDrop: true, direction: 'inbound' });
     rangeAvgOutbound = computeRangeHourlyAverage(startDate.toISOString().split('T')[0], selectedDate, { excludeDrop: true, direction: 'outbound' });
-    rangeLabel = `Daily Avg (Last ${daysBack} Days)`;
+    rangeLabel = `Last ${daysBack} Days`;
   } else if (mode === 'custom') {
     const start = document.getElementById('rangeStart')?.value;
     const end = document.getElementById('rangeEnd')?.value;
     if (start && end && start <= end) {
       rangeAvgInbound = computeRangeHourlyAverage(start, end, { excludeDrop: true, direction: 'inbound' });
       rangeAvgOutbound = computeRangeHourlyAverage(start, end, { excludeDrop: true, direction: 'outbound' });
-      rangeLabel = `Daily Avg (${formatDateDisplay(start)} – ${formatDateDisplay(end)})`;
+      rangeLabel = `${formatDateDisplay(start)} – ${formatDateDisplay(end)}`;
     }
   }
 
   const chartDom = document.getElementById('chart-call-volume');
   if (!chartDom) return;
-
   callVolumeChart = echarts.init(chartDom);
 
-  const primaryColor = '#3874ff';
-  const outboundColor = '#2fb344';
-  const rangeColor = '#10b981';
-  const textColor = '#64748b';
+  // ── Phoenix Theme Colors ──────────────────────────────────────────────────
+  const todayInboundColor   = '#f59e0b'; // Amber (Inbound)
+  const todayOutboundColor  = '#06b6d4'; // Cyan (Outbound)
+  const rangeInboundColor   = '#fbbf24'; // Lighter Amber (Avg)
+  const rangeOutboundColor  = '#22d3ee'; // Lighter Cyan (Avg)
+  const textColor           = '#475569';
+  const gridColor           = '#f1f5f9';
 
   const fullHours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 
-  // Determine chart max
-  const allValues = [...(rangeAvgInbound || []), ...(rangeAvgOutbound || []), ...inboundToday, ...outboundToday];
-  const dataMax = allValues.length ? Math.max(...allValues) : 100;
-  const niceMax = dataMax === 0 ? 100 : Math.ceil((dataMax + 9) / 10) * 10;
-
   const option = {
+    backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis',
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-      padding: 0,
-      axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1' } },
+      backgroundColor: 'rgba(255,255,255,0.98)',
+      borderColor: '#e2e8f0',
+      borderWidth: 1,
+      padding: [10, 14],
+      extraCssText: 'box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-radius: 8px;',
+      axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1', width: 1.5 } },
       formatter: function (params) {
-        const hour = params[0].name;
-        params.sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
-        let rows = '';
+        let rows = `<div style="font-weight:600;color:#1e293b;margin-bottom:8px;border-bottom:1px solid #e2e8f0;padding-bottom:4px;">${params[0].name}</div>`;
         params.forEach(p => {
-          if (p.value == null) return;
           rows += `
-            <div style="display:flex;align-items:center;margin-top:6px;">
-              <span style="
-                display:inline-block;
-                width:11px;
-                height:11px;
-                border-radius:50%;
-                background:${p.color};
-                margin-right:10px;
-                box-shadow:0 1px 3px rgba(0,0,0,0.15);
-              "></span>
-              <span style="color:#64748b;font-size:13px;">${p.seriesName}:</span>
-              <span style="font-weight:700;margin-left:8px;color:#1e293b;">${p.value} calls</span>
-            </div>
-          `;
+            <div style="display:flex;align-items:center;margin:4px 0;">
+              <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p.color};margin-right:8px;"></span>
+              <span style="color:#475569;font-size:13px;">${p.seriesName}:</span>
+              <span style="font-weight:700;margin-left:auto;color:#1e293b;">${p.value}</span>
+            </div>`;
         });
-        return `
-          <div style="
-            padding:10px 14px;
-            background:rgba(255,255,255,0.96);
-            border:1px solid #e2e8f0;
-            border-radius:6px;
-            box-shadow:0 4px 16px rgba(0,0,0,0.12);
-            font-family:Inter, system-ui, sans-serif;
-            font-size:14px;
-            min-width:210px;
-            pointer-events:none;
-          ">
-            <div style="font-weight:600;color:#1e293b;margin-bottom:8px;font-size:15px;">${hour}</div>
-            ${rows}
-          </div>
-        `;
+        return `<div style="min-width:180px;">${rows}</div>`;
       }
     },
+
+    // ── Fixed Legend with SHORT FORM labels ──────────────────────────────────
     legend: {
       show: true,
-      orient: 'horizontal',
-      left: '2%',
-      top: '0%',
-      itemGap: 24,
-      itemWidth: 12,
-      itemHeight: 12,
-      icon: 'circle',
-      textStyle: { color: textColor, fontSize: 13, fontWeight: 500 },
-      inactiveColor: '#cbd5e1'
+      top: 0,
+      itemGap: 25,
+      itemWidth: 18,    
+      itemHeight: 10,   
+      icon: 'roundRect',
+      textStyle: { color: textColor, fontSize: 12, fontWeight: 500 },
+      data: [
+        `Inbound ${formatDateDisplay(selectedDate)}`,
+        `Outbound ${formatDateDisplay(selectedDate)}`,
+        rangeAvgInbound ? `Inbound Avg (${rangeLabel})` : null,
+        rangeAvgOutbound ? `Outbound Avg (${rangeLabel})` : null
+      ].filter(Boolean)
     },
-    grid: { left: '3%', right: '4%', top: '10%', bottom: '2%', containLabel: true },
-    xAxis: { type: 'category', data: fullHours, axisLabel: { color: textColor, interval: i => i % 6 === 0 } },
-    yAxis: { type: 'value', max: niceMax, min: 0, show: false },
+
+    grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+    xAxis: { 
+      type: 'category', 
+      data: fullHours, 
+      axisLine: { lineStyle: { color: gridColor } },
+      axisLabel: { color: textColor, fontSize: 11, interval: 3 }
+    },
+    yAxis: { 
+      type: 'value', 
+      show: true,
+      splitLine: { lineStyle: { color: gridColor, type: 'dashed' } },
+      axisLabel: { color: textColor }
+    },
+
     series: [
-      // Optional range avg
       rangeAvgInbound && {
-        name: `Inbound ${rangeLabel}`,
+        name: `Inbound Avg (${rangeLabel})`,
         type: 'line',
         data: rangeAvgInbound,
         smooth: true,
         showSymbol: false,
-        z: 6,
-        itemStyle: { color: rangeColor },
-        lineStyle: { width: 2, color: rangeColor, shadowBlur: 6, shadowColor: 'rgba(16, 185, 129, 0.3)' },
-        areaStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(16, 185, 129, 0.2)' },
-            { offset: 1, color: 'rgba(16, 185, 129, 0)' }
-          ])
-        }
+        lineStyle: { width: 2, type: 'dashed', color: rangeInboundColor },
+        itemStyle: { color: rangeInboundColor }
       },
       rangeAvgOutbound && {
-        name: `Outbound ${rangeLabel}`,
+        name: `Outbound Avg (${rangeLabel})`,
         type: 'line',
         data: rangeAvgOutbound,
         smooth: true,
         showSymbol: false,
-        z: 6,
-        itemStyle: { color: outboundColor },
-        lineStyle: { width: 2, color: outboundColor, shadowBlur: 6, shadowColor: 'rgba(47, 179, 68, 0.3)' },
-        areaStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(47, 179, 68, 0.2)' },
-            { offset: 1, color: 'rgba(47, 179, 68, 0)' }
-          ])
-        }
+        lineStyle: { width: 2, type: 'dashed', color: rangeOutboundColor },
+        itemStyle: { color: rangeOutboundColor }
       },
-      // Today inbound
       {
         name: `Inbound ${formatDateDisplay(selectedDate)}`,
         type: 'line',
@@ -1354,18 +1438,15 @@ function renderCallVolumeChart() {
         smooth: true,
         symbol: 'circle',
         symbolSize: 8,
-        z: 10,
-        itemStyle: { color: primaryColor, borderColor: '#fff', borderWidth: 2 },
-        lineStyle: { width: 2, color: primaryColor, shadowBlur: 8, shadowColor: 'rgba(56, 116, 255, 0.25)' },
+        lineStyle: { width: 4, color: todayInboundColor },
+        itemStyle: { color: todayInboundColor, borderColor: '#fff', borderWidth: 2 },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(56, 116, 255, 0.2)' },
-            { offset: 1, color: 'rgba(56, 116, 255, 0)' }
+            { offset: 0, color: 'rgba(245,158,11,0.2)' },
+            { offset: 1, color: 'rgba(245,158,11,0)' }
           ])
-        },
-        emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 10, shadowColor: 'rgba(56, 116, 255, 0.5)' } }
+        }
       },
-      // Today outbound
       {
         name: `Outbound ${formatDateDisplay(selectedDate)}`,
         type: 'line',
@@ -1373,23 +1454,20 @@ function renderCallVolumeChart() {
         smooth: true,
         symbol: 'circle',
         symbolSize: 8,
-        z: 10,
-        itemStyle: { color: outboundColor, borderColor: '#fff', borderWidth: 2 },
-        lineStyle: { width: 2, color: outboundColor, shadowBlur: 8, shadowColor: 'rgba(47, 179, 68, 0.25)' },
+        lineStyle: { width: 4, color: todayOutboundColor },
+        itemStyle: { color: todayOutboundColor, borderColor: '#fff', borderWidth: 2 },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(47, 179, 68, 0.2)' },
-            { offset: 1, color: 'rgba(47, 179, 68, 0)' }
+            { offset: 0, color: 'rgba(6,182,212,0.2)' },
+            { offset: 1, color: 'rgba(6,182,212,0)' }
           ])
-        },
-        emphasis: { itemStyle: { borderWidth: 3, shadowBlur: 10, shadowColor: 'rgba(47, 179, 68, 0.5)' } }
+        }
       }
     ].filter(Boolean)
   };
 
   callVolumeChart.setOption(option);
 
-  // Remove old resize listener if exists
   if (callVolumeChart.resizeListener) window.removeEventListener('resize', callVolumeChart.resizeListener);
   callVolumeChart.resizeListener = () => callVolumeChart.resize();
   window.addEventListener('resize', callVolumeChart.resizeListener);
@@ -1397,10 +1475,8 @@ function renderCallVolumeChart() {
 
 
 //Capacity-chart
-
-// ===========================
 // Global Styling Constants
-// ===========================
+
 const TABLER_BLUE   = '#206bc4';
 const TABLER_GREEN  = '#2fb344';
 const TABLER_YELLOW = '#f59f00';
@@ -1541,7 +1617,6 @@ window.addEventListener('resize', () => chartAvg.resize());
 
 // ==================== REPEAT RATE CHART ====================
 function renderRepeatRateChartForSelectedDate() {
-  // 1. Destroy previous instance
   if (window.repeatRateECharts) {
     window.repeatRateECharts.dispose();
     window.repeatRateECharts = null;
@@ -1550,47 +1625,66 @@ function renderRepeatRateChartForSelectedDate() {
   const dom = document.getElementById('repeatRateChart');
   if (!dom) return;
 
-  // 2. Data Processing
   const calls = getCallsForDate(selectedDate);
   const agentStatsToday = {};
 
   for (const id in calls) {
     const c = calls[id];
+    if (!c) continue;
+    if (c.is_drop === true || c.status === "DROP") continue;
+    if (c.direction !== "inbound") continue;
+
     const agent = (c.full_name || "Unknown").trim();
     const phone = c.phone_number;
+
     if (!agentStatsToday[agent]) {
       agentStatsToday[agent] = { total: 0, unique: new Set() };
     }
+
     agentStatsToday[agent].total++;
     if (phone) agentStatsToday[agent].unique.add(phone);
   }
 
   const agentData = [];
-  let totalCalls = 0;
-  let totalUnique = 0;
+  let totalInboundCalls = 0;
+  let totalUniqueCallers = 0;
+
   Object.keys(agentStatsToday).forEach(agent => {
     const s = agentStatsToday[agent];
     const total = s.total;
     const unique = s.unique.size;
     const repeatRate = total > 0 ? Math.round(((total - unique) / total) * 100) : 0;
-    if (repeatRate > 0) agentData.push({ agent, repeatRate });
-    totalCalls += total;
-    totalUnique += unique;
+
+    if (repeatRate > 0) {
+      agentData.push({ agent, repeatRate });
+    }
+
+    totalInboundCalls += total;
+    totalUniqueCallers += unique;
   });
 
-  agentData.sort((a, b) => a.repeatRate - b.repeatRate); // Horizontal bars usually sort ascending for display
+  agentData.sort((a, b) => a.repeatRate - b.repeatRate);
 
   const categories = agentData.map(d => d.agent);
   const repeatRates = agentData.map(d => d.repeatRate);
-  const overallAvg = totalCalls > 0 ? Math.round(((totalCalls - totalUnique) / totalCalls) * 100) : 0;
+
+  const overallAvg = totalInboundCalls > 0 
+    ? Math.round(((totalInboundCalls - totalUniqueCallers) / totalInboundCalls) * 100) 
+    : 0;
 
   if (agentData.length === 0) {
-    dom.innerHTML = '<div class="text-center text-muted p-5">No repeat callers on this date</div>';
+    dom.innerHTML = '<div class="text-center text-muted p-5">No repeat inbound callers on this date</div>';
     return;
   }
 
-  // 3. ECharts Configuration
   const option = {
+    title: {
+      //text: 'Inbound Repeat Rate by Agent',
+      //subtext: `Selected Date: ${formatDateDisplay(selectedDate)}`,
+      left: 'center',
+      textStyle: { fontSize: 16, fontWeight: 'bold' },
+      subtextStyle: { color: '#64748b' }
+    },
     tooltip: {
       trigger: 'axis',
       padding: 0,
@@ -1601,24 +1695,20 @@ function renderRepeatRateChartForSelectedDate() {
         const p = params[0];
         const rate = p.value;
         const agent = p.name;
-        const dotColor = rate > 30 ? '#dc2626' : rate > 15 ? '#f59e0b' : '#10b981';
+        const dotColor = rate > 30 ? '#dc2626' : rate > 15 ? '#f59e0b' : rate > 1 ? '#fbbf24' : '#10b981';
 
         return `
-          <div style="padding: 10px 14px; background: rgba(255, 255, 255, 0.96); border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); font-family: Inter, sans-serif; min-width: 210px;">
+          <div style="padding: 10px 14px; background: rgba(255, 255, 255, 0.96); border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); font-family: Inter, sans-serif; min-width: 210px;">
             <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; font-size: 15px;">${agent}</div>
             <div style="display: flex; align-items: center;">
               <span style="width: 11px; height: 11px; border-radius: 50%; background: ${dotColor}; margin-right: 10px;"></span>
-              <span style="color: #64748b; font-size: 13.5px;">Repeat Rate:</span>
+              <span style="color: #64748b; font-size: 13.5px;">Inbound Repeat Rate:</span>
               <span style="font-weight: 700; margin-left: 8px; color: #1e293b;">${rate}%</span>
             </div>
           </div>`;
       }
     },
-    grid: { left: '3%', 
-            right: '7%', 
-            bottom: '3%', 
-            containLabel: true 
-    },
+    grid: { left: '3%', right: '7%', bottom: '3%', containLabel: true },
     xAxis: {
       type: 'value',
       axisLabel: { formatter: '{value}%', color: '#64748b' },
@@ -1632,19 +1722,30 @@ function renderRepeatRateChartForSelectedDate() {
       axisTick: { show: false }
     },
     series: [{
-      name: 'Repeat Rate',
+      name: 'Inbound Repeat Rate',
       type: 'bar',
       data: repeatRates.map(val => ({
         value: val,
         itemStyle: {
-          color: val > 30 ? '#dc2626' : val > 15 ? '#f59e0b' : '#10b981',
-          borderRadius: [0, 4, 4, 0] // Rounded corners on the right side
+          // ── Threshold-based colors (customize as needed) ──
+          color: val > 5 ? '#dc2626'       // Critical (>30%)
+               : val > 3 ? '#f59e0b'       // Warning (>15%)
+               : val > 1  ? '#fbbf24'       // Light warning (>1%)
+               : '#10b981',                 // Good (≤1%)
+          borderRadius: [0, 4, 4, 0]
         }
       })),
       barWidth: '85%',
       markLine: {
         symbol: 'none',
-        label: { position: 'end', formatter: `Avg: ${overallAvg}%`, backgroundColor: '#64748b', color: '#fff', padding: [2, 4], borderRadius: 3 },
+        label: { 
+          position: 'end', 
+          formatter: `Avg: ${overallAvg}%`, 
+          backgroundColor: '#64748b', 
+          color: '#fff', 
+          padding: [2, 4], 
+          borderRadius: 3 
+        },
         lineStyle: { color: '#64748b', type: 'dotted', width: 2 },
         data: [{ xAxis: overallAvg }]
       }
