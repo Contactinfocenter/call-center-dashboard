@@ -731,12 +731,20 @@ function renderAHTHeatmap(agent) {
     const data = computeAhtPerHour(agent);
     const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 
-    // Color logic preserved
+    // ── Phoenix Theme Colors ──────────────────────────────────────────────────
+    const phoenixCyan   = '#06b6d4'; // Target / Good
+    const phoenixAmber  = '#f59e0b'; // Warning
+    const phoenixRust   = '#ea580c'; // High / Critical
+    const neutralGray   = '#e2e8f0'; // Empty
+    const gridColor     = '#f1f5f9';
+    const textColor     = '#64748b';
+
+    // Update Color logic to Phoenix Palette
     const barData = data.map(v => {
-        let color = '#ef4444'; // Red (High)
-        if (v === 0) color = '#e2e8f0'; // Gray (No data)
-        else if (v <= 180) color = '#10b981'; // Green (Target)
-        else if (v <= 360) color = '#f59e0b'; // Orange (Warning)
+        let color = phoenixRust;               // Default: High
+        if (v === 0) color = neutralGray;      // No data
+        else if (v <= 180) color = phoenixCyan; // Target (Under 3 mins)
+        else if (v <= 360) color = phoenixAmber; // Warning (Under 6 mins)
         
         return {
             value: v,
@@ -753,28 +761,32 @@ function renderAHTHeatmap(agent) {
             subtext: 'Historical average across all available days',
             left: 'left',
             textStyle: { fontSize: 16, fontWeight: 700, color: '#1e293b', fontFamily: 'Inter' },
-            subtextStyle: { fontSize: 12, color: '#64748b' }
+            subtextStyle: { fontSize: 12, color: textColor }
         },
         tooltip: {
             trigger: 'axis',
-            padding: 0,
-            backgroundColor: 'transparent',
-            borderWidth: 0,
-            axisPointer: { type: 'shadow' }, // Bar charts look better with shadow pointers
+            backgroundColor: 'rgba(255,255,255,0.98)',
+            borderColor: '#e2e8f0',
+            borderWidth: 1,
+            padding: [10, 12],
+            extraCssText: 'box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 8px;',
+            axisPointer: { type: 'shadow' },
             formatter: function (params) {
                 const p = params[0];
                 const val = p.value ?? 0;
                 const title = agent || 'Team Average';
                 
                 return `
-                    <div style="padding: 10px 12px; background: rgba(255,255,255,0.96); border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); min-width: 200px; font-family: Inter, sans-serif;">
-                        <div style="font-weight: 500; color: #1e293b; margin-bottom: 6px; font-size: 14px;">
+                    <div style="font-family: Inter, sans-serif; min-width: 180px;">
+                        <div style="font-weight: 600; color: #1e293b; margin-bottom: 6px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">
                             ${title} · ${p.name}
                         </div>
-                        <div style="display: flex; align-items: center; font-size: 13px;">
-                            <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color}; margin-right: 8px;"></span>
-                            <span style="color:#64748b;">Avg AHT:</span>
-                            <span style="font-weight: 600; margin-left: auto; color: #1e293b;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color}; margin-right: 8px;"></span>
+                                <span style="color:#64748b; font-size: 13px;">Avg AHT:</span>
+                            </div>
+                            <span style="font-weight: 700; color: #1e293b;">
                                 ${formatSecondsToMinutes(Math.round(val))}
                             </span>
                         </div>
@@ -782,40 +794,52 @@ function renderAHTHeatmap(agent) {
                 `;
             }
         },
-        grid: { left: '3%', right: '4%', bottom: '10%', containLabel: true },
+        grid: { left: '3%', right: '4%', bottom: '12%', top: '20%', containLabel: true },
         xAxis: {
             type: 'category',
             data: hours,
-            axisLabel: { rotate: -90, color: '#64748b', fontSize: 11 },
+            axisLabel: { rotate: 45, color: textColor, fontSize: 11 },
+            axisLine: { lineStyle: { color: gridColor } },
             axisTick: { show: false }
         },
         yAxis: {
             type: 'value',
-            axisLabel: { formatter: (val) => formatSecondsToMinutes(val), color: '#64748b' },
-            splitLine: { lineStyle: { type: 'dashed', color: '#e2e8f0' } }
+            axisLabel: { formatter: (val) => formatSecondsToMinutes(val), color: textColor },
+            splitLine: { lineStyle: { type: 'dashed', color: gridColor } }
         },
         series: [{
             name: 'Average Handle Time',
             type: 'bar',
             data: barData,
-            barWidth: '70%',
+            barWidth: '65%',
             itemStyle: { borderRadius: [4, 4, 0, 0] },
-            // Target Annotations (MarkLines)
             markLine: {
                 symbol: 'none',
-                label: { position: 'end', fontSize: 10, fontWeight: 600 },
+                label: { position: 'end', fontSize: 10, fontWeight: 700 },
                 data: [
                     {
                         yAxis: 180,
                         name: 'Target',
-                        lineStyle: { color: '#10b981', type: 'dashed', width: 2 },
-                        label: { formatter: 'Target: 3:00', backgroundColor: '#10b981', color: '#fff', padding: [2, 4], borderRadius: 3 }
+                        lineStyle: { color: phoenixCyan, type: 'dashed', width: 2 },
+                        label: { 
+                            formatter: 'Target: 3m', 
+                            backgroundColor: phoenixCyan, 
+                            color: '#fff', 
+                            padding: [3, 6], 
+                            borderRadius: 4 
+                        }
                     },
                     {
                         yAxis: Math.round(overallAvgAht),
                         name: 'Average',
-                        lineStyle: { color: '#64748b', type: 'dotted', width: 2 },
-                        label: { formatter: 'Avg: {c}s', backgroundColor: '#64748b', color: '#fff', padding: [2, 4], borderRadius: 3 }
+                        lineStyle: { color: textColor, type: 'dotted', width: 2 },
+                        label: { 
+                            formatter: `Avg: ${formatSecondsToMinutes(Math.round(overallAvgAht))}`, 
+                            backgroundColor: textColor, 
+                            color: '#fff', 
+                            padding: [3, 6], 
+                            borderRadius: 4 
+                        }
                     }
                 ]
             }
@@ -869,13 +893,17 @@ function renderAgentVsSystemHourlyChart(agent) {
   const container = document.getElementById('agentVsSystemHourlyContainer');
   if (!container) return;
 
-  // 2. INITIALIZATION GUARD: Prevents "squashed" 100px width bug
-  if (container.clientWidth === 0) {
-    return;
-  }
+  // 2. Initialization Guard
+  if (container.clientWidth === 0) return;
 
   const systemData = computeSelectedDateHourlyVolume(selectedDate);
   const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
+
+  // ── Phoenix Theme Colors ──────────────────────────────────────────────────
+  const phoenixCyan  = '#06b6d4'; // Team / System
+  const phoenixAmber = '#f59e0b'; // Agent
+  const textColor    = '#64748b';
+  const gridColor    = '#f1f5f9';
 
   let series = [{
     name: 'Team Total',
@@ -884,12 +912,12 @@ function renderAgentVsSystemHourlyChart(agent) {
     smooth: true,
     symbol: 'circle',
     symbolSize: 6,
-    itemStyle: { color: '#3b82f6' },
-    lineStyle: { width: 2 },
+    itemStyle: { color: phoenixCyan },
+    lineStyle: { width: 3, color: phoenixCyan },
     areaStyle: {
       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-        { offset: 0, color: 'rgba(59, 130, 246, 0.3)' },
-        { offset: 1, color: 'rgba(59, 130, 246, 0)' }
+        { offset: 0, color: 'rgba(6, 182, 212, 0.2)' },
+        { offset: 1, color: 'rgba(6, 182, 212, 0)' }
       ])
     },
     connectNulls: false
@@ -903,15 +931,16 @@ function renderAgentVsSystemHourlyChart(agent) {
       data: agentData,
       smooth: true,
       symbol: 'circle',
-      symbolSize: 6,
-      itemStyle: { color: '#f59e0b' },
-      lineStyle: { width: 2 },
+      symbolSize: 8,
+      itemStyle: { color: phoenixAmber, borderColor: '#fff', borderWidth: 2 },
+      lineStyle: { width: 4, color: phoenixAmber },
       areaStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: 'rgba(251, 146, 60, 0.3)' },
-          { offset: 1, color: 'rgba(251, 146, 60, 0)' }
+          { offset: 0, color: 'rgba(245, 158, 11, 0.25)' },
+          { offset: 1, color: 'rgba(245, 158, 11, 0)' }
         ])
       },
+      z: 10, // Ensure agent line stays on top of team area
       connectNulls: false
     });
   }
@@ -919,105 +948,59 @@ function renderAgentVsSystemHourlyChart(agent) {
   const option = {
     tooltip: {
       trigger: 'axis',
-      padding: 0,
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-      axisPointer: {
-        type: 'line',
-        lineStyle: { color: '#cbd5e1' }
-      },
+      backgroundColor: 'rgba(255,255,255,0.98)',
+      borderColor: '#e2e8f0',
+      borderWidth: 1,
+      padding: [10, 12],
+      extraCssText: 'box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 8px;',
+      axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1' } },
       formatter: function (params) {
         if (!params || !params.length) return '';
-
         const hour = params[0].name;
         const dateLabel = typeof formatDateForTooltip === 'function' ? formatDateForTooltip(selectedDate) : selectedDate;
 
-        let html = `
-          <div style="
-            padding: 10px 12px;
-            background: rgba(255,255,255,0.96);
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-            min-width: 200px;
-            font-family: Inter, system-ui, sans-serif;
-          ">
-            <div style="
-              font-weight: 500;
-              color: #1e293b;
-              margin-bottom: 6px;
-              font-size: 14px;
-            ">
-              ${dateLabel} - ${hour}
-            </div>
-        `;
-
+        let rows = '';
         params.forEach(p => {
-          const val = p.value ?? 0;
-          html += `
-            <div style="
-              display: flex;
-              align-items: center;
-              margin-top: 4px;
-              font-size: 13px;
-            ">
-              <span style="
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: ${p.color};
-                margin-right: 8px;
-              "></span>
-              <span style="color:#64748b;">
-                ${p.seriesName}:
-              </span>
-              <span style="
-                font-weight: 600;
-                margin-left: auto;
-                color: #1e293b;
-              ">
-                ${val}
-              </span>
-            </div>
-          `;
+          rows += `
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+              <div style="display: flex; align-items: center;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color}; margin-right: 8px;"></span>
+                <span style="color:#64748b; font-size: 13px;">${p.seriesName}:</span>
+              </div>
+              <span style="font-weight: 700; margin-left: 20px; color: #1e293b;">${p.value}</span>
+            </div>`;
         });
 
-        html += `</div>`;
-        return html;
+        return `
+          <div style="font-family: Inter, sans-serif; min-width: 200px;">
+            <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">
+              ${dateLabel} · ${hour}
+            </div>
+            ${rows}
+          </div>`;
       }
     },
     legend: {
       show: true,
-      orient: 'horizontal',
       top: 0,
       left: 'left',
-      itemGap: 20,
-      textStyle: { color: '#64748b', fontSize: 13 }
+      itemGap: 25,
+      itemWidth: 18,
+      itemHeight: 10,
+      icon: 'roundRect',
+      textStyle: { color: textColor, fontSize: 13, fontWeight: 500 }
     },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '10%',
-      containLabel: true
-    },
+    grid: { left: '3%', right: '4%', bottom: '10%', top: '15%', containLabel: true },
     xAxis: {
       type: 'category',
       data: hours,
-      axisLabel: {
-        rotate: -90,
-        interval: 0,
-        color: '#64748b',
-        fontSize: 11
-      },
+      axisLabel: { rotate: 45, interval: 2, color: textColor, fontSize: 11 },
+      axisLine: { lineStyle: { color: gridColor } },
       axisTick: { alignWithLabel: true }
     },
     yAxis: {
       type: 'value',
-      //name: 'Call Volume',
-      //nameTextStyle: { color: '#64748b' },
-      // Hides the 0, 10, 20... labels
       axisLabel: { show: false },
-      // Hides the horizontal lines crossing the chart
       splitLine: { show: false },
       min: 0
     },
@@ -1026,6 +1009,8 @@ function renderAgentVsSystemHourlyChart(agent) {
 
   window.agentVsSystemECharts = echarts.init(container);
   window.agentVsSystemECharts.setOption(option);
+  
+  window.addEventListener('resize', () => window.agentVsSystemECharts && window.agentVsSystemECharts.resize());
 }
 
 
@@ -1066,11 +1051,17 @@ function renderTalkTimeComparisonChart(agent) {
   const container = document.getElementById('talkTimeComparisonContainer');
   if (!container) return;
 
-  // 2. INITIALIZATION GUARD: Prevents "squashed" bug if tab is hidden
+  // 2. INITIALIZATION GUARD
   if (container.clientWidth === 0) return;
 
   const { systemData, agentData } = getHourlyTalkTime(agent, selectedDate);
   const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
+
+  // ── Phoenix Theme Colors ──────────────────────────────────────────────────
+  const phoenixCyan  = '#06b6d4'; // Team Total
+  const phoenixAmber = '#f59e0b'; // Agent
+  const textColor    = '#64748b';
+  const gridColor    = '#f1f5f9';
 
   let series = [
     {
@@ -1080,12 +1071,12 @@ function renderTalkTimeComparisonChart(agent) {
       smooth: true,
       symbol: 'circle',
       symbolSize: 6,
-      itemStyle: { color: '#ef4444' },
-      lineStyle: { width: 2 },
+      itemStyle: { color: phoenixCyan },
+      lineStyle: { width: 3, color: phoenixCyan },
       areaStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: 'rgba(239, 68, 68, 0.3)' },
-          { offset: 1, color: 'rgba(239, 68, 68, 0)' }
+          { offset: 0, color: 'rgba(6, 182, 212, 0.2)' },
+          { offset: 1, color: 'rgba(6, 182, 212, 0)' }
         ])
       },
       connectNulls: false
@@ -1099,122 +1090,81 @@ function renderTalkTimeComparisonChart(agent) {
       data: agentData,
       smooth: true,
       symbol: 'circle',
-      symbolSize: 6,
-      itemStyle: { color: '#10b981' },
-      lineStyle: { width: 2 },
+      symbolSize: 8,
+      itemStyle: { color: phoenixAmber, borderColor: '#fff', borderWidth: 2 },
+      lineStyle: { width: 4, color: phoenixAmber },
       areaStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: 'rgba(16, 185, 129, 0.3)' },
-          { offset: 1, color: 'rgba(16, 185, 129, 0)' }
+          { offset: 0, color: 'rgba(245, 158, 11, 0.25)' },
+          { offset: 1, color: 'rgba(245, 158, 11, 0)' }
         ])
       },
+      z: 10, // Keep Agent on top
       connectNulls: false
     });
   }
 
   const option = {
-    
     tooltip: {
       trigger: 'axis',
-      padding: 0,
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-      axisPointer: {
-        type: 'line',
-        lineStyle: { color: '#cbd5e1' }
-      },
+      backgroundColor: 'rgba(255,255,255,0.98)',
+      borderColor: '#e2e8f0',
+      borderWidth: 1,
+      padding: [10, 12],
+      extraCssText: 'box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 8px;',
+      axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1' } },
       formatter: function (params) {
         if (!params || !params.length) return '';
-
         const hour = params[0].name;
-        // Use your utility function or fallback to raw date
         const dateLabel = typeof formatDateForTooltip === 'function' ? formatDateForTooltip(selectedDate) : selectedDate;
 
-        let html = `
-          <div style="
-            padding: 10px 12px;
-            background: rgba(255,255,255,0.96);
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-            min-width: 210px;
-            font-family: Inter, system-ui, sans-serif;
-          ">
-            <div style="
-              font-weight: 500;
-              color: #1e293b;
-              margin-bottom: 6px;
-              font-size: 14px;
-            ">
-              ${dateLabel} - ${hour}
-            </div>
-        `;
-
+        let rows = '';
         params.forEach(p => {
           const val = p.value ?? 0;
-          // Format seconds to M:SS for the tooltip display
           const displayTime = typeof formatSecondsToMinutes === 'function' ? formatSecondsToMinutes(val) : val;
           
-          html += `
-            <div style="
-              display: flex;
-              align-items: center;
-              margin-top: 4px;
-              font-size: 13px;
-            ">
-              <span style="
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: ${p.color};
-                margin-right: 8px;
-              "></span>
-              <span style="color:#64748b;">
-                ${p.seriesName}:
-              </span>
-              <span style="
-                font-weight: 600;
-                margin-left: auto;
-                color: #1e293b;
-              ">
-                ${displayTime}
-              </span>
-            </div>
-          `;
+          rows += `
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+              <div style="display: flex; align-items: center;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color}; margin-right: 8px;"></span>
+                <span style="color:#64748b; font-size: 13px;">${p.seriesName}:</span>
+              </div>
+              <span style="font-weight: 700; margin-left: 20px; color: #1e293b;">${displayTime}</span>
+            </div>`;
         });
 
-        html += `</div>`;
-        return html;
+        return `
+          <div style="font-family: Inter, sans-serif; min-width: 210px;">
+            <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">
+              ${dateLabel} · ${hour}
+            </div>
+            ${rows}
+          </div>`;
       }
     },
     legend: {
       show: true,
       top: 0,
       left: 'center',
-      textStyle: { color: '#64748b' }
+      itemGap: 25,
+      itemWidth: 18,
+      itemHeight: 10,
+      icon: 'roundRect',
+      textStyle: { color: textColor, fontSize: 13, fontWeight: 500 }
     },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '10%',
-      containLabel: true
-    },
+    grid: { left: '3%', right: '4%', bottom: '12%', top: '15%', containLabel: true },
     xAxis: {
       type: 'category',
       data: hours,
-      axisLabel: {
-        rotate: -90,
-        color: '#64748b',
-        fontSize: 11
-      },
+      axisLabel: { rotate: 45, interval: 3, color: textColor, fontSize: 11 },
+      axisLine: { lineStyle: { color: gridColor } },
       axisTick: { show: false }
     },
     yAxis: {
       type: 'value',
-      // name: '',        
-      axisLabel: { show: false }, // Removed Y-axis labels
-      splitLine: { show: false }, // Removed grid lines
-      axisLine: { show: false },  // Removed Y-axis border line
+      axisLabel: { show: false }, 
+      splitLine: { show: false }, 
+      axisLine: { show: false },
       min: 0
     },
     series: series
@@ -1222,6 +1172,8 @@ function renderTalkTimeComparisonChart(agent) {
 
   window.talkTimeComparisonECharts = echarts.init(container);
   window.talkTimeComparisonECharts.setOption(option);
+
+  window.addEventListener('resize', () => window.talkTimeComparisonECharts && window.talkTimeComparisonECharts.resize());
 }
 
 // ==================== VOLUME CALCULATIONS ====================
@@ -1476,12 +1428,12 @@ function renderCallVolumeChart() {
 
 //Capacity-chart
 // Global Styling Constants
-
-const TABLER_BLUE   = '#206bc4';
-const TABLER_GREEN  = '#2fb344';
-const TABLER_YELLOW = '#f59f00';
-const TABLER_GRAY   = '#9ca3af';
-const TABLER_GRID   = '#f1f5f9';
+// ── Phoenix Theme Colors ──────────────────────────────────────────────────
+const PHOENIX_CYAN  = '#06b6d4';  // Total Calls (System)
+const PHOENIX_GREEN = '#10b981';  // Agents (Active)
+const PHOENIX_AMBER = '#f59e0b';  // Drop % / Warnings
+const PHOENIX_GRAY  = '#64748b';  // Labels
+const PHOENIX_GRID  = '#f1f5f9';  // Grid lines
 
 const chartAvg = echarts.init(document.getElementById('capacity-chart'));
 
@@ -1493,19 +1445,17 @@ async function loadAverageChartMerged() {
     const allDates = Object.keys(rawData.calls || {});
     const dayCount = allDates.length || 1;
 
-    // Initialize hourly stats
     const hourlyCalls = Array.from({ length: 24 }, () => ({ inbound: 0, outbound: 0, total: 0, dropCount: 0 }));
     const hourlyAgentsByDay = Array.from({ length: 24 }, () => ({}));
 
-    // Process all calls
     Object.entries(rawData.calls || {}).forEach(([date, dayCalls]) => {
       Object.values(dayCalls).forEach(call => {
         if (!call) return;
-
         const hour = new Date(call.call_date).getHours();
         if (hour < 0 || hour > 23) return;
 
         const h = hourlyCalls[hour];
+
         if (!call.is_drop) {
           h.total++;
           if (call.direction === 'inbound') h.inbound++;
@@ -1521,10 +1471,10 @@ async function loadAverageChartMerged() {
       });
     });
 
-    // Compute hourly averages
     const activeHours = hourlyCalls.map((h, i) => {
       const dayCounts = Object.values(hourlyAgentsByDay[i]).map(set => set.size);
-      const avgAgents = dayCounts.length ? Math.round(dayCounts.reduce((a,b)=>a+b,0)/dayCount) : 0;
+      const avgAgents = dayCounts.length ? Math.round(dayCounts.reduce((a, b) => a + b, 0) / dayCount) : 0;
+
       return {
         hour: i,
         total: Math.ceil(h.total / dayCount),
@@ -1535,83 +1485,213 @@ async function loadAverageChartMerged() {
       };
     }).filter(h => h.total > 0 || h.dropCountRaw > 0);
 
-    const categories = activeHours.map(h => `${h.hour.toString().padStart(2,'0')}:00`);
-    const totalCalls = activeHours.map(h => h.total);
-    const inbound = activeHours.map(h => h.inbound);
-    const outbound = activeHours.map(h => h.outbound);
-    const agents = activeHours.map(h => h.agentCount);
-    const dropPercent = activeHours.map(h => h.dropCountRaw > 0 ? ((h.dropCountRaw / h.total) * 100).toFixed(1) : null);
+    const categories = activeHours.map(h => `${h.hour.toString().padStart(2, '0')}:00`);
 
-    // Highlight peak hours
-    const sortedTotals = [...totalCalls].sort((a,b)=>b-a);
-    const threshold = sortedTotals[Math.floor(totalCalls.length*0.2)] || Math.max(...totalCalls);
+    // ── Data Mapping with Line Break Logic (null if 0) ───────────────────────
+    const totalCalls = activeHours.map(h => h.total > 0 ? h.total : null);
+    const inbound     = activeHours.map(h => h.inbound);
+    const outbound    = activeHours.map(h => h.outbound);
+
+    // Agents line breaks if 0
+    const agents = activeHours.map(h => h.agentCount > 0 ? h.agentCount : null);
+
+    // Drop Rate line breaks if 0
+    const dropPercent = activeHours.map(h =>
+      (h.total > 0 && h.dropCountRaw > 0)
+        ? ((h.dropCountRaw / h.total) * 100).toFixed(1)
+        : null
+    );
+
+    // Peak hour highlight logic
+    const sortedTotals = [...totalCalls].filter(v => v !== null).sort((a, b) => b - a);
+    const threshold = sortedTotals[Math.floor(sortedTotals.length * 0.2)] || Math.max(...sortedTotals);
     const peakHours = [];
-    totalCalls.forEach((v,i) => {
-      if (v >= threshold && v > 0) peakHours.push([{ xAxis: categories[i], itemStyle: { color: 'rgba(245,159,0,0.12)' } }, { xAxis: categories[i] }]);
+
+    activeHours.forEach((h, i) => {
+      if (h.total >= threshold && h.total > 0) {
+        peakHours.push([
+          { xAxis: categories[i], itemStyle: { color: 'rgba(245,159,0,0.12)' } },
+          { xAxis: categories[i] }
+        ]);
+      }
     });
 
-    chartAvg.setOption(getMergedChartOption(categories, totalCalls, inbound, outbound, agents, dropPercent, peakHours, activeHours));
-  } catch (e) { console.error(e); }
+    chartAvg.setOption(getMergedChartOption(
+      categories,
+      totalCalls,
+      inbound,
+      outbound,
+      agents,
+      dropPercent,
+      peakHours,
+      activeHours
+    ));
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function getMergedChartOption(categories, totalCalls, inbound, outbound, agents, dropPercent, peakHours, activeData) {
   return {
     backgroundColor: 'transparent',
+
     legend: {
-      left: 'left',
+      show: true,
       top: 0,
-      icon: 'rect',
-      itemWidth: 12,
-      itemHeight: 12,
-      textStyle: { color: TABLER_GRAY, fontSize: 12 },
+      itemGap: 25,
+      icon: 'roundRect',
+      textStyle: {
+        color: PHOENIX_GRAY,
+        fontSize: 12,
+        fontWeight: 500
+      },
       data: [
-        { name: 'Total Calls', icon: 'rect', itemStyle: { color: TABLER_BLUE } },
-        { name: 'Agents', icon: 'rect', itemStyle: { color: TABLER_GREEN } },
-        { name: 'Drop %', icon: 'rect', itemStyle: { color: TABLER_YELLOW } }
+        {
+          name: 'Total Calls',
+          icon: 'roundRect',
+          itemStyle: { color: PHOENIX_CYAN }
+        },
+        {
+          name: 'Agents',
+          icon: 'roundRect',
+          itemStyle: { color: PHOENIX_GREEN }
+        },
+        {
+          name: 'Drop %',
+          icon: 'roundRect',
+          itemStyle: { color: PHOENIX_AMBER }
+        }
       ]
     },
+
     tooltip: {
       trigger: 'axis',
-      axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(0,0,0,0.02)' } },
-      backgroundColor: '#ffffff',
-      borderColor: '#e6e8eb',
-      textStyle: { color: '#1d273b' },
+      backgroundColor: 'rgba(255,255,255,0.98)',
+      borderColor: '#e2e8f0',
+      borderWidth: 1,
+      padding: [10, 14],
+      extraCssText: 'box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-radius: 8px;',
+      axisPointer: {
+        type: 'shadow',
+        shadowStyle: { color: 'rgba(0,0,0,0.02)' }
+      },
       formatter: function(params) {
         const idx = params[0].dataIndex;
         const h = activeData[idx];
-        const callsPerAgent = agents[idx] > 0 ? (totalCalls[idx]/agents[idx]).toFixed(2) : '0';
-        const dropDisp = h.dropCountRaw.toFixed(1);
-        const dropLine = h.dropCountRaw > 0 ? `<span style="color:${TABLER_YELLOW}">●</span> Drop: <b>${dropPercent[idx]}%</b> (${dropDisp} avg)<br/>` : '';
+        const currentAgents = agents[idx] || 0;
+        const currentTotal = totalCalls[idx] || 0;
+        const callsPerAgent = currentAgents > 0 ? (currentTotal / currentAgents).toFixed(1) : '0';
 
         return `
-          <div style="font-weight:600; border-bottom:1px solid ${TABLER_GRID}; margin-bottom:8px; padding-bottom:4px;">
-            ${categories[idx]} (Avg/Day)
-          </div>
-          <span style="color:${TABLER_BLUE}">●</span> Total Calls: <b>${totalCalls[idx]}</b> 
-          <small style="color:${TABLER_GRAY}">(In:${inbound[idx]} Out:${outbound[idx]})</small><br/>
-          ${dropLine}
-          <span style="color:${TABLER_GREEN}">●</span> Agents: <b>${agents[idx]}</b><br/>
-          <span style="color:#626976">●</span> Efficiency: <b>${callsPerAgent}</b> calls/agent
-        `;
+          <div style="font-family: Inter, sans-serif; min-width: 200px;">
+            <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">
+              ${categories[idx]} <span style="font-weight:400; font-size:12px; color:#64748b;">(Daily Average)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span><span style="color:${PHOENIX_CYAN}; margin-right:5px;">●</span>Total Calls:</span>
+              <span style="font-weight:700;">${currentTotal} <small style="font-weight:400; color:#64748b;">(I:${inbound[idx]} O:${outbound[idx]})</small></span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span><span style="color:${PHOENIX_AMBER}; margin-right:5px;">●</span>Drop Rate:</span>
+              <span style="font-weight:700;">${dropPercent[idx] ? dropPercent[idx] + '%' : '0%'}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span><span style="color:${PHOENIX_GREEN}; margin-right:5px;">●</span>Avg Agents:</span>
+              <span style="font-weight:700;">${currentAgents}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; margin-top:5px; padding-top:5px;">
+              <span style="color:#64748b;">Efficiency:</span>
+              <span style="font-weight:700; color:#1e293b;">${callsPerAgent} calls/agent</span>
+            </div>
+          </div>`;
       }
     },
-    grid: { left: '3%', right: '5%', top: 60, bottom: '5%', containLabel: true },
-    xAxis: { type: 'category', data: categories, axisLine: { lineStyle: { color: TABLER_GRID } }, axisLabel: { color: TABLER_GRAY } },
+
+    grid: {
+      left: '3%',
+      right: '8%',
+      top: 60,
+      bottom: '5%',
+      containLabel: true
+    },
+
+    xAxis: {
+      type: 'category',
+      data: categories,
+      axisLine: { lineStyle: { color: PHOENIX_GRID } },
+      axisLabel: { color: PHOENIX_GRAY, fontSize: 11 }
+    },
+
     yAxis: [
-      { type: 'value', name: 'Avg Calls', splitLine: { lineStyle: { color: TABLER_GRID } }, axisLabel: { color: TABLER_GRAY } },
-      { type: 'value', name: 'Agents', position: 'right', splitLine: { show:false }, axisLabel: { color: TABLER_GRAY } },
-      { type: 'value', name: 'Drop %', position: 'right', offset: 50, axisLabel: { formatter:'{value}%', color: TABLER_GRAY }, splitLine: { show:false } }
+      {
+        type: 'value',
+        name: 'Avg Calls',
+        splitLine: { lineStyle: { color: PHOENIX_GRID, type: 'dashed' } },
+        axisLabel: { color: PHOENIX_GRAY }
+      },
+      {
+        type: 'value',
+        name: 'Agents',
+        position: 'right',
+        splitLine: { show: false },
+        axisLabel: { color: PHOENIX_GRAY }
+      },
+      {
+        type: 'value',
+        name: 'Drop %',
+        position: 'right',
+        offset: 40,
+        axisLabel: { formatter: '{value}%', color: PHOENIX_GRAY },
+        splitLine: { show: false }
+      }
     ],
+
     series: [
-      { name:'Total Calls', type:'bar', barWidth:'40%', data:totalCalls, itemStyle:{ borderRadius:[2,2,0,0], color: TABLER_BLUE }, markArea:{ silent:true, data:peakHours } },
-      { name:'Agents', type:'line', yAxisIndex:1, smooth:true, showSymbol:false, lineStyle:{ width:3, color:TABLER_GREEN }, data:agents },
-      { name:'Drop %', type:'line', yAxisIndex:2, connectNulls:false, symbol:'circle', symbolSize:8, lineStyle:{ width:2, type:'dashed', color:TABLER_YELLOW }, itemStyle:{ color:TABLER_YELLOW, borderColor:'#fff' }, data:dropPercent }
+      {
+        name: 'Total Calls',
+        type: 'bar',
+        barWidth: '50%',
+        data: totalCalls,
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0],
+          color: PHOENIX_CYAN
+        },
+        markArea: {
+          silent: true,
+          data: peakHours
+        }
+      },
+      {
+        name: 'Agents',
+        type: 'line',
+        yAxisIndex: 1,
+        smooth: true,
+        showSymbol: false,
+        connectNulls: false,
+        lineStyle: { width: 3, color: PHOENIX_GREEN },
+        data: agents
+      },
+      {
+        name: 'Drop %',
+        type: 'line',
+        yAxisIndex: 2,
+        symbol: 'circle',
+        symbolSize: 8,
+        connectNulls: false,
+        lineStyle: { width: 2, type: 'dashed', color: PHOENIX_AMBER },
+        itemStyle: {
+          color: PHOENIX_AMBER,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        data: dropPercent
+      }
     ]
   };
 }
 
-// Initialize chart
 loadAverageChartMerged();
+
 window.addEventListener('resize', () => chartAvg.resize());
 
 
@@ -1631,6 +1711,7 @@ function renderRepeatRateChartForSelectedDate() {
   for (const id in calls) {
     const c = calls[id];
     if (!c) continue;
+    // Exclude drops and outbound to keep repeat rate accurate to inbound customers
     if (c.is_drop === true || c.status === "DROP") continue;
     if (c.direction !== "inbound") continue;
 
@@ -1677,76 +1758,80 @@ function renderRepeatRateChartForSelectedDate() {
     return;
   }
 
+  // ── Phoenix Palette Constants ──────────────────────────────────────────
+  const phoenixAmber      = '#f59e0b'; // Primary Amber
+  const phoenixOrange     = '#ea580c'; // Deep Orange for higher rates
+  const phoenixLightAmber = '#fbbf24'; // Warning level
+  const phoenixCyan       = '#06b6d4'; // Contrast color (used for marks/avg)
+  const gridColor         = '#f1f5f9';
+  const textColor         = '#64748b';
+
   const option = {
-    title: {
-      //text: 'Inbound Repeat Rate by Agent',
-      //subtext: `Selected Date: ${formatDateDisplay(selectedDate)}`,
-      left: 'center',
-      textStyle: { fontSize: 16, fontWeight: 'bold' },
-      subtextStyle: { color: '#64748b' }
-    },
     tooltip: {
       trigger: 'axis',
-      padding: 0,
-      backgroundColor: 'transparent',
-      borderWidth: 0,
+      backgroundColor: 'rgba(255, 255, 255, 0.98)',
+      borderColor: '#e2e8f0',
+      borderWidth: 1,
+      padding: [10, 14],
+      extraCssText: 'box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-radius: 8px;',
       axisPointer: { type: 'shadow' },
       formatter: function (params) {
         const p = params[0];
         const rate = p.value;
-        const agent = p.name;
-        const dotColor = rate > 30 ? '#dc2626' : rate > 15 ? '#f59e0b' : rate > 1 ? '#fbbf24' : '#10b981';
+        // Tooltip dot color logic using Phoenix hues
+        const dotColor = rate > 5 ? phoenixOrange : rate > 2 ? phoenixAmber : phoenixLightAmber;
 
         return `
-          <div style="padding: 10px 14px; background: rgba(255, 255, 255, 0.96); border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); font-family: Inter, sans-serif; min-width: 210px;">
-            <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; font-size: 15px;">${agent}</div>
-            <div style="display: flex; align-items: center;">
-              <span style="width: 11px; height: 11px; border-radius: 50%; background: ${dotColor}; margin-right: 10px;"></span>
-              <span style="color: #64748b; font-size: 13.5px;">Inbound Repeat Rate:</span>
-              <span style="font-weight: 700; margin-left: 8px; color: #1e293b;">${rate}%</span>
+          <div style="font-family: Inter, sans-serif; min-width: 180px;">
+            <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">${p.name}</div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: ${dotColor}; margin-right: 8px;"></span>
+                <span style="color: #64748b; font-size: 13px;">Repeat Rate:</span>
+              </div>
+              <span style="font-weight: 700; color: #1e293b;">${rate}%</span>
             </div>
           </div>`;
       }
     },
-    grid: { left: '3%', right: '7%', bottom: '3%', containLabel: true },
+    grid: { left: '3%', right: '10%', bottom: '3%', top: '5%', containLabel: true },
     xAxis: {
       type: 'value',
-      axisLabel: { formatter: '{value}%', color: '#64748b' },
-      splitLine: { lineStyle: { type: 'dashed', color: '#e2e8f0' } }
+      axisLabel: { formatter: '{value}%', color: textColor, fontSize: 11 },
+      splitLine: { lineStyle: { color: gridColor, type: 'dashed' } }
     },
     yAxis: {
       type: 'category',
       data: categories,
-      axisLabel: { color: '#64748b', fontSize: 12 },
-      axisLine: { show: false },
+      axisLabel: { color: '#1e293b', fontSize: 12, fontWeight: 500 },
+      axisLine: { lineStyle: { color: gridColor } },
       axisTick: { show: false }
     },
     series: [{
       name: 'Inbound Repeat Rate',
       type: 'bar',
+      barWidth: '60%',
       data: repeatRates.map(val => ({
         value: val,
         itemStyle: {
-          // ── Threshold-based colors (customize as needed) ──
-          color: val > 5 ? '#dc2626'       // Critical (>30%)
-               : val > 3 ? '#f59e0b'       // Warning (>15%)
-               : val > 1  ? '#fbbf24'       // Light warning (>1%)
-               : '#10b981',                 // Good (≤1%)
+          // Color progression within the Phoenix palette
+          color: val > 5 ? phoenixOrange : val > 2 ? phoenixAmber : phoenixLightAmber,
           borderRadius: [0, 4, 4, 0]
         }
       })),
-      barWidth: '85%',
       markLine: {
         symbol: 'none',
         label: { 
           position: 'end', 
           formatter: `Avg: ${overallAvg}%`, 
-          backgroundColor: '#64748b', 
+          backgroundColor: phoenixCyan, // Using Cyan for the average to make it pop
           color: '#fff', 
-          padding: [2, 4], 
-          borderRadius: 3 
+          padding: [4, 8], 
+          borderRadius: 4,
+          fontSize: 11,
+          fontWeight: 'bold'
         },
-        lineStyle: { color: '#64748b', type: 'dotted', width: 2 },
+        lineStyle: { color: phoenixCyan, type: 'dashed', width: 2 },
         data: [{ xAxis: overallAvg }]
       }
     }]
@@ -1754,6 +1839,8 @@ function renderRepeatRateChartForSelectedDate() {
 
   window.repeatRateECharts = echarts.init(dom);
   window.repeatRateECharts.setOption(option);
+  
+  window.addEventListener('resize', () => window.repeatRateECharts && window.repeatRateECharts.resize());
 }
 
 // ==================== DATE PICKER ====================
