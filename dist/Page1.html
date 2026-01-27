@@ -117,6 +117,16 @@
     padding-right: 5px;
 }
 
+#flatpickr-wrapper .form-control {
+    border-right: none;
+}
+
+#flatpickr-wrapper .btn:hover svg {
+    stroke: #dc3545; /* Turns the icon red when hovering to signal a "reset" */
+    transform: rotate(-45deg);
+    transition: all 0.2s ease;
+}
+
     </style>
     <!-- END CUSTOM FONT -->
      <!-- ApexCharts (required for charts) -->
@@ -1021,6 +1031,37 @@
       <h3 class="card-title -mb-2">Hourly Call Volume</h3>
  
       <div id="chart-call-volume" style="height: 320px; width: 100%;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 mt-3">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-danger text-white d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <h3 class="card-title mb-0">
+        <i class="ti ti-phone-off me-2"></i>Dropped Calls Trends
+      </h3>
+<div class="d-flex gap-2 align-items-stretch">
+  <div class="input-group input-group-sm" id="flatpickr-wrapper" style="width: 260px;">
+    <input type="text" id="dropTrendDateRange" class="form-control" placeholder="Recent 15 Days" data-input>
+    <button class="btn btn-white d-flex align-items-center justify-content-center px-2" type="button" title="Reset to 15 Days" data-clear>
+      <svg id="reloadIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary">
+        <path d="M23 4v6h-6"></path>
+        <path d="M1 20v-6h6"></path>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+      </svg>
+    </button>
+  </div>
+  
+  <select id="dropTrendMode" class="form-select form-select-sm w-auto">
+    <option value="daily">Daily Total Drops</option>
+    <option value="hourly">Hourly Avg Drops</option>
+    <option value="percent">Drop % (Inbound)</option>
+  </select>
+</div>
+    </div>
+    <div class="card-body p-0">
+      <div id="dropTrendsChart" style="height: 400px;"></div>
     </div>
   </div>
 </div>

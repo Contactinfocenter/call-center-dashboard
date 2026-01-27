@@ -384,7 +384,7 @@ async function loadDataFromGitHub() {
       renderCallVolumeChart();
       renderRepeatRateChartForSelectedDate();
       renderAgentSummaryTable();
-      renderMonthlyRankings()
+      renderMonthlyRankings();
       
 
       // NEW: Initialize the new chart in Team Average mode (null = team only)
@@ -1965,8 +1965,133 @@ function clearFilters() {
     renderAgentSummaryTable();
 }
 
+// drop call treand 
+
+
+
+
 // ==================== EVENT LISTENERS ====================
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnReload')?.addEventListener('click', loadDataFromGitHub);
   loadDataFromGitHub();
 });
+
+
+/**
+ * PHOENIX DROP TRENDS - INTEGRATED SELECT VERSION
+ */
+let dropTrendsChart = null;
+let dropDateRangePicker = null;
+
+function renderDropTrendsChart() {
+    const dom = document.getElementById('dropTrendsChart');
+    if (!dom) return;
+
+    // 1. DATA SOURCE
+    let sourceData = (typeof rawData !== 'undefined') ? (rawData.calls || rawData) : null;
+    if (!sourceData || Object.keys(sourceData).length === 0) {
+        setTimeout(renderDropTrendsChart, 1000);
+        return;
+    }
+
+    if (!dropTrendsChart) dropTrendsChart = echarts.init(dom);
+
+    // 2. FILTER LOGIC
+    const allAvailableDates = Object.keys(sourceData).sort();
+    let filteredDates = [];
+
+    // Check if Flatpickr has a range
+    if (dropDateRangePicker && dropDateRangePicker.selectedDates.length === 2) {
+        const [start, end] = dropDateRangePicker.selectedDates;
+        const sTime = new Date(start).setHours(0,0,0,0);
+        const eTime = new Date(end).setHours(23,59,59,999);
+
+        filteredDates = allAvailableDates.filter(d => {
+            const current = new Date(d).getTime();
+            return current >= sTime && current <= eTime;
+        });
+    } else {
+        // RESET STATE: Default to most recent 15 dates
+        filteredDates = allAvailableDates.slice(-15);
+    }
+
+    // 3. PROCESS DATA (Daily/Hourly/Percent)
+    const mode = document.getElementById('dropTrendMode')?.value || 'daily';
+    const PHX_CYAN = '#06b6d4', PHX_AMBER = '#f59e0b', PHX_GRAY = '#64748b';
+    
+    const hourlyDrops = Array(24).fill(0);
+    let totalDaysWithDrops = 0;
+
+    const chartSeriesData = filteredDates.map(date => {
+        const calls = sourceData[date] || {};
+        let dCount = 0, iCount = 0, dayHadDrop = false;
+
+        Object.values(calls).forEach(c => {
+            const isDrop = c.status === "DROP" || c.status === "FAILED" || c.is_drop === true;
+            if (isDrop) {
+                dCount++;
+                const hr = new Date(c.call_date).getHours();
+                if (!isNaN(hr)) { hourlyDrops[hr]++; dayHadDrop = true; }
+            }
+            if (c.direction === "inbound") iCount++;
+        });
+        if (dayHadDrop) totalDaysWithDrops++;
+        return { date, drops: dCount, pct: iCount > 0 ? ((dCount / (dCount + iCount)) * 100).toFixed(1) : 0 };
+    });
+
+    // 4. ECHARTS CONFIG
+    let option = {
+        tooltip: { trigger: 'axis' },
+        grid: { top: 60, left: '3%', right: '4%', bottom: '5%', containLabel: true },
+        xAxis: {
+            type: 'category',
+            data: mode === 'hourly' 
+                ? Array.from({length: 24}, (_, i) => `${i.toString().padStart(2,'0')}:00`)
+                : filteredDates.map(d => typeof formatDateDisplay === 'function' ? formatDateDisplay(d) : d),
+            axisLabel: { color: PHX_GRAY }
+        },
+        yAxis: [
+            { type: 'value', name: 'Drops' },
+            { type: 'value', name: '%', position: 'right', max: 100, show: mode !== 'hourly' }
+        ],
+        series: []
+    };
+
+    // Series logic remains same as before...
+    if (mode === 'daily') {
+        option.series = [
+            { name: 'Drops', type: 'bar', data: chartSeriesData.map(d => d.drops), itemStyle: { color: PHX_CYAN } },
+            { name: 'Rate', type: 'line', yAxisIndex: 1, data: chartSeriesData.map(d => d.pct), itemStyle: { color: PHX_AMBER } }
+        ];
+    } else if (mode === 'hourly') {
+        const avgHourly = hourlyDrops.map(v => totalDaysWithDrops > 0 ? (v/totalDaysWithDrops).toFixed(1) : 0);
+        option.series = [{ name: 'Avg Drops', type: 'bar', data: avgHourly, itemStyle: { color: PHX_AMBER } }];
+    } else {
+        option.series = [{ name: 'Drop %', type: 'line', areaStyle: { opacity: 0.2 }, data: chartSeriesData.map(d => d.pct), itemStyle: { color: PHX_AMBER } }];
+    }
+
+    dropTrendsChart.setOption(option, true);
+}
+
+// 5. INITIALIZE
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Flatpickr with Wrap: true to enable the reset button
+    dropDateRangePicker = flatpickr("#flatpickr-wrapper", {
+        wrap: true, 
+        mode: "range",
+        dateFormat: "Y-m-d",
+        onClose: function(selectedDates) {
+            if (selectedDates.length === 2) renderDropTrendsChart();
+        },
+        onChange: function(selectedDates) {
+            // Re-render if the field is cleared via the Reset button
+            if (selectedDates.length === 0) renderDropTrendsChart();
+        }
+    });
+
+    document.getElementById('dropTrendMode').addEventListener('change', renderDropTrendsChart);
+    
+    setTimeout(renderDropTrendsChart, 500);
+});
+
+window.addEventListener('resize', () => dropTrendsChart && dropTrendsChart.resize());
