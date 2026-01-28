@@ -961,13 +961,17 @@ function renderAgentVsSystemHourlyChart(agent) {
 
         let rows = '';
         params.forEach(p => {
+          // 1. Check for null/undefined/missing values
+          // If p.value is null or undefined, show '0' or '-'
+          const displayValue = (p.value === undefined || p.value === null) ? '0' : p.value;
+
           rows += `
             <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
               <div style="display: flex; align-items: center;">
                 <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color}; margin-right: 8px;"></span>
                 <span style="color:#64748b; font-size: 13px;">${p.seriesName}:</span>
               </div>
-              <span style="font-weight: 700; margin-left: 20px; color: #1e293b;">${p.value}</span>
+              <span style="font-weight: 700; margin-left: 20px; color: #1e293b;">${displayValue}</span>
             </div>`;
         });
 
@@ -1978,7 +1982,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /**
- * PHOENIX DROP TRENDS - INTEGRATED SELECT VERSION
+ * DROP TRENDS 
  */
 let dropTrendsChart = null;
 let dropDateRangePicker = null;
@@ -2041,7 +2045,49 @@ function renderDropTrendsChart() {
 
     // 4. ECHARTS CONFIG
     let option = {
-        tooltip: { trigger: 'axis' },
+        tooltip: {
+    trigger: 'axis',
+    backgroundColor: 'rgba(255,255,255,0.98)',
+    borderColor: '#e2e8f0',
+    borderWidth: 1,
+    padding: [10, 12],
+    extraCssText: 'box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 8px;',
+    axisPointer: { 
+        type: 'line', 
+        lineStyle: { color: '#cbd5e1', type: 'dashed' } 
+    },
+    formatter: function (params) {
+        if (!params || !params.length) return '';
+        
+        // Get the X-axis label (Date or Hour)
+        const xLabel = params[0].name;
+        
+        let rows = '';
+        params.forEach(p => {
+            // Handle undefined/null values safely
+            const val = (p.value === undefined || p.value === null) ? '0' : p.value;
+            // Add % symbol if it's the Rate or Drop % series
+            const suffix = (p.seriesName.includes('Rate') || p.seriesName.includes('%')) ? '%' : '';
+
+            rows += `
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                    <div style="display: flex; align-items: center;">
+                        <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color}; margin-right: 8px;"></span>
+                        <span style="color:#64748b; font-size: 13px;">${p.seriesName}:</span>
+                    </div>
+                    <span style="font-weight: 700; margin-left: 20px; color: #1e293b;">${val}${suffix}</span>
+                </div>`;
+        });
+
+        return `
+            <div style="font-family: Inter, sans-serif; min-width: 180px;">
+                <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">
+                    ${xLabel}
+                </div>
+                ${rows}
+            </div>`;
+    }
+},
         grid: { top: 60, left: '3%', right: '4%', bottom: '5%', containLabel: true },
         xAxis: {
             type: 'category',

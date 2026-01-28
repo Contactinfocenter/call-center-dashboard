@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Voice Audit Report Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+    body { font-family: 'Nunito Sans', sans-serif; background-color: #f9fafd; color: #384457; }
+    .phoenix-card { background: #ffffff; border: 1px solid #e3e6ed; border-radius: 0.5rem; padding: 1.5rem; box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.05); }
+    h1 { font-size: 1.85rem !important; font-weight: 800; color: #012970; letter-spacing: -0.02em; }
+    h2 { font-size: 1.35rem !important; font-weight: 700; color: #012970; margin-bottom: 1.25rem; padding-bottom: 0.75rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #f5f7fa; color: #525b75; padding: 14px 16px; font-weight: 700; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid #e3e6ed; text-align: left; }
+    td { padding: 16px; border-bottom: 1px solid #e3e6ed; font-size: 1rem; color: #384457; }
+    td.label { font-weight: 600; color: #012970; font-size: 1.025rem; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: #f8fafc; transition: background-color 0.2s ease; }
+    .kpi-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #8a94ad; letter-spacing: 0.05em; }
+    .kpi-value { font-size: 2.25rem; font-weight: 800; color: #012970; line-height: 1.2; }
+    .badge-target { background: #e1f5fe; color: #0288d1; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+    .agent-chip { padding: 10px 16px; border-radius: 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; background-clip: padding-box; text-align: left; }
+    .agent-chip.inactive { background-color: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+    .agent-chip.inactive:hover { background-color: #e2e8f0; transform: translateX(4px); }
+    .agent-chip.active { background-color: #4154f1; color: white; border-color: #4154f1; box-shadow: 0 4px 12px rgba(65, 84, 241, 0.3); transform: translateX(4px); }
+    #agentChips { display: flex; flex-direction: column; gap: 10px; max-height: 70vh; overflow-y: auto; padding-right: 8px; }
+  </style>
+</head>
+<body class="min-h-screen p-6 lg:p-8">
+  <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-white opacity-90">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600"></div>
+  </div>
+
+  <div class="max-w-[1600px] mx-auto">
+    <div class="mb-10">
+      <h1>Voice Audit Report Dashboard</h1>
+      <div class="flex items-center flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-gray-500">
+        <span>Overview (Jan - Dec 2025)</span>
+        <span class="inline-block w-1 h-1 bg-gray-400 rounded-full"></span>
+        <span>Total Audited Calls: <span id="totalCalls">--</span></span>
+      </div>
+    </div>
+
+    <!-- Hero KPIs -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10">
+      <div class="phoenix-card">
+        <p class="kpi-label">Average Score</p>
+        <p class="kpi-value" id="avgScore">--</p>
+        <p class="text-xs text-gray-500 mt-1">Out of 10.0</p>
+      </div>
+      <div class="phoenix-card">
+        <p class="kpi-label">Pass Rate</p>
+        <p class="kpi-value text-green-600" id="passRate">--</p>
+        <span class="badge-target">Target ≥99%</span>
+      </div>
+      <div class="phoenix-card">
+        <p class="kpi-label">Excellent/Good Rate</p>
+        <p class="kpi-value text-green-600" id="excellentGoodRate">--</p>
+      </div>
+      <div class="phoenix-card">
+        <p class="kpi-label">FCR Rate</p>
+        <p class="kpi-value text-blue-600" id="fcrRate">--</p>
+      </div>
+    </div>
+
+    <!-- Location Breakdown Table -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+      <div class="phoenix-card">
+        <h2>Audit Performance by Location</h2>
+        <table>
+          <thead><tr><th>Location</th><th>Avg Score</th><th>Pass Rate</th><th>Excellent/Good</th></tr></thead>
+          <tbody>
+            <tr><td class="label">Overall</td><td id="overallAvg">--</td><td id="overallPass">--</td><td id="overallGood">--</td></tr>
+            <tr><td class="label">Urban</td><td id="urbanAvg">--</td><td id="urbanPass">--</td><td id="urbanGood">--</td></tr>
+            <tr><td class="label">Rural</td><td id="ruralAvg">--</td><td id="ruralPass">--</td><td id="ruralGood">--</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+<div class="phoenix-card">
+  <h2>Grade Distribution</h2>
+  <div class="h-[280px]"><div id="gradeChart" style="width: 100%; height: 100%;"></div></div>
+</div>
+    </div>
+
+    <!-- Monthly Trends -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+      <div class="phoenix-card">
+        <h2>Average Score Trend</h2>
+        <div class="h-[350px]" id="scoreTrendChart"></div>
+      </div>
+      <div class="phoenix-card">
+        <h2>Pass Rate Trend</h2>
+        <div class="h-[350px]" id="passTrendChart"></div>
+      </div>
+    </div>
+
+    <!-- Top Parameters with Highest Marks Lost -->
+    <div class="phoenix-card mb-10">
+      <h2>Top 7 Parameters with Highest Marks Lost</h2>
+      <div class="h-[320px]" id="lowParamsChart"></div>
+    </div>
+
+    <!-- Top Issues from Remarks -->
+    <div class="phoenix-card mb-10">
+      <h2>Top 10 Issues from Remarks</h2>
+      <div class="h-[400px]" id="topRemarksChart"></div>
+    </div>
+
+    <!-- All Agents Performance Table with Search + Month Filter + Reset -->
+    <div class="phoenix-card mb-10">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+        <h2>All Agents Performance</h2>
+        <div class="flex flex-col lg:flex-row gap-4 w-full lg:w-auto">
+          <!-- Search Box -->
+          <input type="text" id="agentSearch" placeholder="Search agent name..." class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full lg:w-64" />
+
+          <!-- Month Filters -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex items-center gap-3">
+              <label class="text-sm font-medium text-gray-700">From:</label>
+              <select id="agentFromMonth" class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                <option value="all">All Months</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="text-sm font-medium text-gray-700">To:</label>
+              <select id="agentToMonth" class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                <option value="all">All Months</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex gap-3">
+            <button id="applyAgentFilter" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition font-medium">
+              Apply
+            </button>
+            <button id="resetAgentFilter" class="px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition font-medium">
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead><tr><th>Rank</th><th>Agent</th><th>Audits</th><th>Avg Score</th><th>Pass Rate</th></tr></thead>
+        <tbody id="agentTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Individual Agent Performance Trend -->
+    <div class="phoenix-card mb-10">
+      <h2>Individual Agent Performance Trend</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div class="lg:col-span-1">
+          <h3 class="text-sm font-semibold text-gray-700 mb-4">Select Agent</h3>
+          <div id="agentChips"></div>
+        </div>
+        <div class="lg:col-span-3">
+          <div class="h-[400px]" id="agentTrendChart"></div>
+          <p class="text-sm text-gray-500 mt-4">Hover on a month to see average score and top improvement areas from remarks</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CSV_URL = "https://raw.githubusercontent.com/Contactinfocenter/audit/main/AuditData.csv";
+
+    const colors = {
+      primary: '#4154f1',
+      success: '#2eca6a',
+      warning: '#ff771d',
+      danger: '#dc2626',
+      info: '#0dcaf0'
+    };
+
+    const targetLine = (value, label) => ({
+      type: 'line',
+      yMin: value,
+      yMax: value,
+      borderColor: colors.danger,
+      borderWidth: 2,
+      borderDash: [6, 6],
+      label: { content: label, position: 'end', backgroundColor: 'rgba(220,38,38,0.9)', color: '#fff', font: { weight: 'bold' } }
+    });
+
+    const beautifulTooltip = {
+      backgroundColor: 'rgba(255, 255, 255, 0.98)',
+      titleColor: '#012970',
+      bodyColor: '#333',
+      borderColor: '#e2e8f0',
+      borderWidth: 1,
+      cornerRadius: 10,
+      padding: 12,
+      titleFont: { size: 15, weight: 'bold' },
+      bodyFont: { size: 14 },
+      displayColors: true,
+      caretPadding: 10
+    };
+
+    const mapping = {
+      "Empathize with the client": "Lack of Empathy",
+      "empathize": "Lack of Empathy",
+      "Make client feel better than before": "Lack of Empathy",
+      "Make client feel better": "Lack of Empathy",
+      "Willingness to help": "Lack of Willingness to Help",
+      "helping attitude": "Lack of Willingness to Help",
+      "Avoid interrupting the client": "Interruption / Restlessness",
+      "Interrupting the client": "Interruption / Restlessness",
+      "Restlessness": "Interruption / Restlessness",
+      "Hurriedness": "Interruption / Restlessness",
+      "hurriedness": "Interruption / Restlessness",
+      "Pach was fast": "Interruption / Restlessness",
+      "pach was fast": "Interruption / Restlessness",
+      "pach was little fast": "Interruption / Restlessness",
+      "Apology sincerely": "Sincere Apology Missing",
+      "apologize sincerely": "Sincere Apology Missing",
+      "intensify": "Sincere Apology Missing",
+      "Use Carnival Internet's unique welcome process": "Greeting Issue",
+      "welcome process": "Greeting Issue",
+      "Greeting Issue": "Greeting Issue",
+      "late greeting": "Greeting Issue",
+      "Late response": "Greeting Issue",
+      "late response": "Greeting Issue",
+      "Salam not answer": "Greeting Issue",
+      "Salam not provided": "Greeting Issue",
+      "Own name": "Greeting Issue",
+      "company name": "Greeting Issue",
+      "Offer an appropriate solution/ Provide Right Info": "Incorrect Info / Solution",
+      "Provide Right Info": "Incorrect Info / Solution",
+      "Right Info": "Incorrect Info / Solution",
+      "SLA not share": "Incorrect Info / Solution",
+      "VIVR": "VIVR Missing",
+      "VIVR miss": "VIVR Missing",
+      "VIVR info": "VIVR Missing",
+      "VVIR": "VIVR Missing",
+      "VIVR Info share missing": "VIVR Missing",
+      "further assistance": "Further Assistance Missing",
+      "Further Assistance miss": "Further Assistance Missing",
+      "Offer further assistance miss": "Further Assistance Missing",
+      "dead timer": "Dead Timer / Lack of Focus",
+      "Dead timer": "Dead Timer / Lack of Focus",
+      "Have focus on dead timer": "Dead Timer / Lack of Focus",
+      "Have focus on client's statements": "Dead Timer / Lack of Focus",
+      "Actively Listen": "Dead Timer / Lack of Focus",
+      "Speak clearly": "Speech Clarity / Pronunciation Issue",
+      "Speech Rate": "Speech Clarity / Pronunciation Issue",
+      "pronunciation": "Speech Clarity / Pronunciation Issue",
+      "Spelling": "Speech Clarity / Pronunciation Issue",
+      "Mumbling": "Speech Clarity / Pronunciation Issue",
+      "Speak politely, calmly & warmly": "Inappropriate Tone",
+      "appropriate tone & terms": "Inappropriate Tone",
+      "Casual way of talking": "Inappropriate Tone",
+      "pause/hold etiquettes": "Pause/Hold Etiquette Violation",
+      "Max. pause": "Pause/Hold Etiquette Violation",
+      "Follow proper closing process": "Improper Closing",
+      "Confirm client's Name": "ID Confirmation Issue",
+      "Confirm Client Identity": "ID Confirmation Issue",
+      "magical words": "Missing Magic Words",
+      "Thank you, please , kindly, sorry": "Missing Magic Words",
+      "Follow service guidelines properly": "Did Not Follow Guidelines",
+      "Solving Skill": "Did Not Follow Guidelines",
+      "sufficient product/resource knowledge": "Insufficient Product Knowledge",
+      "Stand by any given commitment": "Commitment Not Honored",
+      "call back not found": "Commitment Not Honored",
+      "Incomp. Info/Service": "Incomplete Info/Service",
+      "Miscommunication": "Miscommunication",
+      "Unusual Silence or Hangup": "Unusual Silence / Hangup"
+    };
+
+    function mapRemarkToImprovement(remark) {
+      if (!remark) return null;
+      const lowerRemark = remark.toLowerCase();
+      for (const key in mapping) {
+        if (lowerRemark.includes(key.toLowerCase())) {
+          return mapping[key];
+        }
+      }
+      return null;
+    }
+
+    let agentTrendChart = null;
+    let allAudits = [];
+    let sortedMonths = [];
+
+    async function loadDashboard() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+
+      try {
+        const response = await fetch(CSV_URL);
+        if (!response.ok) throw new Error('Failed to load CSV');
+        const text = await response.text();
+
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+
+        const audits = [];
+        for (let i = 1; i < lines.length; i++) {
+          const values = [];
+          let current = '';
+          let inQuotes = false;
+          for (const char of lines[i] + ',') {
+            if (char === '"') inQuotes = !inQuotes;
+            else if (char === ',' && !inQuotes) {
+              values.push(current.trim().replace(/^"|"$/g, ''));
+              current = '';
+            } else {
+              current += char;
+            }
+          }
+          if (values.length === headers.length) {
+            const obj = {};
+            headers.forEach((h, j) => obj[h] = values[j]);
+            audits.push(obj);
+          }
+        }
+
+        const dateCol = 'Call Date:';
+        const agentIdCol = 'Agent ID';
+        const agentNameCol = 'Agent Name';
+        const totalMarkCol = 'Total Mark';
+        const gradeCol = 'Grade';
+        const remarkCol = 'Remark';
+        const clientAreaCol = 'Client Area';
+        const fcrCol = 'Right FCR Staus Selected';
+
+        const monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        audits.forEach(a => {
+          const dateStr = a[dateCol] || '';
+          const parts = dateStr.split(' ');
+          const datePart = parts[0];
+          const timePart = parts[1] || '';
+          const [month, day, year] = datePart.split('/');
+          let date = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${timePart || '00:00:00'}`);
+          if (isNaN(date.getTime())) date = new Date(dateStr);
+          a.date = isNaN(date.getTime()) ? null : date;
+          a.month = a.date ? a.date.toLocaleString('en-US', { month: 'short', year: 'numeric' }) : 'Unknown';
+          a.score = parseFloat(a[totalMarkCol]) || 0;
+          a.grade = a[gradeCol]?.trim() || '';
+          a.remark = a[remarkCol] || '';
+          a.location = a[clientAreaCol] || '';
+          a.fcr = a[fcrCol] || '';
+          a.agentKey = `${a[agentIdCol]?.trim()} - ${a[agentNameCol]?.trim()}`;
+          a.agentNameLower = a[agentNameCol]?.trim().toLowerCase() || '';
+        });
+
+        const validAudits = audits.filter(a => a.date && a.score > 0);
+        allAudits = validAudits;
+
+        // Populate month dropdowns for agent table filter
+        const uniqueMonths = [...new Set(validAudits.map(a => a.month))].filter(m => m !== 'Unknown');
+        sortedMonths = uniqueMonths.sort((a, b) => {
+          const [aM, aY] = a.split(' ');
+          const [bM, bY] = b.split(' ');
+          if (aY !== bY) return aY.localeCompare(bY);
+          return monthOrder.indexOf(aM) - monthOrder.indexOf(bM);
+        });
+
+        const fromSelect = document.getElementById('agentFromMonth');
+        const toSelect = document.getElementById('agentToMonth');
+
+        fromSelect.innerHTML = '<option value="all">All Months</option>';
+        toSelect.innerHTML = '<option value="all">All Months</option>';
+
+        sortedMonths.forEach(m => {
+          const optFrom = document.createElement('option');
+          optFrom.value = m;
+          optFrom.textContent = m;
+          fromSelect.appendChild(optFrom);
+
+          const optTo = optFrom.cloneNode(true);
+          toSelect.appendChild(optTo);
+        });
+
+        fromSelect.value = 'all';
+        toSelect.value = 'all';
+
+        // Initial load of agent table
+        updateAgentTable();
+
+        // Search, Apply, Reset handlers
+        document.getElementById('agentSearch').addEventListener('input', updateAgentTable);
+        document.getElementById('applyAgentFilter').onclick = updateAgentTable;
+        document.getElementById('resetAgentFilter').onclick = () => {
+          document.getElementById('agentSearch').value = '';
+          fromSelect.value = 'all';
+          toSelect.value = 'all';
+          updateAgentTable();
+        };
+
+        // KPIs
+        const totalCalls = validAudits.length;
+        const avgScore = totalCalls ? (validAudits.reduce((sum, a) => sum + a.score, 0) / totalCalls).toFixed(1) : '0.0';
+        const passCount = validAudits.filter(a => ['Excellent', 'Good', 'Average'].includes(a.grade)).length;
+        const passRate = totalCalls ? ((passCount / totalCalls) * 100).toFixed(1) : '0.0';
+        const goodCount = validAudits.filter(a => ['Excellent', 'Good'].includes(a.grade)).length;
+        const excellentGoodRate = totalCalls ? ((goodCount / totalCalls) * 100).toFixed(1) : '0.0';
+        const fcrCount = validAudits.filter(a => a.fcr.toLowerCase().includes('yes')).length;
+        const fcrRate = totalCalls ? ((fcrCount / totalCalls) * 100).toFixed(1) : '0.0';
+
+        document.getElementById('totalCalls').textContent = totalCalls.toLocaleString();
+        document.getElementById('avgScore').textContent = avgScore;
+        document.getElementById('passRate').textContent = passRate + '%';
+        document.getElementById('excellentGoodRate').textContent = excellentGoodRate + '%';
+        document.getElementById('fcrRate').textContent = fcrRate;
+
+        // Location
+        const isUrban = loc => /urban|city/i.test(loc);
+        const isRural = loc => /rural/i.test(loc);
+
+        const getLocationStats = filterFn => {
+          const list = filterFn ? validAudits.filter(a => filterFn(a.location)) : validAudits;
+          if (list.length === 0) return { avg: 'N/A', pass: 'N/A', good: 'N/A' };
+          const avg = (list.reduce((sum, a) => sum + a.score, 0) / list.length).toFixed(1);
+          const pass = ((list.filter(a => ['Excellent','Good','Average'].includes(a.grade)).length / list.length) * 100).toFixed(1);
+          const good = ((list.filter(a => ['Excellent','Good'].includes(a.grade)).length / list.length) * 100).toFixed(1);
+          return { avg, pass, good };
+        };
+
+        const location = {
+          overall: getLocationStats(),
+          urban: getLocationStats(isUrban),
+          rural: getLocationStats(isRural)
+        };
+
+        document.getElementById('overallAvg').textContent = location.overall.avg;
+        document.getElementById('overallPass').textContent = location.overall.pass + '%';
+        document.getElementById('overallGood').textContent = location.overall.good + '%';
+        document.getElementById('urbanAvg').textContent = location.urban.avg;
+        document.getElementById('urbanPass').textContent = location.urban.pass + '%';
+        document.getElementById('urbanGood').textContent = location.urban.good + '%';
+        document.getElementById('ruralAvg').textContent = location.rural.avg;
+        document.getElementById('ruralPass').textContent = location.rural.pass + '%';
+        document.getElementById('ruralGood').textContent = location.rural.good + '%';
+
+        // Grade Distribution 
+        const grades = ['Excellent', 'Good', 'Average', 'Below Average', 'Fail'];
+        const gradeCounts = grades.map(g => validAudits.filter(a => a.grade === g).length);
+
+        const gradeChartDom = document.getElementById('gradeChart');
+        const gradeChart = echarts.init(gradeChartDom);
+
+        const gradeOption = {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} calls ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            right: '5%',
+            top: 'middle',
+            align: 'left',
+            itemGap: 15,
+            textStyle: {
+            fontWeight: '600',
+            fontSize: 13,
+            color: '#012970'
+            }
+        },
+        series: [{
+            name: 'Grade Distribution',
+            type: 'pie',
+            radius: ['50%', '95%'],        
+            center: ['42%', '50%'],        
+            avoidLabelOverlap: false,
+            itemStyle: {                   
+            borderRadius: 12,
+            borderColor: '#fff',
+            borderWidth: 5
+            },
+            label: {
+            show: false,
+            position: 'center'
+            },
+            emphasis: {
+            label: {
+                show: true,
+                fontSize: '18',
+                fontWeight: 'bold'
+            },
+            itemStyle: {                 
+                shadowBlur: 15,
+                shadowColor: 'rgba(0, 0, 0, 0.3)'
+            }
+            },
+            labelLine: {
+            show: false
+            },
+            data: [
+            { value: gradeCounts[0], name: 'Excellent' },
+            { value: gradeCounts[1], name: 'Good' },
+            { value: gradeCounts[2], name: 'Average' },
+            { value: gradeCounts[3], name: 'Below Average' },
+            { value: gradeCounts[4], name: 'Fail' }
+            ]
+        }],
+        color: ['#10b981', '#34d399', '#06b6d4', '#f59e0b', '#ef4444']
+        };
+
+        gradeChart.setOption(gradeOption);
+
+        // Responsive resize
+        window.addEventListener('resize', () => {
+        gradeChart.resize();
+        });
+
+
+        // Monthly Trends
+        const monthlyMap = {};
+        validAudits.forEach(a => {
+          if (!monthlyMap[a.month]) monthlyMap[a.month] = { scores: [], pass: 0, total: 0 };
+          monthlyMap[a.month].scores.push(a.score);
+          monthlyMap[a.month].total++;
+          if (['Excellent','Good','Average'].includes(a.grade)) monthlyMap[a.month].pass++;
+        });
+
+        const sortedMonthsTrend = Object.keys(monthlyMap).sort((a, b) => {
+          const [aM, aY] = a.split(' ');
+          const [bM, bY] = b.split(' ');
+          if (aY !== bY) return aY.localeCompare(bY);
+          return monthOrder.indexOf(aM) - monthOrder.indexOf(bM);
+        });
+
+        const monthlyTrend = sortedMonthsTrend.map(m => ({
+          month: m,
+          avgScore: (monthlyMap[m].scores.reduce((s, v) => s + v, 0) / monthlyMap[m].scores.length).toFixed(1),
+          passRate: ((monthlyMap[m].pass / monthlyMap[m].total) * 100).toFixed(1)
+        }));
+
+        // Average Score Trend 
+        new ApexCharts(document.getElementById('scoreTrendChart'), {
+        series: [{
+            name: 'Average Score',
+            data: monthlyTrend.map(m => parseFloat(m.avgScore))
+        }],
+        chart: {
+            height: 350,
+            type: 'area',
+            toolbar: { show: false }
+        },
+        markers: { size: 4 },
+        colors: ['#4154f1'],
+        fill: {
+            type: "gradient",
+            gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.4,
+            opacityTo: 0.1,
+            stops: [0, 90, 100]
+            }
+        },
+        dataLabels: { enabled: false },
+        stroke: { curve: 'smooth', width: 3 },
+        xaxis: {
+            type: 'category',
+            categories: monthlyTrend.map(m => m.month),
+            labels: { style: { fontSize: '12px', fontWeight: 600 } }
+        },
+        yaxis: {
+            min: 9.0,
+            max: 10.0,
+            tickAmount: 10,
+            labels: {
+            formatter: function (val) {
+                return val.toFixed(2);
+            }
+            },
+            title: {
+            text: 'Average Score',
+            style: { fontWeight: 600, color: '#012970' }
+            }
+        },
+        tooltip: {
+            y: { formatter: val => val.toFixed(2) + ' / 10' }
+        },
+        grid: { borderColor: '#e7e7e7', strokeDashArray: 4 }
+        }).render();
+
+        // Pass Rate Trend
+        new ApexCharts(document.getElementById('passTrendChart'), {
+        series: [{
+            name: 'Pass Rate',
+            data: monthlyTrend.map(m => parseFloat(m.passRate))
+        }],
+        chart: {
+            height: 350,
+            type: 'area',
+            toolbar: { show: false }
+        },
+        markers: { size: 4 },
+        colors: ['#2eca6a'], // Success green
+        fill: {
+            type: "gradient",
+            gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.4,
+            opacityTo: 0.1,
+            stops: [0, 90, 100]
+            }
+        },
+        dataLabels: { enabled: false },
+        stroke: { curve: 'smooth', width: 3 },
+        xaxis: {
+            type: 'category',
+            categories: monthlyTrend.map(m => m.month),
+            labels: { style: { fontSize: '12px', fontWeight: 600 } }
+        },
+        yaxis: {
+        min: 80,
+        max: 100,
+        tickAmount: 10,
+        labels: {
+            formatter: val => val.toFixed(0) + '%'
+        }
+        },
+        tooltip: {
+            x: { format: 'MMM yyyy' },
+            y: { formatter: val => val.toFixed(1) + '%' }
+        },
+        grid: { borderColor: '#e7e7e7', strokeDashArray: 4 }
+        }).render();
+
+        // Top 7 Parameters with Highest Marks Lost
+        const parameterColumns = headers.filter(h => 
+          h.includes('/') || 
+          h.includes('process') || 
+          h.includes('etiquettes') || 
+          h.includes('profanity') || 
+          h.includes('urgency') || 
+          h.includes('assistance') || 
+          h.includes('closing') || 
+          h.includes('SLA') || 
+          h.includes('knowledge')
+        );
+
+        const lowestParameters = parameterColumns.map(p => {
+          const values = validAudits.map(a => parseFloat(a[p]) || 10);
+          const avgScore = values.reduce((a, b) => a + b, 0) / totalCalls;
+          const lostMarks = (10 - avgScore).toFixed(1);
+          return { parameter: p, lostMarks: parseFloat(lostMarks), avgScore: avgScore.toFixed(1) };
+        }).sort((a, b) => b.lostMarks - a.lostMarks).slice(0, 7);
+
+        
+            // Top 7 Parameters with Highest Marks Lost - ENHANCED LOLLIPOP CHART (Premium Red Theme)
+const lowParamsDom = document.getElementById('lowParamsChart');
+const lowParamsChart = echarts.init(lowParamsDom);
+
+const values = lowestParameters.map(p => parseFloat(p.lostMarks.toFixed(1)));
+
+const lowParamsOption = {
+  tooltip: {
+    trigger: 'item',
+    confine: true,
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+    borderColor: '#e2e8f0',
+    borderWidth: 1,
+    padding: 12,
+    textStyle: { color: '#333', fontSize: 14 },
+    formatter: function(params) {
+      const p = lowestParameters[params.dataIndex];
+      return `
+        <strong style="font-size:15px; color:#012970;">${p.parameter}</strong><br/>
+        Average Score: <strong>${p.avgScore} / 10</strong><br/>
+        <span style="color:#dc2626; font-weight:bold;">Marks Lost: ${p.lostMarks} / 10</span><br/>
+        Improvement Potential: <span style="font-weight:bold; color:#dc2626;">+${p.lostMarks} points</span>
+      `;
+    }
+  },
+  grid: {
+    left: '5%',
+    right: '12%',
+    top: '8%',
+    bottom: '8%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value',
+    min: 0,
+    max: 10,
+    splitLine: { lineStyle: { color: '#e7e7e7', type: 'dashed' } },
+    axisLabel: { fontSize: 13, fontWeight: 600, color: '#012970' }
+  },
+  yAxis: {
+    type: 'category',
+    data: lowestParameters.map(p => p.parameter.length > 60 ? p.parameter.substring(0,57) + '...' : p.parameter),
+    inverse: true,  // Highest marks lost at the top
+    axisLabel: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: '#012970',
+      margin: 20,
+      width: 380,
+      overflow: 'truncate'
+    },
+    axisLine: { show: false },
+    axisTick: { show: false }
+  },
+  series: [
+    // Thick deep red "stick" lines
+    {
+      type: 'bar',
+      data: values,
+      barWidth: 6,
+      itemStyle: { color: '#b91c1c' },  // Deep red for sticks
+      emphasis: { itemStyle: { shadowBlur: 12, shadowColor: 'rgba(185,28,28,0.4)' } }
+    },
+    // Vibrant red "lollipop" dots with value labels
+    {
+      type: 'scatter',
+      data: values,
+      symbolSize: 26,
+      itemStyle: {
+        color: '#ef4444',      // Vibrant red for dots
+        borderColor: '#fff',
+        borderWidth: 5
+      },
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 20,
+          shadowColor: 'rgba(239,68,68,0.6)',
+          borderWidth: 6,
+          symbolSize: 30
+        }
+      },
+      label: {
+        show: true,
+        position: 'right',
+        distance: 12,
+        formatter: '{c}',
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#b91c1c',      // Deep red text
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        padding: [6, 10, 6, 10],
+        borderRadius: 8,
+        shadowBlur: 6,
+        shadowColor: 'rgba(0,0,0,0.15)'
+      }
+    }
+  ]
+};
+
+lowParamsChart.setOption(lowParamsOption);
+
+// Responsive resize
+window.addEventListener('resize', () => {
+  lowParamsChart.resize();
+});
+
+// Top 10 Issues from Remarks - Exclude Positive Remarks
+const remarkCounts = {};
+validAudits.forEach(a => {
+  if (a.remark) {
+    a.remark.split('#')
+      .map(r => r.trim())
+      .filter(r => r.length > 3)
+      .filter(r => {
+        const lower = r.toLowerCase();
+        return ![
+          'all good', 'okay', 'ok', 'good', 'perfect',
+          'no issue', 'no issues', 'everything ok', 'all okay'
+        ].some(positive => lower.includes(positive));
+      })  // ← PLACE IT HERE
+      .forEach(r => {
+        remarkCounts[r] = (remarkCounts[r] || 0) + 1;
+      });
+  }
+});
+
+const topRemarks = Object.entries(remarkCounts)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 10)
+  .map(([issue, count]) => ({ issue, count }));
+
+// ApexCharts - Top Remarks Chart (remains unchanged below)
+new ApexCharts(document.getElementById('topRemarksChart'), {
+  series: [{
+    name: 'Occurrences',
+    data: topRemarks.map(r => r.count)
+  }],
+  chart: {
+    type: 'bar',
+    height: 400,
+    toolbar: { show: false }
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true,
+      borderRadius: 4,
+      borderRadiusApplication: 'end',
+
+      dataLabels: {
+        position: 'end'
+      }
+    }
+  },
+  colors: ['#dc2626'],
+  dataLabels: {
+    enabled: false,
+    formatter: val => Math.round(val),
+    style: {
+      fontSize: '14px',
+      fontWeight: 'bold',
+      colors: ['#fff']
+    },
+    offsetX: 8
+  },
+  xaxis: {
+    categories: topRemarks.map(r => r.issue.length > 50 ? r.issue.substring(0,47) + '...' : r.issue),
+    labels: {
+      style: { fontSize: '13px', fontWeight: 600 }
+    },
+    tickAmount: 8,
+    /*title: {
+      text: 'Number of Occurrences',
+      style: { fontWeight: 'bold', fontSize: '14px', color: '#012970' }
+    }*/
+  },
+  yaxis: {
+    labels: {
+      style: { fontSize: '13px' },
+      maxWidth: 320
+    }
+  },
+  tooltip: {
+    theme: 'light',
+    y: {
+      formatter: val => `${val} occurrence${val !== 1 ? 's' : ''}`
+    },
+    x: {
+      formatter: (val, { dataPointIndex }) => topRemarks[dataPointIndex].issue
+    }
+  },
+  grid: {
+    borderColor: '#e7e7e7',
+    strokeDashArray: 4,
+    yaxis: { lines: { show: false } }
+  },
+  legend: { show: false }
+}).render();
+        // Individual Agent Trend
+        const agentMonthly = {};
+        validAudits.forEach(a => {
+          const key = a.agentKey;
+          if (!agentMonthly[key]) agentMonthly[key] = {};
+          if (!agentMonthly[key][a.month]) agentMonthly[key][a.month] = { scores: [], remarks: [] };
+          agentMonthly[key][a.month].scores.push(a.score);
+          if (a.remark) agentMonthly[key][a.month].remarks.push(...a.remark.split('#').map(r => r.trim()).filter(r => r.length > 3));
+        });
+
+        const agentMonthlyData = {};
+        Object.keys(agentMonthly).forEach(key => {
+          agentMonthlyData[key] = Object.keys(agentMonthly[key]).map(m => ({
+            month: m,
+            avgScore: (agentMonthly[key][m].scores.reduce((s, v) => s + v, 0) / agentMonthly[key][m].scores.length).toFixed(2),
+            remarks: agentMonthly[key][m].remarks
+          })).sort((a, b) => {
+            const [aM, aY] = a.month.split(' ');
+            const [bM, bY] = b.month.split(' ');
+            if (aY !== bY) return aY.localeCompare(bY);
+            return monthOrder.indexOf(aM) - monthOrder.indexOf(bM);
+          });
+        });
+
+        const agentChipsContainer = document.getElementById('agentChips');
+        agentChipsContainer.innerHTML = '';
+        const agentKeys = Object.keys(agentMonthlyData).sort((a, b) => a.split(' - ')[1].localeCompare(b.split(' - ')[1]));
+
+        agentKeys.forEach((key, index) => {
+          const name = key.split(' - ')[1];
+          const chip = document.createElement('div');
+          chip.className = `agent-chip ${index === 0 ? 'active' : 'inactive'}`;
+          chip.textContent = name;
+          chip.dataset.key = key;
+          chip.onclick = () => {
+            document.querySelectorAll('.agent-chip').forEach(c => c.classList.replace('active', 'inactive'));
+            chip.classList.replace('inactive', 'active');
+            renderAgentTrend(key, agentMonthlyData[key]);
+          };
+          agentChipsContainer.appendChild(chip);
+        });
+
+        if (agentKeys.length > 0) renderAgentTrend(agentKeys[0], agentMonthlyData[agentKeys[0]]);
+
+        document.getElementById('loadingOverlay').style.display = 'none';
+      } catch (err) {
+        console.error(err);
+        alert('Error loading data: ' + err.message);
+        document.getElementById('loadingOverlay').style.display = 'none';
+      }
+    }
+
+    function updateAgentTable() {
+      const searchTerm = document.getElementById('agentSearch').value.toLowerCase();
+      const from = document.getElementById('agentFromMonth').value;
+      const to = document.getElementById('agentToMonth').value;
+
+      let filtered = allAudits;
+
+      if (from !== 'all' || to !== 'all') {
+        const fromIdx = from === 'all' ? 0 : sortedMonths.indexOf(from);
+        const toIdx = to === 'all' ? sortedMonths.length : sortedMonths.indexOf(to) + 1;
+        const selectedMonths = sortedMonths.slice(fromIdx, toIdx);
+        filtered = filtered.filter(a => selectedMonths.includes(a.month));
+      }
+
+      if (searchTerm) {
+        filtered = filtered.filter(a => a.agentNameLower.includes(searchTerm));
+      }
+
+      const agents = {};
+      filtered.forEach(a => {
+        const key = a.agentKey;
+        if (!agents[key]) agents[key] = { id: a['Agent ID'], name: a['Agent Name'], scores: [], grades: [] };
+        agents[key].scores.push(a.score);
+        agents[key].grades.push(a.grade);
+      });
+
+      const agentList = Object.values(agents).map(ag => ({
+        id: ag.id,
+        name: ag.name,
+        numAudits: ag.scores.length,
+        avgScore: (ag.scores.reduce((s, v) => s + v, 0) / ag.scores.length).toFixed(2),
+        passRate: ((ag.grades.filter(g => ['Excellent','Good','Average'].includes(g)).length / ag.grades.length) * 100).toFixed(1)
+      })).sort((a, b) => b.avgScore - a.avgScore);
+
+      const agentTable = document.getElementById('agentTableBody');
+      agentTable.innerHTML = '';
+      agentList.forEach((agent, i) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="text-center font-medium text-gray-600">${i+1}</td>
+          <td class="label">${agent.name} (${agent.id})</td>
+          <td class="text-center">${agent.numAudits}</td>
+          <td class="text-center font-semibold text-blue-600">${agent.avgScore}</td>
+          <td class="text-center text-green-600 font-medium">${agent.passRate}%</td>
+        `;
+        agentTable.appendChild(row);
+      });
+
+      if (agentList.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = '<td colspan="5" class="text-center text-gray-500 py-8">No agents match the current filters</td>';
+        agentTable.appendChild(row);
+      }
+    }
+
+    function renderAgentTrend(agentKey, agentData) {
+      if (agentTrendChart) agentTrendChart.destroy();
+
+      const container = document.getElementById('agentTrendChart').parentElement;
+      if (!agentData || agentData.length === 0) {
+        container.innerHTML = `<div class="flex items-center justify-center h-full"><p class="text-gray-500 text-lg font-medium">No data available for this agent</p></div>`;
+        return;
+      }
+
+      const months = agentData.map(d => d.month);
+      const scores = agentData.map(d => parseFloat(d.avgScore));
+
+      const improvementPerMonth = agentData.map(d => {
+        const issues = {};
+        d.remarks.forEach(r => {
+          const issue = mapRemarkToImprovement(r);
+          if (issue) issues[issue] = (issues[issue] || 0) + 1;
+        });
+        return Object.entries(issues)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3)
+          .map(([issue, count]) => `• ${issue} (${count} time${count > 1 ? 's' : ''})`);
+      });
+
+      agentTrendChart = new ApexCharts(document.getElementById('agentTrendChart'), {
+        series: [{ name: 'Average Score', data: scores }],
+        chart: { height: 400, type: 'area', toolbar: { show: false }, animations: { enabled: true, easing: 'easeinout', speed: 800 } },
+        markers: { size: 6, colors: ['#4154f1'], strokeColor: '#fff', strokeWidth: 3, hover: { size: 10 } },
+        colors: ['#4154f1'],
+        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.5, opacityTo: 0.1, stops: [0, 90, 100] } },
+        stroke: { curve: 'smooth', width: 4 },
+        dataLabels: { enabled: false },
+        xaxis: { categories: months, labels: { style: { fontSize: '13px', fontWeight: 600, color: '#012970' } } },
+        yaxis: {
+                min: 8.0,
+                max: 10.0,
+                reversed: false,
+                tickAmount: 10,
+                labels: {
+                    formatter: val => val.toFixed(2)
+                }
+            },
+        tooltip: {
+          theme: 'light',
+          custom: function({ series, seriesIndex, dataPointIndex }) {
+            const month = months[dataPointIndex];
+            const score = series[seriesIndex][dataPointIndex].toFixed(2);
+            const areas = improvementPerMonth[dataPointIndex];
+            let areasHTML = '<div class="mt-2 text-sm"><strong>Top Improvement Areas:</strong><br/>';
+            if (areas.length > 0) areasHTML += areas.join('<br/>');
+            else areasHTML += '<em class="text-gray-500">No major issues noted this month</em>';
+            areasHTML += '</div>';
+            return `<div class="p-4 bg-white border border-gray-200 rounded-lg shadow-lg"><div class="font-bold text-lg">${month}</div><div class="mt-1"><strong>Average Score:</strong> ${score} / 10</div>${areasHTML}</div>`;
+          }
+        },
+        grid: { borderColor: '#e7e7e7', strokeDashArray: 4, padding: { left: 20, right: 20 } }
+      });
+      agentTrendChart.render();
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>
