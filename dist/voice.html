@@ -652,7 +652,10 @@
 const lowParamsDom = document.getElementById('lowParamsChart');
 const lowParamsChart = echarts.init(lowParamsDom);
 
-const values = lowestParameters.map(p => parseFloat(p.lostMarks.toFixed(1)));
+// Assuming `lowestParameters` is an array like:
+// [{ parameter: "...", avgScore: 6.2, lostMarks: 3.8 }, ...]
+
+const values = lowestParameters.map(p => Number(p.lostMarks.toFixed(1)));
 
 const lowParamsOption = {
   tooltip: {
@@ -662,8 +665,11 @@ const lowParamsOption = {
     borderColor: '#e2e8f0',
     borderWidth: 1,
     padding: 12,
-    textStyle: { color: '#333', fontSize: 14 },
-    formatter: function(params) {
+    textStyle: {
+      color: '#333',
+      fontSize: 14
+    },
+    formatter: (params) => {
       const p = lowestParameters[params.dataIndex];
       return `
         <strong style="font-size:15px; color:#012970;">${p.parameter}</strong><br/>
@@ -673,27 +679,43 @@ const lowParamsOption = {
       `;
     }
   },
+
   grid: {
     left: '5%',
-    right: '12%',
+    right: '14%',     // slightly more space for labels
     top: '8%',
     bottom: '8%',
     containLabel: true
   },
+
   xAxis: {
     type: 'value',
     min: 0,
     max: 10,
-    splitLine: { lineStyle: { color: '#e7e7e7', type: 'dashed' } },
-    axisLabel: { fontSize: 13, fontWeight: 600, color: '#012970' }
-  },
-  yAxis: {
-    type: 'category',
-    data: lowestParameters.map(p => p.parameter.length > 60 ? p.parameter.substring(0,57) + '...' : p.parameter),
-    inverse: true,  // Highest marks lost at the top
+    splitLine: {
+      lineStyle: {
+        color: '#e7e7e7',
+        type: 'dashed'
+      }
+    },
     axisLabel: {
       fontSize: 13,
-      fontWeight: 600,
+      fontWeight: '600',
+      color: '#012970'
+    }
+  },
+
+  yAxis: {
+    type: 'category',
+    inverse: true,           // highest lost marks at the top
+    data: lowestParameters.map(p =>
+      p.parameter.length > 60
+        ? p.parameter.substring(0, 57) + '...'
+        : p.parameter
+    ),
+    axisLabel: {
+      fontSize: 13,
+      fontWeight: '600',
       color: '#012970',
       margin: 20,
       width: 380,
@@ -702,29 +724,40 @@ const lowParamsOption = {
     axisLine: { show: false },
     axisTick: { show: false }
   },
+
   series: [
-    // Thick deep red "stick" lines
+    // 1. Thin red "stick" (bar)
     {
       type: 'bar',
+      z: 1,
       data: values,
       barWidth: 6,
-      itemStyle: { color: '#b91c1c' },  // Deep red for sticks
-      emphasis: { itemStyle: { shadowBlur: 12, shadowColor: 'rgba(185,28,28,0.4)' } }
+      itemStyle: {
+        color: '#b91c1c'          // deep red
+      },
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 12,
+          shadowColor: 'rgba(185, 28, 28, 0.4)'
+        }
+      }
     },
-    // Vibrant red "lollipop" dots with value labels
+
+    // 2. Lollipop head + value label
     {
       type: 'scatter',
+      z: 2,
       data: values,
       symbolSize: 26,
       itemStyle: {
-        color: '#ef4444',      // Vibrant red for dots
+        color: '#ef4444',           // bright red
         borderColor: '#fff',
         borderWidth: 5
       },
       emphasis: {
         itemStyle: {
           shadowBlur: 20,
-          shadowColor: 'rgba(239,68,68,0.6)',
+          shadowColor: 'rgba(239, 68, 68, 0.6)',
           borderWidth: 6,
           symbolSize: 30
         }
@@ -736,12 +769,12 @@ const lowParamsOption = {
         formatter: '{c}',
         fontSize: 14,
         fontWeight: 'bold',
-        color: '#b91c1c',      // Deep red text
-        backgroundColor: 'rgba(255,255,255,0.95)',
+        color: '#b91c1c',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
         padding: [6, 10, 6, 10],
         borderRadius: 8,
         shadowBlur: 6,
-        shadowColor: 'rgba(0,0,0,0.15)'
+        shadowColor: 'rgba(0, 0, 0, 0.15)'
       }
     }
   ]
@@ -749,7 +782,7 @@ const lowParamsOption = {
 
 lowParamsChart.setOption(lowParamsOption);
 
-// Responsive resize
+// Make responsive
 window.addEventListener('resize', () => {
   lowParamsChart.resize();
 });

@@ -26,6 +26,10 @@
     <!-- END PLUGINS STYLES -->
     <!-- BEGIN DEMO STYLES -->
     <link href="./preview/css/demo.css?1767679296" rel="stylesheet" />
+
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <!-- END DEMO STYLES -->
     <!-- BEGIN CUSTOM FONT -->
     <style>
@@ -1531,110 +1535,305 @@
         <!-- END PAGE HEADER -->
         <!-- BEGIN PAGE BODY -->
         <main id="content" class="page-body">
-          <div class="container-xl my-auto">
-  <div class="col-12">
-    <div class="row row-cards">
-      <!-- Card 1: Average Score -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-primary text-white avatar avatar-sm">
-                  <!-- Phone icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold" id="avgScore">0</div>
-                <div class="text-secondary">Average Score</div>
-                <p class="text-xs text-gray-500 mt-1">Out of 10.0</p>
+          <div class="container-xl position-relative my-4">
+
+  <!-- Full-page Loading Overlay -->
+
+
+  <!-- Hero KPIs -->
+  <div class="row row-cards row-deck g-4 mb-6">
+    <!-- Total Audited Calls -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card card-sm hover-lift shadow-sm transition-all">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <span class="avatar avatar-md bg-primary-lt text-primary me-3 flex-shrink-0">
+              <i class="ti ti-phone-call fs-5"></i>
+            </span>
+            <div class="flex-grow-1">
+              <div class="h3 mb-1 fw-bold text-primary" id="totalCalls">--</div>
+              <div class="text-muted small">Total Audited Calls</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Average Score -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card card-sm hover-lift shadow-sm transition-all">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <span class="avatar avatar-md bg-primary-lt text-primary me-3 flex-shrink-0">
+              <i class="ti ti-star fs-5"></i>
+            </span>
+            <div class="flex-grow-1">
+              <div class="h3 mb-1 fw-bold text-primary" id="avgScore">0.0</div>
+              <div class="text-muted small d-flex align-items-center gap-2">
+                Average Score
+                <small class="text-gray-500">(out of 10.0)</small>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Card 2: Pass Rate -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-success text-white avatar avatar-sm">
-                  <!-- Headset icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 12h3a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-3v-7"></path>
-                    <path d="M21 12h-3a2 2 0 0 0 -2 2v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2 -2v-5"></path>
-                    <path d="M9 7v10"></path>
-                    <path d="M15 7v10"></path>
-                  </svg>
-                </span>
+    <!-- Pass Rate -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card card-sm hover-lift shadow-sm transition-all border-warning border-opacity-25">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <span class="avatar avatar-md bg-success-lt text-success me-3 flex-shrink-0">
+              <i class="ti ti-check fs-5"></i>
+            </span>
+            <div class="flex-grow-1">
+              <div class="h3 mb-1 fw-bold text-success" id="passRate">0.0%</div>
+              <div class="text-muted small d-flex align-items-center flex-wrap gap-2">
+                Pass Rate
+                <span class="badge bg-warning text-dark">Target ≥99%</span>
               </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-success" id="passRate">0</div>
-                <div class="text-secondary">Pass Rate</div>
-                <span class="badge-target">Target ≥99%</span>
+              <div class="progress progress-sm mt-3" style="height: 6px;">
+                <div class="progress-bar bg-success bg-gradient" role="progressbar" style="width: 0%" id="passRateBar"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Card 3: Excellent/Good Rate -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-indigo text-white avatar avatar-sm">
-                  <!-- Trophy icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 21h8"></path>
-                    <path d="M12 17v4"></path>
-                    <path d="M7 4h10"></path>
-                    <path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-indigo text-truncate" id="excellentGoodRate">—</div>
-                <div class="text-secondary">Excellent/Good Rate</div>
-              </div>
+    <!-- Excellent/Good Rate -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card card-sm hover-lift shadow-sm transition-all">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <span class="avatar avatar-md bg-indigo-lt text-indigo me-3 flex-shrink-0">
+              <i class="ti ti-trophy fs-5"></i>
+            </span>
+            <div class="flex-grow-1">
+              <div class="h3 mb-1 fw-bold text-indigo" id="excellentGoodRate">0.0%</div>
+              <div class="text-muted small">Excellent / Good Rate</div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Card 4: FCR Rate -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-orange text-white avatar avatar-sm">
-                  <!-- Clock icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                    <path d="M12 12l0 -4"></path>
-                    <path d="M12 12l3 3"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-orange" id="fcrRate">--</div>
-                <div class="text-secondary">FCR Rate</div>
-              </div>
+    <!-- FCR Rate -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card card-sm hover-lift shadow-sm transition-all">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <span class="avatar avatar-md bg-orange-lt text-orange me-3 flex-shrink-0">
+              <i class="ti ti-clock fs-5"></i>
+            </span>
+            <div class="flex-grow-1">
+              <div class="h3 mb-1 fw-bold text-orange" id="fcrRate">0.0%</div>
+              <div class="text-muted small">FCR Rate</div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
+  <!-- Location Breakdown + Grade Distribution -->
+  <div class="row row-cards row-deck g-4 mb-6">
+    <div class="col-lg-6">
+      <div class="card shadow-sm hover-lift transition-all">
+        <div class="card-header">
+          <h3 class="card-title">Audit Performance by Location</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-vcenter table-nowrap card-table mb-0">
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th class="text-center">Avg Score</th>
+                <th class="text-center">Pass Rate</th>
+                <th class="text-center">Excellent/Good</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="fw-bold text-muted">Overall</td><td class="text-center fw-medium" id="overallAvg">--</td><td class="text-center fw-medium" id="overallPass">--</td><td class="text-center fw-medium" id="overallGood">--</td></tr>
+              <tr><td class="fw-bold text-muted">Urban</td><td class="text-center fw-medium" id="urbanAvg">--</td><td class="text-center fw-medium" id="urbanPass">--</td><td class="text-center fw-medium" id="urbanGood">--</td></tr>
+              <tr><td class="fw-bold text-muted">Rural</td><td class="text-center fw-medium" id="ruralAvg">--</td><td class="text-center fw-medium" id="ruralPass">--</td><td class="text-center fw-medium" id="ruralGood">--</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow-sm hover-lift transition-all">
+        <div class="card-header">
+          <h3 class="card-title">Grade Distribution</h3>
+        </div>
+        <div class="card-body p-0">
+          <div class="ratio ratio-16x9">
+            <div id="gradeChart" style="width:100%;height:100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monthly Trends -->
+  <div class="row row-cards row-deck g-4 mb-6">
+    <div class="col-lg-6">
+      <div class="card shadow-sm hover-lift transition-all">
+        <div class="card-header">
+          <h3 class="card-title">Average Score Trend</h3>
+        </div>
+        <div class="card-body p-0">
+          <div class="ratio ratio-4x3">
+            <div id="scoreTrendChart" style="width:100%;height:100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow-sm hover-lift transition-all">
+        <div class="card-header">
+          <h3 class="card-title">Pass Rate Trend</h3>
+        </div>
+        <div class="card-body p-0">
+          <div class="ratio ratio-4x3">
+            <div id="passTrendChart" style="width:100%;height:100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Parameters Lost & Top Issues -->
+  <div class="row row-cards row-deck g-4 mb-6">
+    <div class="col-12">
+      <div class="card shadow-sm hover-lift transition-all">
+        <div class="card-header">
+          <h3 class="card-title">Top 7 Parameters with Highest Marks Lost</h3>
+        </div>
+        <div class="card-body p-0">
+          <div class="ratio ratio-16x9" style="min-height:320px;">
+            <div id="lowParamsChart" style="width:100%;height:100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card shadow-sm hover-lift transition-all">
+        <div class="card-header">
+          <h3 class="card-title">Top 10 Issues from Remarks</h3>
+          <div class="card-actions">
+            <!-- Optional tooltip/info icon -->
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="ratio ratio-16x9" style="min-height:400px;">
+            <div id="topRemarksChart" style="width:100%;height:100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All Agents Performance -->
+  <div class="row row-cards row-deck mb-6">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="card-title">All Agents Performance</h3>
+          <div class="card-actions d-flex flex-wrap gap-3 align-items-center">
+            <div class="input-icon">
+              <input type="text" id="agentSearch" class="form-control w-64" placeholder="Search agent name..." />
+              <span class="input-icon-addon"><i class="ti ti-search"></i></span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <label class="form-label mb-0 text-muted small">From:</label>
+              <select id="agentFromMonth" class="form-select w-36"><option value="all">All Months</option></select>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <label class="form-label mb-0 text-muted small">To:</label>
+              <select id="agentToMonth" class="form-select w-36"><option value="all">All Months</option></select>
+            </div>
+            <div class="d-flex gap-2">
+              <button id="applyAgentFilter" class="btn btn-primary"><i class="ti ti-filter-check me-2"></i>Apply</button>
+              <button id="resetAgentFilter" class="btn btn-ghost-secondary"><i class="ti ti-x me-2"></i>Reset</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-vcenter table-nowrap card-table mb-0">
+            <thead>
+              <tr>
+                <th class="w-1">Rank</th>
+                <th>Agent</th>
+                <th class="text-center">Audits</th>
+                <th class="text-center">Avg Score</th>
+                <th class="text-center">Pass Rate</th>
+              </tr>
+            </thead>
+            <tbody id="agentTableBody">
+              <tr class="text-center opacity-50"><td colspan="5">Loading agents... or no data available</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual Agent Trend -->
+  <div class="row row-cards row-deck">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="card-title">Individual Agent Performance Trend</h3>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-lg-3">
+              <h4 class="card-subtitle text-muted mb-3 small">Select Agent</h4>
+              <div class="d-flex flex-wrap gap-2" id="agentChips"></div>
+              <div class="text-muted small mt-3" id="noAgentsMessage" style="display:none;">
+                No agents available for selection
+              </div>
+            </div>
+            <div class="col-lg-9">
+              <div class="ratio ratio-16x9" style="min-height:400px;">
+                <div id="agentTrendChart" style="width:100%;height:100%;"></div>
+              </div>
+              <p class="text-muted small mt-3 text-center">
+                Hover over a data point or month to view the average score and top improvement areas mentioned in remarks
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px; background: #ffffff;">
+    <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h5 class="mb-0 text-dark fw-bold" style="font-family: 'Inter', sans-serif;">
+                    Parameter Performance Gap
+                </h5>
+                <small class="text-muted">Avg points lost per criteria (Higher is worse)</small>
+            </div>
+            <span class="badge bg-soft-danger text-danger px-3 py-2" style="background: #fee2e2; border-radius: 8px;">
+                Top 10 Critical
+            </span>
+        </div>
+    </div>
+    <div class="card-body px-2 pb-4">
+        <div id="chart-container" style="width: 100%; height: 500px;"></div>
     </div>
 </div>
-          </div>
+
+</div>
         </main>
         <!-- END PAGE BODY -->
         <!-- BEGIN FOOTER -->
@@ -2027,850 +2226,7 @@
     </script>
     <!-- END PAGE SCRIPTS -->
 
-    <script>
-    const CSV_URL = "https://raw.githubusercontent.com/Contactinfocenter/audit/main/AuditData.csv";
+    <script src="audit.js"></script>
 
-    const colors = {
-      primary: '#4154f1',
-      success: '#2eca6a',
-      warning: '#ff771d',
-      danger: '#dc2626',
-      info: '#0dcaf0'
-    };
-
-    const targetLine = (value, label) => ({
-      type: 'line',
-      yMin: value,
-      yMax: value,
-      borderColor: colors.danger,
-      borderWidth: 2,
-      borderDash: [6, 6],
-      label: { content: label, position: 'end', backgroundColor: 'rgba(220,38,38,0.9)', color: '#fff', font: { weight: 'bold' } }
-    });
-
-    const beautifulTooltip = {
-      backgroundColor: 'rgba(255, 255, 255, 0.98)',
-      titleColor: '#012970',
-      bodyColor: '#333',
-      borderColor: '#e2e8f0',
-      borderWidth: 1,
-      cornerRadius: 10,
-      padding: 12,
-      titleFont: { size: 15, weight: 'bold' },
-      bodyFont: { size: 14 },
-      displayColors: true,
-      caretPadding: 10
-    };
-
-    const mapping = {
-      "Empathize with the client": "Lack of Empathy",
-      "empathize": "Lack of Empathy",
-      "Make client feel better than before": "Lack of Empathy",
-      "Make client feel better": "Lack of Empathy",
-      "Willingness to help": "Lack of Willingness to Help",
-      "helping attitude": "Lack of Willingness to Help",
-      "Avoid interrupting the client": "Interruption / Restlessness",
-      "Interrupting the client": "Interruption / Restlessness",
-      "Restlessness": "Interruption / Restlessness",
-      "Hurriedness": "Interruption / Restlessness",
-      "hurriedness": "Interruption / Restlessness",
-      "Pach was fast": "Interruption / Restlessness",
-      "pach was fast": "Interruption / Restlessness",
-      "pach was little fast": "Interruption / Restlessness",
-      "Apology sincerely": "Sincere Apology Missing",
-      "apologize sincerely": "Sincere Apology Missing",
-      "intensify": "Sincere Apology Missing",
-      "Use Carnival Internet's unique welcome process": "Greeting Issue",
-      "welcome process": "Greeting Issue",
-      "Greeting Issue": "Greeting Issue",
-      "late greeting": "Greeting Issue",
-      "Late response": "Greeting Issue",
-      "late response": "Greeting Issue",
-      "Salam not answer": "Greeting Issue",
-      "Salam not provided": "Greeting Issue",
-      "Own name": "Greeting Issue",
-      "company name": "Greeting Issue",
-      "Offer an appropriate solution/ Provide Right Info": "Incorrect Info / Solution",
-      "Provide Right Info": "Incorrect Info / Solution",
-      "Right Info": "Incorrect Info / Solution",
-      "SLA not share": "Incorrect Info / Solution",
-      "VIVR": "VIVR Missing",
-      "VIVR miss": "VIVR Missing",
-      "VIVR info": "VIVR Missing",
-      "VVIR": "VIVR Missing",
-      "VIVR Info share missing": "VIVR Missing",
-      "further assistance": "Further Assistance Missing",
-      "Further Assistance miss": "Further Assistance Missing",
-      "Offer further assistance miss": "Further Assistance Missing",
-      "dead timer": "Dead Timer / Lack of Focus",
-      "Dead timer": "Dead Timer / Lack of Focus",
-      "Have focus on dead timer": "Dead Timer / Lack of Focus",
-      "Have focus on client's statements": "Dead Timer / Lack of Focus",
-      "Actively Listen": "Dead Timer / Lack of Focus",
-      "Speak clearly": "Speech Clarity / Pronunciation Issue",
-      "Speech Rate": "Speech Clarity / Pronunciation Issue",
-      "pronunciation": "Speech Clarity / Pronunciation Issue",
-      "Spelling": "Speech Clarity / Pronunciation Issue",
-      "Mumbling": "Speech Clarity / Pronunciation Issue",
-      "Speak politely, calmly & warmly": "Inappropriate Tone",
-      "appropriate tone & terms": "Inappropriate Tone",
-      "Casual way of talking": "Inappropriate Tone",
-      "pause/hold etiquettes": "Pause/Hold Etiquette Violation",
-      "Max. pause": "Pause/Hold Etiquette Violation",
-      "Follow proper closing process": "Improper Closing",
-      "Confirm client's Name": "ID Confirmation Issue",
-      "Confirm Client Identity": "ID Confirmation Issue",
-      "magical words": "Missing Magic Words",
-      "Thank you, please , kindly, sorry": "Missing Magic Words",
-      "Follow service guidelines properly": "Did Not Follow Guidelines",
-      "Solving Skill": "Did Not Follow Guidelines",
-      "sufficient product/resource knowledge": "Insufficient Product Knowledge",
-      "Stand by any given commitment": "Commitment Not Honored",
-      "call back not found": "Commitment Not Honored",
-      "Incomp. Info/Service": "Incomplete Info/Service",
-      "Miscommunication": "Miscommunication",
-      "Unusual Silence or Hangup": "Unusual Silence / Hangup"
-    };
-
-    function mapRemarkToImprovement(remark) {
-      if (!remark) return null;
-      const lowerRemark = remark.toLowerCase();
-      for (const key in mapping) {
-        if (lowerRemark.includes(key.toLowerCase())) {
-          return mapping[key];
-        }
-      }
-      return null;
-    }
-
-    let agentTrendChart = null;
-    let allAudits = [];
-    let sortedMonths = [];
-
-    async function loadDashboard() {
-      document.getElementById('loadingOverlay').style.display = 'flex';
-
-      try {
-        const response = await fetch(CSV_URL);
-        if (!response.ok) throw new Error('Failed to load CSV');
-        const text = await response.text();
-
-        const lines = text.trim().split('\n');
-        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-
-        const audits = [];
-        for (let i = 1; i < lines.length; i++) {
-          const values = [];
-          let current = '';
-          let inQuotes = false;
-          for (const char of lines[i] + ',') {
-            if (char === '"') inQuotes = !inQuotes;
-            else if (char === ',' && !inQuotes) {
-              values.push(current.trim().replace(/^"|"$/g, ''));
-              current = '';
-            } else {
-              current += char;
-            }
-          }
-          if (values.length === headers.length) {
-            const obj = {};
-            headers.forEach((h, j) => obj[h] = values[j]);
-            audits.push(obj);
-          }
-        }
-
-        const dateCol = 'Call Date:';
-        const agentIdCol = 'Agent ID';
-        const agentNameCol = 'Agent Name';
-        const totalMarkCol = 'Total Mark';
-        const gradeCol = 'Grade';
-        const remarkCol = 'Remark';
-        const clientAreaCol = 'Client Area';
-        const fcrCol = 'Right FCR Staus Selected';
-
-        const monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-        audits.forEach(a => {
-          const dateStr = a[dateCol] || '';
-          const parts = dateStr.split(' ');
-          const datePart = parts[0];
-          const timePart = parts[1] || '';
-          const [month, day, year] = datePart.split('/');
-          let date = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${timePart || '00:00:00'}`);
-          if (isNaN(date.getTime())) date = new Date(dateStr);
-          a.date = isNaN(date.getTime()) ? null : date;
-          a.month = a.date ? a.date.toLocaleString('en-US', { month: 'short', year: 'numeric' }) : 'Unknown';
-          a.score = parseFloat(a[totalMarkCol]) || 0;
-          a.grade = a[gradeCol]?.trim() || '';
-          a.remark = a[remarkCol] || '';
-          a.location = a[clientAreaCol] || '';
-          a.fcr = a[fcrCol] || '';
-          a.agentKey = `${a[agentIdCol]?.trim()} - ${a[agentNameCol]?.trim()}`;
-          a.agentNameLower = a[agentNameCol]?.trim().toLowerCase() || '';
-        });
-
-        const validAudits = audits.filter(a => a.date && a.score > 0);
-        allAudits = validAudits;
-
-        // Populate month dropdowns for agent table filter
-        const uniqueMonths = [...new Set(validAudits.map(a => a.month))].filter(m => m !== 'Unknown');
-        sortedMonths = uniqueMonths.sort((a, b) => {
-          const [aM, aY] = a.split(' ');
-          const [bM, bY] = b.split(' ');
-          if (aY !== bY) return aY.localeCompare(bY);
-          return monthOrder.indexOf(aM) - monthOrder.indexOf(bM);
-        });
-
-        const fromSelect = document.getElementById('agentFromMonth');
-        const toSelect = document.getElementById('agentToMonth');
-
-        fromSelect.innerHTML = '<option value="all">All Months</option>';
-        toSelect.innerHTML = '<option value="all">All Months</option>';
-
-        sortedMonths.forEach(m => {
-          const optFrom = document.createElement('option');
-          optFrom.value = m;
-          optFrom.textContent = m;
-          fromSelect.appendChild(optFrom);
-
-          const optTo = optFrom.cloneNode(true);
-          toSelect.appendChild(optTo);
-        });
-
-        fromSelect.value = 'all';
-        toSelect.value = 'all';
-
-        // Initial load of agent table
-        updateAgentTable();
-
-        // Search, Apply, Reset handlers
-        document.getElementById('agentSearch').addEventListener('input', updateAgentTable);
-        document.getElementById('applyAgentFilter').onclick = updateAgentTable;
-        document.getElementById('resetAgentFilter').onclick = () => {
-          document.getElementById('agentSearch').value = '';
-          fromSelect.value = 'all';
-          toSelect.value = 'all';
-          updateAgentTable();
-        };
-
-        // KPIs
-        const totalCalls = validAudits.length;
-        const avgScore = totalCalls ? (validAudits.reduce((sum, a) => sum + a.score, 0) / totalCalls).toFixed(1) : '0.0';
-        const passCount = validAudits.filter(a => ['Excellent', 'Good', 'Average'].includes(a.grade)).length;
-        const passRate = totalCalls ? ((passCount / totalCalls) * 100).toFixed(1) : '0.0';
-        const goodCount = validAudits.filter(a => ['Excellent', 'Good'].includes(a.grade)).length;
-        const excellentGoodRate = totalCalls ? ((goodCount / totalCalls) * 100).toFixed(1) : '0.0';
-        const fcrCount = validAudits.filter(a => a.fcr.toLowerCase().includes('yes')).length;
-        const fcrRate = totalCalls ? ((fcrCount / totalCalls) * 100).toFixed(1) : '0.0';
-
-        document.getElementById('totalCalls').textContent = totalCalls.toLocaleString();
-        document.getElementById('avgScore').textContent = avgScore;
-        document.getElementById('passRate').textContent = passRate + '%';
-        document.getElementById('excellentGoodRate').textContent = excellentGoodRate + '%';
-        document.getElementById('fcrRate').textContent = fcrRate;
-
-        // Location
-        const isUrban = loc => /urban|city/i.test(loc);
-        const isRural = loc => /rural/i.test(loc);
-
-        const getLocationStats = filterFn => {
-          const list = filterFn ? validAudits.filter(a => filterFn(a.location)) : validAudits;
-          if (list.length === 0) return { avg: 'N/A', pass: 'N/A', good: 'N/A' };
-          const avg = (list.reduce((sum, a) => sum + a.score, 0) / list.length).toFixed(1);
-          const pass = ((list.filter(a => ['Excellent','Good','Average'].includes(a.grade)).length / list.length) * 100).toFixed(1);
-          const good = ((list.filter(a => ['Excellent','Good'].includes(a.grade)).length / list.length) * 100).toFixed(1);
-          return { avg, pass, good };
-        };
-
-        const location = {
-          overall: getLocationStats(),
-          urban: getLocationStats(isUrban),
-          rural: getLocationStats(isRural)
-        };
-
-        document.getElementById('overallAvg').textContent = location.overall.avg;
-        document.getElementById('overallPass').textContent = location.overall.pass + '%';
-        document.getElementById('overallGood').textContent = location.overall.good + '%';
-        document.getElementById('urbanAvg').textContent = location.urban.avg;
-        document.getElementById('urbanPass').textContent = location.urban.pass + '%';
-        document.getElementById('urbanGood').textContent = location.urban.good + '%';
-        document.getElementById('ruralAvg').textContent = location.rural.avg;
-        document.getElementById('ruralPass').textContent = location.rural.pass + '%';
-        document.getElementById('ruralGood').textContent = location.rural.good + '%';
-
-        // Grade Distribution 
-        const grades = ['Excellent', 'Good', 'Average', 'Below Average', 'Fail'];
-        const gradeCounts = grades.map(g => validAudits.filter(a => a.grade === g).length);
-
-        const gradeChartDom = document.getElementById('gradeChart');
-        const gradeChart = echarts.init(gradeChartDom);
-
-        const gradeOption = {
-        tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b}: {c} calls ({d}%)'
-        },
-        legend: {
-            orient: 'vertical',
-            right: '5%',
-            top: 'middle',
-            align: 'left',
-            itemGap: 15,
-            textStyle: {
-            fontWeight: '600',
-            fontSize: 13,
-            color: '#012970'
-            }
-        },
-        series: [{
-            name: 'Grade Distribution',
-            type: 'pie',
-            radius: ['50%', '95%'],        
-            center: ['42%', '50%'],        
-            avoidLabelOverlap: false,
-            itemStyle: {                   
-            borderRadius: 12,
-            borderColor: '#fff',
-            borderWidth: 5
-            },
-            label: {
-            show: false,
-            position: 'center'
-            },
-            emphasis: {
-            label: {
-                show: true,
-                fontSize: '18',
-                fontWeight: 'bold'
-            },
-            itemStyle: {                 
-                shadowBlur: 15,
-                shadowColor: 'rgba(0, 0, 0, 0.3)'
-            }
-            },
-            labelLine: {
-            show: false
-            },
-            data: [
-            { value: gradeCounts[0], name: 'Excellent' },
-            { value: gradeCounts[1], name: 'Good' },
-            { value: gradeCounts[2], name: 'Average' },
-            { value: gradeCounts[3], name: 'Below Average' },
-            { value: gradeCounts[4], name: 'Fail' }
-            ]
-        }],
-        color: ['#10b981', '#34d399', '#06b6d4', '#f59e0b', '#ef4444']
-        };
-
-        gradeChart.setOption(gradeOption);
-
-        // Responsive resize
-        window.addEventListener('resize', () => {
-        gradeChart.resize();
-        });
-
-
-        // Monthly Trends
-        const monthlyMap = {};
-        validAudits.forEach(a => {
-          if (!monthlyMap[a.month]) monthlyMap[a.month] = { scores: [], pass: 0, total: 0 };
-          monthlyMap[a.month].scores.push(a.score);
-          monthlyMap[a.month].total++;
-          if (['Excellent','Good','Average'].includes(a.grade)) monthlyMap[a.month].pass++;
-        });
-
-        const sortedMonthsTrend = Object.keys(monthlyMap).sort((a, b) => {
-          const [aM, aY] = a.split(' ');
-          const [bM, bY] = b.split(' ');
-          if (aY !== bY) return aY.localeCompare(bY);
-          return monthOrder.indexOf(aM) - monthOrder.indexOf(bM);
-        });
-
-        const monthlyTrend = sortedMonthsTrend.map(m => ({
-          month: m,
-          avgScore: (monthlyMap[m].scores.reduce((s, v) => s + v, 0) / monthlyMap[m].scores.length).toFixed(1),
-          passRate: ((monthlyMap[m].pass / monthlyMap[m].total) * 100).toFixed(1)
-        }));
-
-        // Average Score Trend 
-        new ApexCharts(document.getElementById('scoreTrendChart'), {
-        series: [{
-            name: 'Average Score',
-            data: monthlyTrend.map(m => parseFloat(m.avgScore))
-        }],
-        chart: {
-            height: 350,
-            type: 'area',
-            toolbar: { show: false }
-        },
-        markers: { size: 4 },
-        colors: ['#4154f1'],
-        fill: {
-            type: "gradient",
-            gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.4,
-            opacityTo: 0.1,
-            stops: [0, 90, 100]
-            }
-        },
-        dataLabels: { enabled: false },
-        stroke: { curve: 'smooth', width: 3 },
-        xaxis: {
-            type: 'category',
-            categories: monthlyTrend.map(m => m.month),
-            labels: { style: { fontSize: '12px', fontWeight: 600 } }
-        },
-        yaxis: {
-            min: 9.0,
-            max: 10.0,
-            tickAmount: 10,
-            labels: {
-            formatter: function (val) {
-                return val.toFixed(2);
-            }
-            },
-            title: {
-            text: 'Average Score',
-            style: { fontWeight: 600, color: '#012970' }
-            }
-        },
-        tooltip: {
-            y: { formatter: val => val.toFixed(2) + ' / 10' }
-        },
-        grid: { borderColor: '#e7e7e7', strokeDashArray: 4 }
-        }).render();
-
-        // Pass Rate Trend
-        new ApexCharts(document.getElementById('passTrendChart'), {
-        series: [{
-            name: 'Pass Rate',
-            data: monthlyTrend.map(m => parseFloat(m.passRate))
-        }],
-        chart: {
-            height: 350,
-            type: 'area',
-            toolbar: { show: false }
-        },
-        markers: { size: 4 },
-        colors: ['#2eca6a'], // Success green
-        fill: {
-            type: "gradient",
-            gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.4,
-            opacityTo: 0.1,
-            stops: [0, 90, 100]
-            }
-        },
-        dataLabels: { enabled: false },
-        stroke: { curve: 'smooth', width: 3 },
-        xaxis: {
-            type: 'category',
-            categories: monthlyTrend.map(m => m.month),
-            labels: { style: { fontSize: '12px', fontWeight: 600 } }
-        },
-        yaxis: {
-        min: 80,
-        max: 100,
-        tickAmount: 10,
-        labels: {
-            formatter: val => val.toFixed(0) + '%'
-        }
-        },
-        tooltip: {
-            x: { format: 'MMM yyyy' },
-            y: { formatter: val => val.toFixed(1) + '%' }
-        },
-        grid: { borderColor: '#e7e7e7', strokeDashArray: 4 }
-        }).render();
-
-        // Top 7 Parameters with Highest Marks Lost
-        const parameterColumns = headers.filter(h => 
-          h.includes('/') || 
-          h.includes('process') || 
-          h.includes('etiquettes') || 
-          h.includes('profanity') || 
-          h.includes('urgency') || 
-          h.includes('assistance') || 
-          h.includes('closing') || 
-          h.includes('SLA') || 
-          h.includes('knowledge')
-        );
-
-        const lowestParameters = parameterColumns.map(p => {
-          const values = validAudits.map(a => parseFloat(a[p]) || 10);
-          const avgScore = values.reduce((a, b) => a + b, 0) / totalCalls;
-          const lostMarks = (10 - avgScore).toFixed(1);
-          return { parameter: p, lostMarks: parseFloat(lostMarks), avgScore: avgScore.toFixed(1) };
-        }).sort((a, b) => b.lostMarks - a.lostMarks).slice(0, 7);
-
-        
-            // Top 7 Parameters with Highest Marks Lost - ENHANCED LOLLIPOP CHART (Premium Red Theme)
-const lowParamsDom = document.getElementById('lowParamsChart');
-const lowParamsChart = echarts.init(lowParamsDom);
-
-const values = lowestParameters.map(p => parseFloat(p.lostMarks.toFixed(1)));
-
-const lowParamsOption = {
-  tooltip: {
-    trigger: 'item',
-    confine: true,
-    backgroundColor: 'rgba(255, 255, 255, 0.98)',
-    borderColor: '#e2e8f0',
-    borderWidth: 1,
-    padding: 12,
-    textStyle: { color: '#333', fontSize: 14 },
-    formatter: function(params) {
-      const p = lowestParameters[params.dataIndex];
-      return `
-        <strong style="font-size:15px; color:#012970;">${p.parameter}</strong><br/>
-        Average Score: <strong>${p.avgScore} / 10</strong><br/>
-        <span style="color:#dc2626; font-weight:bold;">Marks Lost: ${p.lostMarks} / 10</span><br/>
-        Improvement Potential: <span style="font-weight:bold; color:#dc2626;">+${p.lostMarks} points</span>
-      `;
-    }
-  },
-  grid: {
-    left: '5%',
-    right: '12%',
-    top: '8%',
-    bottom: '8%',
-    containLabel: true
-  },
-  xAxis: {
-    type: 'value',
-    min: 0,
-    max: 10,
-    splitLine: { lineStyle: { color: '#e7e7e7', type: 'dashed' } },
-    axisLabel: { fontSize: 13, fontWeight: 600, color: '#012970' }
-  },
-  yAxis: {
-    type: 'category',
-    data: lowestParameters.map(p => p.parameter.length > 60 ? p.parameter.substring(0,57) + '...' : p.parameter),
-    inverse: true,  // Highest marks lost at the top
-    axisLabel: {
-      fontSize: 13,
-      fontWeight: 600,
-      color: '#012970',
-      margin: 20,
-      width: 380,
-      overflow: 'truncate'
-    },
-    axisLine: { show: false },
-    axisTick: { show: false }
-  },
-  series: [
-    // Thick deep red "stick" lines
-    {
-      type: 'bar',
-      data: values,
-      barWidth: 6,
-      itemStyle: { color: '#b91c1c' },  // Deep red for sticks
-      emphasis: { itemStyle: { shadowBlur: 12, shadowColor: 'rgba(185,28,28,0.4)' } }
-    },
-    // Vibrant red "lollipop" dots with value labels
-    {
-      type: 'scatter',
-      data: values,
-      symbolSize: 26,
-      itemStyle: {
-        color: '#ef4444',      // Vibrant red for dots
-        borderColor: '#fff',
-        borderWidth: 5
-      },
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 20,
-          shadowColor: 'rgba(239,68,68,0.6)',
-          borderWidth: 6,
-          symbolSize: 30
-        }
-      },
-      label: {
-        show: true,
-        position: 'right',
-        distance: 12,
-        formatter: '{c}',
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: '#b91c1c',      // Deep red text
-        backgroundColor: 'rgba(255,255,255,0.95)',
-        padding: [6, 10, 6, 10],
-        borderRadius: 8,
-        shadowBlur: 6,
-        shadowColor: 'rgba(0,0,0,0.15)'
-      }
-    }
-  ]
-};
-
-lowParamsChart.setOption(lowParamsOption);
-
-// Responsive resize
-window.addEventListener('resize', () => {
-  lowParamsChart.resize();
-});
-
-// Top 10 Issues from Remarks - Exclude Positive Remarks
-const remarkCounts = {};
-validAudits.forEach(a => {
-  if (a.remark) {
-    a.remark.split('#')
-      .map(r => r.trim())
-      .filter(r => r.length > 3)
-      .filter(r => {
-        const lower = r.toLowerCase();
-        return ![
-          'all good', 'okay', 'ok', 'good', 'perfect',
-          'no issue', 'no issues', 'everything ok', 'all okay'
-        ].some(positive => lower.includes(positive));
-      })  // ← PLACE IT HERE
-      .forEach(r => {
-        remarkCounts[r] = (remarkCounts[r] || 0) + 1;
-      });
-  }
-});
-
-const topRemarks = Object.entries(remarkCounts)
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 10)
-  .map(([issue, count]) => ({ issue, count }));
-
-// ApexCharts - Top Remarks Chart (remains unchanged below)
-new ApexCharts(document.getElementById('topRemarksChart'), {
-  series: [{
-    name: 'Occurrences',
-    data: topRemarks.map(r => r.count)
-  }],
-  chart: {
-    type: 'bar',
-    height: 400,
-    toolbar: { show: false }
-  },
-  plotOptions: {
-    bar: {
-      horizontal: true,
-      borderRadius: 4,
-      borderRadiusApplication: 'end',
-
-      dataLabels: {
-        position: 'end'
-      }
-    }
-  },
-  colors: ['#dc2626'],
-  dataLabels: {
-    enabled: false,
-    formatter: val => Math.round(val),
-    style: {
-      fontSize: '14px',
-      fontWeight: 'bold',
-      colors: ['#fff']
-    },
-    offsetX: 8
-  },
-  xaxis: {
-    categories: topRemarks.map(r => r.issue.length > 50 ? r.issue.substring(0,47) + '...' : r.issue),
-    labels: {
-      style: { fontSize: '13px', fontWeight: 600 }
-    },
-    tickAmount: 8,
-    /*title: {
-      text: 'Number of Occurrences',
-      style: { fontWeight: 'bold', fontSize: '14px', color: '#012970' }
-    }*/
-  },
-  yaxis: {
-    labels: {
-      style: { fontSize: '13px' },
-      maxWidth: 320
-    }
-  },
-  tooltip: {
-    theme: 'light',
-    y: {
-      formatter: val => `${val} occurrence${val !== 1 ? 's' : ''}`
-    },
-    x: {
-      formatter: (val, { dataPointIndex }) => topRemarks[dataPointIndex].issue
-    }
-  },
-  grid: {
-    borderColor: '#e7e7e7',
-    strokeDashArray: 4,
-    yaxis: { lines: { show: false } }
-  },
-  legend: { show: false }
-}).render();
-        // Individual Agent Trend
-        const agentMonthly = {};
-        validAudits.forEach(a => {
-          const key = a.agentKey;
-          if (!agentMonthly[key]) agentMonthly[key] = {};
-          if (!agentMonthly[key][a.month]) agentMonthly[key][a.month] = { scores: [], remarks: [] };
-          agentMonthly[key][a.month].scores.push(a.score);
-          if (a.remark) agentMonthly[key][a.month].remarks.push(...a.remark.split('#').map(r => r.trim()).filter(r => r.length > 3));
-        });
-
-        const agentMonthlyData = {};
-        Object.keys(agentMonthly).forEach(key => {
-          agentMonthlyData[key] = Object.keys(agentMonthly[key]).map(m => ({
-            month: m,
-            avgScore: (agentMonthly[key][m].scores.reduce((s, v) => s + v, 0) / agentMonthly[key][m].scores.length).toFixed(2),
-            remarks: agentMonthly[key][m].remarks
-          })).sort((a, b) => {
-            const [aM, aY] = a.month.split(' ');
-            const [bM, bY] = b.month.split(' ');
-            if (aY !== bY) return aY.localeCompare(bY);
-            return monthOrder.indexOf(aM) - monthOrder.indexOf(bM);
-          });
-        });
-
-        const agentChipsContainer = document.getElementById('agentChips');
-        agentChipsContainer.innerHTML = '';
-        const agentKeys = Object.keys(agentMonthlyData).sort((a, b) => a.split(' - ')[1].localeCompare(b.split(' - ')[1]));
-
-        agentKeys.forEach((key, index) => {
-          const name = key.split(' - ')[1];
-          const chip = document.createElement('div');
-          chip.className = `agent-chip ${index === 0 ? 'active' : 'inactive'}`;
-          chip.textContent = name;
-          chip.dataset.key = key;
-          chip.onclick = () => {
-            document.querySelectorAll('.agent-chip').forEach(c => c.classList.replace('active', 'inactive'));
-            chip.classList.replace('inactive', 'active');
-            renderAgentTrend(key, agentMonthlyData[key]);
-          };
-          agentChipsContainer.appendChild(chip);
-        });
-
-        if (agentKeys.length > 0) renderAgentTrend(agentKeys[0], agentMonthlyData[agentKeys[0]]);
-
-        document.getElementById('loadingOverlay').style.display = 'none';
-      } catch (err) {
-        console.error(err);
-        alert('Error loading data: ' + err.message);
-        document.getElementById('loadingOverlay').style.display = 'none';
-      }
-    }
-
-    function updateAgentTable() {
-      const searchTerm = document.getElementById('agentSearch').value.toLowerCase();
-      const from = document.getElementById('agentFromMonth').value;
-      const to = document.getElementById('agentToMonth').value;
-
-      let filtered = allAudits;
-
-      if (from !== 'all' || to !== 'all') {
-        const fromIdx = from === 'all' ? 0 : sortedMonths.indexOf(from);
-        const toIdx = to === 'all' ? sortedMonths.length : sortedMonths.indexOf(to) + 1;
-        const selectedMonths = sortedMonths.slice(fromIdx, toIdx);
-        filtered = filtered.filter(a => selectedMonths.includes(a.month));
-      }
-
-      if (searchTerm) {
-        filtered = filtered.filter(a => a.agentNameLower.includes(searchTerm));
-      }
-
-      const agents = {};
-      filtered.forEach(a => {
-        const key = a.agentKey;
-        if (!agents[key]) agents[key] = { id: a['Agent ID'], name: a['Agent Name'], scores: [], grades: [] };
-        agents[key].scores.push(a.score);
-        agents[key].grades.push(a.grade);
-      });
-
-      const agentList = Object.values(agents).map(ag => ({
-        id: ag.id,
-        name: ag.name,
-        numAudits: ag.scores.length,
-        avgScore: (ag.scores.reduce((s, v) => s + v, 0) / ag.scores.length).toFixed(2),
-        passRate: ((ag.grades.filter(g => ['Excellent','Good','Average'].includes(g)).length / ag.grades.length) * 100).toFixed(1)
-      })).sort((a, b) => b.avgScore - a.avgScore);
-
-      const agentTable = document.getElementById('agentTableBody');
-      agentTable.innerHTML = '';
-      agentList.forEach((agent, i) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td class="text-center font-medium text-gray-600">${i+1}</td>
-          <td class="label">${agent.name} (${agent.id})</td>
-          <td class="text-center">${agent.numAudits}</td>
-          <td class="text-center font-semibold text-blue-600">${agent.avgScore}</td>
-          <td class="text-center text-green-600 font-medium">${agent.passRate}%</td>
-        `;
-        agentTable.appendChild(row);
-      });
-
-      if (agentList.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = '<td colspan="5" class="text-center text-gray-500 py-8">No agents match the current filters</td>';
-        agentTable.appendChild(row);
-      }
-    }
-
-    function renderAgentTrend(agentKey, agentData) {
-      if (agentTrendChart) agentTrendChart.destroy();
-
-      const container = document.getElementById('agentTrendChart').parentElement;
-      if (!agentData || agentData.length === 0) {
-        container.innerHTML = `<div class="flex items-center justify-center h-full"><p class="text-gray-500 text-lg font-medium">No data available for this agent</p></div>`;
-        return;
-      }
-
-      const months = agentData.map(d => d.month);
-      const scores = agentData.map(d => parseFloat(d.avgScore));
-
-      const improvementPerMonth = agentData.map(d => {
-        const issues = {};
-        d.remarks.forEach(r => {
-          const issue = mapRemarkToImprovement(r);
-          if (issue) issues[issue] = (issues[issue] || 0) + 1;
-        });
-        return Object.entries(issues)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 3)
-          .map(([issue, count]) => `• ${issue} (${count} time${count > 1 ? 's' : ''})`);
-      });
-
-      agentTrendChart = new ApexCharts(document.getElementById('agentTrendChart'), {
-        series: [{ name: 'Average Score', data: scores }],
-        chart: { height: 400, type: 'area', toolbar: { show: false }, animations: { enabled: true, easing: 'easeinout', speed: 800 } },
-        markers: { size: 6, colors: ['#4154f1'], strokeColor: '#fff', strokeWidth: 3, hover: { size: 10 } },
-        colors: ['#4154f1'],
-        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.5, opacityTo: 0.1, stops: [0, 90, 100] } },
-        stroke: { curve: 'smooth', width: 4 },
-        dataLabels: { enabled: false },
-        xaxis: { categories: months, labels: { style: { fontSize: '13px', fontWeight: 600, color: '#012970' } } },
-        yaxis: {
-                min: 8.0,
-                max: 10.0,
-                reversed: false,
-                tickAmount: 10,
-                labels: {
-                    formatter: val => val.toFixed(2)
-                }
-            },
-        tooltip: {
-          theme: 'light',
-          custom: function({ series, seriesIndex, dataPointIndex }) {
-            const month = months[dataPointIndex];
-            const score = series[seriesIndex][dataPointIndex].toFixed(2);
-            const areas = improvementPerMonth[dataPointIndex];
-            let areasHTML = '<div class="mt-2 text-sm"><strong>Top Improvement Areas:</strong><br/>';
-            if (areas.length > 0) areasHTML += areas.join('<br/>');
-            else areasHTML += '<em class="text-gray-500">No major issues noted this month</em>';
-            areasHTML += '</div>';
-            return `<div class="p-4 bg-white border border-gray-200 rounded-lg shadow-lg"><div class="font-bold text-lg">${month}</div><div class="mt-1"><strong>Average Score:</strong> ${score} / 10</div>${areasHTML}</div>`;
-          }
-        },
-        grid: { borderColor: '#e7e7e7', strokeDashArray: 4, padding: { left: 20, right: 20 } }
-      });
-      agentTrendChart.render();
-    }
-
-    loadDashboard();
-  </script>
   </body>
 </html>
