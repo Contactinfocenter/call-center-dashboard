@@ -1535,12 +1535,9 @@
         <!-- END PAGE HEADER -->
         <!-- BEGIN PAGE BODY -->
         <main id="content" class="page-body">
-          <div class="container-xl position-relative my-4">
+<div class="container-xl position-relative my-4">
 
-  <!-- Full-page Loading Overlay -->
-
-
-  <!-- Hero KPIs -->
+  <!-- 1. Hero KPIs – most important metrics at the top -->
   <div class="row row-cards row-deck g-4 mb-6">
     <!-- Total Audited Calls -->
     <div class="col-sm-6 col-lg-3">
@@ -1637,8 +1634,9 @@
     </div>
   </div>
 
-  <!-- Location Breakdown + Grade Distribution -->
+  <!-- 2. Overview Tables + Distribution -->
   <div class="row row-cards row-deck g-4 mb-6">
+    <!-- Audit Performance by Location -->
     <div class="col-lg-6">
       <div class="card shadow-sm hover-lift transition-all">
         <div class="card-header">
@@ -1664,6 +1662,7 @@
       </div>
     </div>
 
+    <!-- Grade Distribution -->
     <div class="col-lg-6">
       <div class="card shadow-sm hover-lift transition-all">
         <div class="card-header">
@@ -1678,7 +1677,7 @@
     </div>
   </div>
 
-  <!-- Monthly Trends -->
+  <!-- 3. Monthly Trends -->
   <div class="row row-cards row-deck g-4 mb-6">
     <div class="col-lg-6">
       <div class="card shadow-sm hover-lift transition-all">
@@ -1707,31 +1706,53 @@
     </div>
   </div>
 
-  <!-- Top Parameters Lost & Top Issues -->
+  <!-- 4. Problem Areas & Critical Insights -->
   <div class="row row-cards row-deck g-4 mb-6">
-    <div class="col-12">
+
+    <!-- Top Parameters Lost -->
+    <div class="col-lg-12">
       <div class="card shadow-sm hover-lift transition-all">
         <div class="card-header">
           <h3 class="card-title">Top 7 Parameters with Highest Marks Lost</h3>
         </div>
         <div class="card-body p-0">
-          <div class="ratio ratio-16x9" style="min-height:320px;">
+          <div class="ratio ratio-16x9" style="height: 400px;">
             <div id="lowParamsChart" style="width:100%;height:100%;"></div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Parameter Performance Gap (new highlighted card) -->
+    <div class="col-lg-12">
+      <div class="card shadow-sm border-0" style="border-radius: 12px; background: #ffffff;">
+        <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <h5 class="mb-0 text-dark fw-bold" style="font-family: 'Inter', sans-serif;">
+                Parameter Performance Gap
+              </h5>
+              <small class="text-muted">Avg points lost per criteria (Higher is worse)</small>
+            </div>
+            <span class="badge bg-soft-danger text-danger px-3 py-2" style="background: #fee2e2; border-radius: 8px;">
+              Top 10 Critical
+            </span>
+          </div>
+        </div>
+        <div class="card-body px-2 pb-4">
+          <div id="chart-container" style="width: 100%; height: 400px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 10 Issues from Remarks (full width – most detailed) -->
     <div class="col-12">
       <div class="card shadow-sm hover-lift transition-all">
         <div class="card-header">
           <h3 class="card-title">Top 10 Issues from Remarks</h3>
-          <div class="card-actions">
-            <!-- Optional tooltip/info icon -->
-          </div>
         </div>
         <div class="card-body p-0">
-          <div class="ratio ratio-16x9" style="min-height:400px;">
+          <div class="ratio ratio-16x9" style="height:400px;">
             <div id="topRemarksChart" style="width:100%;height:100%;"></div>
           </div>
         </div>
@@ -1739,8 +1760,9 @@
     </div>
   </div>
 
-  <!-- All Agents Performance -->
-  <div class="row row-cards row-deck mb-6">
+  <!-- 5. Agent Performance Section -->
+  <div class="row row-cards row-deck g-4 mb-6">
+    <!-- All Agents Performance Table -->
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-header">
@@ -1785,7 +1807,7 @@
   </div>
 
   <!-- Individual Agent Trend -->
-  <div class="row row-cards row-deck">
+  <div class="row row-cards row-deck mb-6">
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-header">
@@ -1795,7 +1817,7 @@
           <div class="row g-4">
             <div class="col-lg-3">
               <h4 class="card-subtitle text-muted mb-3 small">Select Agent</h4>
-              <div class="d-flex flex-wrap gap-2" id="agentChips"></div>
+              <div class="d-flex flex-column gap-2 overflow-auto" id="agentChips" style="max-height:400px;"></div>
               <div class="text-muted small mt-3" id="noAgentsMessage" style="display:none;">
                 No agents available for selection
               </div>
@@ -1804,34 +1826,12 @@
               <div class="ratio ratio-16x9" style="min-height:400px;">
                 <div id="agentTrendChart" style="width:100%;height:100%;"></div>
               </div>
-              <p class="text-muted small mt-3 text-center">
-                Hover over a data point or month to view the average score and top improvement areas mentioned in remarks
-              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px; background: #ffffff;">
-    <div class="card-header bg-white border-bottom-0 pt-4 px-4">
-        <div class="d-flex align-items-center justify-content-between">
-            <div>
-                <h5 class="mb-0 text-dark fw-bold" style="font-family: 'Inter', sans-serif;">
-                    Parameter Performance Gap
-                </h5>
-                <small class="text-muted">Avg points lost per criteria (Higher is worse)</small>
-            </div>
-            <span class="badge bg-soft-danger text-danger px-3 py-2" style="background: #fee2e2; border-radius: 8px;">
-                Top 10 Critical
-            </span>
-        </div>
-    </div>
-    <div class="card-body px-2 pb-4">
-        <div id="chart-container" style="width: 100%; height: 500px;"></div>
-    </div>
-</div>
 
 </div>
         </main>

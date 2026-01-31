@@ -1212,7 +1212,7 @@ function renderAgentTrend(agentKey, agentData) {
 ];
 
 const shortLabels = [
-    "Right Call Reason", "No Exit Gap >5s", "Welcome Process", "Ask Problem", "Active Listening",
+    "Right Call Reason", "Dead Call >5s", "Welcome Process", "Ask Problem", "Active Listening",
     "Tone & Terms", "Sincere Apology", "Empathy", "No Interruption", "Prompt Response",
     "Speech Clarity", "Pause/Hold Rules", "Professionalism", "Pace/Urgency", "Confirm Name",
     "Verify Unreg", "Problem ID", "Troubleshooting", "Issue Resolution", "Right Info",
