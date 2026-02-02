@@ -684,29 +684,42 @@ const lowParamsOption = {
     borderWidth: 0,
     padding: 0,
     confine: true,
-    formatter: (params) => {
-      // FIX: Use params[0] because trigger is 'axis'
-      const p = lowestParameters[params[0].dataIndex];
-      return `
-        <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:280px;">
-          <div style="font-weight:700; color:#012970; font-size:14px; margin-bottom:10px; border-bottom:2px solid #f0f4ff; padding-bottom:8px; line-height:1.4;">
-            ${p.parameter}
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-            <span style="color:#64748b;font-size:13px;">Average Score:</span>
-            <span style="font-weight:700;color:#1e293b;">${p.avgScore} / 10</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-            <span style="color:#dc2626;font-size:13px;font-weight:600;">Marks Lost:</span>
-            <span style="font-weight:800;color:#dc2626;">${p.lostMarks} / 10</span>
-          </div>
-          <div style="margin-top:10px; padding-top:8px; border-top:1px dashed #e2e8f0; display:flex; justify-content:space-between;">
-            <span style="color:#475569;font-size:12px;">Improvement Potential:</span>
-            <span style="font-weight:700;color:#dc2626;">+${p.lostMarks} points</span>
-          </div>
-        </div>
-      `;
-    }
+formatter: (params) => {
+  const p = lowestParameters[params[0].dataIndex];
+  return `
+    <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:280px; max-width:350px;">
+      <div style="
+        font-weight:700; 
+        color:#012970; 
+        font-size:14px; 
+        margin-bottom:10px; 
+        border-bottom:2px solid #f0f4ff; 
+        padding-bottom:8px; 
+        line-height:1.5;         /* Increased line height for better readability */
+        white-space: normal;     /* Allows text to wrap naturally */
+        word-wrap: break-word;   /* Ensures long words don't overflow */
+        display: block;          /* Changed from -webkit-box to block to allow infinite lines */
+      ">
+        ${p.parameter}
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="color:#64748b;font-size:13px;">Average Score:</span>
+        <span style="font-weight:700;color:#1e293b;">${p.avgScore} / 10</span>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="color:#dc2626;font-size:13px;font-weight:600;">Marks Lost:</span>
+        <span style="font-weight:800;color:#dc2626;">${p.lostMarks} / 10</span>
+      </div>
+
+      <div style="margin-top:8px; padding-top:8px;  display:flex; justify-content:space-between;">
+        <span style="color:#475569;font-size:12px;">Improvement Potential:</span>
+        <span style="font-weight:700;color:#dc2626;">+${p.lostMarks} points</span>
+      </div>
+    </div>
+  `;
+}
   },
 
   grid: {
@@ -739,7 +752,7 @@ const lowParamsOption = {
     barWidth: '65%',
     data: values,
     itemStyle: {
-      color: '#fb628b', // Your pinkish-red Phoenix color
+      color: '#f59e0b', // Your pinkish-red Phoenix color
       borderRadius: [6, 6, 0, 0]
     },
     label: {
@@ -751,7 +764,7 @@ const lowParamsOption = {
       distance: 15,
       color: '#ffffff',
       fontSize: 12,
-      fontWeight: 700,
+      fontWeight: 500,
       formatter: (params) => {
         const label = labels[params.dataIndex] || '';
         return label.length > 40 ? label.slice(0, 37) + '...' : label;
@@ -760,7 +773,7 @@ const lowParamsOption = {
     emphasis: {
       focus: 'series',
       itemStyle: {
-        color: '#f43f5e' // Slightly darker highlight
+        color: '#d97706' // Slightly darker highlight
       }
     }
   }]
@@ -795,7 +808,7 @@ const topRemarks = Object.entries(remarkCounts)
   .slice(0, 10)
   .map(([issue, count]) => ({ issue, count }));
 
-// ApexCharts - Top Remarks Chart (remains unchanged below)
+// Top Remarks Chart
 const remarksDom = document.getElementById('topRemarksChart');
 if (remarksDom && typeof topRemarks !== 'undefined') {
     const remarksChart = echarts.init(remarksDom);
@@ -812,22 +825,34 @@ if (remarksDom && typeof topRemarks !== 'undefined') {
                 shadowStyle: { color: 'rgba(241, 245, 249, 0.5)' } 
             },
             formatter: function(params) {
-                const dataIndex = params[0].dataIndex;
-                const r = topRemarks[dataIndex];
-                return `
-                    <div style="padding: 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); font-family: 'Inter', sans-serif; max-width: 350px;">
-                        <div style="font-weight:700; color:#012970; margin-bottom:8px; border-bottom: 1px solid #f1f5f9; font-size:13px; padding-bottom: 6px; line-height:1.4;">
-                            ${r.issue}
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-                            <span style="color: #64748b; font-size: 13px;">Frequency:</span>
-                            <span style="font-weight: 800; color: #dc2626; font-size: 16px;">
-                                ${r.count} <small style="font-size: 10px; font-weight: 400;">times</small>
-                            </span>
-                        </div>
-                    </div>
-                `;
-            }
+              const dataIndex = params[0].dataIndex;
+              const r = topRemarks[dataIndex];
+              return `
+                  <div style="padding: 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); font-family: 'Inter', sans-serif; min-width: 280px; max-width: 350px;">
+                      <div style="
+                          font-weight:700; 
+                          color:#012970; 
+                          margin-bottom:8px; 
+                          border-bottom: 1px solid #f1f5f9; 
+                          font-size:13px; 
+                          padding-bottom:8px; 
+                          line-height:1.5;         /* Better spacing for multiple lines */
+                          white-space: normal;     /* Essential: enables text wrapping */
+                          word-wrap: break-word;   /* Prevents overflow from long strings */
+                          display: block;          /* Allows height to expand naturally */
+                      ">
+                          ${r.issue}
+                      </div>
+                      
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                          <span style="color: #64748b; font-size: 13px;">Frequency:</span>
+                          <span style="font-weight: 800; color: #dc2626; font-size: 16px;">
+                              ${r.count} <small style="font-size: 10px; font-weight: 400; color: #64748b;">times</small>
+                          </span>
+                      </div>
+                  </div>
+              `;
+          }
         },
         grid: {
             left: '3%',
@@ -1096,7 +1121,7 @@ function renderAgentTrend(agentKey, agentData) {
             borderWidth: 0,
             padding: 0,
             confine: true,
-            axisPointer: { type: 'line', lineStyle: { color: '#4154f1', width: 2, type: 'dashed' } },
+            axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1' } },
             formatter: function (params) {
                 const idx = params[0].dataIndex;
                 const month = months[idx];
@@ -1183,7 +1208,7 @@ const shortLabels = [
 ];
 
 async function loadAndRender() {
-    const container = document.getElementById('chart-container');
+    const container = document.getElementById('performance-gap-chart');
     if (!container) return;
 
     try {
@@ -1233,21 +1258,32 @@ async function loadAndRender() {
                 padding: 0,
                 confine: true,
                 formatter: (params) => {
-                    const d = chartData[params[0].dataIndex];
-                    return `
-                        <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:280px;">
-                            <div style="font-weight:700; color:#012970; font-size:13px; margin-bottom:10px; border-bottom:2px solid #f0f4ff; padding-bottom:8px; line-height:1.4;">
-                                ${d.full}
-                            </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <span style="color:#64748b; font-size:13px;">Avg Points Lost:</span>
-                                <span style="font-weight:800; color:#dc2626; font-size:16px;">${d.lost.toFixed(3)}</span>
-                            </div>
-                            <div style="margin-top:8px; padding-top:8px; border-top:1px dashed #e2e8f0; color:#475569; font-size:11px; font-style:italic;">
-                                Based on ${rows.length} audits
-                            </div>
-                        </div>`;
-                }
+                  // FIX: Use params[0] because trigger is 'axis'
+                  const d = chartData[params[0].dataIndex];
+                  return `
+                      <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:280px; max-width:320px;">
+                          <div style="
+                              font-weight:700; 
+                              color:#012970; 
+                              font-size:13px; 
+                              margin-bottom:10px; 
+                              border-bottom:2px solid #f0f4ff; 
+                              padding-bottom:8px; 
+                              line-height:1.5;         /* Better spacing for multi-line text */
+                              white-space: normal;     /* Allows text to wrap */
+                              word-wrap: break-word;   /* Prevents long words from breaking layout */
+                              display: block;          /* Allows the box to grow vertically */
+                          ">
+                              ${d.full}
+                          </div>
+
+                          <div style="display:flex; justify-content:space-between; align-items:center;">
+                              <span style="color:#64748b; font-size:13px;">Avg Points Lost:</span>
+                              <span style="font-weight:800; color:#dc2626; font-size:16px;">${d.lost.toFixed(3)}</span>
+                          </div>
+
+                      </div>`;
+              }
             },
             grid: { 
                 left: '3%', 
@@ -1276,7 +1312,7 @@ async function loadAndRender() {
                     data: chartData.map(d => d.lost),
                     itemStyle: {
                         // Using your Phoenix Pink color
-                        color: '#fb628b', 
+                        color: '#f59e0b', 
                         borderRadius: [6, 6, 0, 0]
                     },
                     label: {
@@ -1288,7 +1324,7 @@ async function loadAndRender() {
                         distance: 15,
                         color: '#ffffff',
                         fontSize: 12,
-                        fontWeight: 700,
+                        fontWeight: 500,
                         fontFamily: 'Inter',
                         formatter: (params) => {
                             const label = chartData[params.dataIndex].full;
@@ -1296,7 +1332,7 @@ async function loadAndRender() {
                         }
                     },
                     emphasis: {
-                        itemStyle: { color: '#f43f5e' }
+                        itemStyle: { color: '#d97706' }
                     }
                 }
             ]
