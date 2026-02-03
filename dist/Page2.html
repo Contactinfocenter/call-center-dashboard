@@ -19,124 +19,18 @@
     <!-- BEGIN DEMO STYLES -->
     <link href="./preview/css/demo.css?1767679296" rel="stylesheet" />
     <!-- END DEMO STYLES -->
-    <!-- BEGIN CUSTOM FONT -->
-    <style>
-      @import url("https://rsms.me/inter/inter.css");
-/* Minimal, elegant focus ring */
-.form-control:focus,
-.form-select:focus {
-  border-color: #86b7fe;
-  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.18) !important;
-}
-
-/* Center calendar icon perfectly */
-.input-icon {
-  position: relative;
-}
-
-.input-icon .form-control {
-  padding-right: 2.5rem; /* Make room for icon */
-}
-
-.input-icon .input-icon-addon {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.input-icon .input-icon-addon svg {
-  width: 1.1rem;
-  height: 1.1rem;
-  color: #6c757d;
-}
-
-/* Force override any Tabler/ApexCharts default tooltip styles */
-.apexcharts-tooltip {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  color: inherit !important;
-}
-
-.apexcharts-tooltip .apexcharts-tooltip-title {
-  display: none !important;
-}
-
-.apexcharts-tooltip .apexcharts-tooltip-series-group {
-  padding: 0 !important;
-  background: transparent !important;
-}
-
-#agentChipContainer {
-  max-height: 380px;
-  overflow-y: auto;
-  padding-right: 10px;
-}
-
-.apexcharts-yaxis-annotation-label {
-  fill: #ffffff !important;
-  stroke: rgba(0,0,0,0.3) !important;
-  stroke-width: 0.5 !important;
-}
-
-#agentVsSystemHourlyContainer {
-    width: 100% !important;
-    min-height: 400px;
-    display: block;
-}
-
-/* Ensure the tab-pane doesn't flicker during transition */
-.tab-content > .tab-pane {
-    display: none;
-}
-.tab-content > .active {
-    display: block;
-}
-
-#agentChipContainer .badge {
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-}
-
-#agentChipContainer .badge:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* Optional: Add a scrollbar if the agent list gets too long */
-#agentChipContainer {
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 5px;
-}
-
-#flatpickr-wrapper .form-control {
-    border-right: none;
-}
-
-#flatpickr-wrapper .btn:hover svg {
-    stroke: #dc3545; /* Turns the icon red when hovering to signal a "reset" */
-    transform: rotate(-45deg);
-    transition: all 0.2s ease;
-}
-
-    </style>
-    <!-- END CUSTOM FONT -->
-     <!-- ApexCharts (required for charts) -->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <!-- Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <!-- Flatpickr JS (add before your custom script) -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- BEGIN CUSTOM FONT -->
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+    </style>
+    <!-- END CUSTOM FONT -->
   </head>
   <body>
     <a href="#content" class="visually-hidden skip-link">Skip to main content</a>
@@ -145,146 +39,52 @@
     <!-- END GLOBAL THEME SCRIPT -->
     <div class="page">
       <!-- BEGIN NAVBAR  -->
-      <header class="navbar navbar-expand-md d-print-none sticky-top bg-white">
-        <div class="container-xl">
-          <!-- BEGIN NAVBAR TOGGLER -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbar-menu"
-            aria-controls="navbar-menu"
-            aria-expanded="false"
-            aria-label="Toggle primary navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <!-- END NAVBAR TOGGLER -->
-          <!-- BEGIN NAVBAR LOGO -->
-          <div class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-            <a href="." aria-label="Tabler"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="110" height="32" viewBox="0 0 232 68" class="navbar-brand-image">
-                <path
-                  d="M64.6 16.2C63 9.9 58.1 5 51.8 3.4 40 1.5 28 1.5 16.2 3.4 9.9 5 5 9.9 3.4 16.2 1.5 28 1.5 40 3.4 51.8 5 58.1 9.9 63 16.2 64.6c11.8 1.9 23.8 1.9 35.6 0C58.1 63 63 58.1 64.6 51.8c1.9-11.8 1.9-23.8 0-35.6zM33.3 36.3c-2.8 4.4-6.6 8.2-11.1 11-1.5.9-3.3.9-4.8.1s-2.4-2.3-2.5-4c0-1.7.9-3.3 2.4-4.1 2.3-1.4 4.4-3.2 6.1-5.3-1.8-2.1-3.8-3.8-6.1-5.3-2.3-1.3-3-4.2-1.7-6.4s4.3-2.9 6.5-1.6c4.5 2.8 8.2 6.5 11.1 10.9 1 1.4 1 3.3.1 4.7zM49.2 46H37.8c-2.1 0-3.8-1-3.8-3s1.7-3 3.8-3h11.4c2.1 0 3.8 1 3.8 3s-1.7 3-3.8 3z"
-                  fill="#066fd1"
-                  style="fill: var(--tblr-primary, #066fd1)"
-                />
-                <path
-                  d="M105.8 46.1c.4 0 .9.2 1.2.6s.6 1 .6 1.7c0 .9-.5 1.6-1.4 2.2s-2 .9-3.2.9c-2 0-3.7-.4-5-1.3s-2-2.6-2-5.4V31.6h-2.2c-.8 0-1.4-.3-1.9-.8s-.9-1.1-.9-1.9c0-.7.3-1.4.8-1.8s1.2-.7 1.9-.7h2.2v-3.1c0-.8.3-1.5.8-2.1s1.3-.8 2.1-.8 1.5.3 2 .8.8 1.3.8 2.1v3.1h3.4c.8 0 1.4.3 1.9.8s.8 1.2.8 1.9-.3 1.4-.8 1.8-1.2.7-1.9.7h-3.4v13c0 .7.2 1.2.5 1.5s.8.5 1.4.5c.3 0 .6-.1 1.1-.2.5-.2.8-.3 1.2-.3zm28-20.7c.8 0 1.5.3 2.1.8.5.5.8 1.2.8 2.1v20.3c0 .8-.3 1.5-.8 2.1-.5.6-1.2.8-2.1.8s-1.5-.3-2-.8-.8-1.2-.8-2.1c-.8.9-1.9 1.7-3.2 2.4-1.3.7-2.8 1-4.3 1-2.2 0-4.2-.6-6-1.7-1.8-1.1-3.2-2.7-4.2-4.7s-1.6-4.3-1.6-6.9c0-2.6.5-4.9 1.5-6.9s2.4-3.6 4.2-4.8c1.8-1.1 3.7-1.7 5.9-1.7 1.5 0 3 .3 4.3.8 1.3.6 2.5 1.3 3.4 2.1 0-.8.3-1.5.8-2.1.5-.5 1.2-.7 2-.7zm-9.7 21.3c2.1 0 3.8-.8 5.1-2.3s2-3.4 2-5.7-.7-4.2-2-5.8c-1.3-1.5-3-2.3-5.1-2.3-2 0-3.7.8-5 2.3-1.3 1.5-2 3.5-2 5.8s.6 4.2 1.9 5.7 3 2.3 5.1 2.3zm32.1-21.3c2.2 0 4.2.6 6 1.7 1.8 1.1 3.2 2.7 4.2 4.7s1.6 4.3 1.6 6.9-.5 4.9-1.5 6.9-2.4 3.6-4.2 4.8c-1.8 1.1-3.7 1.7-5.9 1.7-1.5 0-3-.3-4.3-.9s-2.5-1.4-3.4-2.3v.3c0 .8-.3 1.5-.8 2.1-.5.6-1.2.8-2.1.8s-1.5-.3-2.1-.8c-.5-.5-.8-1.2-.8-2.1V18.9c0-.8.3-1.5.8-2.1.5-.6 1.2-.8 2.1-.8s1.5.3 2.1.8c.5.6.8 1.3.8 2.1v10c.8-1 1.8-1.8 3.2-2.5 1.3-.7 2.8-1 4.3-1zm-.7 21.3c2 0 3.7-.8 5-2.3s2-3.5 2-5.8-.6-4.2-1.9-5.7-3-2.3-5.1-2.3-3.8.8-5.1 2.3-2 3.4-2 5.7.7 4.2 2 5.8c1.3 1.6 3 2.3 5.1 2.3zm23.6 1.9c0 .8-.3 1.5-.8 2.1s-1.3.8-2.1.8-1.5-.3-2-.8-.8-1.3-.8-2.1V18.9c0-.8.3-1.5.8-2.1s1.3-.8 2.1-.8 1.5.3 2 .8.8 1.3.8 2.1v29.7zm29.3-10.5c0 .8-.3 1.4-.9 1.9-.6.5-1.2.7-2 .7h-15.8c.4 1.9 1.3 3.4 2.6 4.4 1.4 1.1 2.9 1.6 4.7 1.6 1.3 0 2.3-.1 3.1-.4.7-.2 1.3-.5 1.8-.8.4-.3.7-.5.9-.6.6-.3 1.1-.4 1.6-.4.7 0 1.2.2 1.7.7s.7 1 .7 1.7c0 .9-.4 1.6-1.3 2.4-.9.7-2.1 1.4-3.6 1.9s-3 .8-4.6.8c-2.7 0-5-.6-7-1.7s-3.5-2.7-4.6-4.6-1.6-4.2-1.6-6.6c0-2.8.6-5.2 1.7-7.2s2.7-3.7 4.6-4.8 3.9-1.7 6-1.7 4.1.6 6 1.7 3.4 2.7 4.5 4.7c.9 1.9 1.5 4.1 1.5 6.3zm-12.2-7.5c-3.7 0-5.9 1.7-6.6 5.2h12.6v-.3c-.1-1.3-.8-2.5-2-3.5s-2.5-1.4-4-1.4zm30.3-5.2c1 0 1.8.3 2.4.8.7.5 1 1.2 1 1.9 0 1-.3 1.7-.8 2.2-.5.5-1.1.8-1.8.7-.5 0-1-.1-1.6-.3-.2-.1-.4-.1-.6-.2-.4-.1-.7-.1-1.1-.1-.8 0-1.6.3-2.4.8s-1.4 1.3-1.9 2.3-.7 2.3-.7 3.7v11.4c0 .8-.3 1.5-.8 2.1-.5.6-1.2.8-2.1.8s-1.5-.3-2.1-.8c-.5-.6-.8-1.3-.8-2.1V28.8c0-.8.3-1.5.8-2.1.5-.6 1.2-.8 2.1-.8s1.5.3 2.1.8c.5.6.8 1.3.8 2.1v.6c.7-1.3 1.8-2.3 3.2-3 1.3-.7 2.8-1 4.3-1z"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  fill="#4a4a4a"
-                /></svg
-            ></a>
-          </div>
-          <!-- END NAVBAR LOGO -->
-          <div class="navbar-nav flex-row order-md-last">
-              <!-- Date Filter in Navbar -->
-
-            <div class="navbar-nav d-none d-md-flex align-items-center">
-              <!-- Date Picker -->
-              <div class="nav-item me-3">
-                <div class="input-icon">
-                  <input type="text" id="datePicker" class="form-control form-control-sm input-active" placeholder="Select date" readonly style="width: 160px;">
-                  <span class="input-icon-addon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2H5a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2z"></path>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-
-              <!-- Volume Comparison Selector -->
-              <div class="nav-item me-3">
-                <select id="volumeRangeSelect" class="form-select form-select-sm" style="min-width: 200px;">
-                  <option value="all">All Time Average</option>
-                  <option value="7">Last 7 Days Average</option>
-                  <option value="30" selected>Last 30 Days Average</option>
-                  <option value="custom">Custom Range</option>
-                </select>
-              </div>
-
-              <!-- Custom Range Inputs (hidden by default) -->
-              <div id="customRangeInputs" class="d-flex align-items-center me-3" style="display: none;">
-                <div class="input-icon me-2">
-                  <input type="text" id="rangeStart" class="form-control form-control-sm flatpickr" placeholder="Start" readonly style="width: 130px;">
-                  <span class="input-icon-addon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2H5a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2z"></path>
-                    </svg>
-                  </span>
-                </div>
-                <div class="input-icon">
-                  <input type="text" id="rangeEnd" class="form-control form-control-sm flatpickr" placeholder="End" readonly style="width: 130px;">
-                  <span class="input-icon-addon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2H5a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2z"></path>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-
-              <!-- Reload Button -->
-              <div class="nav-item">
-                <button id="btnReload" class="btn btn-sm btn-outline-primary d-flex align-items-center px-3">
-                  <span id="loadingIcon" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="width: 1rem; height: 1rem; display: none;"></span>
-                  <svg id="reloadIcon" xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 4v6h-6"></path>
-                    <path d="M1 20v-6h6"></path>
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                  </svg>
-                  <span id="reloadText">Reset</span>
-                </button>
-              </div>
-            </div>
-            <div class="d-none d-md-flex me-3">
-              <!-- BEGIN THEME TOGGLE -->
-              <div class="nav-item">
-                <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
-                  <!-- Download SVG icon from http://tabler.io/icons/icon/moon -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                    focusable="false"
-                    class="icon icon-1"
-                  >
-                    <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008" />
-                  </svg>
-                </a>
-                <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
-                  <!-- Download SVG icon from http://tabler.io/icons/icon/sun -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                    focusable="false"
-                    class="icon icon-1"
-                  >
-                    <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
-                  </svg>
-                </a>
-              </div>
-              <!-- END THEME TOGGLE -->
-            </div>
-          </div>
+<header class="navbar navbar-expand-md d-print-none sticky-top">
+  <div class="container-xl">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle primary navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+      <a href="." aria-label="Tabler">
+        <svg xmlns="http://www.w3.org/2000/svg" width="110" height="32" viewBox="0 0 232 68" class="navbar-brand-image">
+          <path d="M64.6 16.2C63 9.9 58.1 5 51.8 3.4 40 1.5 28 1.5 16.2 3.4 9.9 5 5 9.9 3.4 16.2 1.5 28 1.5 40 3.4 51.8 5 58.1 9.9 63 16.2 64.6c11.8 1.9 23.8 1.9 35.6 0C58.1 63 63 58.1 64.6 51.8c1.9-11.8 1.9-23.8 0-35.6zM33.3 36.3c-2.8 4.4-6.6 8.2-11.1 11-1.5.9-3.3.9-4.8.1s-2.4-2.3-2.5-4c0-1.7.9-3.3 2.4-4.1 2.3-1.4 4.4-3.2 6.1-5.3-1.8-2.1-3.8-3.8-6.1-5.3-2.3-1.3-3-4.2-1.7-6.4s4.3-2.9 6.5-1.6c4.5 2.8 8.2 6.5 11.1 10.9 1 1.4 1 3.3.1 4.7zM49.2 46H37.8c-2.1 0-3.8-1-3.8-3s1.7-3 3.8-3h11.4c2.1 0 3.8 1 3.8 3s-1.7 3-3.8 3z" fill="#066fd1" style="fill: var(--tblr-primary, #066fd1)" />
+          <path d="M105.8 46.1c.4 0 .9.2 1.2.6s.6 1 .6 1.7c0 .9-.5 1.6-1.4 2.2s-2 .9-3.2.9c-2 0-3.7-.4-5-1.3s-2-2.6-2-5.4V31.6h-2.2c-.8 0-1.4-.3-1.9-.8s-.9-1.1-.9-1.9c0-.7.3-1.4.8-1.8s1.2-.7 1.9-.7h2.2v-3.1c0-.8.3-1.5.8-2.1s1.3-.8 2.1-.8 1.5.3 2 .8.8 1.3.8 2.1v3.1h3.4c.8 0 1.4.3 1.9.8s.8 1.2.8 1.9-.3 1.4-.8 1.8-1.2.7-1.9.7h-3.4v13c0 .7.2 1.2.5 1.5s.8.5 1.4.5c.3 0 .6-.1 1.1-.2.5-.2.8-.3 1.2-.3zm28-20.7c.8 0 1.5.3 2.1.8.5.5.8 1.2.8 2.1v20.3c0 .8-.3 1.5-.8 2.1-.5.6-1.2.8-2.1.8s-1.5-.3-2-.8-.8-1.2-.8-2.1c-.8.9-1.9 1.7-3.2 2.4-1.3.7-2.8 1-4.3 1-2.2 0-4.2-.6-6-1.7-1.8-1.1-3.2-2.7-4.2-4.7s-1.6-4.3-1.6-6.9c0-2.6.5-4.9 1.5-6.9s2.4-3.6 4.2-4.8c1.8-1.1 3.7-1.7 5.9-1.7 1.5 0 3 .3 4.3.8 1.3.6 2.5 1.3 3.4 2.1 0-.8.3-1.5.8-2.1.5-.5 1.2-.7 2-.7zm-9.7 21.3c2.1 0 3.8-.8 5.1-2.3s2-3.4 2-5.7-.7-4.2-2-5.8c-1.3-1.5-3-2.3-5.1-2.3-2 0-3.7.8-5 2.3-1.3 1.5-2 3.5-2 5.8s.6 4.2 1.9 5.7 3 2.3 5.1 2.3zm32.1-21.3c2.2 0 4.2.6 6 1.7 1.8 1.1 3.2 2.7 4.2 4.7s1.6 4.3 1.6 6.9-.5 4.9-1.5 6.9-2.4 3.6-4.2 4.8c-1.8 1.1-3.7 1.7-5.9 1.7-1.5 0-3-.3-4.3-.9s-2.5-1.4-3.4-2.3v.3c0 .8-.3 1.5-.8 2.1-.5.6-1.2.8-2.1.8s-1.5-.3-2.1-.8c-.5-.5-.8-1.2-.8-2.1V18.9c0-.8.3-1.5.8-2.1.5-.6 1.2-.8 2.1-.8s1.5.3 2.1.8c.5.6.8 1.3.8 2.1v10c.8-1 1.8-1.8 3.2-2.5 1.3-.7 2.8-1 4.3-1zm-.7 21.3c2 0 3.7-.8 5-2.3s2-3.5 2-5.8-.6-4.2-1.9-5.7-3-2.3-5.1-2.3-3.8.8-5.1 2.3-2 3.4-2 5.7.7 4.2 2 5.8c1.3 1.6 3 2.3 5.1 2.3zm23.6 1.9c0 .8-.3 1.5-.8 2.1s-1.3.8-2.1.8-1.5-.3-2-.8-.8-1.3-.8-2.1V18.9c0-.8.3-1.5.8-2.1s1.3-.8 2.1-.8 1.5.3 2 .8.8 1.3.8 2.1v29.7zm29.3-10.5c0 .8-.3 1.4-.9 1.9-.6.5-1.2.7-2 .7h-15.8c.4 1.9 1.3 3.4 2.6 4.4 1.4 1.1 2.9 1.6 4.7 1.6 1.3 0 2.3-.1 3.1-.4.7-.2 1.3-.5 1.8-.8.4-.3.7-.5.9-.6.6-.3 1.1-.4 1.6-.4.7 0 1.2.2 1.7.7s.7 1 .7 1.7c0 .9-.4 1.6-1.3 2.4-.9.7-2.1 1.4-3.6 1.9s-3 .8-4.6.8c-2.7 0-5-.6-7-1.7s-3.5-2.7-4.6-4.6-1.6-4.2-1.6-6.6c0-2.8.6-5.2 1.7-7.2s2.7-3.7 4.6-4.8 3.9-1.7 6-1.7 4.1.6 6 1.7 3.4 2.7 4.5 4.7c.9 1.9 1.5 4.1 1.5 6.3zm-12.2-7.5c-3.7 0-5.9 1.7-6.6 5.2h12.6v-.3c-.1-1.3-.8-2.5-2-3.5s-2.5-1.4-4-1.4zm30.3-5.2c1 0 1.8.3 2.4.8.7.5 1 1.2 1 1.9 0 1-.3 1.7-.8 2.2-.5.5-1.1.8-1.8.7-.5 0-1-.1-1.6-.3-.2-.1-.4-.1-.6-.2-.4-.1-.7-.1-1.1-.1-.8 0-1.6.3-2.4.8s-1.4 1.3-1.9 2.3-.7 2.3-.7 3.7v11.4c0 .8-.3 1.5-.8 2.1-.5.6-1.2.8-2.1.8s-1.5-.3-2.1-.8c-.5-.6-.8-1.3-.8-2.1V28.8c0-.8.3-1.5.8-2.1.5-.6 1.2-.8 2.1-.8s1.5.3 2.1.8c.5.6.8 1.3.8 2.1v.6c.7-1.3 1.8-2.3 3.2-3 1.3-.7 2.8-1 4.3-1z" fill-rule="evenodd" clip-rule="evenodd" fill="#4a4a4a" /></svg>
+      </a>
+    </div>
+    <div class="navbar-nav flex-row order-md-last align-items-center">
+      <div class="d-none d-md-flex me-3">
+        <div class="nav-item me-3">
+          <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+              <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008" />
+            </svg>
+          </a>
+          <a href="?theme=light" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+              <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+            </svg>
+          </a>
         </div>
-      </header>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <div class="d-none d-xl-block me-2 text-muted small">
+          Selected: <span id="selectedDate" class="fw-bold text-dark date-mirror">—</span>
+        </div>
+        
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg>
+          </span>
+          <input type="text" id="datePicker" class="form-control form-control-rounded" placeholder="Select Date" style="width: 150px;" readonly>
+        </div>
+
+        <button id="btnReload" class="btn btn-outline-secondary btn-icon" title="Reset Filters" data-bs-toggle="tooltip">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
+        </button>
+      </div>
+      </div>
+  </div>
+</header>
       <div class="navbar-expand-md">
         <div class="collapse navbar-collapse" id="navbar-menu">
           <div class="navbar">
@@ -879,341 +679,268 @@
         <!-- END PAGE HEADER -->
         <!-- BEGIN PAGE BODY -->
         <main id="content" class="page-body">
-<div class="container-xl">
-  <div class="col-12">
+          <div class="container-xl">
+<div class="col-12">
     <div class="row row-cards">
-      <!-- Card 1: Total Calls -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-primary text-white avatar avatar-sm">
-                  <!-- Phone icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold" id="kpiTotalCalls">0</div>
-                <div class="text-secondary">Total Calls</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2: Active Agents -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-success text-white avatar avatar-sm">
-                  <!-- Headset icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 12h3a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-3v-7"></path>
-                    <path d="M21 12h-3a2 2 0 0 0 -2 2v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2 -2v-5"></path>
-                    <path d="M9 7v10"></path>
-                    <path d="M15 7v10"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-success" id="kpiActiveAgents">0</div>
-                <div class="text-secondary">Active Agents</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3: Top Performer -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-indigo text-white avatar avatar-sm">
-                  <!-- Trophy icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 21h8"></path>
-                    <path d="M12 17v4"></path>
-                    <path d="M7 4h10"></path>
-                    <path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-indigo text-truncate" id="kpiTopAgent">—</div>
-                <div class="text-secondary">Top Performer</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4: Avg Handle Time -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-orange text-white avatar avatar-sm">
-                  <!-- Clock icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                    <path d="M12 12l0 -4"></path>
-                    <path d="M12 12l3 3"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-orange" id="kpiAvgAHT">0:00</div>
-                <div class="text-secondary">Avg Handle Time</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 5: Avg Repeat % -->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-danger text-white avatar avatar-sm">
-                  <!-- Refresh/Repeat icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
-                    <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-danger" id="kpiRepeatPct">0%</div>
-                <div class="text-secondary">Avg Repeat %</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-3">
-        <div class="card card-sm">
-          <div class="card-body p-3">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="bg-teal text-white avatar avatar-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12l5 5L20 7"></path> <!-- checkmark icon -->
-                  </svg>
-                </span>
-              </div>
-              <div class="col">
-                <div class="h3 mb-0 fw-bold text-teal" id="avgFcrPct">0%</div>
-                <div class="text-secondary">Avg FCR %</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-</div>
-
-<!-- Chart Section: Call Volume Over Time -->
-
-<div class="col-12 mt-3">
-  <div class="card">
-    <div class="card-body "> 
-      <h3 class="card-title -mb-2">Hourly Call Volume</h3>
- 
-      <div id="chart-call-volume" style="height: 320px; width: 100%;"></div>
-    </div>
-  </div>
-</div>
-
-<div class="col-12 mt-3">
-  <div class="card shadow-sm border-0">
-    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center flex-wrap gap-3">
-      <h3 class="card-title mb-0">
-        <i class="ti ti-phone-off me-2"></i>Dropped Calls Trends
-      </h3>
-      <div class="d-flex gap-2 align-items-stretch">
-        <div class="input-group input-group-sm" id="flatpickr-wrapper" style="width: 260px;">
-          <input type="text" id="dropTrendDateRange" class="form-control" placeholder="Recent 15 Days" data-input>
-          <button class="btn btn-white d-flex align-items-center justify-content-center px-2" type="button" title="Reset to 15 Days" data-clear>
-            <svg id="reloadIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary">
-              <path d="M23 4v6h-6"></path>
-              <path d="M1 20v-6h6"></path>
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-            </svg>
-          </button>
-        </div>
-        
-        <select id="dropTrendMode" class="form-select form-select-sm w-auto">
-          <option value="daily">Daily Total Drops</option>
-          <option value="hourly">Hourly Avg Drops</option>
-          <option value="percent">Drop % (Inbound)</option>
-        </select>
-      </div>
-    </div>
-    <div class="card-body p-0">
-      <div id="dropTrendsChart" style="height: 400px;"></div>
-    </div>
-  </div>
-</div>
-
-
-<div class="col-12 mt-3">
-  <div class="card">
-    <div class="card-body "> 
-      <h3 class="card-title -mb-2">Hourly Call Load vs Capacity</h3>
- 
-      <div id="capacity-chart" style="height: 420px; width: 100%;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Chart Section: Repeat -->
-
-<div class="col-12 mt-3">
-  <div class="card">
-    <div class="card-body "> 
-      <h3 class="card-title mb-2">
-         Per Agent Repeat % age - <span id="selectedDate"></span>
-      </h3>
- 
-      <div id="repeatRateChart" style="height: 420px; width: 100%;"></div>
-    </div>
-  </div>
-</div>
-
-<div class="col-12 mt-3">
-  <div class="card border-0 shadow-none bg-transparent">
-    <div class="card-body p-0"> 
-      
-      <div class="row g-3"> <div class="col-lg-3">
-          <div class="card shadow-sm h-100">
-            <div class="card-body p-3">
-              <h5 class="card-title mb-3 text-muted">Agents</h5>
-              <div id="agentChipContainer" class="d-flex flex-wrap gap-2" style="max-height: 400px; overflow-y: auto;">
+        <div class="col-sm-6 col-lg-2">
+            <div class="card card-sm">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="bg-primary text-white avatar avatar-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <div class="h3 mb-0 fw-bold" id="kpiTotalCalls">0</div>
+                            <div class="text-secondary small">Total Calls</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-          </div>
         </div>
 
-        <div class="col-lg-9">
-          <div class="card shadow-sm h-100">
-            
-            <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#aht" role="tab">AHT Analysis</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#volume" role="tab">Volume</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#talktime" role="tab">Talk Time</a>
-                </li>
-              </ul>
+        <div class="col-sm-6 col-lg-2">
+            <div class="card card-sm">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="bg-success text-white avatar avatar-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.87"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <div class="h3 mb-0 fw-bold text-success" id="kpiUniqueCallers">0</div>
+                            <div class="text-secondary small">Unique Callers</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div class="card-body tab-content">
-              
-              <div class="tab-pane fade show active" id="aht" role="tabpanel">
-                <div id="ahtHeatmapContainer" style="height: 400px; width: 100%;"></div>
-              </div>
+        <div class="col-sm-6 col-lg-2">
+            <div class="card card-sm">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="bg-indigo text-white avatar avatar-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                    <path d="M15 19l2 2l4 -4"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <div class="h3 mb-0 fw-bold text-indigo text-truncate" id="kpiActiveAgents">—</div>
+                            <div class="text-secondary small">Active Agents</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-              <div class="tab-pane fade" id="volume" role="tabpanel">
-                <div id="agentVsSystemHourlyContainer" style="height: 400px; width: 100%;"></div>
-              </div>
+        <div class="col-sm-6 col-lg-2">
+            <div class="card card-sm">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="bg-orange text-white avatar avatar-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9"></circle>
+                                    <polyline points="12 7 12 12 15 15"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="col text-truncate">
+                            <div class="h3 mb-0 fw-bold text-orange" id="kpiAvgHandleTime">0:00</div>
+                            <div class="text-secondary small">Avg Handle Time</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-              <div class="tab-pane fade" id="talktime" role="tabpanel">
-                <div id="talkTimeComparisonContainer" style="height: 400px; width: 100%;"></div>
-              </div>
+        <div class="col-sm-6 col-lg-2">
+            <div class="card card-sm">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="bg-teal text-white avatar avatar-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                    <path d="M9 12l2 2l4 -4"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <div class="h3 mb-0 fw-bold text-teal" id="kpiFCRPercent">0%</div>
+                            <div class="text-secondary small">FCR %</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            </div> 
-          </div> 
-        </div> 
-      </div> 
+        <div class="col-sm-6 col-lg-2">
+            <div class="card card-sm">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <span class="bg-danger text-white avatar avatar-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                    <path d="M12 7v5l3 3"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="col text-truncate">
+                            <div class="d-flex align-items-center">
+                                <div class="h3 mb-0 fw-bold text-danger" id="worstHourCalls">0</div>
+                                <span class="ms-1 badge bg-danger-lt" id="worstHourBadge">--:--</span>
+                            </div>
+                            <div class="text-secondary small">Worst Hour</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
-
-<!-- Leaderboard Section: Top Agents -->
 
 <div class="col-12 mt-3">
-  <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center flex-wrap gap-3">
-      <div class="d-flex align-items-center gap-2">
-        <h3 class="card-title mb-0">Agent Performance Summary</h3>
-        <span id="agentCountBadge" class="badge bg-white-lt text-white ms-2">0 Agents</span>
-      </div>
-
-      <div class="d-flex gap-2 flex-wrap align-items-center">
-        <div class="input-icon">
-          <span class="input-icon-addon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg>
-          </span>
-          <input type="text" id="summaryDateRange" class="form-control form-control-sm" style="min-width: 200px;" placeholder="Filter by date range..." />
+    <div class="row row-cards" id="spikesContainer">
         </div>
-
-        <div class="input-icon">
-          <span class="input-icon-addon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-          </span>
-          <input type="text" id="agentSearchInput" class="form-control form-control-sm" placeholder="Search agent..." />
-        </div>
-
-        <button class="btn btn-outline-light btn-sm" onclick="clearFilters()" title="Reset all filters">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
-          Reset
-        </button>
-      </div>
-    </div>
-
-    <div class="card-body p-0">
-      <div id="agentSummaryTable" class="table-responsive table-scroll" style="max-height: 420px;">
-        <div class="d-flex justify-content-center p-5">
-          <div class="spinner-border text-primary" role="status"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
-
-<!-- Leaderboard Section: end Top Agents -->
 
 <div class="col-12 mt-3">
-  <div class="card shadow-sm border-0">
-    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-      <h3 class="card-title mb-0">
-        <i class="ti ti-trophy me-2"></i>Monthly Agent Performance Rankings
-      </h3>
-      <small class="text-white-50">Top 5 agents by total calls</small>
+    <div class="row row-cards">
+        <div class="col-sm-6 col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">Monthly Average Hourly Calls</h3>
+                    <div id="avgHourlyChart" style="height: 350px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">Monthly Calls per Region</h3>
+                    <div id="monthRegionPie" style="height: 350px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-vcenter card-table table-hover" id="monthlyRankingsTable">
-          <!-- JS will fill this -->
-        </table>
-      </div>
-    </div>
-    <div class="card-footer text-muted small text-center" id="monthlyFooter">
-      <!-- Optional footer message -->
-    </div>
-  </div>
 </div>
 
-
-
-<!-- Add more sections below, like charts, tables, etc. -->
+<div class="col-12 mt-3">
+    <div class="row row-cards">
+        <div class="col-sm-6 col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">
+                        Hourly Call Volume 
+                        <span class="date-mirror small text-muted"></span>
+                    </h3>
+                    <div id="lastDayHourlyChart" style="height: 350px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">
+                      <span class="date-mirror small text-muted"></span>
+                       Calls per Region
+                    </h3>
+                    <div id="lastDayRegionPie" style="height: 350px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="col-12 mt-3">
+    <div class="row row-cards">
+        <div class="col-sm-6 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">Top 10 Call Reasons (Monthly)</h3>
+                    <div id="monthButterflyCallreason" style="height: 420px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">
+                      
+                      <span class="date-mirror small text-muted"></span>
+                      Top 10 Call Reasons 
+                      
+                    </h3>
+                    <div id="dayButterflyCallreason" style="height: 420px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 mt-3">
+    <div class="row row-cards">
+        <div class="col-sm-6 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">Top 10 Billing Reasons (Monthly)</h3>
+                    <div id="monthBillingButterfly" style="height: 420px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">
+                      <span class="date-mirror small text-muted"></span>
+                      Top 10 Billing Reasons
+                    </h3>
+                    <div id="dayBillingButterfly" style="height: 420px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 mt-3">
+    <div class="row row-cards">
+        <div class="col-sm-6 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">Month-over-Month Growth</h3>
+                    <div id="monthOverMonthChart" style="height: 280px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">FCR Trend Rate (%)</h3>
+                    <div id="fcrTrendChart" style="height: 280px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      </div>        
+
         </main>
         <!-- END PAGE BODY -->
         <!-- BEGIN FOOTER -->
@@ -1605,11 +1332,9 @@
       });
     </script>
     <!-- END PAGE SCRIPTS -->
-<!-- ECharts CDN -->
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="dashboard.js"></script>
-
-
+    <!-- ECharts CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard1.js"></script>     
   </body>
 </html>

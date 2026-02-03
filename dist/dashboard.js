@@ -867,10 +867,23 @@ function getAgentHourlyVolumeOnSelectedDate(agent, dateStr) {
 function computeSelectedDateHourlyVolume(dateStr) {
   const calls = getCallsForDate(dateStr);
   const h = Array(24).fill(0);
+
   for (const id in calls) {
-    const d = new Date(calls[id].call_date);
-    if (!isNaN(d)) h[d.getHours()]++;
+    const call = calls[id];
+
+    // 1. Exclude drops AND only include inbound/outbound
+    const isLiveCall = call.is_drop === false;
+    const isCorrectDirection = call.direction === 'inbound' || call.direction === 'outbound';
+
+    if (isLiveCall && isCorrectDirection) {
+      const d = new Date(call.call_date);
+      if (!isNaN(d)) {
+        h[d.getHours()]++;
+      }
+    }
   }
+
+  // Returns volume per hour, using null for 0 to keep the chart clean
   return h.map(v => v > 0 ? v : null);
 }
 
@@ -1306,8 +1319,8 @@ function renderCallVolumeChart() {
   // ── Phoenix Theme Colors ──────────────────────────────────────────────────
   const todayInboundColor   = '#f59e0b'; // Amber (Inbound)
   const todayOutboundColor  = '#06b6d4'; // Cyan (Outbound)
-  const rangeInboundColor   = '#fbbf24'; // Lighter Amber (Avg)
-  const rangeOutboundColor  = '#22d3ee'; // Lighter Cyan (Avg)
+  const rangeInboundColor   = '#3874ff'; // phoenix-blue (Avg)
+  const rangeOutboundColor  = '#6610f2'; // phoenix-indigo (Avg)
   const textColor           = '#475569';
   const gridColor           = '#f1f5f9';
 
