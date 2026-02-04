@@ -958,43 +958,103 @@ function renderAgentVsSystemHourlyChart(agent) {
     });
   }
 
-  const option = {
-    tooltip: {
+      const option = {
+        tooltip: {
       trigger: 'axis',
-      backgroundColor: 'rgba(255,255,255,0.98)',
-      borderColor: '#e2e8f0',
-      borderWidth: 1,
-      padding: [10, 12],
-      extraCssText: 'box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 8px;',
-      axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1' } },
+      confine: true,
+
+      // ✅ Make ECharts tooltip invisible
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      padding: 0,
+      extraCssText: 'box-shadow:none;',
+
+      axisPointer: {
+        type: 'line',
+        lineStyle: { color: '#cbd5e1' }
+      },
+
+        // ✅ Smooth movement
+      transitionDuration: 0.25,
+
       formatter: function (params) {
         if (!params || !params.length) return '';
-        const hour = params[0].name;
-        const dateLabel = typeof formatDateForTooltip === 'function' ? formatDateForTooltip(selectedDate) : selectedDate;
+
+        const hourIndex = params[0].dataIndex;
+        const hourName = params[0].name;
+        const dateLabel =
+          typeof formatDateForTooltip === 'function'
+            ? formatDateForTooltip(selectedDate)
+            : selectedDate;
+
+        const getCounts = (seriesName) => {
+          const calls = getCallsForDate(selectedDate);
+          let inbound = 0, outbound = 0;
+
+          for (const id in calls) {
+            const call = calls[id];
+            const d = new Date(call.call_date);
+
+            if (!isNaN(d) && d.getHours() === hourIndex && !call.is_drop) {
+              if (
+                seriesName !== 'Team Total' &&
+                seriesName !== 'Team Total (In+Out)' &&
+                call.full_name !== seriesName
+              ) continue;
+
+              if (call.direction === 'inbound') inbound++;
+              else if (call.direction === 'outbound') outbound++;
+            }
+          }
+          return { in: inbound, out: outbound };
+        };
 
         let rows = '';
         params.forEach(p => {
-          // 1. Check for null/undefined/missing values
-          // If p.value is null or undefined, show '0' or '-'
-          const displayValue = (p.value === undefined || p.value === null) ? '0' : p.value;
+          const counts = getCounts(p.seriesName);
+          const total = p.value ?? 0;
 
           rows += `
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
-              <div style="display: flex; align-items: center;">
-                <span style="width: 10px; height: 10px; border-radius: 50%; background: ${p.color}; margin-right: 8px;"></span>
-                <span style="color:#64748b; font-size: 13px;">${p.seriesName}:</span>
+            <div style="margin-top:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="display:flex;align-items:center;">
+                  <span style="width:10px;height:10px;border-radius:50%;background:${p.color};margin-right:8px;"></span>
+                  <span style="color:#64748b;font-size:13px;">${p.seriesName}</span>
+                </div>
+                <strong style="color:#1e293b;">${total}</strong>
               </div>
-              <span style="font-weight: 700; margin-left: 20px; color: #1e293b;">${displayValue}</span>
+              <div style="padding-left:18px;font-size:11px;color:#94a3b8;margin-top:2px;">
+                In:
+                <span style="color:#06b6d4;font-weight:600;">${counts.in}</span>,
+                Out:
+                <span style="color:#f59e0b;font-weight:600;">${counts.out}</span>
+              </div>
             </div>`;
         });
 
         return `
-          <div style="font-family: Inter, sans-serif; min-width: 200px;">
-            <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">
-              ${dateLabel} · ${hour}
+          <div style="
+            padding:16px;
+            background:#ffffff;
+            border:1px solid #e0e7ff;
+            border-radius:12px;
+            box-shadow:0 10px 15px -3px rgba(0,0,0,.15);
+            font-family:Inter,sans-serif;
+            min-width:240px;
+          ">
+            <div style="
+              font-weight:700;
+              color:#012970;
+              font-size:14px;
+              margin-bottom:10px;
+              border-bottom:2px solid #f0f4ff;
+              padding-bottom:8px;
+            ">
+              ${dateLabel} · ${hourName}
             </div>
             ${rows}
-          </div>`;
+          </div>
+        `;
       }
     },
     legend: {
