@@ -850,6 +850,20 @@ function renderWorstHourBadge() {
   badgeElement.title = `Peak period: ${startTime} to ${endTime}`;
 }
 
+
+
+// ===============================
+// Local Date Parser (CRITICAL FIX)
+// ===============================
+function parseLocalDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d); // Local midnight
+}
+
+
+// ===============================
+// Call Trend Chart
+// ===============================
 function createCallTrendChart() {
   const container = document.getElementById('callTrendChart');
   if (!container) {
@@ -865,16 +879,12 @@ function createCallTrendChart() {
   chartInstances.callTrendChart = chart;
 
   let datesToShow = [];
-  if (trendDateRange && trendDateRange.start && trendDateRange.end) {
-    // FIX: Use .replace(/-/g, '/') to force Local Time parsing instead of UTC
-    const start = new Date(trendDateRange.start.replace(/-/g, '/'));
-    const end = new Date(trendDateRange.end.replace(/-/g, '/'));
-    
-    // Ensure the end of the day is covered
+  if (trendDateRange?.start && trendDateRange?.end) {
+    const start = parseLocalDate(trendDateRange.start);
+    const end = parseLocalDate(trendDateRange.end);
     end.setHours(23, 59, 59, 999);
-
     datesToShow = availableDates.filter(d => {
-      const dd = new Date(d.replace(/-/g, '/'));
+      const dd = parseLocalDate(d);
       return dd >= start && dd <= end;
     });
   } else {
@@ -888,11 +898,13 @@ function createCallTrendChart() {
 
   datesToShow.sort();
 
-  const labels = datesToShow.map(d => {
-    // Format label as "Jan 1"
-    return new Date(d.replace(/-/g, '/')).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  });
+  const labels = datesToShow.map(d =>
+    parseLocalDate(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  );
 
+  // ────────────────────────────────
+  // Data calculations
+  // ────────────────────────────────
   const callCounts = datesToShow.map(date => {
     const dayData = groupedData[date] || {};
     return Object.keys(dayData).length;
@@ -901,143 +913,185 @@ function createCallTrendChart() {
   const avgAHT = datesToShow.map(date => {
     const dayData = groupedData[date] || {};
     const calls = Object.keys(dayData).length;
-    if (calls === 0) return 0;
-    const totalAcht = Object.values(dayData).reduce((sum, c) => sum + Number(c.acht || 0), 0);
-    return Math.round(totalAcht / calls);
+    if (!calls) return 0;
+    const totalAHT = Object.values(dayData).reduce((sum, c) => sum + Number(c.acht || 0), 0);
+    return Math.round(totalAHT / calls);
   });
 
+  const fcrPercent = datesToShow.map(date => {
+    const dayData = groupedData[date] || {};
+    const totalCalls = Object.keys(dayData).length;
+    if (!totalCalls) return 0;
+    const fcrCount = Object.values(dayData).filter(c => 
+      (c.status || "").toUpperCase() === "FCR"
+    ).length;
+    return Math.round((fcrCount / totalCalls) * 100);
+  });
+
+  // ────────────────────────────────
+  // Chart configuration
+  // ────────────────────────────────
   const option = {
-    color: ['#3b82f6', '#f59e0b'],
-    tooltip: { 
+    color: ['#3b82f6', '#f59e0b', '#10b981'],  // blue, amber, green
+    tooltip: {
       trigger: 'axis',
-      backgroundColor: 'transparent', // Kill default ECharts card
-      borderWidth: 0,
-      padding: 0,
-      shadowColor: 'transparent',
-      axisPointer: { type: 'cross', crossStyle: { color: '#94a3b8' } },
-      formatter: function(params) {
-        if (!params || !params.length) return '';
-        const dateStr = params[0].name;
-        
-        let rows = '';
+      axisPointer: { type: 'shadow' },
+      confine: true,
+      formatter: function (params) {
+        let html = `<div style="font-weight:600;margin-bottom:8px;">${params[0].name}</div>`;
         params.forEach(p => {
-          const suffix = p.seriesName.includes('Time') ? 's' : '';
-          rows += `
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px;">
-              <div style="display: flex; align-items: center;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: ${p.color}; margin-right: 10px;"></span>
-                <span style="color:#64748b; font-size: 13px;">${p.seriesName}:</span>
-              </div>
-              <span style="font-weight: 700; color: #1e293b; margin-left: 20px;">${p.value}${suffix}</span>
+          const suffix = p.seriesName.includes('FCR') ? '%' : (p.seriesName.includes('AHT') ? 's' : '');
+          html += `
+            <div style="display:flex;justify-content:space-between;min-width:180px;margin:4px 0;">
+              <span>
+                <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p.color};margin-right:8px;"></span>
+                ${p.seriesName}
+              </span>
+              <strong>${p.value}${suffix}</strong>
             </div>`;
         });
-
-        return `
-          <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:200px;">
-            <div style="font-weight:700; color:#012970; font-size:14px; margin-bottom:10px; border-bottom:2px solid #f0f4ff; padding-bottom:8px;">
-              ${dateStr}, 2026
-            </div>
-            ${rows}
-          </div>`;
+        return html;
       }
     },
-    legend: { 
-      top: 10, 
+    legend: {
+      top: 10,
       left: 'center',
-      icon: 'roundRect',
-      textStyle: { color: '#64748b', fontWeight: 600 }
+      itemGap: 20,
+      textStyle: { color: '#64748b', fontWeight: 500 }
     },
-    grid: { top: 70, left: '5%', right: '5%', bottom: '15%', containLabel: true },
+    grid: {
+      top: 60,
+      left: '6%',
+      right: '8%',
+      bottom: '18%',
+      containLabel: true
+    },
     xAxis: {
       type: 'category',
       data: labels,
-      axisLabel: { rotate: 45, fontSize: 11, color: '#64748b' },
-      axisLine: { lineStyle: { color: '#f1f5f9' } }
+      axisLine: { lineStyle: { color: '#e2e8f0' } },
+      axisTick: { alignWithLabel: true },
+      axisLabel: { 
+        color: '#64748b', 
+        fontSize: 11, 
+        rotate: 45, 
+        margin: 12 
+      }
     },
     yAxis: [
-      { 
-        type: 'value', 
-        name: 'Calls', 
+      {
+        type: 'value',
+        name: 'Calls',
         position: 'left',
+        axisLine: { show: false },
+        axisLabel: { color: '#3b82f6' },
         splitLine: { lineStyle: { type: 'dashed', color: '#f1f5f9' } }
       },
-      { 
-        type: 'value', 
-        name: 'AHT (s)', 
-        position: 'right', 
-        axisLabel: { formatter: '{value}s' },
+      {
+        type: 'value',
+        name: 'AHT / FCR',
+        position: 'right',
+        axisLine: { show: false },
+        axisLabel: { 
+          color: '#64748b',
+          formatter: function (val) {
+            return val + (val > 100 ? '' : '%'); // rough way to distinguish
+          }
+        },
         splitLine: { show: false }
       }
     ],
     series: [
-      { 
-        name: 'Call Volume', 
-        type: 'line', 
-        smooth: 0.4, 
-        data: callCounts, 
-        symbolSize: 8,
-        areaStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(59, 130, 246, 0.3)' },
-            { offset: 1, color: 'rgba(59, 130, 246, 0)' }
-          ])
-        } 
+      {
+        name: 'Call Volume',
+        type: 'bar',
+        barWidth: '60%',
+        itemStyle: { 
+          borderRadius: [4, 4, 0, 0],
+          color: '#3b82f6'
+        },
+        data: callCounts,
+        yAxisIndex: 0
       },
-      { 
-        name: 'Avg Handle Time (s)', 
-        type: 'line', 
-        smooth: 0.4, 
-        yAxisIndex: 1, 
-        symbolSize: 8,
-        data: avgAHT 
+      {
+        name: 'Avg Handle Time (s)',
+        type: 'line',
+        smooth: 0.35,
+        symbolSize: 7,
+        lineStyle: { width: 3 },
+        itemStyle: { color: '#f59e0b' },
+        data: avgAHT,
+        yAxisIndex: 1
+      },
+      {
+        name: 'FCR %',
+        type: 'line',
+        smooth: 0.35,
+        symbolSize: 7,
+        lineStyle: { width: 3 },
+        itemStyle: { color: '#10b981' },
+        data: fcrPercent,
+        yAxisIndex: 1
       }
     ]
   };
 
   chart.setOption(option);
-  window.addEventListener('resize', () => chart.resize());
+
+  // Resize handling (already global, but keep for safety)
+  if (!chart.__resizeAdded) {
+    window.addEventListener('resize', () => chart.resize());
+    chart.__resizeAdded = true;
+  }
+
+  // Update title with actual range
+  updateTrendRangeDisplay();
 }
 
-// Add this helper function near createCallTrendChart
+
+// ===============================
+// Trend Range Title
+// ===============================
 function updateTrendRangeDisplay() {
-  const titleEl = document.querySelector('.call-trend-title') || 
-                  document.querySelector('[data-range-display]');
+  const titleEl =
+    document.querySelector('.call-trend-title') ||
+    document.querySelector('[data-range-display]');
 
   if (!titleEl) return;
 
-  let displayText = `Call Volume Trend (Last ${DEFAULT_TREND_DAYS} Days)`;
+  let text = `Call Volume Trend (Last ${DEFAULT_TREND_DAYS} Days)`;
 
   if (trendDateRange?.start && trendDateRange?.end) {
-    // FIX: Apply Local Time parsing to the filtering logic
-    let datesToShow = availableDates.filter(d => {
-      const dd = new Date(d.replace(/-/g, '/'));
-      const start = new Date(trendDateRange.start.replace(/-/g, '/'));
-      const end = new Date(trendDateRange.end.replace(/-/g, '/'));
-      
-      // Ensure end date includes the full final day
-      end.setHours(23, 59, 59, 999);
-      
+    const start = parseLocalDate(trendDateRange.start);
+    const end = parseLocalDate(trendDateRange.end);
+
+    const dates = availableDates.filter(d => {
+      const dd = parseLocalDate(d);
       return dd >= start && dd <= end;
     });
 
-    if (datesToShow.length > 0) {
-      datesToShow.sort();
-      
-      // Formatting with local time parsing for the strings
-      const actualStart = new Date(datesToShow[0].replace(/-/g, '/'))
-        .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        
-      const actualEnd = new Date(datesToShow[datesToShow.length - 1].replace(/-/g, '/'))
-        .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        
-      displayText = `Call Volume Trend (${actualStart} to ${actualEnd})`;
+    if (dates.length) {
+      dates.sort();
+      const s = parseLocalDate(dates[0]).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      const e = parseLocalDate(dates.at(-1)).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+
+      text = `Call Volume Trend (${s} to ${e})`;
     } else {
-      displayText = "Call Volume Trend (No data in range)";
+      text = 'Call Volume Trend (No data in range)';
     }
   }
 
-  titleEl.textContent = displayText;
+  titleEl.textContent = text;
 }
+
     // Main render function
     function renderDashboard() {
       if (!selectedDate || !groupedData[selectedDate]) return;
@@ -1323,35 +1377,60 @@ document.querySelectorAll('.date-mirror').forEach(el => {
       }
     });
 
+// ===============================
 // Range picker for trend chart
+// ===============================
 const trendFp = flatpickr("#trendDateRangePicker", {
   mode: "range",
   dateFormat: "Y-m-d",
   maxDate: "today",
-  onChange: (selectedDates, dateStr, instance) => {
+
+  onChange: (selectedDates) => {
     console.log("Picker changed → selectedDates:", selectedDates);
 
     if (selectedDates.length === 2) {
-      const start = selectedDates[0].toISOString().split('T')[0];
-      const end   = selectedDates[1].toISOString().split('T')[0];
+      // ✅ LOCAL date extraction (NO UTC)
+      const start = [
+        selectedDates[0].getFullYear(),
+        String(selectedDates[0].getMonth() + 1).padStart(2, '0'),
+        String(selectedDates[0].getDate()).padStart(2, '0')
+      ].join('-');
+
+      const end = [
+        selectedDates[1].getFullYear(),
+        String(selectedDates[1].getMonth() + 1).padStart(2, '0'),
+        String(selectedDates[1].getDate()).padStart(2, '0')
+      ].join('-');
+
       trendDateRange = { start, end };
+
       console.log("trendDateRange UPDATED to:", trendDateRange);
       createCallTrendChart();
+      updateTrendRangeDisplay();
+
     } else {
       trendDateRange = null;
       console.log("trendDateRange CLEARED");
       createCallTrendChart();
+      updateTrendRangeDisplay();
     }
   }
 });
 
+
+// ===============================
 // Reset button
-document.getElementById('btnResetTrendRange')?.addEventListener('click', () => {
-  trendDateRange = null;
-  trendFp.clear();
-  document.getElementById('trendDateRangePicker').value = '';
-  createCallTrendChart();
-});
+// ===============================
+document
+  .getElementById('btnResetTrendRange')
+  ?.addEventListener('click', () => {
+    trendDateRange = null;
+    trendFp.clear();
+    document.getElementById('trendDateRangePicker').value = '';
+    createCallTrendChart();
+    updateTrendRangeDisplay();
+  });
+
 
     document.getElementById('btnReload').addEventListener('click', fetchAndRefresh);
 
