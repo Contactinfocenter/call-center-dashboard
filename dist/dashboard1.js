@@ -1,6 +1,7 @@
   const MASTER_DATA_URL = "https://raw.githubusercontent.com/Contactinfocenter/dashboard-data/main/data/calls/all_calls.json";
     
     const BILLING_ISSUE_REASON = "Billing Issue";
+    const DEFAULT_TREND_DAYS = 15;
 
     const GENERAL_ACHT_COLOR     = '#f59e0b';
     const GENERAL_VOLUME_COLOR   = '#3b82f6';
@@ -27,6 +28,10 @@
       monthOverMonthChart: null,
       fcrTrendChart: null
     };
+
+    chartInstances.callTrendChart = null;
+
+    let trendDateRange = null;
 
     // Utilities
     function formatTime(seconds) {
@@ -59,6 +64,29 @@
       if (v.includes('urban')) return "Urban";
       return "N/A";
     }
+
+function hexToRgba(hex, opacity) {
+  // Remove # if present and normalize
+  hex = hex.replace('#', '').toLowerCase();
+  
+  // Expand shorthand (e.g. #f59 → #ff5599)
+  if (hex.length === 3) {
+    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  }
+  
+  // Parse RGB
+  const r = parseInt(hex.substr(0, 2), 16);
+  const g = parseInt(hex.substr(2, 2), 16);
+  const b = parseInt(hex.substr(4, 2), 16);
+  
+  // Fallback for invalid input
+  if (isNaN(r) || isNaN(g) || isNaN(b)) {
+    console.warn(`Invalid hex color: ${hex}`);
+    return `rgba(0, 0, 0, ${opacity})`;
+  }
+  
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}  
 
     // Data Normalization — fixed to use row.region correctly
     function normalizeFromRows(rows) {
@@ -327,12 +355,15 @@ function createEChartPie(containerId, dataArray, colorsArray) {
 }
 
 // Helper to handle the RGBA conversion for the area fill
+/*
 function hexToRgba(hex, opacity) {
   let r = parseInt(hex.slice(1, 3), 16),
       g = parseInt(hex.slice(3, 5), 16),
       b = parseInt(hex.slice(5, 7), 16);
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
+*/
+
 
     // echarts Butterfly Chart — with destroy
 function createButterflyChart(containerId, categories, leftData, rightData, leftColor, rightColor) {
@@ -818,6 +849,195 @@ function renderWorstHourBadge() {
   // Optional: Add a tooltip to show the full range
   badgeElement.title = `Peak period: ${startTime} to ${endTime}`;
 }
+
+function createCallTrendChart() {
+  const container = document.getElementById('callTrendChart');
+  if (!container) {
+    console.warn("callTrendChart container not found");
+    return;
+  }
+
+  if (chartInstances.callTrendChart) {
+    chartInstances.callTrendChart.dispose();
+  }
+
+  const chart = echarts.init(container);
+  chartInstances.callTrendChart = chart;
+
+  let datesToShow = [];
+  if (trendDateRange && trendDateRange.start && trendDateRange.end) {
+    // FIX: Use .replace(/-/g, '/') to force Local Time parsing instead of UTC
+    const start = new Date(trendDateRange.start.replace(/-/g, '/'));
+    const end = new Date(trendDateRange.end.replace(/-/g, '/'));
+    
+    // Ensure the end of the day is covered
+    end.setHours(23, 59, 59, 999);
+
+    datesToShow = availableDates.filter(d => {
+      const dd = new Date(d.replace(/-/g, '/'));
+      return dd >= start && dd <= end;
+    });
+  } else {
+    datesToShow = availableDates.slice(-DEFAULT_TREND_DAYS);
+  }
+
+  if (datesToShow.length === 0) {
+    container.innerHTML = '<div class="text-center py-5 text-muted">No data in selected range</div>';
+    return;
+  }
+
+  datesToShow.sort();
+
+  const labels = datesToShow.map(d => {
+    // Format label as "Jan 1"
+    return new Date(d.replace(/-/g, '/')).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  });
+
+  const callCounts = datesToShow.map(date => {
+    const dayData = groupedData[date] || {};
+    return Object.keys(dayData).length;
+  });
+
+  const avgAHT = datesToShow.map(date => {
+    const dayData = groupedData[date] || {};
+    const calls = Object.keys(dayData).length;
+    if (calls === 0) return 0;
+    const totalAcht = Object.values(dayData).reduce((sum, c) => sum + Number(c.acht || 0), 0);
+    return Math.round(totalAcht / calls);
+  });
+
+  const option = {
+    color: ['#3b82f6', '#f59e0b'],
+    tooltip: { 
+      trigger: 'axis',
+      backgroundColor: 'transparent', // Kill default ECharts card
+      borderWidth: 0,
+      padding: 0,
+      shadowColor: 'transparent',
+      axisPointer: { type: 'cross', crossStyle: { color: '#94a3b8' } },
+      formatter: function(params) {
+        if (!params || !params.length) return '';
+        const dateStr = params[0].name;
+        
+        let rows = '';
+        params.forEach(p => {
+          const suffix = p.seriesName.includes('Time') ? 's' : '';
+          rows += `
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px;">
+              <div style="display: flex; align-items: center;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: ${p.color}; margin-right: 10px;"></span>
+                <span style="color:#64748b; font-size: 13px;">${p.seriesName}:</span>
+              </div>
+              <span style="font-weight: 700; color: #1e293b; margin-left: 20px;">${p.value}${suffix}</span>
+            </div>`;
+        });
+
+        return `
+          <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:200px;">
+            <div style="font-weight:700; color:#012970; font-size:14px; margin-bottom:10px; border-bottom:2px solid #f0f4ff; padding-bottom:8px;">
+              ${dateStr}, 2026
+            </div>
+            ${rows}
+          </div>`;
+      }
+    },
+    legend: { 
+      top: 10, 
+      left: 'center',
+      icon: 'roundRect',
+      textStyle: { color: '#64748b', fontWeight: 600 }
+    },
+    grid: { top: 70, left: '5%', right: '5%', bottom: '15%', containLabel: true },
+    xAxis: {
+      type: 'category',
+      data: labels,
+      axisLabel: { rotate: 45, fontSize: 11, color: '#64748b' },
+      axisLine: { lineStyle: { color: '#f1f5f9' } }
+    },
+    yAxis: [
+      { 
+        type: 'value', 
+        name: 'Calls', 
+        position: 'left',
+        splitLine: { lineStyle: { type: 'dashed', color: '#f1f5f9' } }
+      },
+      { 
+        type: 'value', 
+        name: 'AHT (s)', 
+        position: 'right', 
+        axisLabel: { formatter: '{value}s' },
+        splitLine: { show: false }
+      }
+    ],
+    series: [
+      { 
+        name: 'Call Volume', 
+        type: 'line', 
+        smooth: 0.4, 
+        data: callCounts, 
+        symbolSize: 8,
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: 'rgba(59, 130, 246, 0.3)' },
+            { offset: 1, color: 'rgba(59, 130, 246, 0)' }
+          ])
+        } 
+      },
+      { 
+        name: 'Avg Handle Time (s)', 
+        type: 'line', 
+        smooth: 0.4, 
+        yAxisIndex: 1, 
+        symbolSize: 8,
+        data: avgAHT 
+      }
+    ]
+  };
+
+  chart.setOption(option);
+  window.addEventListener('resize', () => chart.resize());
+}
+
+// Add this helper function near createCallTrendChart
+function updateTrendRangeDisplay() {
+  const titleEl = document.querySelector('.call-trend-title') || 
+                  document.querySelector('[data-range-display]');
+
+  if (!titleEl) return;
+
+  let displayText = `Call Volume Trend (Last ${DEFAULT_TREND_DAYS} Days)`;
+
+  if (trendDateRange?.start && trendDateRange?.end) {
+    // FIX: Apply Local Time parsing to the filtering logic
+    let datesToShow = availableDates.filter(d => {
+      const dd = new Date(d.replace(/-/g, '/'));
+      const start = new Date(trendDateRange.start.replace(/-/g, '/'));
+      const end = new Date(trendDateRange.end.replace(/-/g, '/'));
+      
+      // Ensure end date includes the full final day
+      end.setHours(23, 59, 59, 999);
+      
+      return dd >= start && dd <= end;
+    });
+
+    if (datesToShow.length > 0) {
+      datesToShow.sort();
+      
+      // Formatting with local time parsing for the strings
+      const actualStart = new Date(datesToShow[0].replace(/-/g, '/'))
+        .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        
+      const actualEnd = new Date(datesToShow[datesToShow.length - 1].replace(/-/g, '/'))
+        .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        
+      displayText = `Call Volume Trend (${actualStart} to ${actualEnd})`;
+    } else {
+      displayText = "Call Volume Trend (No data in range)";
+    }
+  }
+
+  titleEl.textContent = displayText;
+}
     // Main render function
     function renderDashboard() {
       if (!selectedDate || !groupedData[selectedDate]) return;
@@ -934,7 +1154,7 @@ document.getElementById('kpiAvgHandleTime').textContent = formatTime(avgHandle);
         { value: dayRegion['N/A'], name: 'N/A' }
       ], Object.values(REGION_COLORS));
 
-// --- REASONING & BILLING ANALYSIS: CLEANED BLOCK ---
+// --- REASONING & BILLING ANALYSIS: BLOCK ---
 
 // 1. Monthly Top 10 Call Reasons
 const reasonDataArr = Object.keys(reasonStats || {}).map(r => ({
@@ -1083,6 +1303,7 @@ document.querySelectorAll('.date-mirror').forEach(el => {
           fp.setDate(selectedDate);
         }
         renderDashboard();
+        createCallTrendChart();
       } catch (err) {
         console.error(err);
         alert("Failed to load data: " + err.message);
@@ -1098,8 +1319,39 @@ document.querySelectorAll('.date-mirror').forEach(el => {
         document.getElementById('selectedDate').textContent = selectedDate;
         document.querySelectorAll('.date-mirror').forEach(el => el.textContent = selectedDate);
         renderDashboard();
+        createCallTrendChart();
       }
     });
+
+// Range picker for trend chart
+const trendFp = flatpickr("#trendDateRangePicker", {
+  mode: "range",
+  dateFormat: "Y-m-d",
+  maxDate: "today",
+  onChange: (selectedDates, dateStr, instance) => {
+    console.log("Picker changed → selectedDates:", selectedDates);
+
+    if (selectedDates.length === 2) {
+      const start = selectedDates[0].toISOString().split('T')[0];
+      const end   = selectedDates[1].toISOString().split('T')[0];
+      trendDateRange = { start, end };
+      console.log("trendDateRange UPDATED to:", trendDateRange);
+      createCallTrendChart();
+    } else {
+      trendDateRange = null;
+      console.log("trendDateRange CLEARED");
+      createCallTrendChart();
+    }
+  }
+});
+
+// Reset button
+document.getElementById('btnResetTrendRange')?.addEventListener('click', () => {
+  trendDateRange = null;
+  trendFp.clear();
+  document.getElementById('trendDateRangePicker').value = '';
+  createCallTrendChart();
+});
 
     document.getElementById('btnReload').addEventListener('click', fetchAndRefresh);
 
