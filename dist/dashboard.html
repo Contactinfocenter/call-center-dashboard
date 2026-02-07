@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Daily Call Insights</title>
+    <title>Blank page - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="./dist/css/tabler.css?1767679296" rel="stylesheet" />
     <!-- END GLOBAL MANDATORY STYLES -->
@@ -20,31 +20,30 @@
     <link href="./preview/css/demo.css?1767679296" rel="stylesheet" />
     <!-- END DEMO STYLES -->
      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
 <!-- Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <!-- Flatpickr JS (add before your custom script) -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <!-- BEGIN CUSTOM FONT -->
     <style>
       @import url("https://rsms.me/inter/inter.css");
 
-      /* Pulse Animation */
-@keyframes pulse-red {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(214, 51, 108, 0.4); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(214, 51, 108, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(214, 51, 108, 0); }
+/* Remove rounding from summary / grand total rows */
+.table tr.bg-blue-lt td:last-child {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
-/* Apply to the Worst Hour Badge */
-#worstHourBadge {
-  animation: pulse-red 2s infinite;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(214, 51, 108, 0.2); /* Slight border for depth */
+.table tr.bg-blue-lt td:first-child {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }
+    
     </style>
     <!-- END CUSTOM FONT -->
   </head>
@@ -55,7 +54,7 @@
     <!-- END GLOBAL THEME SCRIPT -->
     <div class="page">
       <!-- BEGIN NAVBAR  -->
-<header class="navbar navbar-expand-md d-print-none sticky-top">
+<header class="navbar navbar-expand-md d-print-none sticky-top bg-white">
   <div class="container-xl">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle primary navigation">
       <span class="navbar-toggler-icon"></span>
@@ -695,284 +694,201 @@
         <!-- END PAGE HEADER -->
         <!-- BEGIN PAGE BODY -->
 <main id="content" class="page-body">
-  <div class="container-xl">
+    <div class="container-xl">
 
-    <!-- ===================== -->
-    <!-- KPI CARDS -->
-    <!-- ===================== -->    
+<div class="card mb-4 shadow-sm">
+  <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <h3 class="card-title mb-0">Call Volume by Region</h3>
 
-    <div class="col-12">
-      <div class="row row-cards">
-      <!-- KPI ITEM -->        
-        <div class="col-sm-6 col-lg-2">
-          <div class="card card-sm">
-            <div class="card-body p-3">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <span class="bg-primary text-white avatar avatar-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path></svg>
-                  </span>
-                </div>
-                <div class="col">
-                  <div class="h3 mb-0 fw-bold" id="kpiTotalCalls">0</div>
-                  <div class="text-secondary small">Total Calls</div>
-                </div>
-              </div>
-            </div>
+    <div class="card-actions d-flex align-items-center flex-wrap gap-2">
+      <!-- Region chips -->
+      <div id="regionChips" class="d-flex align-items-center flex-wrap gap-2 me-2"></div>
+
+      <!-- Clear filters -->
+      <button id="clearFiltersBtn" class="btn btn-primary btn-sm d-none" aria-label="Clear all filters">
+        Clear Filters
+      </button>
+
+      <!-- Date range -->
+      <div class="input-icon" style="min-width: 240px;">
+        <span class="input-icon-addon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+            <path d="M16 3v4" />
+            <path d="M8 3v4" />
+            <path d="M4 11h16" />
+            <path d="M11 15h1" />
+            <path d="M12 15v3" />
+          </svg>
+        </span>
+        <input 
+          id="mainDateRange" 
+          type="text" 
+          class="form-control form-control-sm" 
+          placeholder="Select date range..." 
+          aria-label="Select date range"
+        >
+      </div>
+
+      <button id="clearMainDateBtn" class="btn btn-outline-secondary btn-sm" aria-label="Reset date range">
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row g-4">
+      <!-- Main content -->
+      <div class="col-lg-9">
+        <div id="summaryTableContainer" class="table-responsive mb-4">
+          <div class="text-center py-5 text-muted">
+            <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+            <div>Loading regional data...</div>
           </div>
         </div>
 
-        <div class="col-sm-6 col-lg-2">
-          <div class="card card-sm">
-            <div class="card-body p-3">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <span class="bg-success text-white avatar avatar-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path><path d="M21 21v-2a4 4 0 0 0 -3 -3.87"></path></svg>
-                  </span>
-                </div>
-                <div class="col">
-                  <div class="h3 mb-0 fw-bold text-success" id="kpiUniqueCallers">0</div>
-                  <div class="text-secondary small">Unique Callers</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="barChart" style="width: 100%; height: 340px; min-height: 320px;"></div>
 
-        <div class="col-sm-6 col-lg-2">
-          <div class="card card-sm">
-            <div class="card-body p-3">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <span class="bg-indigo text-white avatar avatar-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path><path d="M15 19l2 2l4 -4"></path></svg>
-                  </span>
-                </div>
-                <div class="col">
-                  <div class="h3 mb-0 fw-bold text-indigo text-truncate" id="kpiActiveAgents">—</div>
-                  <div class="text-secondary small">Active Agents</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="quickStats" class="mt-4 d-flex flex-wrap gap-4 text-muted small"></div>
+      </div>
 
-        <div class="col-sm-6 col-lg-2">
-          <div class="card card-sm">
-            <div class="card-body p-3">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <span class="bg-orange text-white avatar avatar-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>
-                  </span>
-                </div>
-                <div class="col text-truncate">
-                  <div class="h3 mb-0 fw-bold text-orange" id="kpiAvgHandleTime">0:00</div>
-                  <div class="text-secondary small">Avg Handle Time</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-2">
-          <div class="card card-sm">
-            <div class="card-body p-3">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <span class="bg-teal text-white avatar avatar-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l2 2l4 -4"></path></svg>
-                  </span>
-                </div>
-                <div class="col">
-                  <div class="h3 mb-0 fw-bold text-teal" id="kpiFCRPercent">0%</div>
-                  <div class="text-secondary small">FCR %</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-2">
-          <div class="card card-sm">
-            <div class="card-body p-3">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <span class="bg-danger text-white avatar avatar-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M12 7v5l3 3"></path></svg>
-                  </span>
-                </div>
-                <div class="col text-truncate">
-                  <div class="d-flex align-items-center">
-                    <div class="h3 mb-0 fw-bold text-danger" id="worstHourCalls">0</div>
-                    <span class="ms-1 badge bg-danger-lt" id="worstHourBadge">--:--</span>
-                  </div>
-                  <div class="text-secondary small">Worst Hour</div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Sidebar filter -->
+      <div class="col-lg-3">
+        <div class="ps-lg-3 sticky-lg-top" style="top: 2rem;">
+          <h4 class="subheader mb-3">Filter by Reason</h4>
+          <div 
+            id="reasonChips" 
+            class="d-flex flex-wrap gap-2 overflow-auto" 
+            style="max-height: 420px; padding-right: 3px;"
+          ></div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- ===================== -->
-    <!-- SPIKES -->
-    <!-- ===================== -->    
+<div class="card mb-4 shadow-sm">
+  <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <h3 class="card-title text-primary mb-0">Urban Zone Analysis</h3>
 
-    <div class="col-12 mt-3">
-      <div class="row row-cards" id="spikesContainer"></div>
+    <div class="card-actions d-flex align-items-center flex-wrap gap-2">
+      <!-- Zone chips -->
+      <div id="zoneChips" class="d-flex align-items-center flex-wrap gap-2 me-2"></div>
+
+      <!-- Clear filters -->
+      <button 
+        id="clearZoneFiltersBtn" 
+        class="btn btn-primary btn-sm d-none" 
+        aria-label="Clear all zone filters"
+      >
+        Clear Filters
+      </button>
+
+      <!-- Date range -->
+      <div class="input-icon" style="min-width: 240px;">
+        <span class="input-icon-addon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+            <path d="M16 3v4" />
+            <path d="M8 3v4" />
+            <path d="M4 11h16" />
+            <path d="M11 15h1" />
+            <path d="M12 15v3" />
+          </svg>
+        </span>
+        <input 
+          id="zoneDateRange" 
+          type="text" 
+          class="form-control form-control-sm" 
+          placeholder="Select date range..." 
+          aria-label="Filter date range for urban zone"
+        >
+      </div>
+
+      <button 
+        id="clearZoneDateBtn" 
+        class="btn btn-outline-secondary btn-sm" 
+        aria-label="Reset date range"
+      >
+        Reset
+      </button>
     </div>
+  </div>
 
-    <!-- ===================== -->
-    <!-- MONTHLY OVERVIEW -->
-    <!-- ===================== -->  
-
-    <div class="col-12 mt-3">
-      <div class="row row-cards">
-        <div class="col-sm-6 col-lg-9">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">Monthly Average Hourly Calls</h3>
-              <div id="avgHourlyChart" style="height: 350px; width: 100%;"></div>
-            </div>
+  <div class="card-body">
+    <div class="row g-4">
+      <!-- Main content area -->
+      <div class="col-lg-9">
+        <div id="zoneSummaryTableContainer" class="table-responsive mb-4">
+          <div class="text-center py-5 text-muted">
+            <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+            <div>Loading urban zone data...</div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">Monthly Calls per Region</h3>
-              <div id="monthRegionPie" style="height: 350px; width: 100%;"></div>
-            </div>
-          </div>
+
+        <div id="zoneBarChart" style="width: 100%; height: 340px; min-height: 320px;"></div>
+
+        <div id="zoneQuickStats" class="mt-4 d-flex flex-wrap gap-4 text-muted small"></div>
+      </div>
+
+      <!-- Sidebar filter -->
+      <div class="col-lg-3">
+        <div class="ps-lg-3 sticky-lg-top" style="top: 1rem;">
+          <h4 class="subheader mb-3">Urban Call Reasons</h4>
+          <div 
+            id="zoneReasonChips" 
+            class="d-flex flex-wrap gap-2 overflow-auto" 
+            style="max-height: 420px; padding-right: 8px;"
+          ></div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- ===================== -->
-    <!-- LAST DAY -->
-    <!-- ===================== -->    
-
-    <div class="col-12 mt-3">
-        <div class="row row-cards d-flex align-items-stretch"> <div class="col-sm-6 col-lg-9 d-flex">
-                <div class="card w-100"> <div class="card-body">
-                        <h3 class="card-title mb-2">
-                            Hourly Call Volume <span class="date-mirror"></span>
-                        </h3>
-                        <div id="lastDayHourlyChart" style="height: 350px; width: 100%;"></div>
+        <div class="card mb-4">
+            <div class="card-header bg-green-lt">
+                <h3 class="card-title text-success">Rural Top 20 Zone Analysis</h3>
+                <div class="card-actions d-flex gap-2">
+                    <input id="ruralDateRange" type="text" class="form-control form-control-sm w-auto" placeholder="Filter Date">
+                    <button id="clearRuralDateBtn" class="btn btn-outline-secondary btn-sm">Reset</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    <div class="col-lg-9 border-end">
+                        <div id="ruralSummaryTableContainer" class="table-responsive mb-4"></div>
+                        <div id="ruralZoneBarChart"style="width: 100%; height: 320px;">
+                        </div>
+                        <div id="ruralZoneQuickStats" class="mt-2 text-muted small"></div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ps-lg-2">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="subheader mb-0">Rural Reasons</h4>
+                                <button id="clearRuralFiltersBtn" class="btn btn-link btn-sm p-0 text-success">Clear</button>
+                            </div>
+                            <div id="ruralZoneReasonChips" class="d-flex flex-wrap gap-1"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3 d-flex">
-                <div class="card w-100"> <div class="card-body">
-                        <h3 class="card-title mb-2">
-                            <span class="date-mirror"></span> Calls per Region
-                        </h3>
-                        <div id="lastDayRegionPie" style="height: 350px; width: 100%;"></div>
-                    </div>
-                </div>
-            </div>
         </div>
+
     </div>
 
-    <!-- ===================== -->
-    <!-- TOP REASONS -->
-    <!-- ===================== -->    
 
-    <div class="col-12 mt-3">
-      <div class="row row-cards">
-        <div class="col-sm-6 col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">Top 10 Call Reasons (Monthly)</h3>
-              <div id="monthButterflyCallreason" style="height: 420px; width: 100%;"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">
-                Top 10 Call Reasons <span class="date-mirror"></span>
-              </h3>
-              <div id="dayButterflyCallreason" style="height: 420px; width: 100%;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Left: Overview status -->
+    <div class="text-gray-600 text-sm">
+        Overview: <strong id="statusText">Initializing...</strong>
     </div>
-
-    <!-- ===================== -->
-    <!-- BILLING -->
-    <!-- ===================== -->    
-
-    <div class="col-12 mt-3">
-      <div class="row row-cards">
-        <div class="col-sm-6 col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">Top 10 Billing Reasons (Monthly)</h3>
-              <div id="monthBillingButterfly" style="height: 420px; width: 100%;"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">
-                Top 10 Billing Reasons <span class="date-mirror"></span>
-              </h3>
-              <div id="dayBillingButterfly" style="height: 420px; width: 100%;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===================== -->
-    <!-- TRENDS -->
-    <!-- ===================== -->    
-
-    <div class="col-12 mt-3">
-      <div class="row row-cards">
-        <div class="col-sm-6 col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">Month-over-Month Growth</h3>
-              <div id="monthOverMonthChart" style="height: 280px; width: 100%;"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title mb-2">FCR Trend Rate (%)</h3>
-              <div id="fcrTrendChart" style="height: 280px; width: 100%;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===================== -->
-    <!-- CALL TREND -->
-    <!-- ===================== -->    
-
-    <div class="card mb-4 mt-3">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="card-title call-trend-title mb-0">Call Volume Trend</h3>
-        <div class="d-flex gap-3">
-          <input type="text" id="trendDateRangePicker" placeholder="Select date range..." class="form-control form-control-sm" style="width: 220px;" />
-          <button id="btnResetTrendRange" class="btn btn-sm btn-outline-secondary">Reset to Last 15 Days</button>
-        </div>
-      </div>
-      <div class="card-body p-0">
-        <div id="callTrendChart" style="height: 320px; width: 100%;"></div>
-      </div>
-    </div>
-
-  </div> 
+    
+    <!-- Right: Last updated -->
+    <div class="text-xs text-gray-600 text-right sm:text-left">
+        Last updated: <span id="lastUpdated"></span>
+    </div>    
 </main>
         <!-- END PAGE BODY -->
         <!-- BEGIN FOOTER -->
@@ -1365,10 +1281,10 @@
     </script>
     <!-- END PAGE SCRIPTS -->
     <!-- ECharts CDN -->
+       <!-- Flowbite JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="dashboard1.js"></script>
-    
-    
+    <script src="dashboard3.js"></script>     
   </body>
 </html>
