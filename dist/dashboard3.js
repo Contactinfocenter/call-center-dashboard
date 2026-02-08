@@ -308,151 +308,137 @@ function buildFilterLists(recordsByDate) {
     ruralReasons = Array.from(ruralReasonsTemp).sort(); 
 }
 // Update chip visuals based on current filters
-function updateChipVisuals() {
-    // Helper to style a single chip
-    function styleChip(chip, isActive) {
-        // Reset all possible states first
-        chip.classList.remove(
-            'bg-primary-lt',
-            'text-primary',
-            'badge-outline',
-            'text-muted',
-            'badge'
-        );
+// ────────────────────────────────────────────────
+//  Unified Tabler chip styler
+// ────────────────────────────────────────────────
+function styleTablerChip(chip, isActive) {
+    chip.classList.remove(
+        'bg-primary-lt',
+        'text-primary',
+        'badge-outline',
+        'text-muted'
+    );
 
-        // Common base
-        chip.classList.add('badge');
+    chip.classList.add('badge');
 
-        if (isActive) {
-            chip.classList.add('bg-primary-lt', 'text-primary');
-        } else {
-            chip.classList.add('badge-outline', 'text-muted');
-        }
+    if (isActive) {
+        chip.classList.add('bg-primary-lt', 'text-primary');
+    } else {
+        chip.classList.add('badge-outline', 'text-muted');
     }
+}
 
-    // ────────────────────────────────────────────────
-    //  Region + Reason chips (main filters)
-    // ────────────────────────────────────────────────
+
+// ────────────────────────────────────────────────
+//  Main + Zone + Rural chips visual updater
+// ────────────────────────────────────────────────
+function updateChipVisuals() {
+
+    // ────────────────────────────────────────────
+    //  Region + Reason chips
+    // ────────────────────────────────────────────
     if (regionChips && reasonChips) {
         [...regionChips.children, ...reasonChips.children].forEach(chip => {
-            const type = chip.dataset.type;
+            const type  = chip.dataset.type;
             const value = chip.dataset.value;
 
-            const activeSet = type === 'region' ? filters.regions : filters.reasons;
-            const isActive = activeSet.has(value);
+            const activeSet =
+                type === 'region' ? filters.regions : filters.reasons;
 
-            styleChip(chip, isActive);
+            styleTablerChip(chip, activeSet.has(value));
         });
     }
 
-    // Main filters buttons visibility
-    if (clearFiltersBtn) {
-        clearFiltersBtn.classList.toggle(
-            'd-none',
-            filters.regions.size === 0 && filters.reasons.size === 0
-        );
-    }
+    // Buttons visibility (main filters)
+    clearFiltersBtn?.classList.toggle(
+        'd-none',
+        filters.regions.size === 0 && filters.reasons.size === 0
+    );
 
-    if (selectAllBtn) {
-        selectAllBtn.classList.toggle(
-            'd-none',
-            filters.regions.size === allAvailableRegions.length &&
-            filters.reasons.size === allAvailableReasons.length
-        );
-    }
+    selectAllBtn?.classList.toggle(
+        'd-none',
+        filters.regions.size === allAvailableRegions.length &&
+        filters.reasons.size === allAvailableReasons.length
+    );
 
-    // ────────────────────────────────────────────────
-    //  Zone + Zone Reason chips
-    // ────────────────────────────────────────────────
+    // ────────────────────────────────────────────
+    //  Zone chips
+    // ────────────────────────────────────────────
     if (zoneChips) {
         [...zoneChips.children].forEach(chip => {
-            const value = chip.dataset.value;
-            styleChip(chip, zoneFilters.has(value));
+            styleTablerChip(
+                chip,
+                zoneFilters.has(chip.dataset.value)
+            );
         });
     }
 
     if (zoneReasonChips) {
         [...zoneReasonChips.children].forEach(chip => {
-            const value = chip.dataset.value;
-            styleChip(chip, zoneReasonFilters.has(value));
+            styleTablerChip(
+                chip,
+                zoneReasonFilters.has(chip.dataset.value)
+            );
         });
     }
 
-    // Zone filters buttons visibility
-    if (clearZoneFiltersBtn) {
-        clearZoneFiltersBtn.classList.toggle(
-            'd-none',
-            zoneFilters.size === 0 && zoneReasonFilters.size === 0
-        );
-    }
+    // Buttons visibility (zone filters)
+    clearZoneFiltersBtn?.classList.toggle(
+        'd-none',
+        zoneFilters.size === 0 && zoneReasonFilters.size === 0
+    );
 
-    if (selectAllZoneBtn) {
-        selectAllZoneBtn.classList.toggle(
-            'd-none',
-            zoneFilters.size === zonesOfInterest.length &&
-            zoneReasonFilters.size === allAvailableZoneReasons.length
-        );
-    }
+    selectAllZoneBtn?.classList.toggle(
+        'd-none',
+        zoneFilters.size === zonesOfInterest.length &&
+        zoneReasonFilters.size === allAvailableZoneReasons.length
+    );
 
-    // ────────────────────────────────────────────────
-    //  Rural chip(s)
-    // ────────────────────────────────────────────────
+    // ────────────────────────────────────────────
+    //  Rural chips
+    // ────────────────────────────────────────────
     updateRuralChipVisuals();
 }
 
 
+// ────────────────────────────────────────────────
+//  Rural chips (NOW TABLER STYLE)
+// ────────────────────────────────────────────────
 function updateRuralChipVisuals() {
-    // Helper to style a single chip (using 'selected' / 'off' classes)
-    function styleRuralChip(chip, isActive) {
-        if (isActive) {
-            chip.classList.remove('off');
-            chip.classList.add('selected');
-        } else {
-            chip.classList.remove('selected');
-            chip.classList.add('off');
-        }
-    }
 
-    // ────────────────────────────────────────────────
-    //  Rural Zone chips
-    // ────────────────────────────────────────────────
+    // Rural Zone chips
     if (ruralZoneChips) {
         [...ruralZoneChips.children].forEach(chip => {
-            const value = chip.dataset.value;
-            const isActive = ruralZoneFilters.has(value);
-            styleRuralChip(chip, isActive);
+            styleTablerChip(
+                chip,
+                ruralZoneFilters.has(chip.dataset.value)
+            );
         });
     }
 
-    // ────────────────────────────────────────────────
-    //  Rural Reason chips
-    // ────────────────────────────────────────────────
+    // Rural Reason chips
     if (ruralZoneReasonChips) {
         [...ruralZoneReasonChips.children].forEach(chip => {
-            const value = chip.dataset.value;
-            const isActive = ruralReasonFilters.has(value);
-            styleRuralChip(chip, isActive);
+            styleTablerChip(
+                chip,
+                ruralReasonFilters.has(chip.dataset.value)
+            );
         });
     }
 
-    // ────────────────────────────────────────────────
-    //  Buttons visibility / state
-    // ────────────────────────────────────────────────
-    if (clearRuralFiltersBtn) {
-        clearRuralFiltersBtn.classList.toggle(
-            'off',
-            ruralZoneFilters.size === 0 && ruralReasonFilters.size === 0
-        );
-    }
+    // Buttons visibility (rural filters)
+    clearRuralFiltersBtn?.classList.toggle(
+        'd-none',
+        ruralZoneFilters.size === 0 && ruralReasonFilters.size === 0
+    );
 
-    if (selectAllRuralBtn) {
-        selectAllRuralBtn.classList.toggle(
-            'off',
-            ruralZoneFilters.size === allRuralZones.length &&
-            ruralReasonFilters.size === ruralReasons.length
-        );
-    }
+    selectAllRuralBtn?.classList.toggle(
+        'd-none',
+        ruralZoneFilters.size === allRuralZones.length &&
+        ruralReasonFilters.size === ruralReasons.length
+    );
 }
+
 
 function passFilters(row) {
     if (!row) return false;
@@ -812,8 +798,7 @@ function render() {
     updateChipVisuals();
 }
 
-
-
+/*
 // --- Update Page Title with Date Range ---
 function updatePageTitle() {
     let title = "Call Analytics";
@@ -831,6 +816,7 @@ function updatePageTitle() {
 }
 
 updatePageTitle();
+*/
 
 // --- Zone Render (Urban) ---
 function renderZoneSection() {
@@ -954,11 +940,30 @@ function renderZoneSection() {
             return new Date(y, parseInt(m) - 1, day).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
         });
 
-        let html = `<div style="overflow:auto"><table class="excel-table"><thead><tr>
-            <th>Zone</th><th>Type</th><th>Client Base</th><th class="col-base-pct">% age of Base (MTD)</th>
-            <th>MTD Avg</th><th>${pwaText}</th><th>${cwaText}</th>`;
-        for (const hd of thDates) html += `<th>${hd}</th>`;
-        html += `</tr></thead><tbody>`;
+                let html = `
+
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-vcenter table-sm card-table table-striped text-nowrap">
+                        <thead>
+                            <tr class="text-uppercase text-muted" style="font-size: 0.7rem; letter-spacing: 0.02em;">
+                                <th class="py-3">Total Call</th>
+                                <th class="py-3">Type</th>
+                                <th class="py-3">Client<br><span class="text-lowercase fw-normal">base</span></th>
+                                <th class="py-3 col-base-pct">% age of<br><span class="text-lowercase fw-normal">base (mtd)</span></th>
+                                <th class="py-3 text-center">MTD Avg</th>
+                                <th class="py-3 text-center">${pwaText}</th>
+                                <th class="py-3 text-center">${cwaText}</th>`;
+
+                for (const hd of thDates) {
+                    // Added text-center and vertical padding to match your image
+                    html += `<th class="text-center py-3" style="font-size: 0.7rem;">${hd}</th>`;
+                }
+
+                html += `
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 0.80rem;">`;
 
         for (const z of zonesOfInterest) {
             if (!perZone[z]) continue;
@@ -1001,11 +1006,11 @@ function renderZoneSection() {
         }
 
         // GRAND TOTALS 
-        html += `<tr class="grand"><td>Grand Total</td><td>Total</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdAvg}</td><td>${grandPrevAvg}</td><td>${grandCurAvg}</td>`;
+        html += `<tr class="bg-blue-lt fw-normal"><td>Grand Total</td><td>Total</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdAvg}</td><td>${grandPrevAvg}</td><td>${grandCurAvg}</td>`;
         for (let i = 0; i < lastDates.length; i++) html += `<td>${grandTotals[i]}</td>`;
         html += `</tr>`;
 
-        html += `<tr class="grand"><td>Grand Total</td><td>Unique</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdUniqAvg}</td><td>${grandPrevUniqAvg}</td><td>${grandCurUniqAvg}</td>`;
+        html += `<tr class="bg-yellow-lt fw-normal"><td>Grand Total</td><td>Unique</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdUniqAvg}</td><td>${grandPrevUniqAvg}</td><td>${grandCurUniqAvg}</td>`;
         for (let i = 0; i < lastDates.length; i++) html += `<td>${grandUniques[i]}</td>`;
         html += `</tr>`;
 
@@ -1019,15 +1024,27 @@ function renderZoneSection() {
             return t > 0 ? Math.round((1 - u / t) * 100) + '%' : '-';
         });
 
-        html += `<tr class="repeat"><td colspan="7" class="zone">Repeat Call Ratio</td>`;
-        for (const r of ratios) html += `<td>${r}</td>`;
+        html += `<tr class="repeat">
+        <td colspan="7" class="zone fw-semibold">Repeat Call Ratio</td>`;
+
+        for (const r of ratios) {
+        html += `<td class="${rcrRatioClass(r)}">${r}</td>`;
+        }
+
         html += `</tr>`;
 
-        html += `<tr class="repeat"><td colspan="7" class="zone">Repeat Call %</td>`;
-        for (const p of pct) html += `<td>${p}</td>`;
+
+        html += `<tr class="repeat">
+        <td colspan="7" class="zone fw-semibold">Repeat Call %</td>`;
+
+        for (const p of pct) {
+        html += `<td class="${rcrPctClass(p)}">${p}</td>`;
+        }
+
         html += `</tr></tbody></table></div>`;
 
         return html;
+
     }
 
     if (zoneSummaryTableContainer) zoneSummaryTableContainer.innerHTML = buildZoneTableHtml();
@@ -1072,7 +1089,7 @@ function renderZoneSection() {
     updateChipVisuals();
 }
 
-// --- Rural Render (Top-20) (Kept as is) ---
+// --- Rural Render (Top-20) ---
 function renderRuralZoneSection() {
     const datesAvailable = Object.keys(rawData).sort();
     if (!datesAvailable.length) {
@@ -1162,17 +1179,30 @@ function renderRuralZoneSection() {
             return new Date(y, parseInt(m) - 1, day).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
         });
 
-        let html = `<div style="overflow:auto"><table class="excel-table"><thead><tr>
-            <th>Zone</th>
-            <th>Type</th>
-            <th>Client Base</th>
-            <th class="col-base-pct">% age of Base (MTD)</th>
-            <th>MTD Avg</th>
-            <th>${pwaText}</th>
-            <th>${cwaText}</th>`;
+                let html = `
 
-        for (const hd of thDates) html += `<th>${hd}</th>`;
-        html += `</tr></thead><tbody>`;
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-vcenter table-sm card-table table-striped text-nowrap">
+                        <thead>
+                            <tr class="text-uppercase text-muted" style="font-size: 0.7rem; letter-spacing: 0.02em;">
+                                <th class="py-3">Total Call</th>
+                                <th class="py-3">Type</th>
+                                <th class="py-3">Client<br><span class="text-lowercase fw-normal">base</span></th>
+                                <th class="py-3 col-base-pct">% age of<br><span class="text-lowercase fw-normal">base (mtd)</span></th>
+                                <th class="py-3 text-center">MTD Avg</th>
+                                <th class="py-3 text-center">${pwaText}</th>
+                                <th class="py-3 text-center">${cwaText}</th>`;
+
+                for (const hd of thDates) {
+                    // Added text-center and vertical padding to match your image
+                    html += `<th class="text-center py-3" style="font-size: 0.7rem;">${hd}</th>`;
+                }
+
+                html += `
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 0.80rem;">`;
 
         const computeAggregatesRural = (zoneKey, dateArray) => {
             return computeZoneAggregates(zoneKey, dateArray, passRuralFilters);
@@ -1249,24 +1279,40 @@ function renderRuralZoneSection() {
         const grandCurAvgTop20 = grandRuralAggCurTop20.days > 0 ? Math.round(grandRuralAggCurTop20.tot / grandRuralAggCurTop20.days) : 0;
         const grandCurUniqAvgTop20 = grandRuralAggCurTop20.days > 0 ? Math.round(grandRuralAggCurTop20.uniqueCount / grandRuralAggCurTop20.days) : 0;
 
-        html += `<tr class="grand"><td>Grand Total</td><td>Total</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdAvgTop20}</td><td>${grandPrevAvgTop20}</td><td>${grandCurAvgTop20}</td>`;
+        html += `<tr class="bg-blue-lt fw-normal"><td>Grand Total</td><td>Total</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdAvgTop20}</td><td>${grandPrevAvgTop20}</td><td>${grandCurAvgTop20}</td>`;
         for (let i = 0; i < lastDates.length; i++) html += `<td>${grandTotals[i]}</td>`;
         html += `</tr>`;
 
-        html += `<tr class="grand"><td>Grand Total</td><td>Unique</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdUniqAvgTop20}</td><td>${grandPrevUniqAvgTop20}</td><td>${grandCurUniqAvgTop20}</td>`;
+        html += `<tr class="bg-yellow-lt fw-normal"><td>Grand Total</td><td>Unique</td><td>${grandBase}</td><td class="col-base-pct">-</td><td>${grandMtdUniqAvgTop20}</td><td>${grandPrevUniqAvgTop20}</td><td>${grandCurUniqAvgTop20}</td>`;
         for (let i = 0; i < lastDates.length; i++) html += `<td>${grandUniques[i]}</td>`;
         html += `</tr>`;
 
         const zoneRepeatRatios = grandTotals.map((t,i) => { const u = grandUniques[i] || 0; return u > 0 ? (t / u).toFixed(2) : '-'; });
         const zoneRepeatPct = grandTotals.map((t,i) => { const u = grandUniques[i] || 0; return t > 0 ? Math.round((1 - (u / t)) * 100) + '%' : '-'; });
 
-        html += `<tr class="repeat"><td colspan="7" class="zone">Repeat Call Ratio</td>`;
-        for (let i = 0; i < zoneRepeatRatios.length; i++) html += `<td>${zoneRepeatRatios[i]}</td>`;
+        html += `<tr class="repeat">
+        <td colspan="7" class="zone fw-semibold">Repeat Call Ratio</td>`;
+
+        for (let i = 0; i < zoneRepeatRatios.length; i++) {
+        html += `<td class="${rcrRatioClass(zoneRepeatRatios[i])}">
+                    ${zoneRepeatRatios[i]}
+                </td>`;
+        }
+
         html += `</tr>`;
 
-        html += `<tr class="repeat"><td colspan="7" class="zone">Repeat Call %</td>`;
-        for (let i = 0; i < zoneRepeatPct.length; i++) html += `<td>${zoneRepeatPct[i]}</td>`;
+
+        html += `<tr class="repeat">
+        <td colspan="7" class="zone fw-semibold">Repeat Call %</td>`;
+
+        for (let i = 0; i < zoneRepeatPct.length; i++) {
+        html += `<td class="${rcrClass(zoneRepeatPct[i])}">
+                    ${zoneRepeatPct[i]}
+                </td>`;
+        }
+
         html += `</tr>`;
+
 
         html += `</tbody></table></div>`;
         return html;
@@ -1421,7 +1467,7 @@ async function fetchDataAndProcess(){
 
         render(); 
         
-        if (statusText) statusText.textContent = ` ${Object.keys(rawData).length} dates loaded.`;
+        if (statusText) statusText.textContent = ` ${Object.keys(rawData).length} dates.`;
 
     } catch (error) {
         console.error('Error fetching or processing JSON data:', error);
@@ -1444,7 +1490,7 @@ function start() {
         });
 }
 
-document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+//document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
 
 start();
 
@@ -1474,3 +1520,16 @@ function rcrClass(val) {
   if (num > 12) return 'text-orange';
   return 'text-muted';
 }
+
+function rcrPctClass(val) {
+  const num = parseFloat(val);
+  if (isNaN(num)) return 'text-muted';
+
+  if (num > 20) return 'text-red fw-semibold';
+  if (num > 12) return 'text-orange';
+  return 'text-muted';
+}
+
+
+
+
