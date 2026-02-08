@@ -1,0 +1,1340 @@
+call_date,phone_number,status,full_name,campaign_id,address3,email,comments,acht,direction
+2/6/2026 0:06,1843670761,A,Md Shamim,Direct_Agent_Banla,Chittagong,1158462,Fiber Cut,208,inbound
+2/6/2026 0:07,1983956617,FCR,Imran Sarkar,CARNIVAL,Bandarbrsl,1127795,User Information,31,outbound
+2/6/2026 0:08,1789095195,A,Mehedi Hasan,CARNIVAL,Dhaka,839652,Fiber Cut,125,outbound
+2/6/2026 0:11,1742688515,A,Imran Sarkar,Direct_Agent_Banla,Dhaka,733349,No Internet,1549,inbound
+2/6/2026 0:12,1516570477,A,Md Shamim,CARNIVAL,Arabpurjsr,942062,Billing Queries,277,outbound
+2/6/2026 0:15,1773042756,A,Mehedi Hasan,CARNIVAL,Shahebganjrangpur_ACR_A_248,1307859,Others,0,outbound
+2/6/2026 0:20,1926881576,FCR,Md Shamim,CARNIVAL,Dhaka,124871,User Information,117,outbound
+2/6/2026 0:21,1714510465,A,Mehedi Hasan,CARNIVAL,satkhirasadar,376504,Refund,213,outbound
+2/6/2026 0:24,1713041694,A,Md Shamim,CARNIVAL,Shantinagar_ACR_20,871671,Link Shift,23,outbound
+2/6/2026 0:25,1738390861,A,Mehedi Hasan,CARNIVAL,NOC_ACR_C_35,621772,Others,0,outbound
+2/6/2026 0:25,1673420611,FCR,Md Shamim,Direct_Agent_Banla,Dhaka,109739,User Information,335,inbound
+2/6/2026 0:26,1738390861,A,Mehedi Hasan,Direct_Agent_Banla,NOC_ACR_C_35,621772,Slow Speed,182,inbound
+2/6/2026 0:30,1306011444,A,Md Shamim,Direct_Agent_Banla,Derai_ACR_A_57,940936,Slow Speed,171,inbound
+2/6/2026 0:30,1738390861,FCR,Mehedi Hasan,CARNIVAL,NOC_ACR_C_35,621772,Slow Speed,142,outbound
+2/6/2026 0:32,1780372114,A,Md Shamim,Direct_Agent_Banla,Sylhet,1148893,No Internet,113,inbound
+2/6/2026 0:35,1306011444,A,Mehedi Hasan,Direct_Agent_Banla,Derai_ACR_A_57,940936,Slow Speed,473,inbound
+2/6/2026 0:35,1707857474,A,Md Shamim,SALESINBOUND,,hut-01707857474,Login Problem,217,inbound
+2/6/2026 0:35,1707857474,FCR,Md Shamim,Any_Service_Bangla,,hut-01707857474,Login Problem,,inbound
+2/6/2026 0:38,1711117518,FCR,Imran Sarkar,Direct_Agent_Banla,Bashundhara_ACR_C_26,1160825,Slow Speed,620,inbound
+2/6/2026 0:39,1825929486,A,Md Shamim,Direct_Agent_Banla,Bashundhara_ACR_C_26,1311490,No Internet,371,inbound
+2/6/2026 0:45,1970009000,A,Mehedi Hasan,CARNIVAL,Dhaka,102863,Fiber Cut,56,outbound
+2/6/2026 0:46,1825929486,A,Md Shamim,CARNIVAL,Bashundhara_ACR_C_26,1311490,No Internet,53,outbound
+2/6/2026 0:50,1707857474,A,Imran Sarkar,Any_Service_Bangla,,phone_number,Blank Field,67,inbound
+2/6/2026 0:50,1806933815,A,Mehedi Hasan,CARNIVAL,Nilphamari_ACR_13,938406,Others,0,outbound
+2/6/2026 0:50,1755597590,A,Md Shamim,CARNIVAL,Mohammadpur_ACR_4,105108,Specific Website,225,outbound
+2/6/2026 0:51,1735441392,A,Mehedi Hasan,CARNIVAL,Nilphamari,938406,Slow Speed,94,outbound
+2/6/2026 0:51,1780372114,A,Imran Sarkar,CARNIVAL,Sylhet,1148893,No Internet,39,outbound
+2/6/2026 0:52,1707857474,FCR,Md Shamim,Any_Service_Bangla,,hut-01707857474,No Internet,200,inbound
+2/6/2026 0:52,1609363719,FCR,Imran Sarkar,CARNIVAL,Sylhet_ACR_A_54,941884,No Internet,96,outbound
+2/6/2026 0:55,1516570477,FCR,Imran Sarkar,CARNIVAL,Arabpurjsr,942062,Billing Queries,67,outbound
+2/6/2026 0:58,1744293229,A,Mehedi Hasan,CARNIVAL,Bashundhara_ACR_B_25,531260,Slow Speed,,outbound
+2/6/2026 1:01,1747129972,A,Md Shamim,CARNIVAL,Singra,879744,Refund,0,outbound
+2/6/2026 1:06,1747129972,A,Md Shamim,Direct_Agent_Banla,Singra,879744,Refund,177,inbound
+2/6/2026 1:13,1710909070,FCR,Md Shamim,Direct_Agent_Banla,Thakurgaon_ACR_C,364017,Date Extension Request,195,inbound
+2/6/2026 1:20,1707857474,A,Md Shamim,CARNIVAL,,hut-01707857474,No Internet,0,outbound
+2/6/2026 1:20,1307418165,FCR,Md Shamim,CARNIVAL,Sonatalasanthia_ACR_A_190,1277983,Billing Queries,245,outbound
+2/6/2026 1:21,1724416082,A,Imran Sarkar,CARNIVAL,Ullapara,1301707,Refund,3,outbound
+2/6/2026 1:25,1584002354,A,Imran Sarkar,CARNIVAL,Comilla_ACR_C_67,124623,Slow Speed,12,outbound
+2/6/2026 1:26,1584002354,A,Md Shamim,CARNIVAL,Comilla_ACR_C_67,124623,Slow Speed,0,outbound
+2/6/2026 1:27,1737363566,A,Md Shamim,CARNIVAL,Baliadangi_ACR_207,598669,Slow Speed,10,outbound
+2/6/2026 1:29,1745557883,A,Imran Sarkar,CARNIVAL,Fulbari,710355,Refund,20,outbound
+2/6/2026 1:30,1774606607,A,Imran Sarkar,Direct_Agent_Banla,Fulbari_ACR-2_94,1248474,Blank Field,95,inbound
+2/6/2026 1:31,1952630413,FCR,Md Shamim,CARNIVAL,Sonatalasanthia_ACR_A_190,1277983,Billing Queries,168,outbound
+2/6/2026 1:34,1307418165,FCR,Md Shamim,CARNIVAL,Sonatalasanthia_ACR_A_190,1277983,Billing Queries,352,outbound
+2/6/2026 1:36,1328129005,A,Imran Sarkar,Direct_Agent_Banla,,phone_number,,38,inbound
+2/6/2026 1:38,1847481817,FCR,Imran Sarkar,Direct_Agent_Banla,Jahangirnagar,1193647,Billing Queries,229,inbound
+2/6/2026 1:39,1781067503,FCR,Md Shamim,Direct_Agent_Banla,Bashundhara_ACR_C_26,1063740,Slow Speed,183,inbound
+2/6/2026 1:44,1713017363,FCR,Md Shamim,CARNIVAL,Niketon_ACR_37,607678,No Internet,113,outbound
+2/6/2026 1:44,1.52156E+16,A,Imran Sarkar,CARNIVAL,,phone_number,,0,outbound
+2/6/2026 1:44,1521561853,FCR,Imran Sarkar,CARNIVAL,Khilgaon_ACR_A_17,608433,Router Configuration,39,outbound
+2/6/2026 1:45,1307418165,FCR,Imran Sarkar,Billing_Querie_bang,Sonatalasanthia_ACR_A_190,1277983,Billing Queries,173,inbound
+2/6/2026 1:49,1560047607,A,Imran Sarkar,Billing_Querie_bang,Dhaka,607815,No Internet,231,inbound
+2/6/2026 1:54,1728343946,A,Md Shamim,CARNIVAL,Belkuchisadar,1201538,Refund,0,outbound
+2/6/2026 2:03,1822543957,A,Md Shamim,Direct_Agent_Banla,Shahebganjrangpur,1307859,Fiber Cut,126,inbound
+2/6/2026 2:17,1799069932,FCR,Md Shamim,Direct_Agent_Banla,Khilgaon_ACR_A_17,1313924,Slow Speed,312,inbound
+2/6/2026 2:26,1799069932,FCR,Imran Sarkar,Direct_Agent_Banla,Khilgaon_ACR_A_17,1313924,Slow Speed,420,inbound
+2/6/2026 3:27,1635050651,A,Md Shamim,Direct_Agent_Banla,Belcharimatiranga,balso@mehedi,Refund,203,inbound
+2/6/2026 4:01,9638203756,A,Imran Sarkar,Direct_Agent_Banla,Patgram,775837,No Internet,204,inbound
+2/6/2026 4:30,1711116013,FCR,Imran Sarkar,CARNIVAL,,phone_number,User Information,339,outbound
+2/6/2026 4:47,1711116013,FCR,Md Shamim,Direct_Agent_Banla,Mohadevpur,1120279,Refund,745,inbound
+2/6/2026 6:06,1406010278,FCR,Imran Sarkar,CARNIVAL,Domar,1224921,Billing Queries,142,outbound
+2/6/2026 6:09,1758918040,FCR,Md Shamim,Direct_Agent_Banla,UTD_SEC_11_ACR_10,536455,Bill Collection Request,149,inbound
+2/6/2026 6:14,1786907058,FCR,Md Shamim,Direct_Agent_Banla,Bagha,1022992,Refund,344,inbound
+2/6/2026 6:20,1671819258,FCR,Md Shamim,Billing_Querie_bang,Comilla_ACR_C_67,541669,No Internet,106,inbound
+2/6/2026 6:25,1799000226,FCR,Md Shamim,Direct_Agent_Banla,Kushtiasadar,738224,Date Extension Request,226,inbound
+2/6/2026 6:29,1671819258,A,Md Shamim,CARNIVAL,Comilla_ACR_C_67,541669,No Internet,0,outbound
+2/6/2026 6:36,1575405737,FCR,Imran Sarkar,Direct_Agent_Banla,Kushtiamongalbari_ACR_67,1110672,Downgrade Request,105,inbound
+2/6/2026 6:46,1832460450,A,Md Shamim,SALESINBOUND,Mohammadpur_Rural_ACR_60,1247360,Payment Not Updated,303,inbound
+2/6/2026 6:46,1832460450,FCR,Md Shamim,Any_Service_Bangla,Mohammadpur_Rural_ACR_60,1247360,Payment Not Updated,,inbound
+2/6/2026 6:56,1338825030,FCR,Imran Sarkar,Direct_Agent_Banla,,phone_number,,102,inbound
+2/6/2026 7:09,9678733846,FCR,Md Shamim,Direct_Agent_Banla,Mohadevpur,715295,Date Extension Request,82,inbound
+2/6/2026 7:12,1601124421,A,Imran Sarkar,SALESINBOUND,,phone_number,Offer Query,110,inbound
+2/6/2026 7:12,1601124421,FCR,Imran Sarkar,Any_Service_Bangla,,phone_number,Offer Query,,inbound
+2/6/2026 7:20,1750757139,FCR,Md Shamim,Direct_Agent_Banla,Mohadevpur_ACR_59,676859,Slow Speed,242,inbound
+2/6/2026 7:28,1732536703,A,Md Shamim,Billing_Querie_bang,Mohammadpur_ACR_4,997079,No Internet,470,inbound
+2/6/2026 7:31,1726884415,A,Imran Sarkar,Direct_Agent_Banla,Debiganj,1087959,No Internet,149,inbound
+2/6/2026 7:39,1966193035,FCR,Imran Sarkar,Direct_Agent_Banla,Kusthiamirpur_ACR_B_146,530317,No Internet,178,inbound
+2/6/2026 7:39,1758712240,FCR,Md Shamim,CARNIVAL,Bholahat_ACR_16,1221127,Upgradation Request,71,outbound
+2/6/2026 7:42,1732536703,FCR,Md Shamim,CARNIVAL,Mohammadpur_ACR_4,997079,No Internet,20,outbound
+2/6/2026 7:46,1857575707,A,Md Shamim,Direct_Agent_Banla,Dashmina_ACR_26,1314000,Specific Website,74,inbound
+2/6/2026 7:51,9638548997,FCR,Imran Sarkar,Direct_Agent_Banla,ranisankail,336093,Downgrade Request,223,inbound
+2/6/2026 8:10,1624153687,A,Nusrat Sumaiya Islam,Billing_Querie_bang,Moynamoti,804270,No Internet,161,inbound
+2/6/2026 8:11,1688803081,A,Nishat Nawal,Direct_Agent_Banla,Pirganj,799617,Blank Field,42,inbound
+2/6/2026 8:11,1557067851,FCR,Hasna Hena,Direct_Agent_Banla,Bhuapur_ACR_17,527817,Date Extension Request,62,inbound
+2/6/2026 8:12,1688803081,A,Nishat Nawal,CARNIVAL,Pirganj,799617,Blank Field,0,outbound
+2/6/2026 8:14,1518687698,FCR,Nishat Nawal,Direct_Agent_Banla,Sarajgonj,1161344,Others,130,inbound
+2/6/2026 8:17,1756561090,A,Hasna Hena,Direct_Agent_Banla,Nazipur,795138,No Internet,199,inbound
+2/6/2026 8:20,1630069596,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Comilla,1155475,Blank Field,127,inbound
+2/6/2026 8:21,1335080389,FCR,Nishat Nawal,Direct_Agent_Banla,Pirganj,799617,Others,111,inbound
+2/6/2026 8:25,1711535624,A,Hasna Hena,Direct_Agent_Banla,Gulshan_1_ACR_28,125849,Slow Speed,154,inbound
+2/6/2026 8:25,1776310430,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Ranirbandar,1173070,User Information,83,inbound
+2/6/2026 8:27,1815002791,FCR,Nishat Nawal,Billing_Querie_bang,Mohammadpur_ACR_4,1133665,Payment Process Request,118,inbound
+2/6/2026 8:28,1630069596,A,Nusrat Sumaiya Islam,CARNIVAL,Comilla,1155475,Blank Field,3,outbound
+2/6/2026 8:28,1303161663,FCR,Nishat Nawal,Direct_Agent_Banla,Niamatpur,1229766,Refund,163,inbound
+2/6/2026 8:29,1630069596,A,Nusrat Sumaiya Islam,CARNIVAL,Comilla,1155475,No Internet,0,outbound
+2/6/2026 8:36,1626526170,FCR,Hasna Hena,Direct_Agent_Banla,Bashundhara_ACR_A_24,1276278,No Internet,67,inbound
+2/6/2026 8:37,1570227118,A,Nishat Nawal,Direct_Agent_Banla,Paba,766817,No Internet,54,inbound
+2/6/2026 8:38,1570227118,A,Nishat Nawal,CARNIVAL,Paba,766817,No Internet,79,outbound
+2/6/2026 8:39,9611557476,FCR,Nishat Nawal,Direct_Agent_Banla,Kushtia_Sadar_ACR_206,176625,No Internet,387,inbound
+2/6/2026 8:42,1630069596,A,Nusrat Sumaiya Islam,CARNIVAL,Comilla,1155475,No Internet,734,outbound
+2/6/2026 8:45,1745513441,A,Nishat Nawal,Direct_Agent_Banla,Moynamoti,472576,No Internet,119,inbound
+2/6/2026 8:46,1825705831,FCR,Nishat Nawal,Billing_Querie_bang,Baliakandi,627219,Others,138,inbound
+2/6/2026 8:47,1568383695,FCR,Hasna Hena,Direct_Agent_Banla,kushtiasadar,339106,Fluctuation issue,139,inbound
+2/6/2026 8:47,1726310016,FCR,Nishat Nawal,Billing_Querie_bang,UTD_SEC_11_ACR_10,1231590,Date Extension Request,101,inbound
+2/6/2026 8:52,1976308886,FCR,Nishat Nawal,Direct_Agent_Banla,NOC_ACR_C_35,721274,Date Extension Request,99,inbound
+2/6/2026 8:53,1632051428,FCR,Nishat Nawal,Billing_Querie_bang,Alfadanga,1215063,Others,161,inbound
+2/6/2026 8:55,1798422915,FCR,Hasna Hena,CARNIVAL,Natore,697959,User Information,90,outbound
+2/6/2026 8:55,1825705831,A,Arnika Zaman Mow,Billing_Querie_bang,Baliakandi,627219,Refund,345,inbound
+2/6/2026 8:58,9638766271,A,Nishat Nawal,Direct_Agent_Banla,Pakundia,491955,Refund,75,inbound
+2/6/2026 8:58,1841745026,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Dhaka,819960,Date Extension Request,189,inbound
+2/6/2026 9:01,1914230496,A,Hasna Hena,Billing_Querie_bang,Moynamoti,1096865,Blank Field,43,inbound
+2/6/2026 9:01,1914230496,A,Hasna Hena,CARNIVAL,Moynamoti,1096865,Blank Field,0,outbound
+2/6/2026 9:02,9638689133,A,Rezwan uddin,Direct_Agent_Banla,Wazirpur,611922,No Internet,180,inbound
+2/6/2026 9:02,1711934717,FCR,Omar Khaled Turag,Direct_Agent_Banla,Dhanmondi_DO_ACR_1,710848,Billing Queries,283,inbound
+2/6/2026 9:02,1914230496,A,Amina Akter,Billing_Querie_bang,Moynamoti,1096865,No Internet,140,inbound
+2/6/2026 9:02,1993902315,FCR,Hasna Hena,CARNIVAL,Kushtia_Sadar_ACR_206,1308860,User Information,91,outbound
+2/6/2026 9:04,1832240336,FCR,Nishat Nawal,Direct_Agent_Banla,Chittagong,954819,Re-activation Query,237,inbound
+2/6/2026 9:05,1608223474,A,Rezwan uddin,Direct_Agent_Banla,Patgram,982110,No Internet,156,inbound
+2/6/2026 9:05,1712319727,A,Arnika Zaman Mow,SYLHETIN,Habiganj,1297074,Others,100,inbound
+2/6/2026 9:05,1712319727,FCR,Arnika Zaman Mow,SYLHEL_SUPPORT,Habiganj,1297074,Others,,inbound
+2/6/2026 9:06,1729090927,A,Amina Akter,Direct_Agent_Banla,Dhanmondi_32_ACR_2,134601,Billing Queries,204,inbound
+2/6/2026 9:11,1623480221,A,Arnika Zaman Mow,Direct_Agent_Banla,Dhaka,550399,Fiber Cut,148,inbound
+2/6/2026 9:12,1711075256,A,Rezwan uddin,SYLHETIN,Habiganj_ACR_69,219462,Router Configuration,59,inbound
+2/6/2026 9:12,1711075256,A,Rezwan uddin,SYLHEL_SUPPORT,Habiganj_ACR_69,219462,Router Configuration,,inbound
+2/6/2026 9:12,1608223474,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Patgram,982110,No Internet,305,inbound
+2/6/2026 9:12,1303232274,FCR,Omar Khaled Turag,Direct_Agent_Banla,Comilla,189101,Billing Queries,178,inbound
+2/6/2026 9:13,1999486720,FCR,Nishat Nawal,Direct_Agent_Banla,Kusthiamirpur_ACR_B_146,776623,Downgrade Request,101,inbound
+2/6/2026 9:13,1726310016,FCR,Amina Akter,CARNIVAL,UTD_SEC_11_ACR_10,1231590,Date Extension Request,41,outbound
+2/6/2026 9:14,1407453967,A,Rezwan uddin,CARNIVAL,Domar,1060968,,0,outbound
+2/6/2026 9:15,1917783371,FCR,Arnika Zaman Mow,CARNIVAL,Tanore_ACR-3,784262,Upgradation Request,106,outbound
+2/6/2026 9:15,1617202024,A,Amina Akter,Any_Service_Bangla,Ulipur_ACR_31,1229941,Blank Field,99,inbound
+2/6/2026 9:16,9638988857,FCR,Rezwan uddin,Direct_Agent_Banla,Jaflong_ACR_108,1216789,Others,471,inbound
+2/6/2026 9:16,1959902960,FCR,Omar Khaled Turag,Billing_Querie_bang,Khilgaon_ACR_A_17,185012,Date Extension Request,54,inbound
+2/6/2026 9:19,1717170315,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Joldhaka,915255,Re-activation Query,133,inbound
+2/6/2026 9:20,9658402494,FCR,Amina Akter,Direct_Agent_Banla,Nilphamari_ACR_B_104,832563,User Information,115,inbound
+2/6/2026 9:21,1724416082,A,Hasna Hena,CARNIVAL,Ullapara,1301707,Refund,71,outbound
+2/6/2026 9:22,9638203756,A,Arnika Zaman Mow,Direct_Agent_Banla,Patgram,775837,No Internet,201,inbound
+2/6/2026 9:22,1700711133,FCR,Amina Akter,Direct_Agent_Banla,Dhaka,641668,Date Extension Request,123,inbound
+2/6/2026 9:24,1729090927,A,Amina Akter,Direct_Agent_Banla,Dhanmondi_32_ACR_2,134601,Payment Not Updated,256,inbound
+2/6/2026 9:24,1617202024,FCR,Rezwan uddin,CARNIVAL,Ulipur_ACR_31,1229941,Blank Field,27,outbound
+2/6/2026 9:24,1609010075,A,Md. Monirul Islam,Direct_Agent_Banla,Moynamoti,1242985,No Internet,137,inbound
+2/6/2026 9:25,1781173584,FCR,Rezwan uddin,Direct_Agent_Banla,,hut-01781173584,OTP,177,inbound
+2/6/2026 9:28,1815792696,A,Arnika Zaman Mow,Direct_Agent_Banla,Shahrasti,748224,Fiber Cut,219,inbound
+2/6/2026 9:29,1577111481,A,Hasna Hena,Direct_Agent_Banla,Kushtiamongalbari,1295781,No Internet,98,inbound
+2/6/2026 9:29,1781173584,FCR,Omar Khaled Turag,Direct_Agent_Banla,,hut-01781173584,OTP,108,inbound
+2/6/2026 9:31,1896001900,FCR,Rezwan uddin,Direct_Agent_Banla,Banasree_ACR_13,1278434,Billing Queries,150,inbound
+2/6/2026 9:31,1719545433,FCR,Md. Monirul Islam,Direct_Agent_Banla,kurigram,398828,Date Extension Request,95,inbound
+2/6/2026 9:32,1313289527,FCR,Nishat Nawal,Direct_Agent_Banla,Nachol_ACR_A_63,1005502,Payment Process Request,90,inbound
+2/6/2026 9:34,1729090927,A,Sadia Shubash Mim,CARNIVAL,Dhanmondi_32_ACR_2,134601,Payment Not Updated,0,outbound
+2/6/2026 9:34,1710940592,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Comilla,130455,Fiber Cut,126,inbound
+2/6/2026 9:35,1730704663,FCR,Omar Khaled Turag,Direct_Agent_Banla,Bashundhara_ACR_A_24,1306179,Billing Queries,131,inbound
+2/6/2026 9:35,1970416082,A,Nusrat Sumaiya Islam,CARNIVAL,Ullapara,1301707,Refund,8,outbound
+2/6/2026 9:36,1970416082,A,Nusrat Sumaiya Islam,CARNIVAL,Ullapara,1301707,Refund,235,outbound
+2/6/2026 9:36,1847327040,FCR,Hasna Hena,Direct_Agent_Banla,Dhaka,105194,No Internet,76,inbound
+2/6/2026 9:37,1608223474,A,Arnika Zaman Mow,Direct_Agent_Banla,Patgram,982110,No Internet,197,inbound
+2/6/2026 9:39,1617655988,A,Sadia Shubash Mim,CARNIVAL,Baisaribanaripara,744738,Others,0,outbound
+2/6/2026 9:39,1522102050,A,Md. Monirul Islam,Direct_Agent_Banla,Paba,766817,No Internet,230,inbound
+2/6/2026 9:39,1329520535,FCR,Sadia Shubash Mim,CARNIVAL,Dhaka,673661,No Internet,51,outbound
+2/6/2026 9:39,1617655988,A,Rezwan uddin,Direct_Agent_Banla,Baisaribanaripara,744738,Fiber Cut,111,inbound
+2/6/2026 9:39,1612358276,FCR,Nishat Nawal,Direct_Agent_Banla,Tanore,1257724,MAC Release Request,63,inbound
+2/6/2026 9:40,1570286281,A,Mohummad Ismail Hossain,Direct_Agent_Banla,,1570286281,Refund,152,inbound
+2/6/2026 9:41,1704163734,FCR,Hasna Hena,SYLHEL_SUPPORT,Habiganj_ACR_2_70 ,527760,Others,238,inbound
+2/6/2026 9:43,1745558925,A,Amina Akter,Billing_Querie_bang,Mohadevpur,929601,Refund,217,inbound
+2/6/2026 9:45,1861161066,FCR,Sadia Shubash Mim,CARNIVAL,Nilphamari_ACR_B_104,832563,User Information,58,outbound
+2/6/2026 9:45,1715317741,FCR,Omar Khaled Turag,Direct_Agent_Banla,Mirpur_DO_ACR_5,151802,Payment Not Updated,91,inbound
+2/6/2026 9:46,1970416082,A,Arnika Zaman Mow,Direct_Agent_Banla,Ullapara,1301707,Refund,148,inbound
+2/6/2026 9:47,1317066651,A,Rezwan uddin,Direct_Agent_Banla,Nazipur,966510,Refund,82,inbound
+2/6/2026 9:47,1703958665,FCR,Sadia Shubash Mim,CARNIVAL,Kawkhaliprj,879363,Billing Queries,127,outbound
+2/6/2026 9:47,1932627160,A,Mohummad Ismail Hossain,Billing_Querie_eng,Mirpur_DO_ACR_5,1290330,Downgrade Request,145,inbound
+2/6/2026 9:48,1788385530,A,Hasna Hena,Direct_Agent_Banla,Moynamoti,834614,No Internet,118,inbound
+2/6/2026 9:49,1767086814,A,Md. Monirul Islam,Direct_Agent_Banla,UTD_SEC_11_ACR_10,822284,Slow Speed,293,inbound
+2/6/2026 9:50,1317165616,A,Sadia Shubash Mim,CARNIVAL,Debiganj_ACR_E_250,971339,Others,24,outbound
+2/6/2026 9:50,1837346049,A,Rezwan uddin,CARNIVAL,Cantonment_ACR_A_68,1302335,Slow Speed,19,outbound
+2/6/2026 9:51,1837346049,A,Rezwan uddin,CARNIVAL,Cantonment_ACR_A_68,1302335,Slow Speed,16,outbound
+2/6/2026 9:52,1837346049,FCR,Rezwan uddin,CARNIVAL,Cantonment_ACR_A_68,1302335,Slow Speed,288,outbound
+2/6/2026 9:53,1317165616,A,Sadia Shubash Mim,CARNIVAL,Debiganj_ACR_E_250,971339,Others,61,outbound
+2/6/2026 9:54,1932627160,A,Mohummad Ismail Hossain,CARNIVAL,Mirpur_DO_ACR_5,1290330,Downgrade Request,189,outbound
+2/6/2026 9:55,1308612490,FCR,Omar Khaled Turag,Direct_Agent_Banla,Nilphamari,1174685,Refund,191,inbound
+2/6/2026 9:56,1762033589,FCR,Amina Akter,Direct_Agent_Banla,Nachol_ACR_A_63,1157201,Slow Speed,374,inbound
+2/6/2026 9:59,1708466477,A,Arnika Zaman Mow,Billing_Querie_bang,Alfadanga,889853,Refund,252,inbound
+2/6/2026 10:00,1723111087,A,Hasna Hena,Direct_Agent_Banla,kurigram,428731,Refund,191,inbound
+2/6/2026 10:01,1767323276,FCR,Nishat Nawal,Direct_Agent_Banla,Debiganj_ACR_E_250,971339,Billing Queries,131,inbound
+2/6/2026 10:06,1643439503,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Comilla_ACR_C_67,241316,Date Extension Request,78,inbound
+2/6/2026 10:08,1605020426,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Faridpurpbn,1015188,Refund,101,inbound
+2/6/2026 10:09,1887525688,A,Omar Khaled Turag,Direct_Agent_Banla,Moynamoti,472723,No Internet,65,inbound
+2/6/2026 10:11,1736072435,A,Md. Monirul Islam,Billing_Querie_bang,Nazipur,1229552,Router Configuration,275,inbound
+2/6/2026 10:11,1945326986,A,Amina Akter,Direct_Agent_Banla,Moynamoti,1178401,No Internet,103,inbound
+2/6/2026 10:11,1933465346,A,Sadia Shubash Mim,CARNIVAL,Sarajgonj,1165186,Refund,68,outbound
+2/6/2026 10:11,9638202938,A,Nishat Nawal,Direct_Agent_Banla,Nachol,1009568,No Internet,157,inbound
+2/6/2026 10:12,1763030403,A,Hasna Hena,Direct_Agent_Banla,Dhaka,750879,Fiber Cut,86,inbound
+2/6/2026 10:14,1728343946,A,Sadia Shubash Mim,CARNIVAL,Belkuchisadar,1201538,Refund,99,outbound
+2/6/2026 10:16,1304223297,A,Amina Akter,CARNIVAL,Raigonj,741949,Others,11,outbound
+2/6/2026 10:17,1787010630,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Pirganj,799617,Others,170,inbound
+2/6/2026 10:17,1580975159,A,Amina Akter,CARNIVAL,Raigonj,741949,Refund,2,outbound
+2/6/2026 10:18,1833235630,A,Mohummad Ismail Hossain,Billing_Querie_bang,Gomostapur,1313752,No Internet,129,inbound
+2/6/2026 10:20,1981737780,A,Omar Khaled Turag,Direct_Agent_Banla,Moynamoti,1242985,Fiber Cut,144,inbound
+2/6/2026 10:21,1728152582,FCR,Sadia Shubash Mim,CARNIVAL,Wazirpur,689004,No Internet,74,outbound
+2/6/2026 10:21,1716429154,A,Nishat Nawal,Direct_Agent_Banla,Habiganj,1187103,No Internet,114,inbound
+2/6/2026 10:21,9658290940,FCR,Amina Akter,Direct_Agent_Banla,Dorsona,1249614,Downgrade Request,254,inbound
+2/6/2026 10:22,1601895356,A,Arnika Zaman Mow,Direct_Agent_Banla,Comilla,145364,Fiber Cut,193,inbound
+2/6/2026 10:23,1833235630,A,Mohummad Ismail Hossain,Billing_Querie_bang,Gomostapur,1313752,No Internet,139,inbound
+2/6/2026 10:23,1533918937,A,Rezwan uddin,Direct_Agent_Banla,Firmgate_ACR_27,1279507,Discontinue,333,inbound
+2/6/2026 10:23,1334277682,A,Md. Monirul Islam,CARNIVAL,Bandar,676371,Refund,176,outbound
+2/6/2026 10:23,1786273132,FCR,Nishat Nawal,Direct_Agent_Banla,Dhaka,122292,Date Extension Request,76,inbound
+2/6/2026 10:23,1713041694,A,Omar Khaled Turag,CARNIVAL,Shantinagar_ACR_20,871671,Link Shift,102,outbound
+2/6/2026 10:23,1822727282,A,Sadia Shubash Mim,CARNIVAL,Akhaura,812404,Refund,78,outbound
+2/6/2026 10:24,1797047734,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Chhatak_ACR_205,330830,Others,309,inbound
+2/6/2026 10:25,1879621419,A,Hasna Hena,Direct_Agent_Banla,Comilla,425076,No Internet,167,inbound
+2/6/2026 10:26,1777800179,A,Mohummad Ismail Hossain,SYLHETIN,Habiganj,1313438,Installation Query,167,inbound
+2/6/2026 10:26,1777800179,A,Mohummad Ismail Hossain,SYLHEL_SUPPORT,Habiganj,1313438,Installation Query,,inbound
+2/6/2026 10:26,1714486057,A,Nishat Nawal,SYLHETIN,Sylhet_ACR_A_54,129336,No Internet,87,inbound
+2/6/2026 10:26,1714486057,A,Nishat Nawal,SYLHEL_SUPPORT,Sylhet_ACR_A_54,129336,No Internet,,inbound
+2/6/2026 10:27,1745557883,A,Sadia Shubash Mim,CARNIVAL,Fulbari,710355,Refund,60,outbound
+2/6/2026 10:28,1920546708,FCR,Amina Akter,Direct_Agent_Banla,Mohammadpur_Rural_ACR_60,950273,Payment link not generated,97,inbound
+2/6/2026 10:29,1812212220,FCR,Nishat Nawal,Direct_Agent_Banla,Mirpur_DO_ACR_5,1292990,Date Extension Request,109,inbound
+2/6/2026 10:29,9648012346,A,Md. Monirul Islam,SYLHETIN,,phone_number,Others,11,inbound
+2/6/2026 10:29,9648012346,A,Md. Monirul Islam,SYLHEL_SUPPORT,,phone_number,Others,,inbound
+2/6/2026 10:29,1628880448,A,Mohummad Ismail Hossain,SALESINBOUND,Natore,644695,Others,140,inbound
+2/6/2026 10:29,1628880448,FCR,Mohummad Ismail Hossain,Any_Service_Bangla,Natore,644695,Others,,inbound
+2/6/2026 10:29,9648012346,A,Rezwan uddin,SYLHETIN,Habiganj,1201974,Callback request,229,inbound
+2/6/2026 10:29,9648012346,FCR,Rezwan uddin,SYLHEL_SUPPORT,Habiganj,1201974,Callback request,,inbound
+2/6/2026 10:30,1568884333,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Tanore_ACR-3,1066579,MAC Release Request,132,inbound
+2/6/2026 10:30,1860354033,FCR,Amina Akter,Direct_Agent_Banla,Patgram_ACR_193,910298,Slow Speed,159,inbound
+2/6/2026 10:31,1787010630,A,Sadia Shubash Mim,CARNIVAL,Pirganj,799617,Others,5,outbound
+2/6/2026 10:32,1959817013,FCR,Nishat Nawal,Direct_Agent_Banla,Narail,833160,Others,110,inbound
+2/6/2026 10:32,1758231645,A,Hasna Hena,SYLHEL_SUPPORT,Habiganj,1261241,Fiber Cut,64,inbound
+2/6/2026 10:32,1845464558,A,Sadia Shubash Mim,CARNIVAL,Comilla,234099,Fiber Cut,50,outbound
+2/6/2026 10:33,1530183679,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Hili,1010670,No Internet,39,inbound
+2/6/2026 10:34,1530183679,A,Mohummad Ismail Hossain,CARNIVAL,Hili,1010670,No Internet,112,outbound
+2/6/2026 10:34,1776539964,A,Sunny Roy,SYLHET,Habiganj_ACR_69,1301958,Installation Query,0,outbound
+2/6/2026 10:34,1716814182,FCR,Md. Monirul Islam,Direct_Agent_Banla,Chuadanga_ACR_B_229,224888,User Information,257,inbound
+2/6/2026 10:34,1894925197,A,Rezwan uddin,CARNIVAL,Habiganj,1201969,No Internet,15,outbound
+2/6/2026 10:34,1776539964,A,Sunny Roy,SYLHET,Habiganj_ACR_69,1301958,Installation Query,42,outbound
+2/6/2026 10:35,1318576170,FCR,Sadia Shubash Mim,CARNIVAL,Tanore_ACR_B_199,1201944,Payment Not Updated,167,outbound
+2/6/2026 10:36,1571339110,A,Arnika Zaman Mow,Direct_Agent_Banla,Khansama,1081160,Refund,120,inbound
+2/6/2026 10:37,1580975159,A,Amina Akter,CARNIVAL,Raigonj,741949,Refund,269,outbound
+2/6/2026 10:37,1776876731,A,Nusrat Sumaiya Islam,CARNIVAL,Dhamoirhat_ACR_27,1018977,User Information,6,outbound
+2/6/2026 10:37,1776539964,A,Sunny Roy,SYLHETIN,Habiganj,1311434,Installation Query,93,inbound
+2/6/2026 10:37,1969591433,A,Omar Khaled Turag,Direct_Agent_Banla,Daulatpur,1298453,No Internet,206,inbound
+2/6/2026 10:38,1776876731,A,Nusrat Sumaiya Islam,CARNIVAL,Dhamoirhat_ACR_27,1018977,User Information,17,outbound
+2/6/2026 10:38,1700885326,A,Hasna Hena,Direct_Agent_Banla,Nazipur,951173,Refund,99,inbound
+2/6/2026 10:39,1608587436,FCR,Nishat Nawal,Direct_Agent_Banla,,phone_number,Referral Query,651,inbound
+2/6/2026 10:39,9638988857,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Jaflong_ACR_108,1216789,Others,476,inbound
+2/6/2026 10:39,1787010630,A,Sadia Shubash Mim,CARNIVAL,Pirganj,799617,Others,19,outbound
+2/6/2026 10:39,1718992000,A,Arnika Zaman Mow,CARNIVAL,Dhaka,979335,Link Shift,101,outbound
+2/6/2026 10:40,1684346530,FCR,Nusrat Sumaiya Islam,Any_Service_Bangla,,phone_number,Others,276,inbound
+2/6/2026 10:40,1714486057,A,Hasna Hena,SYLHETIN,Sylhet_ACR_A_54,129336,No Internet,153,inbound
+2/6/2026 10:40,1714486057,A,Hasna Hena,SYLHEL_SUPPORT,Sylhet_ACR_A_54,129336,No Internet,,inbound
+2/6/2026 10:41,1732815896,A,Md. Monirul Islam,Direct_Agent_Banla,Dhaka,1212704,Link Shift,519,inbound
+2/6/2026 10:42,1568884333,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Tanore_ACR-3,1066579,MAC Release Request,103,inbound
+2/6/2026 10:43,1302103193,A,Amina Akter,Direct_Agent_Banla,Kurigram,1180490,Refund,116,inbound
+2/6/2026 10:44,1533918937,A,Rezwan uddin,CARNIVAL,Firmgate_ACR_27,1279507,Discontinue,212,outbound
+2/6/2026 10:44,1540197001,A,Arnika Zaman Mow,Direct_Agent_Banla,Jahangirnagar,1070259,Refund,169,inbound
+2/6/2026 10:45,1603901174,A,Sadia Shubash Mim,Billing_Querie_bang,Moynamoti,472732,No Internet,140,inbound
+2/6/2026 10:45,1625410734,A,Omar Khaled Turag,Direct_Agent_Banla,Moynamoti,945559,No Internet,63,inbound
+2/6/2026 10:46,1959817013,A,Hasna Hena,Direct_Agent_Banla,Narail,833160,Refund,211,inbound
+2/6/2026 10:46,1706377723,A,Amina Akter,Direct_Agent_Banla,Niamatpur,820877,Refund,112,inbound
+2/6/2026 10:47,9638399536,FCR,Mohummad Ismail Hossain,Direct_Agent_Banla,,phone_number,Payment Not Updated,210,inbound
+2/6/2026 10:50,1704163734,A,Sadia Shubash Mim,CARNIVAL,Habiganj_ACR_2_70 ,527760,Others,0,outbound
+2/6/2026 10:50,1622574201,FCR,Sadia Shubash Mim,CARNIVAL,Niamatpur,1307964,Refund,222,outbound
+2/6/2026 10:52,1723761279,A,Amina Akter,Direct_Agent_Banla,Ranisankail,1186384,Others,317,inbound
+2/6/2026 10:53,1756561090,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Nazipur,795138,No Internet,247,inbound
+2/6/2026 10:54,1721336253,A,Hasna Hena,Direct_Agent_Banla,Charghat,565096,Refund,160,inbound
+2/6/2026 10:54,1970500800,FCR,Nishat Nawal,Direct_Agent_Banla,Nikunjo_ACR_12,798563,Date Extension Request,91,inbound
+2/6/2026 10:55,1894925197,A,Rezwan uddin,CARNIVAL,Habiganj,1201969,No Internet,144,outbound
+2/6/2026 10:56,1758231645,A,Sadia Shubash Mim,CARNIVAL,Habiganj,1261241,Fiber Cut,0,outbound
+2/6/2026 10:56,1714486057,A,Sadia Shubash Mim,CARNIVAL,Sylhet_ACR_A_54,129336,No Internet,65,outbound
+2/6/2026 10:56,1946344071,FCR,Mohummad Ismail Hossain,Direct_Agent_Banla,,hut-01946344071,Others,208,inbound
+2/6/2026 10:57,1816237969,FCR,Md. Monirul Islam,Direct_Agent_Banla,CTG_Jamalkhan_ACR_A_101,275975,Date Extension Request,89,inbound
+2/6/2026 10:57,9648012346,FCR,Rezwan uddin,CARNIVAL,Habiganj,1201974,Callback request,92,outbound
+2/6/2026 10:57,1776876731,FCR,Hasna Hena,CARNIVAL,Dhamoirhat_ACR_27,1018977,User Information,101,outbound
+2/6/2026 10:57,1745513441,A,Arnika Zaman Mow,Direct_Agent_Banla,Moynamoti,472576,No Internet,201,inbound
+2/6/2026 10:58,1684346530,A,Sadia Shubash Mim,CARNIVAL,,phone_number,Others,19,outbound
+2/6/2026 10:59,1312273845,A,Nishat Nawal,Direct_Agent_Banla,Dighalia,704363,Refund,309,inbound
+2/6/2026 10:59,1906562919,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Sarishabari,1301174,Refund,243,inbound
+2/6/2026 10:59,1302103193,A,Sadia Shubash Mim,CARNIVAL,Kurigram,1180490,Refund,82,outbound
+2/6/2026 11:00,1861580087,A,Amina Akter,Direct_Agent_Banla,Dhaka,129145,Fiber Cut,112,inbound
+2/6/2026 11:02,1887299287,FCR,Mohummad Ismail Hossain,CARNIVAL,Naogaon_ACR_64,1313913,Slow Speed,181,outbound
+2/6/2026 11:02,1615725567,FCR,Md. Monirul Islam,Direct_Agent_Banla,GwrichannaBazar_Barguna_ACR_240,1148526,Compensation Rural,627,inbound
+2/6/2026 11:02,1714068035,FCR,Hasna Hena,Direct_Agent_Banla,NOC_ACR_C_35,808297,Others,390,inbound
+2/6/2026 11:04,1737797709,A,Rezwan uddin,CARNIVAL,Ranisankail,816622,Refund,106,outbound
+2/6/2026 11:04,1648677094,A,Arnika Zaman Mow,Any_Service_Bangla,Jahangirnagar,1071506,Blank Field,31,inbound
+2/6/2026 11:05,9611029521,A,Amina Akter,Direct_Agent_Banla,Khansama,707450,User Information,268,inbound
+2/6/2026 11:05,1926866187,A,Nishat Nawal,Direct_Agent_Banla,Morrelganj,1029337,Fiber Cut,140,inbound
+2/6/2026 11:05,1648677094,A,Arnika Zaman Mow,CARNIVAL,Jahangirnagar,1071506,Blank Field,0,outbound
+2/6/2026 11:06,1628142866,FCR,Mohummad Ismail Hossain,Direct_Agent_Banla,Debiganj_ACR_201,1272581,Slow Speed,398,inbound
+2/6/2026 11:06,1701727557,A,Arnika Zaman Mow,Direct_Agent_Banla,Nilganjksrg,495658,Refund,287,inbound
+2/6/2026 11:06,1736072435,A,Nusrat Sumaiya Islam,Billing_Querie_bang,Nazipur,1229552,Router Configuration,117,inbound
+2/6/2026 11:08,1610237513,FCR,Omar Khaled Turag,Direct_Agent_Banla,Kalihati_ACR_46,645398,Slow Speed,114,inbound
+2/6/2026 11:09,1648677094,A,Hasna Hena,SALESINBOUND,Jahangirnagar,1071506,Refund,214,inbound
+2/6/2026 11:09,1648677094,A,Hasna Hena,Any_Service_Bangla,Jahangirnagar,1071506,Refund,,inbound
+2/6/2026 11:10,1744397700,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Hili,1010670,No Internet,46,inbound
+2/6/2026 11:11,1704286808,A,Nishat Nawal,Any_Service_Bangla,Jhalorchardwngnj,1302592,No Internet,183,inbound
+2/6/2026 11:12,1723761279,A,Amina Akter,CARNIVAL,Ranisankail,1186384,Others,0,outbound
+2/6/2026 11:13,9638856804,FCR,Omar Khaled Turag,Direct_Agent_Banla,Comilla_Poilceline_ACR_C_72,283633,Others,120,inbound
+2/6/2026 11:13,1863389865,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,gangachara,hut-01863389865,Login Problem,88,inbound
+2/6/2026 11:14,1717667744,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Bandarbrsl,766010,Refund,287,inbound
+2/6/2026 11:14,1521102264,FCR,Hasna Hena,Direct_Agent_Banla,Pirojpursadar_ACR_151,534759,Slow Speed,210,inbound
+2/6/2026 11:14,1721524313,FCR,Amina Akter,Direct_Agent_Banla,Shantinagar_ACR_20,566903,User Information,256,inbound
+2/6/2026 11:14,1723761279,FCR,Md. Monirul Islam,Direct_Agent_Banla,Ranisankail,1186384,Others,214,inbound
+2/6/2026 11:15,1959817013,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Narail,833160,Billing Queries,101,inbound
+2/6/2026 11:16,1744397700,A,Nusrat Sumaiya Islam,CARNIVAL,Hili,1010670,No Internet,81,outbound
+2/6/2026 11:17,1648677094,A,Sadia Shubash Mim,SALESINBOUND,Jahangirnagar,1071506,Refund,328,inbound
+2/6/2026 11:17,1648677094,A,Sadia Shubash Mim,Any_Service_Bangla,Jahangirnagar,1071506,Refund,,inbound
+2/6/2026 11:18,1911292204,A,Omar Khaled Turag,CARNIVAL,Kulaurasadar,892162,Refund,66,outbound
+2/6/2026 11:18,1958362351,A,Sunny Roy,SYLHETIN,Sylhet,1165771,Others,178,inbound
+2/6/2026 11:19,1742688515,A,Hasna Hena,Direct_Agent_Banla,Dhaka,733349,No Internet,46,inbound
+2/6/2026 11:21,1742688515,A,Hasna Hena,CARNIVAL,Dhaka,733349,No Internet,127,outbound
+2/6/2026 11:22,1776876731,A,Nusrat Sumaiya Islam,CARNIVAL,Dhamoirhat_ACR_27,1018977,User Information,433,outbound
+2/6/2026 11:22,1729090927,FCR,Nishat Nawal,Direct_Agent_Banla,Dhaka,134601,Invoice Request,153,inbound
+2/6/2026 11:23,1923277025,A,Amina Akter,Any_Service_Bangla,Jessorersadar,962561,Others,63,inbound
+2/6/2026 11:23,1716098666,FCR,Omar Khaled Turag,Direct_Agent_Banla,Baliadangi,574582,Slow Speed,95,inbound
+2/6/2026 11:23,9611281469,A,Arnika Zaman Mow,Direct_Agent_Banla,Moynamoti,popibank17,No Internet,190,inbound
+2/6/2026 11:24,1615114876,A,Md. Monirul Islam,Direct_Agent_English,Dhaka,147578,Fiber Cut,26,inbound
+2/6/2026 11:24,1711081550,FCR,Hasna Hena,Direct_Agent_Banla,Mirpur_DO_ACR_5,553962,No Internet,241,inbound
+2/6/2026 11:25,1615114876,A,Md. Monirul Islam,CARNIVAL,Dhaka,147578,Fiber Cut,116,outbound
+2/6/2026 11:25,1729592933,FCR,Amina Akter,Direct_Agent_Banla,Gulshan_1_ACR_28,145909,Fluctuation issue,130,inbound
+2/6/2026 11:25,1995240523,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Kusthiamirpur_ACR_B_146,181871,Billing Queries,107,inbound
+2/6/2026 11:25,9638099493,FCR,Omar Khaled Turag,Direct_Agent_Banla,Ranisankail_ACR_98,935226,Downgrade Request,142,inbound
+2/6/2026 11:25,1919938750,FCR,Nishat Nawal,Direct_Agent_Banla,Kawkhaliprj,822276,Refund,197,inbound
+2/6/2026 11:26,9658179991,A,Mohummad Ismail Hossain,SALESINBOUND,,phone_number,New Sales Query,140,inbound
+2/6/2026 11:26,9658179991,A,Mohummad Ismail Hossain,Any_Service_Bangla,,phone_number,New Sales Query,,inbound
+2/6/2026 11:26,1716482127,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Cantonment_ACR_A_68,1107791,Billing Queries,95,inbound
+2/6/2026 11:27,9611281469,A,Arnika Zaman Mow,CARNIVAL,Moynamoti,popibank17,No Internet,29,outbound
+2/6/2026 11:28,9611281469,A,Amina Akter,Direct_Agent_Banla,Moynamoti,popibank17,Fiber Cut,82,inbound
+2/6/2026 11:29,1763733234,A,Sadia Shubash Mim,CARNIVAL,Pirganj,912160,Others,24,outbound
+2/6/2026 11:29,1326713012,FCR,Rezwan uddin,CARNIVAL,Gulshan_1_ACR_28,1301324,Billing Queries,69,outbound
+2/6/2026 11:30,1711454562,A,Md. Monirul Islam,Direct_Agent_Banla,Dhaka,108404,Fiber Cut,99,inbound
+2/6/2026 11:30,9638689133,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Wazirpur_ACR_248,611922,No Internet,282,inbound
+2/6/2026 11:30,1763733234,A,Sadia Shubash Mim,CARNIVAL,Pirganj,912160,Others,1,outbound
+2/6/2026 11:30,1624761950,FCR,Arnika Zaman Mow,Billing_Querie_bang,Dhaka,862046,Date Extension Request,82,inbound
+2/6/2026 11:31,8.80133E+12,A,Sunny Roy,SYLHET,Habiganj,phone_number,Others,58,outbound
+2/6/2026 11:31,1880000252,FCR,Hasna Hena,Direct_Agent_Banla,Banasree_ACR_13,898394,No Internet,148,inbound
+2/6/2026 11:31,1763733234,FCR,Nishat Nawal,Direct_Agent_Banla,Pirganj,912160,Others,202,inbound
+2/6/2026 11:31,1776876731,FCR,Nusrat Sumaiya Islam,CARNIVAL,Dhamoirhat_ACR_27,1018977,User Information,138,outbound
+2/6/2026 11:33,1648677094,A,Amina Akter,Any_Service_Bangla,Jahangirnagar,1071506,Refund,88,inbound
+2/6/2026 11:33,8.80176E+12,A,Sunny Roy,SYLHET,Habiganj_ACR_2_70 ,133040,Others,0,outbound
+2/6/2026 11:35,1819607949,A,Arnika Zaman Mow,Direct_Agent_Banla,Chittagong,1080445,Fluctuation issue,123,inbound
+2/6/2026 11:35,1648677094,A,Hasna Hena,SALESINBOUND,Jahangirnagar,1071506,Refund,226,inbound
+2/6/2026 11:35,1648677094,A,Hasna Hena,Any_Service_Bangla,Jahangirnagar,1071506,Refund,,inbound
+2/6/2026 11:36,1888005988,FCR,Nishat Nawal,Direct_Agent_Banla,Gazipuratongi_ACR_175,1115910,Slow Speed,175,inbound
+2/6/2026 11:36,1833235630,A,Mohummad Ismail Hossain,Billing_Querie_bang,Gomostapur,1313752,No Internet,75,inbound
+2/6/2026 11:37,1942531958,A,Nusrat Sumaiya Islam,CARNIVAL,Boraikandirwm,1182622,Refund,116,outbound
+2/6/2026 11:37,1782330959,FCR,Omar Khaled Turag,Billing_Querie_bang,Alfadanga,984287,Others,69,inbound
+2/6/2026 11:38,1717088452,A,Sadia Shubash Mim,Direct_Agent_Banla,Fulbari,540568,Refund,226,inbound
+2/6/2026 11:39,1571733203,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Binnatibazarksrg,735947,Refund,77,inbound
+2/6/2026 11:39,1786839880,A,Amina Akter,Direct_Agent_Banla,nazipur,813735,Refund,368,inbound
+2/6/2026 11:39,1799883652,FCR,Nishat Nawal,CARNIVAL,Jhalorchardwngnj_ACR_A,1051006,No Internet,65,outbound
+2/6/2026 11:40,1648677094,A,Arnika Zaman Mow,Any_Service_Bangla,Jahangirnagar,1071506,Refund,431,inbound
+2/6/2026 11:40,1987084784,FCR,Hasna Hena,Billing_Querie_bang,Bashundhara_ACR_A_24,867287,Downgrade Request,117,inbound
+2/6/2026 11:41,1710846900,FCR,Nusrat Sumaiya Islam,CARNIVAL,Mirpur_1_ACR_6,279190,Others,39,outbound
+2/6/2026 11:41,1912314479,FCR,Mohummad Ismail Hossain,Direct_Agent_Banla,Chuadanga_ACR_3_200,1297275,Slow Speed,173,inbound
+2/6/2026 11:42,1911106113,FCR,Nishat Nawal,Direct_Agent_Banla,Dhaka,145297,Date Extension Request,72,inbound
+2/6/2026 11:44,1407807151,FCR,Omar Khaled Turag,Direct_Agent_Banla,,phone_number,,86,inbound
+2/6/2026 11:44,1880000252,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Dhaka,823834,Date Extension Request,115,inbound
+2/6/2026 11:45,1601988854,FCR,Nishat Nawal,Direct_Agent_Banla,Daulatpur,435873,User Information,305,inbound
+2/6/2026 11:45,1932448610,A,Nusrat Sumaiya Islam,CARNIVAL,Mirpur_1_ACR_6,279190,Blank Field,0,outbound
+2/6/2026 11:45,1768670709,A,Mohummad Ismail Hossain,CARNIVAL,Dhaka,1040384,Blank Field,2,outbound
+2/6/2026 11:46,1704286808,A,Mohummad Ismail Hossain,CARNIVAL,Jhalorchardwngnj,1302592,No Internet,37,outbound
+2/6/2026 11:47,1923277025,A,Mohummad Ismail Hossain,CARNIVAL,Jessorersadar,962561,Others,42,outbound
+2/6/2026 11:47,1959874353,A,Hasna Hena,Direct_Agent_Banla,Comilla,1004810,Fiber Cut,112,inbound
+2/6/2026 11:47,1768670709,A,Amina Akter,Direct_Agent_Banla,Dhaka,1040384,Fiber Cut,210,inbound
+2/6/2026 11:47,1323723687,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Shantinagar_ACR_20,1207023,Date Extension Request,101,inbound
+2/6/2026 11:47,1792356068,FCR,Omar Khaled Turag,Billing_Querie_bang,Dhulauripbn,80Sohag,Billing Queries,79,inbound
+2/6/2026 11:48,1622574201,A,Mohummad Ismail Hossain,CARNIVAL,Niamatpur,1307964,Refund,415,outbound
+2/6/2026 11:49,1638332316,A,Nusrat Sumaiya Islam,SALESINBOUND,Dhaka,767785,Discontinue,70,inbound
+2/6/2026 11:49,1638332316,A,Nusrat Sumaiya Islam,Any_Service_Bangla,Dhaka,767785,Discontinue,,inbound
+2/6/2026 11:50,1602159210,A,Hasna Hena,Direct_Agent_Banla,,hut-01602159210,No Internet,163,inbound
+2/6/2026 11:50,1638332316,FCR,Nusrat Sumaiya Islam,CARNIVAL,Dhaka,767785,Discontinue,114,outbound
+2/6/2026 11:51,1718752324,FCR,Sadia Shubash Mim,Billing_Querie_bang,Dhaka,224080,Date Extension Request,64,inbound
+2/6/2026 11:51,1742729793,A,Omar Khaled Turag,Direct_Agent_Banla,Jibonnagar_ACR_170,1200162,Downgrade Request,46,inbound
+2/6/2026 11:53,1636665265,A,Sadia Shubash Mim,CARNIVAL,Dhaka,977505,Fiber Cut,42,outbound
+2/6/2026 11:53,1522102050,A,Rezwan uddin,Direct_Agent_Banla,Paba,766817,No Internet,142,inbound
+2/6/2026 11:55,1518610272,A,Nishat Nawal,Billing_Querie_bang,Dharmapasha,1276354,Refund,131,inbound
+2/6/2026 11:55,1333322652,A,Sadia Shubash Mim,CARNIVAL,Dhaka,925594,Fiber Cut,79,outbound
+2/6/2026 11:55,1648677094,A,Mohummad Ismail Hossain,CARNIVAL,Jahangirnagar,1071506,Refund,0,outbound
+2/6/2026 11:57,1711969362,A,Amina Akter,Direct_Agent_English,Mohammadpur_ACR_4,1313244,Link Shift,255,inbound
+2/6/2026 11:57,9658070884,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,7,outbound
+2/6/2026 11:58,1805231550,FCR,Hasna Hena,CARNIVAL,Tomsom_Bridge_ACR_A_73,1306903,Slow Speed,111,outbound
+2/6/2026 11:58,1873221569,A,Omar Khaled Turag,Direct_Agent_Banla,Chowmohoni,151623,Router Configuration,125,inbound
+2/6/2026 11:58,1711520817,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Shantinagar_ACR_20,177405,No Internet,153,inbound
+2/6/2026 11:59,1315267558,FCR,Mohummad Ismail Hossain,Billing_Querie_bang,Shahebganjrangpur_ACR_A_248,866326,Others,117,inbound
+2/6/2026 12:00,1720405025,FCR,Rezwan uddin,Direct_Agent_Banla,Gopibag_ACR_169,123087,No Internet,103,inbound
+2/6/2026 12:03,1716056972,A,Rezwan uddin,CARNIVAL,Gopibag_ACR_169,123087,No Internet,0,outbound
+2/6/2026 12:03,1762810777,FCR,Nishat Nawal,Direct_Agent_Banla,Gangachara,777512,Refund,341,inbound
+2/6/2026 12:03,1716056972,A,Rezwan uddin,CARNIVAL,Gopibag_ACR_169,123087,No Internet,9,outbound
+2/6/2026 12:04,1896047233,A,Md. Monirul Islam,Direct_Agent_Banla,,phone_number,Blank Field,53,inbound
+2/6/2026 12:07,9638203756,A,Hasna Hena,Direct_Agent_Banla,Patgram_ACR_193,775837,No Internet,135,inbound
+2/6/2026 12:08,1315267558,A,Mohummad Ismail Hossain,Billing_Querie_bang,Shahebganjrangpur_ACR_A_248,866326,No Internet,138,inbound
+2/6/2026 12:08,1798858537,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Nazipur_ACR_249,782427,Slow Speed,298,inbound
+2/6/2026 12:09,1325319004,FCR,Rezwan uddin,Direct_Agent_Banla,,phone_number,Others,76,inbound
+2/6/2026 12:09,1753021985,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Khilgaon_ACR_A_17,452790,Payment Not Updated,151,inbound
+2/6/2026 12:09,1762810777,A,Md. Monirul Islam,Direct_Agent_Banla,Gangachara,777512,Refund,32,inbound
+2/6/2026 12:11,1305096720,A,Hasna Hena,Billing_Querie_bang,,phone_number,Blank Field,45,inbound
+2/6/2026 12:11,1762810777,A,Amina Akter,Direct_Agent_Banla,Gangachara,777512,Refund,328,inbound
+2/6/2026 12:11,9638187917,FCR,Omar Khaled Turag,Direct_Agent_Banla,Debiganj,996632,MAC Release Request,79,inbound
+2/6/2026 12:11,1843345811,FCR,Rezwan uddin,Direct_Agent_Banla,Lohagaractg,977884,Billing Queries,119,inbound
+2/6/2026 12:11,1716056972,FCR,Mohummad Ismail Hossain,Direct_Agent_Banla,Gopibag_ACR_169,123087,Billing Queries,152,inbound
+2/6/2026 12:12,1608516606,A,Md. Monirul Islam,Direct_Agent_Banla,Nazipur,756295,Refund,307,inbound
+2/6/2026 12:13,1791968098,FCR,Omar Khaled Turag,CARNIVAL,Debiganj_ACR_D,996632,MAC Release Request,21,outbound
+2/6/2026 12:13,1711520817,FCR,Nusrat Sumaiya Islam,CARNIVAL,Shantinagar_ACR_20,177405,No Internet,53,outbound
+2/6/2026 12:13,1711086118,A,Hasna Hena,Direct_Agent_Banla,Firmgate_ACR_27,730706,LAN Support,116,inbound
+2/6/2026 12:13,1346523301,A,Rezwan uddin,Direct_Agent_Banla,Fulbari,1239373,No Internet,234,inbound
+2/6/2026 12:14,1784727431,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Dhaka,461316,No Internet,231,inbound
+2/6/2026 12:15,1911007883,FCR,Sadia Shubash Mim,CARNIVAL,Sylhet,1292860,Billing Queries,55,outbound
+2/6/2026 12:17,1710535555,A,Omar Khaled Turag,Direct_Agent_English,Gopalgonj,655974,Refund,130,inbound
+2/6/2026 12:18,1976873396,A,Sadia Shubash Mim,CARNIVAL,Pathorghata_ACR_101,947232,Upgradation Request,27,outbound
+2/6/2026 12:19,1976873396,FCR,Sadia Shubash Mim,CARNIVAL,Pathorghata_ACR_101,947232,Upgradation Request,100,outbound
+2/6/2026 12:19,1941711374,FCR,Arnika Zaman Mow,CARNIVAL,Syedpur,767517,Others,120,outbound
+2/6/2026 12:20,1931021132,FCR,Md. Monirul Islam,CARNIVAL,Cantonment_ACR_B_69,177542,No Internet,62,outbound
+2/6/2026 12:20,1715831533,A,Amina Akter,SYLHEL_SUPPORT,Habiganj,267594,Fiber Cut,284,inbound
+2/6/2026 12:21,1843345811,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Lohagaractg,977884,User Information,87,inbound
+2/6/2026 12:22,1730028000,FCR,Rezwan uddin,Direct_Agent_Banla,Firmgate_ACR_27,1295305,Slow Speed,383,inbound
+2/6/2026 12:24,1315520722,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Dhaka,1307625,Fiber Cut,56,inbound
+2/6/2026 12:26,1610225636,FCR,Hasna Hena,Direct_Agent_Banla,Tomsom_Bridge_ACR_B_74,1289956,No Internet,87,inbound
+2/6/2026 12:26,1711805770,FCR,Arnika Zaman Mow,CARNIVAL,UTD_SEC_14_ACR_11,136945,MAC Release Request,94,outbound
+2/6/2026 12:28,1609553747,A,Omar Khaled Turag,Direct_Agent_English,Barguna,1240965,Refund,61,inbound
+2/6/2026 12:29,1857590395,A,Sadia Shubash Mim,CARNIVAL,Comilla,1077026,Blank Field,101,outbound
+2/6/2026 12:30,1813404644,A,Nishat Nawal,CARNIVAL,Ghosgaondhobaura_ACR_A_78,1100195,Slow Speed,2,outbound
+2/6/2026 12:30,1843345811,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Lohagaractg,977884,User Information,135,inbound
+2/6/2026 12:32,1408512593,A,Md. Monirul Islam,Direct_Agent_Banla,,phone_number,Blank Field,34,inbound
+2/6/2026 12:33,1782376491,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Dimla,913019,No Internet,136,inbound
+2/6/2026 12:33,1408512593,A,Amina Akter,Direct_Agent_Banla,Syedpur,767517,Refund,346,inbound
+2/6/2026 12:33,1730273419,A,Hasna Hena,Direct_Agent_Banla,Gulshan_2_ACR_29,137176,Slow Speed,119,inbound
+2/6/2026 12:35,1880015350,FCR,Rezwan uddin,Direct_Agent_Banla,Barishalsadar_ACR_152,749894,No Internet,200,inbound
+2/6/2026 12:35,1317005229,A,Sadia Shubash Mim,CARNIVAL,Niamatpur,1307964,Refund,98,outbound
+2/6/2026 12:35,1610225636,FCR,Omar Khaled Turag,Direct_Agent_Banla,Tomsom_Bridge_ACR_B_74,1289956,Payment Not Updated,161,inbound
+2/6/2026 12:36,1642231637,FCR,Nishat Nawal,SYLHEL_SUPPORT,Habiganj,774914,Date Extension Request,61,inbound
+2/6/2026 12:37,1308185685,A,Nusrat Sumaiya Islam,CARNIVAL,Dimla,913019,Blank Field,0,outbound
+2/6/2026 12:38,1706939785,FCR,Md. Monirul Islam,Direct_Agent_Banla,,phone_number,Others,110,inbound
+2/6/2026 12:40,1711901490,FCR,Omar Khaled Turag,CARNIVAL,Mohammadpur_ACR_4,1270371,No Internet,26,outbound
+2/6/2026 12:40,1919938750,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Kawkhaliprj,822276,Refund,82,inbound
+2/6/2026 12:41,1308185685,A,Nusrat Sumaiya Islam,CARNIVAL,Dimla,913019,Blank Field,8,outbound
+2/6/2026 12:42,1741477919,FCR,Nishat Nawal,Billing_Querie_bang,Chittagong,131295,Date Extension Request,63,inbound
+2/6/2026 12:42,1866641811,A,Omar Khaled Turag,CARNIVAL,Ghosgaondhobaura_ACR_A_78,1100195,Slow Speed,25,outbound
+2/6/2026 12:43,1798069233,A,Rezwan uddin,Direct_Agent_Banla,Nilphamari,1077508,Refund,262,inbound
+2/6/2026 12:44,1610225636,FCR,Md. Monirul Islam,Direct_Agent_Banla,Tomsom_Bridge_ACR_B_74,1289956,Payment Not Updated,246,inbound
+2/6/2026 12:45,1934325772,FCR,Hasna Hena,Direct_Agent_Banla,Nilphamari_ACR_A_105,1246386,Billing Queries,179,inbound
+2/6/2026 12:46,1711979392,FCR,Nusrat Sumaiya Islam,Billing_Querie_bang,Chhatak_ACR_205,264199,Billing Queries,223,inbound
+2/6/2026 12:46,9638856804,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Comilla,283633,Others,350,inbound
+2/6/2026 12:47,1319049993,A,Sadia Shubash Mim,CARNIVAL,Habiganj,859765,Fiber Cut,54,outbound
+2/6/2026 12:47,1707320104,FCR,Nishat Nawal,Direct_Agent_Banla,Banani_ACR_21,575155,Date Extension Request,208,inbound
+2/6/2026 12:48,1919938750,A,Amina Akter,Direct_Agent_Banla,Kawkhaliprj,822276,Refund,224,inbound
+2/6/2026 12:49,1706882564,FCR,Hasna Hena,Direct_Agent_Banla,Wazirpur,404580,User Information,118,inbound
+2/6/2026 12:49,1868516789,A,Rezwan uddin,Direct_Agent_Banla,Porsha,1040359,Refund,137,inbound
+2/6/2026 12:50,8.80133E+12,A,Sunny Roy,SYLHET,Habiganj,phone_number,Others,26,outbound
+2/6/2026 12:52,1732412847,A,Sadia Shubash Mim,CARNIVAL,Cantonment_ACR_B_69,843620,Others,4,outbound
+2/6/2026 12:52,1730884381,A,Md. Monirul Islam,SYLHEL_SUPPORT,Habiganj,1136963,Fiber Cut,101,inbound
+2/6/2026 12:53,1715831533,A,Sadia Shubash Mim,CARNIVAL,Habiganj,267594,Fiber Cut,54,outbound
+2/6/2026 12:53,1991535284,A,Hasna Hena,SYLHEL_SUPPORT,Habiganj,1160583,Fiber Cut,105,inbound
+2/6/2026 12:54,1754239073,A,Nishat Nawal,Billing_Querie_eng,Nabiganj,151457,Fiber Cut,123,inbound
+2/6/2026 12:55,1642231637,FCR,Sadia Shubash Mim,CARNIVAL,Habiganj,774914,Date Extension Request,44,outbound
+2/6/2026 12:55,1718055929,A,Amina Akter,SYLHETIN,Habiganj,135646,Fiber Cut,107,inbound
+2/6/2026 12:55,1718055929,A,Amina Akter,SYLHEL_SUPPORT,Habiganj,135646,Fiber Cut,,inbound
+2/6/2026 12:55,1806460223,A,Mohummad Ismail Hossain,SALESINBOUND,,phone_number,Others,141,inbound
+2/6/2026 12:55,1806460223,A,Mohummad Ismail Hossain,Any_Service_Bangla,,phone_number,Others,,inbound
+2/6/2026 12:55,1748550795,A,Nusrat Sumaiya Islam,SYLHETIN,Habiganj,1133734,Date Extension Request,59,inbound
+2/6/2026 12:55,1748550795,FCR,Nusrat Sumaiya Islam,SYLHEL_SUPPORT,Habiganj,1133734,Date Extension Request,,inbound
+2/6/2026 12:56,1410451530,A,Rezwan uddin,Direct_Agent_Banla,Kopilmoni,1262433,Fiber Cut,258,inbound
+2/6/2026 12:56,1706939785,A,Sadia Shubash Mim,CARNIVAL,,phone_number,Others,25,outbound
+2/6/2026 12:56,1984717571,FCR,Omar Khaled Turag,Direct_Agent_Banla,,phone_number,User Information,108,inbound
+2/6/2026 12:56,9638660588,A,Nishat Nawal,Any_Service_Bangla,Khansama,1101682,Refund,81,inbound
+2/6/2026 12:57,1833182764,A,Hasna Hena,CARNIVAL,Khilgaon_ACR_A_17,580958,Slow Speed,0,outbound
+2/6/2026 12:57,1627214280,A,Sadia Shubash Mim,CARNIVAL,Bandarbrsl,1307986,Refund,56,outbound
+2/6/2026 13:00,1723483953,A,Mohummad Ismail Hossain,SYLHEL_SUPPORT,Habiganj,973266,Others,438,inbound
+2/6/2026 13:00,1789955930,A,Nishat Nawal,Direct_Agent_Banla,Dimla,711590,No Internet,182,inbound
+2/6/2026 13:00,1410451530,A,Rezwan uddin,CARNIVAL,Kopilmoni,1262433,Fiber Cut,54,outbound
+2/6/2026 13:00,1885189447,FCR,Hasna Hena,Direct_Agent_Banla,Jahangirnagar,1126715,No Internet,116,inbound
+2/6/2026 13:01,1717256975,FCR,Amina Akter,Direct_Agent_Banla,Nilganjksrg,495537,Others,151,inbound
+2/6/2026 13:03,9638856804,A,Md. Monirul Islam,Direct_Agent_Banla,Comilla,283633,No Internet,179,inbound
+2/6/2026 13:03,1866338445,FCR,Sadia Shubash Mim,CARNIVAL,Kumarkhali_ACR_66,1215608,Refund,69,outbound
+2/6/2026 13:03,1833182764,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Khilgaon_ACR_A_17,580958,Blank Field,56,inbound
+2/6/2026 13:04,1833182764,A,Hasna Hena,Direct_Agent_Banla,Khilgaon_ACR_A_17,580958,Slow Speed,101,inbound
+2/6/2026 13:05,1833182764,A,Nusrat Sumaiya Islam,CARNIVAL,Khilgaon_ACR_A_17,580958,Slow Speed,0,outbound
+2/6/2026 13:05,1660157352,FCR,Nishat Nawal,Direct_Agent_Banla,Muktagacha_ACR_140,1204726,Slow Speed,103,inbound
+2/6/2026 13:06,1716454233,A,Arnika Zaman Mow,Direct_Agent_Banla,Dhaka,681175,No Internet,198,inbound
+2/6/2026 13:06,1521733218,FCR,Amina Akter,CARNIVAL,Dhaka,1314311,User Information,167,outbound
+2/6/2026 13:06,1838144789,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Comilla,130465,Fiber Cut,111,inbound
+2/6/2026 13:06,8.80133E+12,A,Sunny Roy,SYLHET,Habiganj,phone_number,Others,163,outbound
+2/6/2026 13:07,1819251550,FCR,Mohummad Ismail Hossain,Direct_Agent_Banla,Bashundhara_ACR_A_24,590150,No Internet,223,inbound
+2/6/2026 13:08,1842334403,A,Sadia Shubash Mim,CARNIVAL,Durgapurntk_ACR_100,1148393,User Information,57,outbound
+2/6/2026 13:08,1782421634,A,Md. Monirul Islam,CARNIVAL,Kushtiamongalbari_ACR_67,1168604,Fluctuation issue,0,outbound
+2/6/2026 13:08,1711945015,A,Hasna Hena,Direct_Agent_Banla,Mymensingh,125332,Fiber Cut,78,inbound
+2/6/2026 13:09,1842334403,FCR,Sadia Shubash Mim,CARNIVAL,Durgapurntk_ACR_100,1148393,User Information,85,outbound
+2/6/2026 13:09,1927420241,FCR,Md. Monirul Islam,CARNIVAL,Kushtiamongalbari_ACR_67,1168604,Fluctuation issue,80,outbound
+2/6/2026 13:10,1711858244,A,Nusrat Sumaiya Islam,SALESINBOUND,Bajitpur_ACR_179,643942,New Sales Query,182,inbound
+2/6/2026 13:10,1711858244,FCR,Nusrat Sumaiya Islam,Any_Service_Bangla,Bajitpur_ACR_179,643942,New Sales Query,,inbound
+2/6/2026 13:22,9638660588,A,Sadia Shubash Mim,CARNIVAL,Khansama,1101682,Refund,60,outbound
+2/6/2026 13:23,1732312189,A,Hasna Hena,Direct_Agent_Banla,Habiganj,325018,Fiber Cut,135,inbound
+2/6/2026 13:24,1723483953,A,Sadia Shubash Mim,CARNIVAL,Habiganj,973266,Others,1,outbound
+2/6/2026 13:24,1991535284,A,Arnika Zaman Mow,CARNIVAL,Habiganj,1160583,Fiber Cut,2,outbound
+2/6/2026 13:25,1730884381,A,Arnika Zaman Mow,CARNIVAL,Habiganj,1136963,Fiber Cut,63,outbound
+2/6/2026 13:29,1880015350,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Barishalsadar_ACR_152,749894,Blank Field,101,inbound
+2/6/2026 13:35,1322197381,A,Sadia Shubash Mim,Direct_Agent_Banla,Tahirpursyl,1183778,Refund,184,inbound
+2/6/2026 13:39,1864331158,A,Sadia Shubash Mim,CARNIVAL,Bandar,668081,Refund,47,outbound
+2/6/2026 13:40,1617112563,FCR,Hasna Hena,Direct_Agent_Banla,ghosgaondhobaura,913168,Re-activation Query,138,inbound
+2/6/2026 13:44,1617336340,A,Arnika Zaman Mow,SALESINBOUND,,phone_number,New Sales Query,159,inbound
+2/6/2026 13:44,1617336340,FCR,Arnika Zaman Mow,Any_Service_Bangla,,phone_number,New Sales Query,,inbound
+2/6/2026 13:49,9638789990,A,Nishat Nawal,Direct_Agent_Banla,Shajahanpur,654315,Fiber Cut,107,inbound
+2/6/2026 13:52,1303378331,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Nachol,1009568,No Internet,123,inbound
+2/6/2026 13:53,1715020389,FCR,Sadia Shubash Mim,Billing_Querie_bang,Poribag_ACR_38,955867,No Internet,91,inbound
+2/6/2026 13:53,1873018836,A,Amina Akter,SYLHEL_SUPPORT,Habiganj,456548,Link Shift,186,inbound
+2/6/2026 13:53,1612572447,FCR,Nishat Nawal,Billing_Querie_bang,Nilganjksrg_ACR_A_27,1065697,Billing Queries,77,inbound
+2/6/2026 13:53,1346427310,A,Arnika Zaman Mow,Direct_Agent_Banla,,hut-01346427310,Login Problem,172,inbound
+2/6/2026 13:53,1995767654,A,Mohummad Ismail Hossain,Any_Service_Bangla,Rowmari,1117502,Refund,75,inbound
+2/6/2026 13:54,1623068264,FCR,Omar Khaled Turag,Direct_Agent_Banla,Cantonment_ACR_A_68,876346,Fluctuation issue,180,inbound
+2/6/2026 13:55,9638660588,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,14,outbound
+2/6/2026 13:56,1560047607,A,Rezwan uddin,Direct_Agent_Banla,Dhaka,607815,No Internet,141,inbound
+2/6/2026 13:57,1309505018,A,Nishat Nawal,SYLHEL_SUPPORT,Habiganj,375668,Fiber Cut,78,inbound
+2/6/2026 13:57,1880015350,A,Nusrat Sumaiya Islam,CARNIVAL,Barishalsadar_ACR_152,749894,Blank Field,0,outbound
+2/6/2026 13:57,1618506535,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Dhaka,1174747,Fiber Cut,296,inbound
+2/6/2026 13:58,1309505018,A,Nishat Nawal,CARNIVAL,Habiganj,375668,Fiber Cut,38,outbound
+2/6/2026 13:58,1715409306,A,Hasna Hena,CARNIVAL,Habiganj,376709,No Internet,99,outbound
+2/6/2026 14:00,1873018836,A,Rezwan uddin,CARNIVAL,Habiganj,456548,Link Shift,406,outbound
+2/6/2026 14:01,1715409306,A,Md. Monirul Islam,Billing_Querie_bang,Habiganj,376709,No Internet,139,inbound
+2/6/2026 14:02,1833989834,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Coxsbazarsadar,1192825,Others,222,inbound
+2/6/2026 14:03,1670292757,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Dhaka,145701,Fiber Cut,161,inbound
+2/6/2026 14:03,1784727431,A,Omar Khaled Turag,Direct_Agent_Banla,Dhaka,461316,No Internet,59,inbound
+2/6/2026 14:03,1995767654,A,Mohummad Ismail Hossain,CARNIVAL,Rowmari,1117502,Refund,0,outbound
+2/6/2026 14:05,9638421224,A,Akash Debnath,Direct_Agent_Banla,Bashundhara_ACR_B_25,1266059,Slow Speed,124,inbound
+2/6/2026 14:05,1995767654,A,Mohummad Ismail Hossain,CARNIVAL,Rowmari,1117502,Refund,3,outbound
+2/6/2026 14:07,1995767654,A,Jahedul Islam,SALESINBOUND,Rowmari,1117502,Refund,114,inbound
+2/6/2026 14:07,1995767654,A,Jahedul Islam,Any_Service_Bangla,Rowmari,1117502,Refund,,inbound
+2/6/2026 14:07,1622920933,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,,hut-01622920933,OTP,88,inbound
+2/6/2026 14:07,9638911863,A,Nishat Nawal,Direct_Agent_Banla,,phone_number,,24,inbound
+2/6/2026 14:08,1913927081,FCR,FAHIM MOSTOFA,Direct_Agent_Banla,Sirajganjsadar,868005,User Information,84,inbound
+2/6/2026 14:09,1689184464,A,Md. Nasimuzzaman,CARNIVAL,NOC_ACR_C_35,443154,Fluctuation issue,82,outbound
+2/6/2026 14:10,1775099925,A,Nazmus Sakib Swapnil,SYLHETIN,Sylhet,1287846,Link Shift,288,inbound
+2/6/2026 14:10,1775099925,FCR,Nazmus Sakib Swapnil,SYLHEL_SUPPORT,Sylhet,1287846,Link Shift,,inbound
+2/6/2026 14:12,1622920933,FCR,Abdullah-Al Noman,Direct_Agent_Banla,,hut-01622920933,OTP,112,inbound
+2/6/2026 14:12,1303356669,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Natore,774526,Refund,388,inbound
+2/6/2026 14:15,1776539964,A,Akash Debnath,SYLHETIN,Habiganj,1311434,Installation Query,64,inbound
+2/6/2026 14:15,1776539964,FCR,Akash Debnath,SYLHEL_SUPPORT,Habiganj,1311434,Installation Query,,inbound
+2/6/2026 14:16,1622176224,FCR,FAHIM MOSTOFA,Direct_Agent_Banla,Askona_ACR_44,1185899,Slow Speed,1116,inbound
+2/6/2026 14:17,1622920933,A,Rafiqul Islam,Direct_Agent_Banla,,hut-01622920933,OTP,102,inbound
+2/6/2026 14:17,1958362351,A,Md. Nasimuzzaman,SYLHEL_SUPPORT,Sylhet,1165771,No Internet,86,inbound
+2/6/2026 14:20,1779409254,A,MD. Rahmatullah,SYLHETIN,Habiganj_ACR_2_70 ,136723,PIN,370,inbound
+2/6/2026 14:20,1779409254,FCR,MD. Rahmatullah,SYLHEL_SUPPORT,Habiganj_ACR_2_70 ,136723,PIN,,inbound
+2/6/2026 14:22,9638202938,A,Jahedul Islam,Direct_Agent_Banla,Nachol,1009568,No Internet,95,inbound
+2/6/2026 14:23,1617202024,A,Abdullah-Al Noman,SALESINBOUND,Ulipur_ACR_31,1229941,No Internet,251,inbound
+2/6/2026 14:23,1617202024,A,Abdullah-Al Noman,Any_Service_Bangla,Ulipur_ACR_31,1229941,No Internet,,inbound
+2/6/2026 14:25,1746185282,A,Nazmus Sakib Swapnil,SYLHETIN,Sylhet_ACR_A_54,276113,No Internet,259,inbound
+2/6/2026 14:25,1746185282,FCR,Nazmus Sakib Swapnil,SYLHEL_SUPPORT,Sylhet_ACR_A_54,276113,No Internet,,inbound
+2/6/2026 14:25,1307707945,A,Akash Debnath,Direct_Agent_Banla,Chilmari,1225166,Refund,81,inbound
+2/6/2026 14:27,1785461524,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Baraigram,947274,Refund,104,outbound
+2/6/2026 14:27,1633193674,FCR,MD. Rahmatullah,Direct_Agent_Banla,UTD_SEC_11_ACR_10,871456,No Internet,283,inbound
+2/6/2026 14:28,1617202024,A,Abdullah-Al Noman,CARNIVAL,Ulipur_ACR_31,1229941,No Internet,0,outbound
+2/6/2026 14:29,1634215961,A,Md. Nasimuzzaman,Direct_Agent_Banla,Kushtiamongalbari,1308345,No Internet,297,inbound
+2/6/2026 14:29,1313440507,A,Rafiqul Islam,CARNIVAL,Poribag_ACR_38,590319,Billing Queries,104,outbound
+2/6/2026 14:29,1782271799,A,Abdullah-Al Noman,Direct_Agent_Banla,Dhaka,1313901,Installation Query,166,inbound
+2/6/2026 14:29,1617202024,A,MD. ASADUJJAMAN SHOUMIK,SALESINBOUND,Ulipur,1229941,No Internet,203,inbound
+2/6/2026 14:29,1617202024,A,MD. ASADUJJAMAN SHOUMIK,Any_Service_Bangla,Ulipur,1229941,No Internet,,inbound
+2/6/2026 14:29,1567803151,A,Nazmus Sakib Swapnil,SYLHETIN,Habiganj_ACR_69,1216335,Slow Speed,269,inbound
+2/6/2026 14:29,1567803151,FCR,Nazmus Sakib Swapnil,SYLHEL_SUPPORT,Habiganj_ACR_69,1216335,Slow Speed,,inbound
+2/6/2026 14:30,1516562535,FCR,Akash Debnath,Direct_Agent_Banla,Fulbari_ACR-2_94,698570,Slow Speed,247,inbound
+2/6/2026 14:34,1921796109,A,Jahedul Islam,Direct_Agent_Banla,Kalukhali,767958,Refund,120,inbound
+2/6/2026 14:35,1704984501,A,MD. ASADUJJAMAN SHOUMIK,SYLHETIN,Habiganj_ACR_2_70 ,614182,Downgrade Request,104,inbound
+2/6/2026 14:35,1704984501,FCR,MD. ASADUJJAMAN SHOUMIK,SYLHEL_SUPPORT,Habiganj_ACR_2_70 ,614182,Downgrade Request,,inbound
+2/6/2026 14:36,1776074906,A,MD. Rahmatullah,Direct_Agent_Banla,Habiganj,145670,Fiber Cut,88,inbound
+2/6/2026 14:37,1704984501,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Habiganj_ACR_2_70 ,614182,Downgrade Request,55,outbound
+2/6/2026 14:40,1707981250,A,Md. Nasimuzzaman,SYLHETIN,Habiganj,879336,Fiber Cut,71,inbound
+2/6/2026 14:40,1707981250,FCR,Md. Nasimuzzaman,SYLHEL_SUPPORT,Habiganj,879336,Fiber Cut,,inbound
+2/6/2026 14:40,1756178670,A,Akash Debnath,Direct_Agent_Banla,Habiganj,891035,Fiber Cut,73,inbound
+2/6/2026 14:43,1896313390,A,FAHIM MOSTOFA,SALESINBOUND,Khilgaon_ACR_A_17,509184,Payment Process Request,161,inbound
+2/6/2026 14:43,1896313390,A,FAHIM MOSTOFA,Any_Service_Bangla,Khilgaon_ACR_A_17,509184,Payment Process Request,,inbound
+2/6/2026 14:43,1757898005,FCR,Jahedul Islam,Direct_Agent_Banla,Nazipur,1231178,Downgrade Request,113,inbound
+2/6/2026 14:44,9638911863,A,Abdullah-Al Noman,CARNIVAL,Natore,774526,Refund,76,outbound
+2/6/2026 14:44,1609788353,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Chuadanga,1239910,Slow Speed,114,inbound
+2/6/2026 14:45,1704984501,A,Mohummad Ismail Hossain,SYLHEL_SUPPORT,Habiganj_ACR_2_70 ,132979,Downgrade Request,199,inbound
+2/6/2026 14:45,1773888657,A,MD. Rahmatullah,Direct_Agent_Banla,Sreemangal,srit289,Refund,251,inbound
+2/6/2026 14:45,1958362351,A,Abdullah-Al Noman,CARNIVAL,Sylhet,1165771,No Internet,59,outbound
+2/6/2026 14:45,1577371660,A,Md. Monirul Islam,Direct_Agent_Banla,,phone_number,Blank Field,32,inbound
+2/6/2026 14:46,1534514166,A,Omar Khaled Turag,Direct_Agent_Banla,Dhaka,1198563,Fiber Cut,89,inbound
+2/6/2026 14:46,1779969698,A,Rezwan uddin,Direct_Agent_Banla,Nikunjo_ACR_12,865951,Slow Speed,720,inbound
+2/6/2026 14:47,1577371660,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,0,outbound
+2/6/2026 14:47,1727301767,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Chapainawabganj_ACR_B_83,984345,No Internet,126,inbound
+2/6/2026 14:47,1723901166,A,Abdullah-Al Noman,CARNIVAL,Fulbari,1070371,Refund,142,outbound
+2/6/2026 14:48,1729470935,FCR,Akash Debnath,Billing_Querie_bang,Joldhaka_ACR_196,986911,Payment Not Updated,182,inbound
+2/6/2026 14:49,1861590503,A,Md. Monirul Islam,CARNIVAL,Nilphamari,1234162,Refund,146,outbound
+2/6/2026 14:50,1954390247,FCR,Rafiqul Islam,Direct_Agent_Banla,UTD_SEC_11_ACR_10,1270125,No Internet,121,inbound
+2/6/2026 14:51,1914826140,A,FAHIM MOSTOFA,Direct_Agent_Banla,Dhaka,743401,Fiber Cut,124,inbound
+2/6/2026 14:51,1690026009,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Dhaka,812893,Fiber Cut,186,inbound
+2/6/2026 14:52,1979191986,A,Jahedul Islam,Direct_Agent_Banla,Dhaka,105272,Fiber Cut,123,inbound
+2/6/2026 14:52,1637491863,FCR,Akash Debnath,CARNIVAL,Joldhaka,986911,Payment Not Updated,179,outbound
+2/6/2026 14:53,1961065450,A,Omar Khaled Turag,Direct_Agent_Banla,Syedpur,137592,Refund,116,inbound
+2/6/2026 14:53,1774921231,A,Md. Monirul Islam,CARNIVAL,Baliakandi,716198,Refund,0,outbound
+2/6/2026 14:54,1954390247,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Dhaka,1306422,Fiber Cut,232,inbound
+2/6/2026 14:54,1961815218,A,Md. Monirul Islam,CARNIVAL,Baliakandi,716198,Refund,0,outbound
+2/6/2026 14:55,1779409254,A,Abdullah-Al Noman,SYLHETIN,Habiganj_ACR_2_70 ,136723,User Information,438,inbound
+2/6/2026 14:55,1779409254,FCR,Abdullah-Al Noman,SYLHEL_SUPPORT,Habiganj_ACR_2_70 ,136723,User Information,,inbound
+2/6/2026 14:55,1310110116,A,Md. Monirul Islam,CARNIVAL,Baliakandi,716198,Refund,69,outbound
+2/6/2026 14:57,1896098704,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Nilphamari,736743,Others,112,inbound
+2/6/2026 14:57,1924302601,A,Amina Akter,SALESINBOUND,,hut-01924302601,User Information,78,inbound
+2/6/2026 14:57,1924302601,A,Amina Akter,Any_Service_Bangla,,hut-01924302601,User Information,,inbound
+2/6/2026 14:59,1709295417,FCR,Hasna Hena,CARNIVAL,Dhaka,186844,Others,15,outbound
+2/6/2026 14:59,1924302601,FCR,Amina Akter,CARNIVAL,,hut-01924302601,User Information,83,outbound
+2/6/2026 14:59,9638052710,A,Nishat Nawal,Direct_Agent_Banla,Kopilmoni,1262433,No Internet,120,inbound
+2/6/2026 15:01,1540703733,A,Omar Khaled Turag,Direct_Agent_English,Dhaka,1003644,Fiber Cut,124,inbound
+2/6/2026 15:01,1776833770,A,Md. Monirul Islam,Any_Service_Bangla,,phone_number,Blank Field,26,inbound
+2/6/2026 15:03,1721747805,A,Arnika Zaman Mow,Direct_Agent_Banla,Dhaka,1179789,Fiber Cut,215,inbound
+2/6/2026 15:03,1713762674,FCR,Amina Akter,Direct_Agent_Banla,Nachol_ACR_A_63,279485,User Information,130,inbound
+2/6/2026 15:03,1960579379,A,Rezwan uddin,Direct_Agent_Banla,Bandarbrsl,1232382,Refund,377,inbound
+2/6/2026 15:03,1765500660,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Cantonment_ACR_B_69,824493,Router Configuration,527,inbound
+2/6/2026 15:03,1302458386,A,Sadia Shubash Mim,CARNIVAL,Charghat,836514,Others,8,outbound
+2/6/2026 15:04,1347320387,A,Nishat Nawal,Direct_Agent_Banla,Morrelganj,913854,Refund,94,inbound
+2/6/2026 15:04,1302458386,A,Sadia Shubash Mim,CARNIVAL,Charghat,836514,Others,6,outbound
+2/6/2026 15:05,1833235630,A,Omar Khaled Turag,Billing_Querie_bang,Gomostapur,1313752,No Internet,90,inbound
+2/6/2026 15:05,1821783824,A,Sadia Shubash Mim,CARNIVAL,Dhaka,1288924,Fiber Cut,41,outbound
+2/6/2026 15:07,1712977076,A,Md. Monirul Islam,Direct_Agent_Banla,Habiganj,1312191,Installation Query,156,inbound
+2/6/2026 15:07,1332112601,FCR,Amina Akter,Direct_Agent_Banla,Bashundhara_ACR_B_25,174365,Upgradation Request,773,inbound
+2/6/2026 15:08,1773310354,A,Nishat Nawal,Direct_Agent_Banla,Fulbari,1294618,Refund,393,inbound
+2/6/2026 15:09,1777750500,A,Hasna Hena,Direct_Agent_Banla,Rupnagar_Mirpur_ACR_7,1228250,Blank Field,54,inbound
+2/6/2026 15:09,1896098704,A,Omar Khaled Turag,Direct_Agent_Banla,Nilphamari,736743,Refund,102,inbound
+2/6/2026 15:09,1646057523,FCR,Sadia Shubash Mim,CARNIVAL,Kamalnagar_ACR_126,444640,Slow Speed,206,outbound
+2/6/2026 15:09,1712977076,A,Rezwan uddin,SALESINBOUND,Habiganj,1312191,Installation Query,150,inbound
+2/6/2026 15:09,1712977076,A,Rezwan uddin,Any_Service_Bangla,Habiganj,1312191,Installation Query,,inbound
+2/6/2026 15:10,1790820112,FCR,Md. Monirul Islam,Billing_Querie_bang,Salanga_ACR_147,993613,User Information,295,inbound
+2/6/2026 15:10,1777750500,A,Arnika Zaman Mow,Direct_Agent_Banla,Rupnagar_Mirpur_ACR_7,1228250,Specific Website,234,inbound
+2/6/2026 15:11,9638030687,FCR,Hasna Hena,Any_Service_Bangla,Gopalgonj,651202,Blank Field,312,inbound
+2/6/2026 15:12,1817204323,A,Omar Khaled Turag,CARNIVAL,Banasree_ACR_13,1279497,Billing Queries,0,outbound
+2/6/2026 15:13,1829348099,FCR,Omar Khaled Turag,CARNIVAL,Banasree_ACR_13,1279497,Billing Queries,156,outbound
+2/6/2026 15:13,1730327092,A,Nusrat Sumaiya Islam,CARNIVAL,Dhaka,1301436,Blank Field,0,outbound
+2/6/2026 15:13,1302458386,A,Sadia Shubash Mim,CARNIVAL,Charghat,836514,Others,18,outbound
+2/6/2026 15:14,1713049977,FCR,Rezwan uddin,Direct_Agent_Banla,Bashundhara_ACR_A_24,945310,No Internet,540,inbound
+2/6/2026 15:14,1740730968,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,bholahat,hut-01740730968,OTP,123,inbound
+2/6/2026 15:14,1985143513,A,Nishat Nawal,CARNIVAL,Dhaka,978718,Fiber Cut,115,outbound
+2/6/2026 15:15,1954390247,A,Arnika Zaman Mow,Direct_Agent_Banla,Dhaka,1306422,Fiber Cut,137,inbound
+2/6/2026 15:16,1335594971,A,Md. Monirul Islam,SYLHEL_SUPPORT,,phone_number,Blank Field,18,inbound
+2/6/2026 15:16,1335594971,A,Sadia Shubash Mim,SYLHEL_SUPPORT,,phone_number,Blank Field,168,inbound
+2/6/2026 15:16,1335594971,A,Hasna Hena,SYLHETIN,Sylhet,1165771,No Internet,220,inbound
+2/6/2026 15:16,1335594971,A,Hasna Hena,SYLHEL_SUPPORT,Sylhet,1165771,No Internet,,inbound
+2/6/2026 15:16,1711851533,A,Arnika Zaman Mow,SALESINBOUND,Sylhet_ACR_A_54,804265,New Sales Query,174,inbound
+2/6/2026 15:16,1711851533,FCR,Arnika Zaman Mow,Any_Service_Bangla,Sylhet_ACR_A_54,804265,New Sales Query,,inbound
+2/6/2026 15:17,1681015105,A,Nishat Nawal,CARNIVAL,Rupnagar_Mirpur_ACR_7,1170038,No Internet,74,outbound
+2/6/2026 15:17,9658070884,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,27,outbound
+2/6/2026 15:17,9658070884,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,68,outbound
+2/6/2026 15:18,1846853599,A,Nishat Nawal,SYLHEL_SUPPORT,Habiganj,1158620,Fiber Cut,123,inbound
+2/6/2026 15:19,9638614790,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Kamarkhand_ACR_254,1279127,Blank Field,402,inbound
+2/6/2026 15:19,1335594971,A,Sadia Shubash Mim,CARNIVAL,,phone_number,Blank Field,0,outbound
+2/6/2026 15:19,1773310354,A,Sadia Shubash Mim,Direct_Agent_Banla,Fulbari,881682,Refund,141,inbound
+2/6/2026 15:20,1615114876,A,Hasna Hena,Direct_Agent_English,Dhaka,147578,Fiber Cut,103,inbound
+2/6/2026 15:21,1673289026,FCR,Amina Akter,Direct_Agent_Banla,NOC_ACR_C_35,1228297,Slow Speed,222,inbound
+2/6/2026 15:22,1748807810,A,Sunny Roy,SYLHET,Habiganj,541679,Others,173,outbound
+2/6/2026 15:22,1829662655,A,Arnika Zaman Mow,Direct_Agent_Banla,Chittagong,625652,Fiber Cut,109,inbound
+2/6/2026 15:23,1716166788,A,Nishat Nawal,Billing_Querie_bang,Morrelganj,727597,Refund,218,inbound
+2/6/2026 15:23,1787678533,A,Hasna Hena,CARNIVAL,Mirpur_DO_ACR_5,1313416,Slow Speed,122,outbound
+2/6/2026 15:25,1707210626,A,Rezwan uddin,SYLHEL_SUPPORT,Habiganj,147427,Fiber Cut,28,inbound
+2/6/2026 15:25,1911336022,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Mirpur_1_ACR_6,110633,No Internet,386,inbound
+2/6/2026 15:25,1719647674,FCR,Amina Akter,Billing_Querie_bang,Magura_ACR_56,754669,Billing Queries,213,inbound
+2/6/2026 15:25,1707210626,A,Rezwan uddin,CARNIVAL,Habiganj,147427,Fiber Cut,97,outbound
+2/6/2026 15:26,9638614790,A,Nusrat Sumaiya Islam,CARNIVAL,Kamarkhand_ACR_254,1279127,Blank Field,18,outbound
+2/6/2026 15:26,1811693903,A,Nishat Nawal,Direct_Agent_Banla,Ulipur_ACR_31,1229941,No Internet,150,inbound
+2/6/2026 15:28,1738538834,FCR,Omar Khaled Turag,CARNIVAL,Kusthiamirpur_ACR_E_42,962238,Slow Speed,194,outbound
+2/6/2026 15:28,1926866187,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Morrelganj,1029337,Fiber Cut,98,inbound
+2/6/2026 15:28,9638366561,A,Akash Debnath,Direct_Agent_Banla,Kushtiasadar,993790,No Internet,202,inbound
+2/6/2026 15:29,1762942725,A,FAHIM MOSTOFA,Direct_Agent_Banla,Kochakatangsri,467080,No Internet,138,inbound
+2/6/2026 15:29,1711731876,FCR,Rezwan uddin,Direct_Agent_Banla,Mohammadpur_ACR_4,111902,Slow Speed,168,inbound
+2/6/2026 15:29,1954390247,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Dhaka,1306422,Fiber Cut,113,outbound
+2/6/2026 15:29,1618506535,A,MD. Rahmatullah,Direct_Agent_Banla,Dhaka,1174747,Fiber Cut,78,inbound
+2/6/2026 15:30,1785935413,A,Rafiqul Islam,Direct_Agent_Banla,Habiganj,682345,Fiber Cut,225,inbound
+2/6/2026 15:31,1712121916,FCR,Nishat Nawal,Direct_Agent_Banla,Sylhet,187428,Date Extension Request,67,inbound
+2/6/2026 15:32,1757545993,FCR,Rezwan uddin,CARNIVAL,Bhuapur_ACR_17,872566,Slow Speed,104,outbound
+2/6/2026 15:33,1716121183,A,Md. Dider Hossain,Direct_Agent_Banla,Nageshwari,1025157,Refund,294,inbound
+2/6/2026 15:34,9638485406,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,53,outbound
+2/6/2026 15:34,1609041435,FCR,Hasna Hena,Direct_Agent_Banla,Nazirpur,451476,MAC Release Request,142,inbound
+2/6/2026 15:34,9638030687,A,FAHIM MOSTOFA,CARNIVAL,Gopalgonj,651202,Blank Field,32,outbound
+2/6/2026 15:34,1609788353,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Chuadanga,1239910,Slow Speed,94,outbound
+2/6/2026 15:35,1610052921,A,Md. Monirul Islam,CARNIVAL,Cantonment_ACR_A_68,983995,Slow Speed,0,outbound
+2/6/2026 15:35,1740730968,FCR,FAHIM MOSTOFA,CARNIVAL,bholahat,hut-01740730968,OTP,28,outbound
+2/6/2026 15:36,1846853599,A,FAHIM MOSTOFA,CARNIVAL,Habiganj,1158620,Fiber Cut,36,outbound
+2/6/2026 15:36,1704984501,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Habiganj_ACR_2_70 ,132979,Downgrade Request,64,outbound
+2/6/2026 15:37,1743904826,A,Hasna Hena,CARNIVAL,Nazirpur,451476,MAC Release Request,0,outbound
+2/6/2026 15:37,1305503965,A,FAHIM MOSTOFA,CARNIVAL,NOC_ACR_D_42,127767,Router Configuration,74,outbound
+2/6/2026 15:37,1706747749,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Dhamoirhat_ACR_27,247698,Slow Speed,249,inbound
+2/6/2026 15:37,1622866645,A,Jahedul Islam,Direct_Agent_Banla,Comilla,824034,Fiber Cut,79,inbound
+2/6/2026 15:37,1748027223,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Dhaka,946123,Date Extension Request,180,inbound
+2/6/2026 15:37,1981357167,FCR,MD. Rahmatullah,Any_Service_Bangla,,hut-01981357167,No Internet,181,inbound
+2/6/2026 15:38,9638485406,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Nilganjksrg,495756,Refund,115,outbound
+2/6/2026 15:38,1860501314,FCR,Omar Khaled Turag,Billing_Querie_bang,Madhupur_ACR_51,987836,Billing Queries,115,inbound
+2/6/2026 15:38,1577371660,A,Abdullah-Al Noman,Direct_Agent_Banla,Charghat,836514,Refund,276,inbound
+2/6/2026 15:38,1743904826,A,Arnika Zaman Mow,SALESINBOUND,Nazirpur,451476,No Internet,311,inbound
+2/6/2026 15:38,1743904826,A,Arnika Zaman Mow,Any_Service_Bangla,Nazirpur,451476,No Internet,,inbound
+2/6/2026 15:38,1342303545,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,,phone_number,,83,inbound
+2/6/2026 15:39,1793964634,FCR,Akash Debnath,Direct_Agent_Banla,Fulbari,1064394,Link Shift,149,inbound
+2/6/2026 15:40,1716121183,A,Md. Dider Hossain,CARNIVAL,Nageshwari,1025157,Refund,122,outbound
+2/6/2026 15:40,1776833770,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,,phone_number,Blank Field,0,outbound
+2/6/2026 15:40,1307747525,A,Md. Nasimuzzaman,CARNIVAL,Gangacharaburirhat,958877,Router Configuration,273,outbound
+2/6/2026 15:40,1945017518,FCR,Nishat Nawal,Billing_Querie_bang,Cantonment_ACR_B_69,729116,Fluctuation issue,115,inbound
+2/6/2026 15:42,1607095070,A,Amina Akter,Direct_Agent_Banla,Dhaka,813589,No Internet,110,inbound
+2/6/2026 15:43,1905520453,A,Md. Monirul Islam,Direct_Agent_Banla,Dhaka,287839,Fiber Cut,64,inbound
+2/6/2026 15:43,1720397581,A,Sadia Shubash Mim,CARNIVAL,Kaliakair,938257,Refund,9,outbound
+2/6/2026 15:43,9638615968,A,Hasna Hena,Direct_Agent_Banla,Bagha,464063,Refund,157,inbound
+2/6/2026 15:45,1713850661,FCR,Rezwan uddin,Direct_Agent_Banla,Bandar,737487,Billing Queries,137,inbound
+2/6/2026 15:46,1815557671,A,Rafiqul Islam,Direct_Agent_Banla,Dhaka,813589,Fiber Cut,150,inbound
+2/6/2026 15:47,1736072435,A,FAHIM MOSTOFA,Billing_Querie_bang,Nazipur,1229552,Router Configuration,148,inbound
+2/6/2026 15:47,1718678311,A,Jahedul Islam,Direct_Agent_Banla,Badalgachi_ACR_8,1236836,No Internet,85,inbound
+2/6/2026 15:48,1616486119,A,Omar Khaled Turag,Direct_Agent_Banla,Comilla,817609,Others,52,inbound
+2/6/2026 15:49,1616486119,A,MD. Rahmatullah,Direct_Agent_Banla,Comilla,817609,Fiber Cut,134,inbound
+2/6/2026 15:49,1711731876,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Mohammadpur_ACR_4,111902,Slow Speed,192,inbound
+2/6/2026 15:50,1571052030,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,,F052030,Others,104,inbound
+2/6/2026 15:51,1324735025,FCR,Akash Debnath,Direct_Agent_Banla,UTD_DO_ACR_8,1164710,Specific Website,235,inbound
+2/6/2026 15:51,1635575603,A,Md. Dider Hossain,Direct_Agent_Banla,Cantonment_ACR_B_69,843620,No Internet,69,inbound
+2/6/2026 15:51,1747129972,A,Nishat Nawal,Direct_Agent_Banla,Singra,879744,Refund,85,inbound
+2/6/2026 15:52,1945017518,A,Arnika Zaman Mow,Billing_Querie_bang,Cantonment_ACR_B_69,729116,Fluctuation issue,70,inbound
+2/6/2026 15:52,1860501314,A,Amina Akter,Billing_Querie_bang,Madhupur_ACR_51,987836,Payment Not Updated,122,inbound
+2/6/2026 15:52,1635575603,FCR,Md. Dider Hossain,CARNIVAL,Cantonment_ACR_B_69,843620,No Internet,254,outbound
+2/6/2026 15:54,1945017518,A,Arnika Zaman Mow,CARNIVAL,Cantonment_ACR_B_69,729116,Fluctuation issue,80,outbound
+2/6/2026 15:54,1776857369,A,Md. Monirul Islam,SALESINBOUND,,phone_number,Blank Field,28,inbound
+2/6/2026 15:54,1776857369,A,Md. Monirul Islam,Any_Service_Bangla,,phone_number,Blank Field,,inbound
+2/6/2026 15:54,1780319749,A,Sadia Shubash Mim,CARNIVAL,Boraikandirwm,1074925,Refund,70,outbound
+2/6/2026 15:54,1860501314,FCR,Amina Akter,CARNIVAL,Madhupur_ACR_51,987836,Payment Not Updated,245,outbound
+2/6/2026 15:55,1776857369,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,0,outbound
+2/6/2026 15:55,1784537093,FCR,Hasna Hena,Billing_Querie_bang,Singra,1169906,No Internet,128,inbound
+2/6/2026 15:55,9638202938,A,Rezwan uddin,Direct_Agent_Banla,Nachol,1009568,No Internet,186,inbound
+2/6/2026 15:55,1776857369,A,Abdullah-Al Noman,SALESINBOUND,Ulipur_ACR_31,1229941,No Internet,232,inbound
+2/6/2026 15:55,1776857369,A,Abdullah-Al Noman,Any_Service_Bangla,Ulipur_ACR_31,1229941,No Internet,,inbound
+2/6/2026 15:56,1843332480,A,Jahedul Islam,Direct_Agent_Banla,Mohadevpur,1066578,Refund,67,inbound
+2/6/2026 15:56,1929710077,A,FAHIM MOSTOFA,Direct_Agent_Banla,Dhaka,1132060,Fiber Cut,122,inbound
+2/6/2026 15:57,1300062572,A,Rafiqul Islam,SYLHEL_SUPPORT,Habiganj,659097,Link Shift,172,inbound
+2/6/2026 15:57,1912117103,FCR,MD. Rahmatullah,Direct_Agent_Banla,Atpara,445954,Discontinue,173,inbound
+2/6/2026 15:57,1762081961,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,,phone_number,,252,inbound
+2/6/2026 16:00,1300062572,A,Rafiqul Islam,CARNIVAL,Habiganj,659097,Link Shift,142,outbound
+2/6/2026 16:01,1969674746,A,Nishat Nawal,Direct_Agent_Banla,,,1969674746,71,inbound
+2/6/2026 16:02,1571228094,A,Omar Khaled Turag,Direct_Agent_Banla,Rajapurmdpur,950616,Refund,69,inbound
+2/6/2026 16:02,1720309675,FCR,Md. Nasimuzzaman,SYLHEL_SUPPORT,,phone_number,Others,95,inbound
+2/6/2026 16:03,1969674746,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Mirpur_DO_ACR_5,134058,Fluctuation issue,197,inbound
+2/6/2026 16:04,1740730968,FCR,Jahedul Islam,Direct_Agent_Banla,bholahat,hut-01740730968,OTP,140,inbound
+2/6/2026 16:06,1912117103,A,Hasna Hena,Direct_Agent_Banla,Atpara,445954,Refund,371,inbound
+2/6/2026 16:06,1711011798,A,Rezwan uddin,Direct_Agent_Banla,Dhaka,805239,Fiber Cut,114,inbound
+2/6/2026 16:06,1571228094,A,MD. Rahmatullah,Direct_Agent_Banla,Rajapurmdpur,950616,Refund,102,inbound
+2/6/2026 16:06,1406452147,FCR,Sadia Shubash Mim,Direct_Agent_Banla,,hut-01406452147,Login Problem,295,inbound
+2/6/2026 16:07,1877446984,FCR,Arnika Zaman Mow,Any_Service_Bangla,Setabganj_ACR_82,674375,Slow Speed,187,inbound
+2/6/2026 16:07,1603295482,A,Md. Dider Hossain,Direct_Agent_Banla,Debiganj,1023417,No Internet,190,inbound
+2/6/2026 16:07,1976451579,A,Amina Akter,Direct_Agent_Banla,bholahat,hut-01976451579,OTP,126,inbound
+2/6/2026 16:08,1711619987,A,Abdullah-Al Noman,Direct_Agent_Banla,Dhaka,111389,Re-activation Query,563,inbound
+2/6/2026 16:09,1740730968,A,Md. Monirul Islam,Direct_Agent_Banla,bholahat,hut-01740730968,OTP,23,inbound
+2/6/2026 16:10,1316878154,FCR,Nishat Nawal,Direct_Agent_Banla,Saidpur_ACR_E_96,1063334,Slow Speed,173,inbound
+2/6/2026 16:10,1558971993,A,MD. ASADUJJAMAN SHOUMIK,SALESINBOUND,,phone_number,New Sales Query,216,inbound
+2/6/2026 16:10,1558971993,FCR,MD. ASADUJJAMAN SHOUMIK,Any_Service_Bangla,,phone_number,New Sales Query,,inbound
+2/6/2026 16:10,1740730968,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,bholahat,hut-01740730968,OTP,172,inbound
+2/6/2026 16:12,1715240011,FCR,FAHIM MOSTOFA,Billing_Querie_bang,Dhuliyakhal_ACR_100,1066885,User Information,93,inbound
+2/6/2026 16:12,1854506151,FCR,Nusrat Sumaiya Islam,Direct_Agent_Banla,Cantonment_ACR_A_68,1249743,Slow Speed,184,inbound
+2/6/2026 16:13,1915394557,A,Jahedul Islam,Direct_Agent_Banla,Debiganj,782985,MAC Release Request,239,inbound
+2/6/2026 16:13,1409841523,FCR,Akash Debnath,Direct_Agent_Banla,Dighalia,736183,Refund,213,inbound
+2/6/2026 16:14,1606055796,A,MD. Rahmatullah,Direct_Agent_Banla,Lukra,1177488,Fiber Cut,151,inbound
+2/6/2026 16:16,1751019884,FCR,Rafiqul Islam,CARNIVAL,Nazipur_ACR_249,895003,User Information,106,outbound
+2/6/2026 16:17,1712179584,FCR,Rezwan uddin,Direct_Agent_Banla,Gopibag_ACR_169,773750,Billing Queries,199,inbound
+2/6/2026 16:17,1943270779,A,Akash Debnath,CARNIVAL,Dighalia,736183,Refund,109,outbound
+2/6/2026 16:17,9638030687,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,11,outbound
+2/6/2026 16:18,1793241322,FCR,Arnika Zaman Mow,Direct_Agent_Banla,Nilphamari,1234162,Others,255,inbound
+2/6/2026 16:18,1754028995,FCR,Amina Akter,Direct_Agent_Banla,Cantonment_ACR_B_69,1041804,Fluctuation issue,152,inbound
+2/6/2026 16:19,1730586087,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Bashundhara_ACR_A_24,235281,Fluctuation issue,91,inbound
+2/6/2026 16:19,1729627785,A,Sadia Shubash Mim,Direct_Agent_Banla,Sirajganjsadar,846063,Others,43,inbound
+2/6/2026 16:21,1732312189,A,Md. Dider Hossain,Direct_Agent_Banla,Habiganj,325018,Fiber Cut,112,inbound
+2/6/2026 16:21,1849636283,FCR,Nishat Nawal,Direct_Agent_Banla,CTG_Halishohor_ACR_100,1313481,Slow Speed,512,inbound
+2/6/2026 16:22,1762216698,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Sirajganjsadar,846063,Refund,264,inbound
+2/6/2026 16:22,1605864818,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Amtali,1090803,Fiber Cut,286,inbound
+2/6/2026 16:24,1627080888,FCR,Abdullah-Al Noman,CARNIVAL,Comilla_ACR_C_67,1267934,Slow Speed,58,outbound
+2/6/2026 16:25,1793241322,A,FAHIM MOSTOFA,Direct_Agent_Banla,Nilphamari,1234162,Refund,223,inbound
+2/6/2026 16:26,1309932767,A,Nusrat Sumaiya Islam,Direct_Agent_Banla,Madhabpursadar,1225112,Refund,101,inbound
+2/6/2026 16:26,1798326798,A,MD. Rahmatullah,Direct_Agent_Banla,Baisaribanaripara,737468,No Internet,151,inbound
+2/6/2026 16:28,1342591433,A,Jahedul Islam,SALESINBOUND,Dashmina_ACR_26,1302016,No Internet,91,inbound
+2/6/2026 16:28,1342591433,A,Jahedul Islam,Any_Service_Bangla,Dashmina_ACR_26,1302016,No Internet,,inbound
+2/6/2026 16:30,1740485217,FCR,Akash Debnath,Direct_Agent_Banla,Sheikhpara,553818,Payment Not Updated,213,inbound
+2/6/2026 16:30,1761355550,A,Rezwan uddin,Direct_Agent_Banla,Kushtiasadar_ACR_C_93,815050,Router Configuration,147,inbound
+2/6/2026 16:31,1861590503,A,Mohummad Ismail Hossain,CARNIVAL,Nilphamari,1234162,Refund,59,outbound
+2/6/2026 16:31,1712179584,FCR,Rafiqul Islam,Direct_Agent_Banla,Gopibag_ACR_169,773750,Downgrade Request,213,inbound
+2/6/2026 16:32,1713258817,A,Md. Nasimuzzaman,Direct_Agent_Banla,UTD_SEC_11_ACR_10,1276222,Downgrade Request,143,inbound
+2/6/2026 16:32,1620760832,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Inathganj_ACR_227,1299531,User Information,178,inbound
+2/6/2026 16:33,1720309675,FCR,FAHIM MOSTOFA,CARNIVAL,,phone_number,Others,35,outbound
+2/6/2026 16:33,1981357167,A,Md. Dider Hossain,CARNIVAL,,hut-01981357167,No Internet,350,outbound
+2/6/2026 16:33,1877446984,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Setabganj_ACR_82,674375,Slow Speed,169,outbound
+2/6/2026 16:33,1342591433,A,MD. Rahmatullah,CARNIVAL,Dashmina_ACR_26,1302016,No Internet,1,outbound
+2/6/2026 16:33,1342591433,FCR,MD. Rahmatullah,CARNIVAL,Dashmina_ACR_26,1302016,No Internet,50,outbound
+2/6/2026 16:34,1969674746,FCR,Nusrat Sumaiya Islam,CARNIVAL,Mirpur_DO_ACR_5,134058,Fluctuation issue,95,outbound
+2/6/2026 16:35,1713258817,FCR,Md. Nasimuzzaman,CARNIVAL,UTD_SEC_11_ACR_10,1276222,Downgrade Request,28,outbound
+2/6/2026 16:36,1320797204,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Birol,1224342,Refund,215,inbound
+2/6/2026 16:36,1749720024,A,Jahedul Islam,Direct_Agent_Banla,Hili,dodo1,Refund,119,inbound
+2/6/2026 16:37,1798326798,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Baisaribanaripara,737468,No Internet,52,outbound
+2/6/2026 16:38,1798326798,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Baisaribanaripara,737468,No Internet,48,outbound
+2/6/2026 16:38,1813697654,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Daulatpur_ACR_132,435229,Fluctuation issue,75,inbound
+2/6/2026 16:39,1711945015,A,Akash Debnath,Direct_Agent_Banla,Mymensingh,125332,Fiber Cut,71,inbound
+2/6/2026 16:40,1713730018,FCR,MD. Rahmatullah,Direct_Agent_Banla,Ranisankail_ACR_186,174772,Billing Queries,79,inbound
+2/6/2026 16:41,1716507451,FCR,Arnika Zaman Mow,Direct_Agent_Banla,kurigram,398828,Others,292,inbound
+2/6/2026 16:42,1718948865,A,Amina Akter,Any_Service_Bangla,Niamatpur_ACR_67,580639,Others,127,inbound
+2/6/2026 16:42,1761660034,A,Hasna Hena,Direct_Agent_Banla,Nilphamari,613016,No Internet,123,inbound
+2/6/2026 16:42,1611937506,A,Abdullah-Al Noman,Direct_Agent_Banla,Ullapara_ACR_B_22,1095163,No Internet,297,inbound
+2/6/2026 16:44,1926355363,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Dhaka,652680,No Internet,153,inbound
+2/6/2026 16:45,1813697654,FCR,Nishat Nawal,CARNIVAL,Daulatpur_ACR_132,435229,Fluctuation issue,220,outbound
+2/6/2026 16:45,1707993091,A,FAHIM MOSTOFA,SYLHETIN,Sylhet_ACR_A_54,981607,Slow Speed,76,inbound
+2/6/2026 16:45,1707993091,FCR,FAHIM MOSTOFA,SYLHEL_SUPPORT,Sylhet_ACR_A_54,981607,Slow Speed,,inbound
+2/6/2026 16:45,1725337848,FCR,Rafiqul Islam,CARNIVAL,Shajahanpur,869077,Slow Speed,123,outbound
+2/6/2026 16:46,1951663108,FCR,Md. Dider Hossain,Direct_Agent_Banla,Chuadanga_ACR_3_200,590944,Slow Speed,341,inbound
+2/6/2026 16:46,1862613752,FCR,Nazmus Sakib Swapnil,Billing_Querie_bang,Kurigram,905083,Refund,288,inbound
+2/6/2026 16:47,1833464830,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Hatibandha_ACR_197,833212,Slow Speed,347,inbound
+2/6/2026 16:48,1986097973,FCR,Akash Debnath,Direct_Agent_Banla,Mymensing_DO_ACR_B_169,771375,Others,80,inbound
+2/6/2026 16:49,1830275573,A,Abdullah-Al Noman,CARNIVAL,Ullapara_ACR_B_22,1095163,No Internet,231,outbound
+2/6/2026 16:49,1626418115,FCR,MD. Rahmatullah,SYLHEL_SUPPORT,Dhuliyakhal_ACR_100,1074593,Slow Speed,225,inbound
+2/6/2026 16:50,1621403490,FCR,Sadia Shubash Mim,Billing_Querie_eng,Bhedarganj_ACR_90,1191061,User Information,73,inbound
+2/6/2026 16:50,1756876029,A,Omar Khaled Turag,CARNIVAL,Habiganj,866885,Fiber Cut,30,outbound
+2/6/2026 16:52,1756876029,A,Amina Akter,Direct_Agent_Banla,Habiganj,866885,Fiber Cut,124,inbound
+2/6/2026 16:53,1784148842,A,Omar Khaled Turag,CARNIVAL,Ulipur,639910,No Internet,56,outbound
+2/6/2026 16:54,1635389701,A,Hasna Hena,Direct_Agent_Banla,Comilla,731522,Fiber Cut,145,inbound
+2/6/2026 16:55,1944923378,A,Arnika Zaman Mow,SALESINBOUND,Dhaka,1314182,Installation Query,152,inbound
+2/6/2026 16:55,1944923378,A,Arnika Zaman Mow,Any_Service_Bangla,Dhaka,1314182,Installation Query,,inbound
+2/6/2026 16:56,9638301540,A,Md. Monirul Islam,Billing_Querie_bang,Boraikandirwm,1005704,Refund,40,inbound
+2/6/2026 16:56,9638301540,A,Rafiqul Islam,Billing_Querie_bang,Boraikandirwm,1005704,Refund,160,inbound
+2/6/2026 16:57,1752241933,FCR,Nishat Nawal,Billing_Querie_bang,UTD_DO_ACR_8,101172,Offer Query,597,inbound
+2/6/2026 16:59,1744704446,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Tarashsadar,929989,Billing Queries,133,inbound
+2/6/2026 16:59,1883929048,A,Md. Dider Hossain,Direct_Agent_Banla,CTG_Khulshi_ACR_103,650476,User Information,335,inbound
+2/6/2026 16:59,1872581152,A,Nazmus Sakib Swapnil,SALESINBOUND,Gabtali,854633,Others,208,inbound
+2/6/2026 16:59,1872581152,FCR,Nazmus Sakib Swapnil,Any_Service_Bangla,Gabtali,854633,Others,,inbound
+2/6/2026 17:00,1751019884,FCR,Rafiqul Islam,CARNIVAL,Nazipur_ACR_249,895003,User Information,69,outbound
+2/6/2026 17:00,1975442574,A,Abdullah-Al Noman,SALESINBOUND,NOC_ACR_D_42,1301953,Billing Queries,113,inbound
+2/6/2026 17:00,1975442574,FCR,Abdullah-Al Noman,Any_Service_Bangla,NOC_ACR_D_42,1301953,Billing Queries,,inbound
+2/6/2026 17:00,1855846370,A,Rezwan uddin,SYLHETIN,,phone_number,Others,203,inbound
+2/6/2026 17:00,1855846370,FCR,Rezwan uddin,SYLHEL_SUPPORT,,phone_number,Others,,inbound
+2/6/2026 17:00,1814905080,FCR,MD. Rahmatullah,Direct_Agent_Banla,Cantonment_ACR_A_68,988963,User Information,250,inbound
+2/6/2026 17:02,1600582171,A,Omar Khaled Turag,Direct_Agent_Banla,Comilla,1081612,Fiber Cut,86,inbound
+2/6/2026 17:04,1762378016,FCR,Jahedul Islam,Direct_Agent_Banla,CTG_Khulshi_ACR_103,1280637,Slow Speed,223,inbound
+2/6/2026 17:04,1733800500,A,Arnika Zaman Mow,Direct_Agent_Banla,CTG_Khulshi_ACR_103,108606,Specific Website,742,inbound
+2/6/2026 17:04,1910442972,A,Md. Monirul Islam,Direct_Agent_Banla,Bandarbrsl,807924,Billing Queries,175,inbound
+2/6/2026 17:04,1611937506,A,Akash Debnath,Direct_Agent_Banla,Ullapara_ACR_B_22,1095163,Refund,263,inbound
+2/6/2026 17:05,1883929048,FCR,Md. Dider Hossain,CARNIVAL,CTG_Khulshi_ACR_103,650476,User Information,205,outbound
+2/6/2026 17:08,1969674746,A,Sadia Shubash Mim,Direct_Agent_Banla,Mirpur_DO_ACR_5,134058,Fluctuation issue,103,inbound
+2/6/2026 17:09,1635575603,A,FAHIM MOSTOFA,Direct_Agent_Banla,Comilla,843620,Fiber Cut,99,inbound
+2/6/2026 17:09,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,User Information,58,outbound
+2/6/2026 17:09,1600345378,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Dhaka,106524,User Information,253,inbound
+2/6/2026 17:10,1810020744,A,Abdullah-Al Noman,Direct_Agent_Banla,Dhaka,176069,Fiber Cut,151,inbound
+2/6/2026 17:11,1303448432,A,Omar Khaled Turag,Direct_Agent_Banla,Mawnasreepur,712719,Refund,92,inbound
+2/6/2026 17:11,1777634523,A,Sunny Roy,SYLHETIN,Habiganj_ACR_3_71,1283884,,102,inbound
+2/6/2026 17:11,1635575603,A,FAHIM MOSTOFA,CARNIVAL,Comilla,843620,Fiber Cut,156,outbound
+2/6/2026 17:11,8.80171E+12,A,Sunny Roy,SYLHET,,phone_number,,0,outbound
+2/6/2026 17:13,1910442972,A,Rezwan uddin,Direct_Agent_Banla,Bandarbrsl,807924,Refund,336,inbound
+2/6/2026 17:14,1850524909,A,Sunny Roy,SYLHETIN,Dhuliyakhal_ACR_100,1244900,Upgradation Request,113,inbound
+2/6/2026 17:14,1739265121,A,MD. Rahmatullah,Direct_Agent_Banla,Kurigram,1023769,Refund,432,inbound
+2/6/2026 17:19,1933188097,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Debiganj_ACR_C_34,982107,Slow Speed,41,outbound
+2/6/2026 17:19,1912767203,A,Md. Monirul Islam,CARNIVAL,Nazirpur_ACR_218,1151811,Slow Speed,15,outbound
+2/6/2026 17:21,1841082262,A,Amina Akter,CARNIVAL,Niketon_ACR_2_43,104897,Router Configuration,332,outbound
+2/6/2026 17:22,1946177548,FCR,Rafiqul Islam,Direct_Agent_Banla,Poribag_ACR_38,1301380,Slow Speed,120,inbound
+2/6/2026 17:25,1712919142,A,Akash Debnath,Direct_Agent_Banla,Moulvibazar,1175909,Refund,196,inbound
+2/6/2026 17:28,1718948865,A,Amina Akter,CARNIVAL,Niamatpur_ACR_67,580639,Others,1,outbound
+2/6/2026 17:29,1626418115,FCR,Amina Akter,CARNIVAL,Dhuliyakhal_ACR_100,1074593,Slow Speed,206,outbound
+2/6/2026 17:29,1631511406,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Habiganj,1107229,Billing Queries,103,inbound
+2/6/2026 17:30,1946177548,A,Abdullah-Al Noman,Direct_Agent_Banla,Poribag_ACR_38,1301380,Slow Speed,24,inbound
+2/6/2026 17:30,1883929048,FCR,Md. Nasimuzzaman,CARNIVAL,CTG_Khulshi_ACR_103,650476,User Information,254,outbound
+2/6/2026 17:30,9638030687,FCR,FAHIM MOSTOFA,Direct_Agent_Banla,Gopalgonj,651202,Billing Queries,149,inbound
+2/6/2026 17:31,1946177548,FCR,Abdullah-Al Noman,CARNIVAL,Poribag_ACR_38,1301380,Slow Speed,106,outbound
+2/6/2026 17:33,1757132563,FCR,Amina Akter,CARNIVAL,Kushtia_Sadar_ACR_B_35,920574,Others,63,outbound
+2/6/2026 17:36,1784271343,A,Rezwan uddin,SALESINBOUND,,phone_number,New Sales Query,182,inbound
+2/6/2026 17:36,1784271343,FCR,Rezwan uddin,Any_Service_Bangla,,phone_number,New Sales Query,,inbound
+2/6/2026 17:36,1516603869,A,Arnika Zaman Mow,Direct_Agent_Banla,Gazipuratongi,1104388,Fiber Cut,106,inbound
+2/6/2026 17:37,1723770126,A,Md. Monirul Islam,CARNIVAL,Kurigram,1023769,Refund,79,outbound
+2/6/2026 17:39,1711075256,A,Md. Dider Hossain,SYLHEL_SUPPORT,Habiganj_ACR_69,219462,Router Configuration,136,inbound
+2/6/2026 17:40,1975877802,A,MD. Rahmatullah,Billing_Querie_bang,Dighalia,736183,Refund,177,inbound
+2/6/2026 17:42,1787808792,FCR,Jahedul Islam,Direct_Agent_Banla,Ghatail,1258581,Billing Queries,264,inbound
+2/6/2026 17:42,1784537093,A,Mohummad Ismail Hossain,Billing_Querie_bang,Singra,1169906,Refund,176,inbound
+2/6/2026 17:43,1916722816,FCR,Sadia Shubash Mim,Direct_Agent_Banla,Dhaka,1221449,Date Extension Request,70,inbound
+2/6/2026 17:44,1736306146,A,FAHIM MOSTOFA,Direct_Agent_Banla,Ramgonj,565386,Fiber Cut,163,inbound
+2/6/2026 17:45,9638621253,A,Abdullah-Al Noman,Direct_Agent_Banla,Charghat,860944,Refund,246,inbound
+2/6/2026 17:49,9638030687,A,Md. Monirul Islam,CARNIVAL,,phone_number,Blank Field,4,outbound
+2/6/2026 17:53,1924557614,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,UTD_SEC_11_ACR_10,1186134,Slow Speed,171,inbound
+2/6/2026 17:54,1767223877,FCR,Rezwan uddin,Direct_Agent_Banla,Debiganj,675759,Billing Queries,99,inbound
+2/6/2026 17:57,1896098704,A,Sadia Shubash Mim,CARNIVAL,Nilphamari,736743,Refund,44,outbound
+2/6/2026 17:58,1749193638,A,Md. Dider Hossain,Direct_Agent_Banla,Mirpur_1_ACR_6,721137,User Information,66,inbound
+2/6/2026 17:58,1761660034,A,MD. Rahmatullah,Direct_Agent_Banla,Nilphamari,613016,Refund,165,inbound
+2/6/2026 17:59,1330657176,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Borhanuddin,584618,Others,147,inbound
+2/6/2026 18:00,1749193638,FCR,Md. Dider Hossain,CARNIVAL,Mirpur_1_ACR_6,721137,User Information,39,outbound
+2/6/2026 18:00,1839621873,A,FAHIM MOSTOFA,Direct_Agent_Banla,Cantonment_ACR_A_68,899058,Slow Speed,203,inbound
+2/6/2026 18:01,1313359433,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Konabari,570621,User Information,415,inbound
+2/6/2026 18:09,9638457264,FCR,Jahedul Islam,Direct_Agent_Banla,Tarash,758055,Refund,404,inbound
+2/6/2026 18:09,1617040765,A,Md. Nasimuzzaman,Direct_Agent_Banla,Panchagarh,1200297,Refund,198,inbound
+2/6/2026 18:11,1912037200,A,Sadia Shubash Mim,Direct_Agent_Banla,Domar,1188458,Refund,127,inbound
+2/6/2026 18:11,1614740406,A,Md. Dider Hossain,Direct_Agent_Banla,Amtali,1020143,No Internet,168,inbound
+2/6/2026 18:12,1958362351,A,Akash Debnath,SYLHETIN,Sylhet,1165771,No Internet,160,inbound
+2/6/2026 18:12,1958362351,A,Akash Debnath,SYLHEL_SUPPORT,Sylhet,1165771,No Internet,,inbound
+2/6/2026 18:15,1727588922,FCR,Rafiqul Islam,Direct_Agent_Banla,Binnatibazarksrg,829199,Billing Queries,122,inbound
+2/6/2026 18:16,1711851533,A,Abdullah-Al Noman,SALESINBOUND,Sylhet_ACR_A_54,804265,New Sales Query,92,inbound
+2/6/2026 18:16,1711851533,A,Abdullah-Al Noman,Any_Service_Bangla,Sylhet_ACR_A_54,804265,New Sales Query,,inbound
+2/6/2026 18:16,1967555073,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Rowmari,950514,Others,146,inbound
+2/6/2026 18:18,1726689226,A,Md. Nasimuzzaman,Direct_Agent_Banla,Nazipur,922695,Refund,127,inbound
+2/6/2026 18:20,1716507451,A,Sadia Shubash Mim,Direct_Agent_Banla,kurigram,398828,Refund,358,inbound
+2/6/2026 18:21,1725103643,A,Md. Dider Hossain,Direct_Agent_Banla,Naogaon,694109,Callback request,55,inbound
+2/6/2026 18:22,1839621873,A,FAHIM MOSTOFA,CARNIVAL,Cantonment_ACR_A_68,899058,Slow Speed,0,outbound
+2/6/2026 18:24,1705410966,A,Rafiqul Islam,Any_Service_Bangla,,hut-01705410966,No Internet,140,inbound
+2/6/2026 18:24,1711851533,A,Abdullah-Al Noman,CARNIVAL,Sylhet_ACR_A_54,804265,New Sales Query,33,outbound
+2/6/2026 18:25,1303180711,A,Nazmus Sakib Swapnil,CARNIVAL,Nazipur,288681,No Internet,94,outbound
+2/6/2026 18:26,1711619987,A,Abdullah-Al Noman,CARNIVAL,Dhaka,111389,Re-activation Query,84,outbound
+2/6/2026 18:26,1608368100,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Alfadanga,876643,Compensation Rural,418,inbound
+2/6/2026 18:27,1725103643,A,Mohummad Ismail Hossain,Direct_Agent_Banla,Naogaon,694109,Refund,149,inbound
+2/6/2026 18:27,1961830525,FCR,Akash Debnath,Direct_Agent_Banla,UTD_DO_ACR_8,330412,No Internet,112,inbound
+2/6/2026 18:30,1608399344,A,FAHIM MOSTOFA,Direct_Agent_Banla,Banani_ACR_21,147324,Bill Collection Request,148,inbound
+2/6/2026 18:30,9697216702,A,Rafiqul Islam,Direct_Agent_Banla,Gomostapur_Madhaipur_ACR_236,1227233,Downgrade Request,328,inbound
+2/6/2026 18:31,1709196332,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Morrelganj,1272168,Refund,146,inbound
+2/6/2026 18:31,1711984276,A,Abdullah-Al Noman,Direct_Agent_Banla,Pakundia,491878,Refund,151,inbound
+2/6/2026 18:33,1961830525,FCR,Akash Debnath,CARNIVAL,UTD_DO_ACR_8,330412,No Internet,66,outbound
+2/6/2026 18:33,1608368100,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Alfadanga,876643,Compensation Rural,93,outbound
+2/6/2026 18:35,1725103643,A,Md. Dider Hossain,CARNIVAL,Naogaon,694109,Refund,359,outbound
+2/6/2026 18:38,1946397949,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Lakhai_ACR_230,1109999,Others,72,outbound
+2/6/2026 18:38,1715154091,A,Jahedul Islam,Direct_Agent_Banla,Alfadanga,1005576,No Internet,77,inbound
+2/6/2026 18:39,1522102050,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Paba,766817,No Internet,134,inbound
+2/6/2026 18:40,1729527950,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Binnatibazarksrg,1233580,Billing Queries,141,inbound
+2/6/2026 18:41,1711075256,A,Md. Dider Hossain,CARNIVAL,Habiganj_ACR_69,219462,Router Configuration,39,outbound
+2/6/2026 18:43,1705410966,FCR,Md. Dider Hossain,CARNIVAL,,hut-01705410966,No Internet,100,outbound
+2/6/2026 18:44,1310925598,A,FAHIM MOSTOFA,Direct_Agent_Banla,,1310925598,Login Problem,227,inbound
+2/6/2026 18:44,1300670577,A,Rafiqul Islam,Direct_Agent_Banla,UTD_SEC_11_ACR_10,1118486,Slow Speed,171,inbound
+2/6/2026 18:44,1765718378,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Gomostapur_ACR_D_23,1130787,No Internet,149,inbound
+2/6/2026 18:45,1708778262,A,MD. ASADUJJAMAN SHOUMIK,Billing_Querie_eng,Dhuliyakhal_ACR_100,828329,Downgrade Request,27,inbound
+2/6/2026 18:46,1708778262,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Dhuliyakhal_ACR_100,828329,Downgrade Request,149,outbound
+2/6/2026 18:46,1901408725,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Kaliakair,739596,Refund,447,inbound
+2/6/2026 18:48,1766857991,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Debiganj_ACR_E_250,954798,Slow Speed,147,inbound
+2/6/2026 18:50,1560027901,A,Md. Dider Hossain,Billing_Querie_bang,Bandarbrsl,789846,Refund,354,inbound
+2/6/2026 18:50,1729592933,A,Md. Nasimuzzaman,Direct_Agent_Banla,Gulshan_1_ACR_28,145909,Fluctuation issue,138,inbound
+2/6/2026 18:50,1400632825,A,Rafiqul Islam,Direct_Agent_Banla,,hut-01400632825,,311,inbound
+2/6/2026 18:51,1759916281,A,FAHIM MOSTOFA,SALESINBOUND,Thakurgaon,1271869,Refund,177,inbound
+2/6/2026 18:51,1759916281,A,FAHIM MOSTOFA,Any_Service_Bangla,Thakurgaon,1271869,Refund,,inbound
+2/6/2026 18:51,1845998846,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Tomsom_Bridge_ACR_A_73,215875,Date Extension Request,106,inbound
+2/6/2026 18:51,1723389034,A,Abdullah-Al Noman,Direct_Agent_Banla,Setabganj,939513,Fiber Cut,87,inbound
+2/6/2026 18:53,1743177021,A,Jahedul Islam,SALESINBOUND,Daulatpur,794413,No Internet,85,inbound
+2/6/2026 18:53,1743177021,A,Jahedul Islam,Any_Service_Bangla,Daulatpur,794413,No Internet,,inbound
+2/6/2026 18:54,1715154091,A,MD. Rahmatullah,Direct_Agent_Banla,Alfadanga,1005576,No Internet,203,inbound
+2/6/2026 18:55,9638548997,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,ranisankail,336093,Downgrade Request,208,inbound
+2/6/2026 18:56,1876719601,A,Abdullah-Al Noman,Any_Service_Bangla,Ramu,864230,Refund,103,inbound
+2/6/2026 18:57,1717012616,A,FAHIM MOSTOFA,Direct_Agent_Banla,Dhaka,729652,Fiber Cut,152,inbound
+2/6/2026 18:58,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,User Information,149,outbound
+2/6/2026 18:59,1708778262,A,Md. Nasimuzzaman,Billing_Querie_eng,Dhuliyakhal_ACR_100,828329,Downgrade Request,40,inbound
+2/6/2026 18:59,1642683577,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Shahjadpur,902061,Refund,169,inbound
+2/6/2026 19:00,1708778262,A,Md. Nasimuzzaman,CARNIVAL,Dhuliyakhal_ACR_100,828329,Downgrade Request,85,outbound
+2/6/2026 19:00,1712809048,FCR,Rafiqul Islam,Direct_Agent_Banla,Nazipur_ACR_249,568738,No Internet,220,inbound
+2/6/2026 19:00,1743177021,A,Md. Dider Hossain,Billing_Querie_bang,Daulatpur,794413,No Internet,134,inbound
+2/6/2026 19:00,1313088081,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Chittagong,141358,No Internet,102,inbound
+2/6/2026 19:01,1700896018,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Ghosgaondhobaura,1116644,No Internet,164,inbound
+2/6/2026 19:01,1907216419,A,FAHIM MOSTOFA,Direct_Agent_Banla,Gangachara_ACR_182,1295227,User Information,67,inbound
+2/6/2026 19:03,1907216419,FCR,FAHIM MOSTOFA,CARNIVAL,Gangachara_ACR_182,1295227,User Information,151,outbound
+2/6/2026 19:03,1610052921,FCR,Abdullah-Al Noman,CARNIVAL,Cantonment_ACR_A_68,983995,Slow Speed,228,outbound
+2/6/2026 19:04,1410777476,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,UTD_SEC_14_ACR_11,109417,Billing Queries,154,inbound
+2/6/2026 19:04,1736072435,A,Md. Nasimuzzaman,Billing_Querie_bang,Nazipur,1229552,Router Configuration,245,inbound
+2/6/2026 19:04,1607278482,FCR,Md. Dider Hossain,Direct_Agent_Banla,Syedpur,892037,User Information,164,inbound
+2/6/2026 19:05,1750388238,FCR,Jahedul Islam,Billing_Querie_bang,Saidpur_ACR_E_96,612448,Billing Queries,88,inbound
+2/6/2026 19:05,1687696631,A,FAHIM MOSTOFA,Direct_Agent_Banla,CTG_Oxyzen_ACR_105,583222,Slow Speed,203,inbound
+2/6/2026 19:06,1762216698,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Sirajganjsadar,846063,Refund,171,inbound
+2/6/2026 19:08,1822407129,FCR,Rafiqul Islam,Direct_Agent_Banla,,phone_number,New Sales Query,241,inbound
+2/6/2026 19:08,1764976851,FCR,Md. Dider Hossain,CARNIVAL,Syedpur,892037,User Information,78,outbound
+2/6/2026 19:09,1687696631,A,FAHIM MOSTOFA,CARNIVAL,CTG_Oxyzen_ACR_105,583222,Slow Speed,0,outbound
+2/6/2026 19:09,1817465338,A,Md. Nasimuzzaman,Direct_Agent_Banla,Setabganj,1058893,Fiber Cut,58,inbound
+2/6/2026 19:10,1723252475,FCR,MD. ASADUJJAMAN SHOUMIK,Any_Service_Bangla,,hut-01723252475,Blank Field,126,inbound
+2/6/2026 19:10,1944043971,FCR,FAHIM MOSTOFA,Billing_Querie_bang,Companiganjsyl_ACR_242,1170845,No Internet,141,inbound
+2/6/2026 19:10,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,,0,outbound
+2/6/2026 19:10,1611302750,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Singra,1277575,Slow Speed,114,inbound
+2/6/2026 19:10,1817465338,A,Md. Nasimuzzaman,CARNIVAL,Setabganj,1058893,Fiber Cut,39,outbound
+2/6/2026 19:11,1906268136,A,Md. Dider Hossain,Direct_Agent_Banla,Natore,681244,Refund,239,inbound
+2/6/2026 19:11,1817465338,A,Akash Debnath,Direct_Agent_Banla,Setabganj,1058893,Fiber Cut,73,inbound
+2/6/2026 19:11,1725103643,A,Nazmus Sakib Swapnil,CARNIVAL,Naogaon,694109,Refund,33,outbound
+2/6/2026 19:11,1628126750,A,Jahedul Islam,Direct_Agent_Banla,Parulpirgacha,021farukmia,Refund,95,inbound
+2/6/2026 19:12,1725103643,FCR,Nazmus Sakib Swapnil,CARNIVAL,Naogaon,694109,Refund,131,outbound
+2/6/2026 19:12,1817465338,A,Md. Nasimuzzaman,CARNIVAL,Setabganj,1058893,Fiber Cut,0,outbound
+2/6/2026 19:13,1935704760,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Mymensing_DO_ACR_A_242,176128,Invoice Request,121,inbound
+2/6/2026 19:14,1628126750,A,Abdullah-Al Noman,Any_Service_Bangla,Parulpirgacha,021farukmia,Refund,398,inbound
+2/6/2026 19:16,1988382779,A,FAHIM MOSTOFA,SALESINBOUND,Alfadanga,1306795,User Information,131,inbound
+2/6/2026 19:16,1988382779,FCR,FAHIM MOSTOFA,Any_Service_Bangla,Alfadanga,1306795,User Information,,inbound
+2/6/2026 19:16,1841308225,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Cantonment_ACR_B_69,276238,Slow Speed,15,outbound
+2/6/2026 19:17,1841308225,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Cantonment_ACR_B_69,276238,Slow Speed,7,outbound
+2/6/2026 19:18,1641516374,FCR,Akash Debnath,CARNIVAL,Kotchandpur,651799,Re-activation Query,313,outbound
+2/6/2026 19:18,1571344061,A,Md. Dider Hossain,Direct_Agent_Banla,,phone_number,Blank Field,48,inbound
+2/6/2026 19:18,1833301594,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Bagha,1216911,Refund,194,inbound
+2/6/2026 19:19,1774187202,A,Jahedul Islam,Direct_Agent_Banla,,phone_number,,21,inbound
+2/6/2026 19:19,1571344061,A,Md. Dider Hossain,CARNIVAL,,phone_number,Blank Field,0,outbound
+2/6/2026 19:19,1571344061,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Alfadanga,957430,Billing Queries,86,inbound
+2/6/2026 19:20,1743177021,A,FAHIM MOSTOFA,Billing_Querie_bang,Daulatpur,794413,No Internet,115,inbound
+2/6/2026 19:20,1571344061,A,Md. Dider Hossain,CARNIVAL,Alfadanga,957430,Billing Queries,0,outbound
+2/6/2026 19:20,1614413628,FCR,Rafiqul Islam,Direct_Agent_Banla,Gopibag_ACR_169,592340,Slow Speed,258,inbound
+2/6/2026 19:21,1625212075,A,Md. Dider Hossain,Billing_Querie_bang,Kushtialahini,220126,Others,282,inbound
+2/6/2026 19:22,1911379346,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Alfadanga,999094,Refund,165,inbound
+2/6/2026 19:22,1789733276,FCR,Jahedul Islam,Direct_Agent_Banla,Nilphamari,817593,Downgrade Request,70,inbound
+2/6/2026 19:22,1316878154,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Saidpur_ACR_E_96,1063334,Slow Speed,515,inbound
+2/6/2026 19:23,9638123974,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Debiganj_ACR_201,1087959,Slow Speed,184,inbound
+2/6/2026 19:23,1743177021,A,FAHIM MOSTOFA,Billing_Querie_bang,Daulatpur,794413,Blank Field,35,inbound
+2/6/2026 19:23,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,,54,outbound
+2/6/2026 19:24,1743177021,FCR,Md. Nasimuzzaman,Billing_Querie_bang,Daulatpur,794413,No Internet,135,inbound
+2/6/2026 19:24,1743177021,A,FAHIM MOSTOFA,CARNIVAL,Daulatpur,794413,Blank Field,2,outbound
+2/6/2026 19:25,1756525146,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,PabnaSadar,684001,Fiber Cut,375,inbound
+2/6/2026 19:25,1738652216,A,FAHIM MOSTOFA,Direct_Agent_Banla,Comilla,175812,Fiber Cut,151,inbound
+2/6/2026 19:25,1929766543,A,Rafiqul Islam,Direct_Agent_Banla,Sarajgonj,1255106,Re-activation Query,374,inbound
+2/6/2026 19:25,1950386903,A,Md. Dider Hossain,Direct_Agent_Banla,Panchagarh,1233130,No Internet,105,inbound
+2/6/2026 19:26,9638387493,FCR,Akash Debnath,Direct_Agent_Banla,Chirirbandar_ACR_163,1136793,Slow Speed,354,inbound
+2/6/2026 19:27,1905370822,A,FAHIM MOSTOFA,Direct_Agent_Banla,Fulbari_ACR-2_94,783098,Slow Speed,446,inbound
+2/6/2026 19:27,1627259807,FCR,Md. Dider Hossain,Direct_Agent_Banla,Fenchuganj_ACR_222,780862,User Information,194,inbound
+2/6/2026 19:27,1950386903,A,Md. Dider Hossain,CARNIVAL,Panchagarh,1233130,No Internet,11,outbound
+2/6/2026 19:28,1734656030,FCR,MD. Rahmatullah,CARNIVAL,Gopibag_ACR_169,633585,Billing Queries,73,outbound
+2/6/2026 19:28,1713289156,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Mirpur_1_ACR_6,642310,Fiber Cut,133,inbound
+2/6/2026 19:28,1950386903,A,Jahedul Islam,Direct_Agent_Banla,Panchagarh,1233130,No Internet,160,inbound
+2/6/2026 19:30,1789733276,FCR,Md. Dider Hossain,Direct_Agent_Banla,Nilphamari,817593,User Information,79,inbound
+2/6/2026 19:31,1957085528,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Dhuliyakhal_ACR_100,1288134,No Internet,111,inbound
+2/6/2026 19:32,1761014116,A,Md. Dider Hossain,Direct_Agent_Banla,Ulipur,897744,No Internet,224,inbound
+2/6/2026 19:33,1805522803,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Comilla,1077026,Fiber Cut,217,inbound
+2/6/2026 19:35,1685543447,A,Abdullah-Al Noman,Direct_Agent_Banla,Setabganj,1138720,No Internet,146,inbound
+2/6/2026 19:37,1867349401,A,Akash Debnath,CARNIVAL,Gangachara_ACR_182,1295227,Others,7,outbound
+2/6/2026 19:37,1682818330,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Chittagong,712975,No Internet,253,inbound
+2/6/2026 19:38,1826342157,A,Abdullah-Al Noman,CARNIVAL,Setabganj,1138720,No Internet,14,outbound
+2/6/2026 19:38,1785751442,A,Jahedul Islam,Direct_Agent_Banla,Cantonment_ACR_B_69,850556,User Information,192,inbound
+2/6/2026 19:39,1826342157,A,Abdullah-Al Noman,CARNIVAL,Setabganj,1138720,No Internet,412,outbound
+2/6/2026 19:39,1819884250,A,FAHIM MOSTOFA,Direct_Agent_Banla,Lama,707915,Refund,83,inbound
+2/6/2026 19:39,1701604535,A,Md. Dider Hossain,Billing_Querie_bang,Ullapara_ACR_B_22,917363,No Internet,138,inbound
+2/6/2026 19:40,1647084582,A,Md. Nasimuzzaman,SYLHEL_SUPPORT,Jhalorchardwngnj_ACR_A,1295676,No Internet,762,inbound
+2/6/2026 19:41,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,,25,outbound
+2/6/2026 19:41,1621025758,A,FAHIM MOSTOFA,Direct_Agent_Banla,Kalukhali,754579,Refund,146,inbound
+2/6/2026 19:43,1701604535,A,Md. Dider Hossain,CARNIVAL,Ullapara_ACR_B_22,917363,No Internet,147,outbound
+2/6/2026 19:43,1854250411,A,Rafiqul Islam,Any_Service_Bangla,Kurigram,779968,Blank Field,182,inbound
+2/6/2026 19:43,1725594626,A,Jahedul Islam,Direct_Agent_Banla,Dhaka,265626,Fiber Cut,73,inbound
+2/6/2026 19:43,1400387162,FCR,Akash Debnath,Direct_Agent_Banla,Baisaribanaripara_ACR_31,1232077,Downgrade Request,129,inbound
+2/6/2026 19:44,1950386903,A,FAHIM MOSTOFA,Direct_Agent_Banla,Panchagarh,1233130,No Internet,71,inbound
+2/6/2026 19:44,1682818330,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Chittagong,712975,No Internet,128,outbound
+2/6/2026 19:44,1314911633,A,Jahedul Islam,Direct_Agent_Banla,Ghatail,1035696,Refund,155,inbound
+2/6/2026 19:44,1725789083,FCR,Akash Debnath,Billing_Querie_bang,Tanore_ACR-3,756901,Billing Queries,175,inbound
+2/6/2026 19:45,1771046219,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Nazipur_ACR_249,1003470,User Information,206,inbound
+2/6/2026 19:46,1830634841,A,FAHIM MOSTOFA,CARNIVAL,Gomostapur_ACR_D_23,1081218,Blank Field,48,outbound
+2/6/2026 19:46,1950386903,A,Jahedul Islam,Direct_Agent_Banla,Panchagarh,1233130,Refund,251,inbound
+2/6/2026 19:47,1857590395,A,Rafiqul Islam,CARNIVAL,Comilla,1077026,Blank Field,10,outbound
+2/6/2026 19:47,1794276714,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Panchagarh,187947,Refund,223,inbound
+2/6/2026 19:47,1830634841,A,FAHIM MOSTOFA,CARNIVAL,Gomostapur_ACR_D_23,1081218,Blank Field,2,outbound
+2/6/2026 19:47,1631511406,A,Rafiqul Islam,Direct_Agent_Banla,Habiganj,1107229,Fiber Cut,205,inbound
+2/6/2026 19:47,1830634841,A,FAHIM MOSTOFA,CARNIVAL,Gomostapur_ACR_D_23,1081218,Blank Field,6,outbound
+2/6/2026 19:48,9638695137,FCR,Akash Debnath,Direct_Agent_Banla,Kotchandpur,1101099,Refund,435,inbound
+2/6/2026 19:49,1719943428,FCR,Abdullah-Al Noman,Billing_Querie_eng,Comilla_Poilceline_ACR_C_72,196069,Slow Speed,251,inbound
+2/6/2026 19:49,1813697654,A,FAHIM MOSTOFA,CARNIVAL,Daulatpur_ACR_132,435229,Fluctuation issue,151,outbound
+2/6/2026 19:50,1934398280,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Kapasia,750596,Refund,191,inbound
+2/6/2026 19:51,1629699142,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Comilla,557043,No Internet,96,inbound
+2/6/2026 19:51,1709271268,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Habiganj_ACR_2_70 ,966043,Blank Field,123,inbound
+2/6/2026 19:51,1967555073,A,FAHIM MOSTOFA,Direct_Agent_Banla,Rowmari,950514,Refund,124,inbound
+2/6/2026 19:52,1816853103,FCR,Rafiqul Islam,Direct_Agent_Banla,Cantonment_ACR_B_69,1309095,Billing Queries,218,inbound
+2/6/2026 19:54,1709271268,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Habiganj_ACR_2_70 ,966043,Payment Process Request,103,inbound
+2/6/2026 19:55,9638695137,FCR,Akash Debnath,CARNIVAL,Kotchandpur,1101099,Refund,929,outbound
+2/6/2026 19:55,1314911633,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Ghatail,1035696,Refund,214,inbound
+2/6/2026 19:57,1957085528,A,FAHIM MOSTOFA,Direct_Agent_Banla,Dhuliyakhal_ACR_100,1288134,Slow Speed,252,inbound
+2/6/2026 19:58,1952519951,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Alfadanga,678721,No Internet,240,inbound
+2/6/2026 19:58,1611025430,A,Rafiqul Islam,SALESINBOUND,,phone_number,New Sales Query,216,inbound
+2/6/2026 19:58,1611025430,FCR,Rafiqul Islam,Any_Service_Bangla,,phone_number,New Sales Query,,inbound
+2/6/2026 19:59,1896092906,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Mirpur_1_ACR_6,962010,Slow Speed,253,inbound
+2/6/2026 19:59,1318937207,A,Jahedul Islam,Direct_Agent_Banla,Debiganj,1128528,User Information,116,inbound
+2/6/2026 20:00,1701604535,FCR,Md. Dider Hossain,CARNIVAL,Ullapara_ACR_B_22,917363,No Internet,37,outbound
+2/6/2026 20:01,1729627785,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Sirajganjsadar,846063,Others,81,inbound
+2/6/2026 20:01,1340919437,A,Md. Dider Hossain,Direct_Agent_Banla,Patgram,1000139,Fiber Cut,155,inbound
+2/6/2026 20:02,1821994071,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Hatibandha,961541,MAC Release Request,116,inbound
+2/6/2026 20:04,1647732713,A,FAHIM MOSTOFA,Direct_Agent_Banla,Mohammadpur_ACR_4,1171541,Fluctuation issue,323,inbound
+2/6/2026 20:04,1790404164,A,Rafiqul Islam,CARNIVAL,Dhaka,1311972,Slow Speed,26,outbound
+2/6/2026 20:04,1935765485,FCR,Nazmus Sakib Swapnil,CARNIVAL,Hatibandha_ACR_197,961541,MAC Release Request,48,outbound
+2/6/2026 20:04,1745083805,FCR,Md. Dider Hossain,Direct_Agent_Banla,Debiganj_ACR_E_250,1128528,User Information,187,inbound
+2/6/2026 20:04,1991082991,FCR,Jahedul Islam,Any_Service_Bangla,Dhaka,569242,Blank Field,136,inbound
+2/6/2026 20:05,1967555073,A,Abdullah-Al Noman,CARNIVAL,Rowmari,950514,Refund,289,outbound
+2/6/2026 20:05,1619979574,FCR,Md. Nasimuzzaman,Billing_Querie_bang,Ashuganj,763809,Refund,171,inbound
+2/6/2026 20:06,1701861202,FCR,Rafiqul Islam,Direct_Agent_English,Niketon_ACR_37,111175,No Internet,240,inbound
+2/6/2026 20:08,1727908595,FCR,Jahedul Islam,Direct_Agent_Banla,Nilphamari_ACR_10_221,609950,Discontinue,111,inbound
+2/6/2026 20:10,1952519951,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Alfadanga,678721,No Internet,412,inbound
+2/6/2026 20:10,1315279186,A,Md. Dider Hossain,Direct_Agent_Banla,Debiganj_ACR_D,874003,Slow Speed,141,inbound
+2/6/2026 20:11,1795410761,A,Abdullah-Al Noman,Direct_Agent_Banla,Domar,1164251,Refund,204,inbound
+2/6/2026 20:12,1710570983,FCR,Rafiqul Islam,Direct_Agent_Banla,nilphamari,325089,Billing Queries,150,inbound
+2/6/2026 20:13,1777770150,FCR,Md. Dider Hossain,Direct_Agent_Banla,Bashundhara_ACR_C_26,1225429,Others,72,inbound
+2/6/2026 20:13,1916161316,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Satkhirasadar,1037493,Refund,185,inbound
+2/6/2026 20:13,1632245523,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Dhaka,1102725,No Internet,184,inbound
+2/6/2026 20:14,1755653694,A,Md. Dider Hossain,Direct_Agent_Banla,Bijoynagar,627097,Refund,307,inbound
+2/6/2026 20:15,1757848773,FCR,Rafiqul Islam,Direct_Agent_Banla,Cantonment_ACR_B_69,742118,Slow Speed,180,inbound
+2/6/2026 20:16,1825639983,FCR,Akash Debnath,CARNIVAL,Badargonj_ACR_179,1221714,Slow Speed,168,outbound
+2/6/2026 20:17,1334105002,A,Abdullah-Al Noman,Direct_Agent_Banla,Nazipur,1153182,Refund,212,inbound
+2/6/2026 20:17,9611419289,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Shatibari_ACR_176,1060091,Billing Queries,240,inbound
+2/6/2026 20:17,9638291922,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Birol,1144463,Others,344,inbound
+2/6/2026 20:17,9678689132,A,Md. Nasimuzzaman,SALESINBOUND,Brahmanbaria_Sadar_ACR_2,631278,Billing Queries,92,inbound
+2/6/2026 20:17,9678689132,A,Md. Nasimuzzaman,Any_Service_Bangla,Brahmanbaria_Sadar_ACR_2,631278,Billing Queries,,inbound
+2/6/2026 20:20,9678689132,A,Md. Nasimuzzaman,CARNIVAL,Brahmanbaria_Sadar_ACR_2,631278,Billing Queries,3,outbound
+2/6/2026 20:20,1740499212,A,Jahedul Islam,Direct_Agent_Banla,Nazipur,969172,Downgrade Request,133,inbound
+2/6/2026 20:21,9611467109,A,Abdullah-Al Noman,Direct_Agent_Banla,Brahmanbaria,1068207,No Internet,159,inbound
+2/6/2026 20:21,1876719601,A,Md. Dider Hossain,CARNIVAL,Ramu,864230,Refund,17,outbound
+2/6/2026 20:21,1329722405,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,,phone_number,New Sales Query,310,inbound
+2/6/2026 20:22,1727908595,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Nilphamari_ACR_10_221,609950,Slow Speed,180,inbound
+2/6/2026 20:22,1334105002,A,Rafiqul Islam,Direct_Agent_Banla,Nazipur,1153182,Refund,61,inbound
+2/6/2026 20:22,1314911633,A,MD. Rahmatullah,Direct_Agent_Banla,Ghatail,1035696,Refund,92,inbound
+2/6/2026 20:22,1738538834,FCR,Akash Debnath,CARNIVAL,Kusthiamirpur_ACR_E_42,962238,Slow Speed,191,outbound
+2/6/2026 20:23,1708778262,A,Md. Dider Hossain,CARNIVAL,Dhuliyakhal_ACR_100,828329,Blank Field,0,outbound
+2/6/2026 20:24,1628878266,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Singra_ACR_91,730230,Blank Field,106,inbound
+2/6/2026 20:24,1723252475,A,Md. Dider Hossain,CARNIVAL,,hut-01723252475,Blank Field,6,outbound
+2/6/2026 20:25,1628126750,A,Md. Dider Hossain,CARNIVAL,Parulpirgacha,021farukmia,Refund,132,outbound
+2/6/2026 20:25,1908988261,A,MD. Rahmatullah,Direct_Agent_Banla,Mirpur_DO_ACR_5,619414,LAN Support,388,inbound
+2/6/2026 20:25,1581667011,A,Abdullah-Al Noman,Direct_Agent_Banla,Setabganj,898563,Fiber Cut,257,inbound
+2/6/2026 20:26,1765010645,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Bheramara,723634,Upgradation Request,150,inbound
+2/6/2026 20:26,1791012938,A,Akash Debnath,CARNIVAL,Debiganj_ACR_C_34,917327,Slow Speed,0,outbound
+2/6/2026 20:27,1764358517,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Habiganj,224397,No Internet,144,inbound
+2/6/2026 20:27,1737679262,FCR,Jahedul Islam,Direct_Agent_Banla,,phone_number,Blank Field,44,inbound
+2/6/2026 20:28,1329722405,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,,phone_number,New Sales Query,87,inbound
+2/6/2026 20:28,1774187202,FCR,Jahedul Islam,Direct_Agent_Banla,,phone_number,Blank Field,172,inbound
+2/6/2026 20:28,1713289156,A,Md. Dider Hossain,CARNIVAL,Mirpur_1_ACR_6,642310,Fiber Cut,45,outbound
+2/6/2026 20:29,1790404164,FCR,Rafiqul Islam,CARNIVAL,Dhaka,1311972,Slow Speed,83,outbound
+2/6/2026 20:29,1916161316,A,Md. Nasimuzzaman,Direct_Agent_Banla,Satkhirasadar,963026,Refund,254,inbound
+2/6/2026 20:30,1786732043,FCR,Jahedul Islam,Direct_Agent_Banla,Joldhaka_ACR_196,586409,Slow Speed,245,inbound
+2/6/2026 20:30,1795410761,A,Rafiqul Islam,Direct_Agent_Banla,Domar,1164251,Refund,145,inbound
+2/6/2026 20:30,1878363050,A,Md. Dider Hossain,Direct_Agent_Banla,Jhalorchardwngnj_ACR_A,1295676,No Internet,334,inbound
+2/6/2026 20:30,1903628953,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Rowmari,923116,Blank Field,0,outbound
+2/6/2026 20:30,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,,7,outbound
+2/6/2026 20:31,1647084582,A,Md. Dider Hossain,CARNIVAL,Jhalorchardwngnj_ACR_A,1295676,No Internet,0,outbound
+2/6/2026 20:31,1708425046,A,Sunny Roy,SYLHET,Habiganj_ACR_2_70 ,133107,Others,46,outbound
+2/6/2026 20:31,1756483476,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Dhanmondi_DO_ACR_1,108473,LAN Support,143,inbound
+2/6/2026 20:31,1911464161,A,Abdullah-Al Noman,Direct_Agent_Banla,Keshabpur,838442,Refund,230,inbound
+2/6/2026 20:32,1781478765,A,Sunny Roy,SYLHETIN,Habiganj_ACR_3_71,789212,No Internet,192,inbound
+2/6/2026 20:32,1715465763,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Shahporan_ACR_131,930641,Slow Speed,401,outbound
+2/6/2026 20:33,1774187202,FCR,Rafiqul Islam,Direct_Agent_Banla,nilphamari,325089,User Information,91,inbound
+2/6/2026 20:35,9611510136,A,Md. Nasimuzzaman,Direct_Agent_Banla,Baisaribanaripara_ACR_31,851434,Slow Speed,96,inbound
+2/6/2026 20:36,1926662585,FCR,FAHIM MOSTOFA,CARNIVAL,Bashundhara_ACR_A_24,776789,No Internet,116,outbound
+2/6/2026 20:36,1765010645,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Bheramara_ACR_128,723634,Upgradation Request,306,inbound
+2/6/2026 20:36,9611510136,FCR,Md. Nasimuzzaman,CARNIVAL,Baisaribanaripara_ACR_31,851434,Slow Speed,475,outbound
+2/6/2026 20:37,1854250411,A,Rafiqul Islam,CARNIVAL,Kurigram,779968,Blank Field,10,outbound
+2/6/2026 20:37,1939940934,FCR,Jahedul Islam,Billing_Querie_bang,Alfadanga,1215063,Billing Queries,123,inbound
+2/6/2026 20:38,1631828301,FCR,Md. Dider Hossain,Billing_Querie_bang,Salanga,706357,Discontinue,96,inbound
+2/6/2026 20:39,1319544634,A,Rafiqul Islam,CARNIVAL,,phone_number,Refund,123,outbound
+2/6/2026 20:39,1678600500,FCR,Nazmus Sakib Swapnil,Direct_Agent_English,Gulshan_1_ACR_28,458125,Upgradation Request,309,inbound
+2/6/2026 20:39,1854250411,A,Jahedul Islam,SALESINBOUND,Kurigram,779968,Refund,92,inbound
+2/6/2026 20:39,1854250411,A,Jahedul Islam,Any_Service_Bangla,Kurigram,779968,Refund,,inbound
+2/6/2026 20:40,9658344482,A,Md. Dider Hossain,Direct_Agent_Banla,Panchagarh,187947,Refund,347,inbound
+2/6/2026 20:41,1632245523,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Bashundhara_ACR_A_24,1102725,No Internet,257,inbound
+2/6/2026 20:41,1335093433,A,Abdullah-Al Noman,SALESINBOUND,,phone_number,New Sales Query,208,inbound
+2/6/2026 20:41,1335093433,A,Abdullah-Al Noman,Any_Service_Bangla,,phone_number,New Sales Query,,inbound
+2/6/2026 20:41,1794276714,A,Rafiqul Islam,CARNIVAL,Panchagarh,187947,Refund,108,outbound
+2/6/2026 20:43,1796858152,FCR,Jahedul Islam,Direct_Agent_Banla,Ullapara_ACR_B_22,1314054,Slow Speed,175,inbound
+2/6/2026 20:44,1729627785,FCR,Rafiqul Islam,CARNIVAL,Sirajganjsadar,846063,Others,29,outbound
+2/6/2026 20:46,1745083805,FCR,Rafiqul Islam,CARNIVAL,Debiganj_ACR_E_250,1128528,User Information,63,outbound
+2/6/2026 20:48,1991082991,A,Rafiqul Islam,CARNIVAL,Dhaka,569242,Blank Field,0,outbound
+2/6/2026 20:48,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,,130,outbound
+2/6/2026 20:49,1324948053,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Dhamoirhat_ACR_2_210,596046,Slow Speed,124,inbound
+2/6/2026 20:50,1827180332,A,Akash Debnath,CARNIVAL,Bashundhara_ACR_A_24,122457,Slow Speed,86,outbound
+2/6/2026 20:50,1632245523,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Bashundhara_ACR_A_24,1102725,No Internet,191,outbound
+2/6/2026 20:50,1797484873,FCR,MD. Rahmatullah,Direct_Agent_Banla,,hut-01797484873,OTP,156,inbound
+2/6/2026 20:51,1737429735,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Nachol_ACR_A_63,1073052,Others,86,inbound
+2/6/2026 20:54,1628878266,A,MD. Rahmatullah,CARNIVAL,Singra_ACR_91,730230,Blank Field,0,outbound
+2/6/2026 20:54,1969591433,A,MD. Rahmatullah,CARNIVAL,Daulatpur,1298453,No Internet,117,outbound
+2/6/2026 20:55,1795410761,A,Abdullah-Al Noman,Direct_Agent_Banla,Domar,1164251,Refund,229,inbound
+2/6/2026 20:56,1616775133,A,MD. ASADUJJAMAN SHOUMIK,SALESINBOUND,Shahrasti,721167,Refund,244,inbound
+2/6/2026 20:56,1616775133,A,MD. ASADUJJAMAN SHOUMIK,Any_Service_Bangla,Shahrasti,721167,Refund,,inbound
+2/6/2026 20:56,1737417049,FCR,Jahedul Islam,Direct_Agent_Banla,,hut-01737417049,No Internet,201,inbound
+2/6/2026 20:56,1518944930,A,Rafiqul Islam,Direct_Agent_Banla,Rowmari,1171279,Payment Process Request,555,inbound
+2/6/2026 20:57,1789222375,A,Md. Dider Hossain,Direct_Agent_Banla,Sreemangal,srit164,Refund,231,inbound
+2/6/2026 20:57,1339605662,A,MD. Rahmatullah,CARNIVAL,-1,0,Blank Field,0,outbound
+2/6/2026 20:57,1708778262,A,MD. Rahmatullah,CARNIVAL,Dhuliyakhal_ACR_100,828329,Slow Speed,251,outbound
+2/6/2026 20:59,1318158841,A,Abdullah-Al Noman,Direct_Agent_Banla,Debiganj,975837,No Internet,157,inbound
+2/6/2026 20:59,1843332480,FCR,Jahedul Islam,Direct_Agent_Banla,Mohadevpur,1066578,Refund,208,inbound
+2/6/2026 21:00,1865209058,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Patgram,1020373,Others,225,inbound
+2/6/2026 21:02,1318158841,A,Abdullah-Al Noman,CARNIVAL,Debiganj,975837,No Internet,0,outbound
+2/6/2026 21:02,1765010645,FCR,MD. Rahmatullah,CARNIVAL,Bheramara_ACR_128,723634,Upgradation Request,39,outbound
+2/6/2026 21:03,1740400682,FCR,Md. Dider Hossain,Direct_Agent_Banla,Saidpur_ACR_E_96,459667,User Information,139,inbound
+2/6/2026 21:04,1843332480,A,Abdullah-Al Noman,Direct_Agent_Banla,Mohadevpur,1179803,Refund,388,inbound
+2/6/2026 21:04,1957085528,FCR,Jahedul Islam,Direct_Agent_Banla,Dhuliyakhal_ACR_100,1288134,Slow Speed,90,inbound
+2/6/2026 21:04,1632245523,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Bashundhara_ACR_A_24,1102725,No Internet,108,outbound
+2/6/2026 21:05,1730077575,FCR,Md. Dider Hossain,Direct_Agent_Banla,Bashundhara_ACR_A_24,101977,No Internet,294,inbound
+2/6/2026 21:06,9658344482,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Panchagarh,187947,Refund,536,inbound
+2/6/2026 21:06,1737679262,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,,hut-01737679262,OTP,128,inbound
+2/6/2026 21:06,1335065369,FCR,Jahedul Islam,Direct_Agent_Banla,Kopilmoni_ACR_249,1305071,Fluctuation issue,129,inbound
+2/6/2026 21:07,1724709298,FCR,Rafiqul Islam,CARNIVAL,Shajahanpur_ACR_A_84,930840,Slow Speed,327,outbound
+2/6/2026 21:08,1307251248,FCR,FAHIM MOSTOFA,CARNIVAL,Ranisankail_ACR_98,816622,Billing Queries,219,outbound
+2/6/2026 21:08,1624133111,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Baridhara_DOHS_ACR_23,705894,Others,357,inbound
+2/6/2026 21:08,1929766543,A,Md. Dider Hossain,Direct_Agent_Banla,Sarajgonj,1255106,Re-activation Query,429,inbound
+2/6/2026 21:08,1739619902,FCR,Nazmus Sakib Swapnil,CARNIVAL,Tanore_ACR-3,1304665,Others,42,outbound
+2/6/2026 21:10,1608516606,A,Jahedul Islam,Direct_Agent_Banla,Nazipur,756295,Refund,86,inbound
+2/6/2026 21:11,1773981261,A,Nazmus Sakib Swapnil,CARNIVAL,Domar,626616,Others,9,outbound
+2/6/2026 21:11,1708425047,A,Sunny Roy,SYLHET,Habiganj,132856,,29,outbound
+2/6/2026 21:11,9638119192,A,Abdullah-Al Noman,SALESINBOUND,,hut-09638119192,OTP,184,inbound
+2/6/2026 21:11,9638119192,A,Abdullah-Al Noman,Any_Service_Bangla,,hut-09638119192,OTP,,inbound
+2/6/2026 21:11,1773981261,A,Nazmus Sakib Swapnil,CARNIVAL,Domar,626616,Others,3,outbound
+2/6/2026 21:11,1773981261,A,Nazmus Sakib Swapnil,CARNIVAL,Domar,626616,Others,,outbound
+2/6/2026 21:11,1716837912,FCR,Jahedul Islam,Direct_Agent_Banla,Niketon_ACR_2_43,740757,Slow Speed,209,inbound
+2/6/2026 21:13,1950386903,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Panchagarh,1233130,Refund,183,inbound
+2/6/2026 21:13,1634095298,A,Abdullah-Al Noman,Direct_Agent_Banla,Jahangirnagar,1074770,Refund,335,inbound
+2/6/2026 21:13,1729405694,FCR,Md. Dider Hossain,SYLHEL_SUPPORT,Dhuliyakhal_ACR_100,1198148,New Sales Query,327,inbound
+2/6/2026 21:13,1766682437,A,Rafiqul Islam,Direct_Agent_Banla,Dhaka,1248315,No Internet,263,inbound
+2/6/2026 21:14,1932044001,A,MD. Rahmatullah,Direct_Agent_Banla,Muktagacha,1013334,Slow Speed,229,inbound
+2/6/2026 21:14,9638119192,A,Abdullah-Al Noman,CARNIVAL,,hut-09638119192,OTP,5,outbound
+2/6/2026 21:16,1614177578,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Ulipur_ACR_31,933037,Slow Speed,320,inbound
+2/6/2026 21:16,1794917521,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Domar,1027876,Refund,112,inbound
+2/6/2026 21:16,1619896414,A,MD. Rahmatullah,Direct_Agent_Banla,Ulipur,1102032,Refund,619,inbound
+2/6/2026 21:17,1305937821,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Kusthiamirpur_ACR_B_146,phone_number,Others,222,inbound
+2/6/2026 21:17,1518944930,A,Akash Debnath,Direct_Agent_Banla,Rowmari,1171279,Payment Not Updated,457,inbound
+2/6/2026 21:19,1794917521,A,Akash Debnath,Direct_Agent_Banla,Domar,1027876,Refund,43,inbound
+2/6/2026 21:19,1738601730,A,Rafiqul Islam,Any_Service_Bangla,,hut-01738601730,OTP,294,inbound
+2/6/2026 21:20,1794917521,A,Abdullah-Al Noman,Direct_Agent_Banla,Domar,1027876,Refund,159,inbound
+2/6/2026 21:20,1621304260,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Rowmari,923116,Refund,451,inbound
+2/6/2026 21:20,1608516606,A,FAHIM MOSTOFA,Direct_Agent_Banla,Nazipur,756295,Refund,154,inbound
+2/6/2026 21:21,1616775133,A,Md. Dider Hossain,Any_Service_Bangla,Shahrasti,721167,Blank Field,240,inbound
+2/6/2026 21:22,1718527200,FCR,Md. Nasimuzzaman,CARNIVAL,Debiganj_ACR_E_250,900954,Slow Speed,365,outbound
+2/6/2026 21:23,1725677384,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,gomostapur,hut-01725677384,OTP,138,inbound
+2/6/2026 21:23,1927060099,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Daulatpur_ACR_132,867870,Slow Speed,254,inbound
+2/6/2026 21:24,1715154091,FCR,Rafiqul Islam,Direct_Agent_Banla,Alfadanga,1005576,Billing Queries,186,inbound
+2/6/2026 21:24,1637554027,FCR,Md. Dider Hossain,Direct_Agent_Banla,Gazipuratongi,972742,Billing Queries,322,inbound
+2/6/2026 21:24,1876435090,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Muktagacha_ACR_140,1304963,Slow Speed,231,inbound
+2/6/2026 21:26,1722376256,A,Akash Debnath,Direct_Agent_Banla,Domar,959941,Refund,372,inbound
+2/6/2026 21:27,1717472360,A,MD. Rahmatullah,Direct_Agent_Banla,Fulbari,853970,Refund,271,inbound
+2/6/2026 21:27,1518913305,FCR,Abdullah-Al Noman,Direct_Agent_Banla,Raigonj_ACR_79,730856,Slow Speed,628,inbound
+2/6/2026 21:27,1725677384,FCR,Jahedul Islam,Direct_Agent_Banla,gomostapur,hut-01312278274,OTP,312,inbound
+2/6/2026 21:27,1317564117,FCR,Rafiqul Islam,CARNIVAL,Ranisankail_ACR_98,195926,Slow Speed,402,outbound
+2/6/2026 21:28,1876435090,FCR,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Muktagacha_ACR_140,1304963,Slow Speed,135,outbound
+2/6/2026 21:30,1783467230,A,Md. Dider Hossain,Direct_Agent_Banla,Comilla,839955,Fiber Cut,275,inbound
+2/6/2026 21:31,1305937821,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Kushtiamirpur,1308767,User Information,151,inbound
+2/6/2026 21:33,1707723899,A,MD. Rahmatullah,Direct_Agent_Banla,Domar,694636,Refund,164,inbound
+2/6/2026 21:33,1624379220,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Dhobaura_ACR_102,1308222,Billing Queries,110,inbound
+2/6/2026 21:34,1737679262,FCR,Jahedul Islam,Direct_Agent_Banla,,hut-01737679262,OTP,225,inbound
+2/6/2026 21:34,1773708665,A,Nazmus Sakib Swapnil,CARNIVAL,Kushtiamirpur,1308767,User Information,7,outbound
+2/6/2026 21:35,1305937821,FCR,Nazmus Sakib Swapnil,CARNIVAL,Kushtiamirpur,1308767,User Information,257,outbound
+2/6/2026 21:35,1737267532,FCR,Akash Debnath,CARNIVAL,Nandigramsadar,monir.534,Discontinue,112,outbound
+2/6/2026 21:36,1929530765,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Banaripara,461940,No Internet,140,inbound
+2/6/2026 21:38,1706828160,A,Md. Dider Hossain,Direct_Agent_Banla,Shajahanpur_ACR_B_103,898377,Slow Speed,231,inbound
+2/6/2026 21:39,1682765060,FCR,FAHIM MOSTOFA,CARNIVAL,Baisaribanaripara_ACR_31,1102048,Nagordola,40,outbound
+2/6/2026 21:40,1739397139,A,MD. Rahmatullah,Direct_Agent_Banla,,hut-01739397139,,250,inbound
+2/6/2026 21:42,1339862813,A,Nazmus Sakib Swapnil,CARNIVAL,Baridhara_ACR_22,1290029,Bill Collection Request,1,outbound
+2/6/2026 21:43,1715878410,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Kushtiasadar,1086384,Refund,161,inbound
+2/6/2026 21:44,1878150065,A,Abdullah-Al Noman,Billing_Querie_bang,Comilla,1029520,Fiber Cut,105,inbound
+2/6/2026 21:47,1810337454,A,Abdullah-Al Noman,CARNIVAL,Kusthiamirpur_ACR_B_146,286734,Callback request,0,outbound
+2/6/2026 21:47,1810337454,A,Abdullah-Al Noman,CARNIVAL,Kusthiamirpur_ACR_B_146,286734,Callback request,1,outbound
+2/6/2026 21:47,1810337454,A,Abdullah-Al Noman,CARNIVAL,Kusthiamirpur_ACR_B_146,286734,Callback request,8,outbound
+2/6/2026 21:49,1723443280,A,Md. Dider Hossain,Direct_Agent_Banla,Dhaka,1163855,MAC Release Request,136,inbound
+2/6/2026 21:49,1729405694,FCR,MD. Rahmatullah,CARNIVAL,Dhuliyakhal_ACR_100,1198148,New Sales Query,70,outbound
+2/6/2026 21:50,1344477094,A,Md. Nasimuzzaman,Direct_Agent_Banla,Boda,1277830,Refund,102,inbound
+2/6/2026 21:50,241021462,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Dhanmondi_DO_ACR_1,124958,Slow Speed,244,inbound
+2/6/2026 21:51,1724080205,FCR,Abdullah-Al Noman,CARNIVAL,Debiganj_ACR_E_250,996613,Slow Speed,54,outbound
+2/6/2026 21:51,1518944930,FCR,MD. Rahmatullah,CARNIVAL,Rowmari,1171279,Payment Not Updated,198,outbound
+2/6/2026 21:51,1518913305,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Raigonj_ACR_79,730856,Slow Speed,344,inbound
+2/6/2026 21:52,1749939855,FCR,Md. Dider Hossain,CARNIVAL,Dhaka,1163855,MAC Release Request,122,outbound
+2/6/2026 21:53,1521495372,FCR,Akash Debnath,CARNIVAL,Dhuliyakhal_ACR_100,1165266,Slow Speed,206,outbound
+2/6/2026 21:54,1752101677,FCR,Rafiqul Islam,Direct_Agent_Banla,Comilla_ACR_C_67,1066163,Slow Speed,299,inbound
+2/6/2026 21:55,1312278274,FCR,MD. Rahmatullah,CARNIVAL,,hut-01312278274,,160,outbound
+2/6/2026 21:55,1713329895,A,Abdullah-Al Noman,CARNIVAL,Banani_ACR_21,283478,Slow Speed,3,outbound
+2/6/2026 21:56,1748093351,A,Md. Nasimuzzaman,SALESINBOUND,Nazipur,1057276,Refund,402,inbound
+2/6/2026 21:56,1748093351,A,Md. Nasimuzzaman,Any_Service_Bangla,Nazipur,1057276,Refund,,inbound
+2/6/2026 21:56,1407381559,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Chitalmari_ACR_A_174,1267281,No Internet,272,inbound
+2/6/2026 21:57,1742693206,A,Akash Debnath,CARNIVAL,Dhuliyakhal_ACR_100,288167,Slow Speed,189,outbound
+2/6/2026 21:58,1738601730,FCR,MD. Rahmatullah,CARNIVAL,,hut-01738601730,OTP,60,outbound
+2/6/2026 21:59,1818641040,A,Rafiqul Islam,Direct_Agent_Banla,Baniachong,640422,No Internet,114,inbound
+2/6/2026 21:59,1616775133,A,MD. Rahmatullah,CARNIVAL,Shahrasti,721167,Blank Field,5,outbound
+2/6/2026 22:00,1705896513,A,Abdullah-Al Noman,Direct_Agent_Banla,Baliadangi_ACR_207,899374,Slow Speed,873,inbound
+2/6/2026 22:00,1749939855,FCR,MD. Rahmatullah,Direct_Agent_Banla,Dhaka,1163855,PIN,135,inbound
+2/6/2026 22:00,1518913305,A,FAHIM MOSTOFA,CARNIVAL,Raigonj_ACR_79,730856,Slow Speed,360,outbound
+2/6/2026 22:01,1815466062,A,Rafiqul Islam,CARNIVAL,Baniachong,640422,No Internet,26,outbound
+2/6/2026 22:02,1815466062,A,Rafiqul Islam,CARNIVAL,Baniachong,640422,No Internet,4,outbound
+2/6/2026 22:03,1818641040,A,Rafiqul Islam,CARNIVAL,Baniachong,640422,No Internet,0,outbound
+2/6/2026 22:04,1747285436,A,Mehedi Hasan,Direct_Agent_Banla,satkhirasadar,376504,Refund,116,inbound
+2/6/2026 22:04,1637554027,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Gazipuratongi_ACR_175,1274116,Payment Process Request,179,inbound
+2/6/2026 22:04,1407381559,A,Rafiqul Islam,Direct_Agent_Banla,Chitalmari,1267281,No Internet,187,inbound
+2/6/2026 22:04,1732443451,FCR,Md. Nasimuzzaman,CARNIVAL,Tanore_ACR-3,1037623,Router Configuration,131,outbound
+2/6/2026 22:05,1740485217,FCR,MD. Rahmatullah,Direct_Agent_Banla,Sheikhpara,553818,MAC Release Request,146,inbound
+2/6/2026 22:06,1878150065,A,FAHIM MOSTOFA,CARNIVAL,Comilla,1029520,Fiber Cut,51,outbound
+2/6/2026 22:06,1316795699,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Barguna,1157492,No Internet,134,inbound
+2/6/2026 22:07,1715633335,FCR,FAHIM MOSTOFA,CARNIVAL,Habiganj_ACR_3_71,276279,Billing Queries,156,outbound
+2/6/2026 22:07,1791657729,A,Mehedi Hasan,Direct_Agent_Banla,Bholasadar_ACR_236,1108620,Slow Speed,109,inbound
+2/6/2026 22:07,1637554027,FCR,Nazmus Sakib Swapnil,CARNIVAL,Gazipuratongi_ACR_175,1274116,Payment Process Request,118,outbound
+2/6/2026 22:09,1957085528,FCR,Imran Sarkar,Direct_Agent_Banla,Dhuliyakhal_ACR_100,1288134,Slow Speed,244,inbound
+2/6/2026 22:10,1407381559,A,MD. Rahmatullah,Direct_Agent_Banla,Chitalmari_ACR_A_174,1267281,No Internet,148,inbound
+2/6/2026 22:10,1342813353,A,Rafiqul Islam,SYLHETIN,Habiganj,1236062,Blank Field,41,inbound
+2/6/2026 22:10,1342813353,A,Rafiqul Islam,SYLHEL_SUPPORT,Habiganj,1236062,Blank Field,,inbound
+2/6/2026 22:10,1771319623,A,FAHIM MOSTOFA,CARNIVAL,,phone_number,Blank Field,6,outbound
+2/6/2026 22:11,1623068209,FCR,Mehedi Hasan,Billing_Querie_bang,Moynamoti_ACR_128,1282917,Billing Queries,280,inbound
+2/6/2026 22:11,1342813353,A,MD. ASADUJJAMAN SHOUMIK,SYLHETIN,Habiganj_ACR_69,1236062,No Internet,163,inbound
+2/6/2026 22:11,1342813353,FCR,MD. ASADUJJAMAN SHOUMIK,SYLHEL_SUPPORT,Habiganj_ACR_69,1236062,No Internet,,inbound
+2/6/2026 22:12,1753392729,FCR,Md. Nasimuzzaman,Billing_Querie_bang,Cantonment_ACR_A_68,617842,Date Extension Request,148,inbound
+2/6/2026 22:12,1616379500,A,Rafiqul Islam,Direct_Agent_Banla,Dhuliyakhal_ACR_100,1225179,Slow Speed,63,inbound
+2/6/2026 22:13,1616379500,A,Rafiqul Islam,CARNIVAL,Dhuliyakhal_ACR_100,1225179,Slow Speed,176,outbound
+2/6/2026 22:14,1980466028,A,FAHIM MOSTOFA,Direct_Agent_Banla,Sonatalasanthia,1259240,No Internet,146,inbound
+2/6/2026 22:14,1705896513,A,Abdullah-Al Noman,CARNIVAL,Baliadangi_ACR_207,899374,Slow Speed,539,outbound
+2/6/2026 22:15,1886633377,FCR,Jahedul Islam,Direct_Agent_Banla,Moynamoti_ACR_128,Sobuj.khan,Downgrade Request,173,inbound
+2/6/2026 22:15,1969665424,FCR,Imran Sarkar,CARNIVAL,Mymensing_Charpara_147,1153768,Slow Speed,61,outbound
+2/6/2026 22:17,1745572573,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,PabnaSadar,822599,Fiber Cut,199,inbound
+2/6/2026 22:17,1762815562,A,Mehedi Hasan,Direct_Agent_Banla,Ranirbandar,1288237,Fiber Cut,310,inbound
+2/6/2026 22:18,1407381559,FCR,MD. Rahmatullah,CARNIVAL,Chitalmari_ACR_A_174,1267281,No Internet,296,outbound
+2/6/2026 22:19,1616379500,FCR,Rafiqul Islam,CARNIVAL,Dhuliyakhal_ACR_100,1225179,Slow Speed,51,outbound
+2/6/2026 22:20,1671057464,FCR,Imran Sarkar,CARNIVAL,Mirpur_1_ACR_6,932993,Slow Speed,140,outbound
+2/6/2026 22:20,1324083669,FCR,Jahedul Islam,Any_Service_Bangla,Setabganj_ACR_82,674375,Slow Speed,390,inbound
+2/6/2026 22:21,1892337677,FCR,Rafiqul Islam,Direct_Agent_Banla,Ullapara,1091303,User Information,711,inbound
+2/6/2026 22:23,1685476367,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Jahangirnagar_ACR_148,824533,No Internet,123,inbound
+2/6/2026 22:23,1749206600,FCR,Imran Sarkar,CARNIVAL,UTD_SEC_11_ACR_10,700618,Slow Speed,193,outbound
+2/6/2026 22:24,1980466028,A,Mehedi Hasan,CARNIVAL,Sonatalasanthia,1259240,No Internet,51,outbound
+2/6/2026 22:25,1616775133,A,Mehedi Hasan,CARNIVAL,Shahrasti,721167,Others,6,outbound
+2/6/2026 22:25,1732285735,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Faridpurpbn,649094,Others,75,inbound
+2/6/2026 22:26,1318389922,A,MD. Rahmatullah,Direct_Agent_Banla,Comilla,810846,Link Shift,119,inbound
+2/6/2026 22:26,1710654286,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Baliakandi,800438,Refund,316,inbound
+2/6/2026 22:28,1683265320,A,Mehedi Hasan,Direct_Agent_Banla,Dhaka,287021,Fiber Cut,127,inbound
+2/6/2026 22:28,1732285735,FCR,Abdullah-Al Noman,Any_Service_Bangla,Faridpurpbn,649094,Others,135,inbound
+2/6/2026 22:28,1308810018,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,,hut-01308810018,OTP,110,inbound
+2/6/2026 22:29,1844652424,FCR,Akash Debnath,CARNIVAL,Banasree_ACR_13,898394,No Internet,375,outbound
+2/6/2026 22:29,1949558703,FCR,MD. Rahmatullah,Direct_Agent_Banla,Patgram_ACR_76,1240114,Slow Speed,108,inbound
+2/6/2026 22:30,1799758678,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Tanore_ACR_94,601659,Slow Speed,211,inbound
+2/6/2026 22:32,1610003838,A,MD. ASADUJJAMAN SHOUMIK,CARNIVAL,Dhaka,109515,Fiber Cut,100,outbound
+2/6/2026 22:34,1761935287,FCR,FAHIM MOSTOFA,Direct_Agent_Banla,,hut-01761935287,OTP,113,inbound
+2/6/2026 22:35,1968026885,A,Abdullah-Al Noman,Direct_Agent_Banla,Gouripur,712308,Refund,232,inbound
+2/6/2026 22:35,1324083669,A,Mehedi Hasan,CARNIVAL,Setabganj_ACR_82,674375,Slow Speed,163,outbound
+2/6/2026 22:36,1713276010,A,MD. Rahmatullah,Direct_Agent_Banla,Dhaka,579791,Router Configuration,168,inbound
+2/6/2026 22:36,1630081037,FCR,Imran Sarkar,Any_Service_Bangla,,phone_number,User Information,233,inbound
+2/6/2026 22:37,1628219310,FCR,Md. Nasimuzzaman,Direct_Agent_Banla,Sylhet_ACR_A_54,784204,Billing Queries,164,inbound
+2/6/2026 22:37,1975467754,A,Nazmus Sakib Swapnil,Direct_Agent_Banla,Jhalorchardwngnj,1311589,No Internet,222,inbound
+2/6/2026 22:38,1743290856,A,Rafiqul Islam,Direct_Agent_Banla,,phone_number,Blank Field,84,inbound
+2/6/2026 22:41,1705896513,A,Abdullah-Al Noman,CARNIVAL,Baliadangi_ACR_207,899374,Slow Speed,652,outbound
+2/6/2026 22:41,1717976670,FCR,Imran Sarkar,CARNIVAL,Debiganj,818193,Slow Speed,72,outbound
+2/6/2026 22:41,1755169625,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Fulbari,1187142,Refund,347,inbound
+2/6/2026 22:42,1732285735,A,Mehedi Hasan,CARNIVAL,Faridpurpbn,649094,Others,0,outbound
+2/6/2026 22:44,1320041479,A,FAHIM MOSTOFA,Billing_Querie_bang,Dhaka,106236,Fiber Cut,209,inbound
+2/6/2026 22:44,1796426532,A,Akash Debnath,CARNIVAL,Mohammadpur,1064376,Refund,234,outbound
+2/6/2026 22:45,1749504323,FCR,MD. Rahmatullah,Direct_Agent_Banla,Dhaka,1251077,Slow Speed,137,inbound
+2/6/2026 22:48,1320041479,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Banani_ACR_21,106236,No Internet,241,inbound
+2/6/2026 22:49,1918818198,FCR,Md. Dider Hossain,Direct_Agent_Banla,Keshabpur,1164274,Discontinue,154,inbound
+2/6/2026 22:49,1818641040,A,Rafiqul Islam,Direct_Agent_Banla,Baniachong,640422,Fiber Cut,124,inbound
+2/6/2026 22:50,1787010630,FCR,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Pirganj,799617,Others,136,inbound
+2/6/2026 22:51,1639795409,FCR,MD. Rahmatullah,Direct_Agent_Banla,Firmgate_ACR_27,863336,Slow Speed,348,inbound
+2/6/2026 22:52,1605514276,A,Md. Dider Hossain,Direct_Agent_Banla,,phone_number,No Internet,80,inbound
+2/6/2026 22:52,1630081037,FCR,FAHIM MOSTOFA,CARNIVAL,,phone_number,User Information,23,outbound
+2/6/2026 22:53,1960059001,A,FAHIM MOSTOFA,CARNIVAL,Mohammadpur,1064376,Refund,168,outbound
+2/6/2026 22:55,1605514276,A,MD. ASADUJJAMAN SHOUMIK,Direct_Agent_Banla,Lukra,900973,No Internet,181,inbound
+2/6/2026 22:56,1776959297,FCR,Rafiqul Islam,Direct_Agent_Banla,Sylhet_ACR_A_54,784204,Billing Queries,148,inbound
+2/6/2026 22:59,1786038610,FCR,Nazmus Sakib Swapnil,Direct_Agent_Banla,Dimla,1229732,Others,124,inbound
+2/6/2026 23:00,1733608977,FCR,Mehedi Hasan,Direct_Agent_Banla,Joldhaka_ACR_196,754458,Upgradation Request,136,inbound
+2/6/2026 23:02,1788371937,FCR,Imran Sarkar,CARNIVAL,Ranisankail_ACR_98,930491,Slow Speed,53,outbound
+2/6/2026 23:04,1761935287,FCR,Omar Khaled Turag,Direct_Agent_Banla,,hut-01761935287,OTP,168,inbound
+2/6/2026 23:05,1918818198,A,Mehedi Hasan,Direct_Agent_Banla,Keshabpur,1164274,Refund,247,inbound
+2/6/2026 23:11,1758669464,FCR,Imran Sarkar,CARNIVAL,Bhomra_ACR_B_95,818996,Slow Speed,153,outbound
+2/6/2026 23:11,1711101988,A,Mehedi Hasan,Direct_Agent_Banla,UTD_DO_ACR_8,746037,Fluctuation issue,131,inbound
+2/6/2026 23:12,1911524907,FCR,Omar Khaled Turag,Direct_Agent_English,CTG_Khulshi_ACR_103,1207583,Billing Queries,93,inbound
+2/6/2026 23:13,1782271799,A,Mehedi Hasan,SALESINBOUND,Dhaka,1313901,Installation Query,208,inbound
+2/6/2026 23:13,1782271799,A,Mehedi Hasan,Any_Service_Bangla,Dhaka,1313901,Installation Query,,inbound
+2/6/2026 23:14,1575653242,FCR,Omar Khaled Turag,Direct_Agent_Banla,Nazirpur,458126,Refund,165,inbound
+2/6/2026 23:16,1708778262,FCR,Imran Sarkar,CARNIVAL,Dhuliyakhal_ACR_100,828329,Slow Speed,50,outbound
+2/6/2026 23:18,1920620407,FCR,Omar Khaled Turag,Direct_Agent_Banla,Hili_ACR_191,636949,Billing Queries,165,inbound
+2/6/2026 23:18,1776858092,FCR,Imran Sarkar,CARNIVAL,Nazipur,921986,User Information,80,outbound
+2/6/2026 23:20,1713049977,A,Mehedi Hasan,Direct_Agent_Banla,Dhaka,945310,No Internet,509,inbound
+2/6/2026 23:20,1784036433,FCR,Imran Sarkar,Billing_Querie_bang,,phone_number,,316,inbound
+2/6/2026 23:21,1799742686,A,Omar Khaled Turag,Direct_Agent_Banla,Nazipur,804349,Refund,132,inbound
+2/6/2026 23:24,9678732494,FCR,Omar Khaled Turag,Direct_Agent_Banla,Dashmina_ACR_26,1308044,Slow Speed,134,inbound
+2/6/2026 23:24,1516565374,FCR,Imran Sarkar,Billing_Querie_bang,,phone_number,User Information,293,inbound
+2/6/2026 23:27,1796998166,A,Omar Khaled Turag,Direct_Agent_Banla,Shatibari_ACR_176,813552,No Internet,270,inbound
+2/6/2026 23:27,1618160826,A,Mehedi Hasan,Direct_Agent_Banla,Chhatak_ACR_205,1096030,Slow Speed,196,inbound
+2/6/2026 23:31,1909877197,FCR,Imran Sarkar,Direct_Agent_Banla,Bandar,1198790,User Information,301,inbound
+2/6/2026 23:43,1725008032,FCR,Mehedi Hasan,Direct_Agent_Banla,Comilla,187549,No Internet,91,inbound
+2/6/2026 23:43,1886568751,FCR,Imran Sarkar,Direct_Agent_Banla,Habiganj_ACR_2_70 ,1272290,No Internet,109,inbound
+2/6/2026 23:45,1845513896,A,Mehedi Hasan,Direct_Agent_Banla,,phone_number,Refund,153,inbound
+2/6/2026 23:51,1777116452,A,Omar Khaled Turag,CARNIVAL,Gomostapur_ACR_D_23,1041966,Slow Speed,0,outbound
+2/6/2026 23:53,1722625417,A,Mehedi Hasan,Direct_Agent_Banla,Habiganj_ACR_2_70 ,960478,Billing Queries,362,inbound
+2/6/2026 23:54,1682524471,A,Omar Khaled Turag,CARNIVAL,Khilgaon_ACR_A_17,139095,Slow Speed,0,outbound
+2/6/2026 23:55,1789222375,FCR,Omar Khaled Turag,CARNIVAL,Sreemangal,srit164,Refund,102,outbound
+2/6/2026 23:58,1406156733,FCR,Imran Sarkar,Direct_Agent_Banla,Hatibandha_ACR_197,198652,User Information,132,inbound
+2/6/2026 23:58,1782271799,A,Omar Khaled Turag,CARNIVAL,Dhaka,1313901,Installation Query,61,outbound
