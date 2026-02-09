@@ -171,31 +171,76 @@ function createEChartsAreaChart(containerId, seriesData, categories) {
 
   const option = {
     color: colors,
-    tooltip: {
-      trigger: 'axis',
-      padding: [7, 10],
-      backgroundColor: '#fff',
-      borderColor: '#e3e6ed',
-      borderWidth: 1,
-      textStyle: { color: '#31374a', fontSize: 12, fontWeight: 500 },
-      axisPointer: { type: 'none' },
-      formatter: function(params) {
-        let tooltipHtml = `<div style="font-weight: 700; color: #012970; font-size: 14px; margin-bottom: 10px; border-bottom: 2px solid #f0f4ff; padding-bottom: 8px; line-height: 1.4;">
-    ${params[0].axisValue}
-</div>`;
-        params.forEach(item => {
-          tooltipHtml += `
-            <div style="display: flex; align-items: center; justify-content: space-between; min-width: 170px; margin-top: 4px;">
-              <span style="font-size: 12px; color: #525b75;">
-                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${item.color};"></span>
-                ${item.seriesName}
-              </span>
-              <span style="font-weight: 800; margin-left: 20px;">${item.value}</span>
-            </div>`;
-        });
-        return tooltipHtml;
-      }
-    },
+tooltip: {
+  trigger: 'axis',
+  backgroundColor: 'transparent',
+  borderWidth: 0,
+  padding: 0,
+  axisPointer: { type: 'none' },
+  confine: true,
+
+  formatter: function (params) {
+    let tooltipHtml = `
+      <div style="
+        background:rgba(255,255,255,0.98);
+        border:1px solid #e2e8f0;
+        border-radius:6px;
+        box-shadow:0 8px 24px rgba(0,0,0,.08);
+        font-family:Inter, system-ui, sans-serif;
+        min-width:190px;
+      ">
+        <!-- Header -->
+        <div style="
+          padding:8px 12px;
+          font-weight:600;
+          font-size:12px;
+          color:#1d273b;
+          border-bottom:1px solid #e6e7e9;
+          line-height:1.4;
+        ">
+          ${params[0].axisValue}
+        </div>
+    `;
+
+    params.forEach(item => {
+      tooltipHtml += `
+        <div style="
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          padding:6px 12px;
+        ">
+          <span style="
+            font-size:12px;
+            color:#64748b;
+            display:flex;
+            align-items:center;
+            gap:6px;
+          ">
+            <span style="
+              width:8px;
+              height:8px;
+              border-radius:50%;
+              background:${item.color};
+            "></span>
+            ${item.seriesName}
+          </span>
+
+          <span style="
+            font-weight:700;
+            color:#1e293b;
+            font-size:13px;
+          ">
+            ${item.value}
+          </span>
+        </div>
+      `;
+    });
+
+    tooltipHtml += `</div>`;
+    return tooltipHtml;
+  }
+},
 legend: {
       show: true,
       left: '0%',          // Aligns to the left
@@ -292,25 +337,73 @@ function createEChartPie(containerId, dataArray, colorsArray) {
 
   const option = {
     color: colorsArray,
-    tooltip: {
-      trigger: 'item',
-      padding: [7, 10],
-      backgroundColor: '#fff',
-      borderColor: '#e3e6ed',
-      borderWidth: 1,
-      textStyle: { color: '#31374a', fontSize: 12, fontWeight: 600 },
-      
-      formatter: function(params) {
-        return `
-          <div style="display: flex; align-items: center; justify-content: space-between; min-width: 140px;">
-            <span>
-              <span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${params.color};"></span>
-              ${params.name}
-            </span>
-            <span style="font-weight: 700; margin-left: 15px;">${params.value}</span>
-          </div>`;
-      }
-    },
+tooltip: {
+  trigger: 'item',
+  backgroundColor: 'transparent',
+  borderWidth: 0,
+  padding: 0,
+  confine: true,
+
+  formatter: function (params) {
+    return `
+      <div style="
+        background:rgba(255,255,255,0.98);
+        border:1px solid #e2e8f0;
+        border-radius:6px;
+        box-shadow:0 8px 24px rgba(0,0,0,.08);
+        font-family:Inter, system-ui, sans-serif;
+        min-width:160px;
+      ">
+
+        <!-- Header -->
+        <div style="
+          padding:8px 12px;
+          font-weight:600;
+          font-size:12px;
+          color:#1d273b;
+          border-bottom:1px solid #e6e7e9;
+          line-height:1.4;
+        ">
+          ${params.name}
+        </div>
+
+        <!-- Value Row -->
+        <div style="
+          padding:8px 12px;
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+        ">
+          <span style="
+            font-size:12px;
+            color:#64748b;
+            display:flex;
+            align-items:center;
+            gap:6px;
+          ">
+            <span style="
+              width:8px;
+              height:8px;
+              border-radius:50%;
+              background:${params.color};
+            "></span>
+            Value
+          </span>
+
+          <span style="
+            font-weight:700;
+            font-size:13px;
+            color:#1e293b;
+          ">
+            ${params.value}
+          </span>
+        </div>
+
+      </div>
+    `;
+  }
+},
+
     legend: {
       top: '5%',
       left: 'center',
@@ -389,28 +482,75 @@ function createButterflyChart(containerId, categories, leftData, rightData, left
       },
 
     },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: { type: 'shadow' },
-      backgroundColor: '#fff',
-      borderColor: '#e3e6ed',
-      borderWidth: 1,
-      textStyle: { color: '#31374a', fontSize: 12, fontWeight: 600 },
-      formatter: (params) => {
-        let res = `<div style="font-weight: 500; color: #012970; font-size: 14px; margin-bottom: 10px; border-bottom: 2px solid #f0f4ff; padding-bottom: 8px; line-height: 1.4;">
-    ${params[0].name}
-</div>`;
-        params.forEach(p => {
-          const val = Math.abs(p.value);
-          const unit = p.seriesName === 'Avg Duration' ? 's' : ' calls';
-          res += `<div style="display:flex; justify-content:space-between; min-width:160px; margin-top:3px;">
-                    <span><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${p.color};"></span>${p.seriesName}</span>
-                    <span style="font-weight:800; margin-left:15px;">${val}${unit}</span>
-                  </div>`;
-        });
-        return res;
-      }
-    },
+tooltip: {
+  trigger: 'axis',
+  axisPointer: { type: 'shadow' },
+  backgroundColor: 'transparent',
+  borderWidth: 0,
+  padding: 0,
+  confine: true,
+  textStyle: { color: '#31374a', fontSize: 12, fontWeight: 600 },
+
+  formatter: (params) => {
+    const label = params[0].name;
+
+    let res = `
+      <div style="
+        background: rgba(255,255,255,0.98);
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        box-shadow: 0 10px 16px rgba(0,0,0,0.08);
+        font-family: Inter, system-ui, sans-serif;
+        min-width: 180px;
+        padding: 10px 14px;
+      ">
+        <!-- Header -->
+        <div style="
+          font-weight: 500;
+          color: #012970;
+          font-size: 14px;
+          border-bottom: 1.5px solid #f0f4ff;
+          padding-bottom: 6px;
+          margin-bottom: 8px;
+          line-height: 1.4;
+        ">
+          ${label}
+        </div>
+    `;
+
+    params.forEach(p => {
+      const val = Math.abs(p.value);
+      const unit = p.seriesName === 'Avg Duration' ? 's' : ' calls';
+
+      res += `
+        <div style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 4px;
+          min-width: 160px;
+        ">
+          <span style="font-size: 12px; color: #64748b; display: flex; align-items: center; gap: 6px;">
+            <span style="
+              display: inline-block;
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: ${p.color};
+            "></span>
+            ${p.seriesName}
+          </span>
+          <span style="font-weight: 800; font-size: 13px; color: #1e293b;">
+            ${val}${unit}
+          </span>
+        </div>
+      `;
+    });
+
+    res += `</div>`;
+    return res;
+  }
+},
     grid: { 
       top: '15%',    // Increased padding to fit the legend
       bottom: '2%', 

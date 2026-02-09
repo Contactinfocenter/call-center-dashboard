@@ -322,13 +322,57 @@ if (gradeCounts.some(v => v > 0)) {
 
     const option = {
         tooltip: {
-            trigger: 'item',
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            borderRadius: 8,
-            borderWidth: 0,
-            shadowBlur: 10,
-            shadowColor: 'rgba(0,0,0,0.1)'
-        },
+                    trigger: 'item',
+                    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+                    borderColor: '#e2e8f0',
+                    borderWidth: 1,
+                    padding: 0,
+                    textStyle: {
+                        fontSize: 12,
+                        color: '#1d273b'
+                    },
+                    extraCssText: `
+                        border-radius:6px;
+                        box-shadow:0 8px 24px rgba(0,0,0,.08);
+                    `,
+                    formatter: function (params) {
+                        return `
+                            <div style="min-width:160px">
+                                <!-- Header -->
+                                <div style="
+                                    padding:8px 12px;
+                                    font-weight:600;
+                                    color:#1d273b;
+                                    border-bottom:1px solid #e6e7e9;
+                                ">
+                                    ${params.name}
+                                </div>
+
+                                <!-- Body -->
+                                <div style="padding:8px 12px; font-size:12px; color:#1d273b;">
+                                    <div style="
+                                        display:flex;
+                                        justify-content:space-between;
+                                        align-items:center;
+                                    ">
+                                        <span style="display:flex; align-items:center;">
+                                            <span style="
+                                                width:8px;
+                                                height:8px;
+                                                border-radius:50%;
+                                                background:${params.color};
+                                                display:inline-block;
+                                                margin-right:6px;
+                                            "></span>
+                                            Audits
+                                        </span>
+                                        <strong>${params.value}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                },
         legend: {
             orient: 'vertical',
             right: '5%', // Adjusted for smaller chart
@@ -442,53 +486,64 @@ const scores = monthlyTrend.map(m => parseFloat(m.avgScore));
 const scoreOption = {
   backgroundColor: 'transparent',
   tooltip: {
-    trigger: 'axis',
-    backgroundColor: 'transparent', // Custom HTML tooltip
-    borderWidth: 0,
-    padding: 0,
-    axisPointer: {
-      type: 'line',
-      lineStyle: { color: '#cbd5e1', width: 1 }
-    },
-    // The exact tooltip style from your previous dashboard
-    formatter: function (params) {
-      const p = params[0];
-      return `
+  trigger: 'axis',
+  backgroundColor: 'transparent',
+  borderWidth: 0,
+  padding: 0,
+  axisPointer: {
+    type: 'line',
+    lineStyle: { color: '#cbd5e1', width: 1 }
+  },
+  formatter: function (params) {
+    const p = params[0];
+
+    return `
+      <div style="
+        min-width:160px;
+        background:rgba(255,255,255,0.98);
+        border:1px solid #e2e8f0;
+        border-radius:6px;
+        box-shadow:0 8px 24px rgba(0,0,0,.08);
+        font-family:Inter, system-ui, sans-serif;
+      ">
+        <!-- Header -->
         <div style="
-          padding:10px 14px;
-          background:rgba(255,255,255,0.96);
-          border:1px solid #e2e8f0;
-          border-radius:6px;
-          box-shadow:0 4px 16px rgba(0,0,0,0.12);
-          font-family:Inter, system-ui, sans-serif;
-          min-width:180px;
+          padding:8px 12px;
+          font-weight:600;
+          font-size:12px;
+          color:#1d273b;
+          border-bottom:1px solid #e6e7e9;
         ">
-          <div style="font-weight:600; 
-            color:#1e293b; 
-            margin-bottom:12px; 
-            border-bottom: 1px solid #f1f5f9; 
-            font-size:14px; 
-            padding-bottom: 4px;">
-            ${p.name}
-          </div>
-          <div style="display:flex; align-items:center;">
-            <span style="
-              display:inline-block;
-              width:10px;
-              height:10px;
-              border-radius:50%;
-              background:${p.color};
-              margin-right:10px;
-            "></span>
-            <span style="color:#64748b; font-size:13px;">Average Score:</span>
-            <span style="font-weight:700; margin-left:8px; color:#1e293b;">
-              ${p.value.toFixed(2)}
+          ${p.name}
+        </div>
+
+        <!-- Body -->
+        <div style="padding:8px 12px;">
+          <div style="
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            font-size:12px;
+            color:#1d273b;
+          ">
+            <span style="display:flex; align-items:center;">
+              <span style="
+                width:8px;
+                height:8px;
+                border-radius:50%;
+                background:${p.color};
+                display:inline-block;
+                margin-right:6px;
+              "></span>
+              Average Score
             </span>
+            <strong>${p.value.toFixed(2)}</strong>
           </div>
         </div>
-      `;
-    }
-  },
+      </div>
+    `;
+  }
+},
   grid: {
     left: '2%',
     right: '2%',
@@ -576,35 +631,64 @@ if (passChartDom) {
     const passOption = {
         backgroundColor: 'transparent',
         tooltip: {
-            trigger: 'axis',
-            backgroundColor: 'transparent',
-            borderWidth: 0,
-            padding: 0,
-            axisPointer: {
-                type: 'line',
-                lineStyle: { color: '#cbd5e1', width: 1 }
-            },
-            formatter: function (params) {
-                const p = params[0];
-                return `
-                    <div style="padding: 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); font-family: 'Inter', sans-serif; min-width: 200px;">
-                        <div style="font-weight:600; color:#1e293b; margin-bottom:12px; border-bottom: 1px solid #f1f5f9; font-size:14px; padding-bottom: 4px; text-transform: uppercase;">
-                            ${p.name}
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                            <div style="display: flex; align-items: center;">
-                                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #2eca6a; margin-right: 12px;"></span>
-                                <span style="color:#64748b; font-size:13px;">Pass Rate:</span>
-                            </div>
-                            <span style="font-weight:700; margin-left:8px; color:#1e293b;">
-                                ${p.value.toFixed(1)}%
-                            </span>
-                        </div>
+    trigger: 'axis',
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+    axisPointer: {
+        type: 'line',
+        lineStyle: { color: '#cbd5e1', width: 1 }
+    },
+    formatter: function (params) {
+        const p = params[0];
 
+        return `
+            <div style="
+                min-width:160px;
+                background:rgba(255,255,255,0.98);
+                border:1px solid #e2e8f0;
+                border-radius:6px;
+                box-shadow:0 8px 24px rgba(0,0,0,.08);
+                font-family:Inter, system-ui, sans-serif;
+            ">
+                <!-- Header -->
+                <div style="
+                    padding:8px 12px;
+                    font-weight:600;
+                    font-size:12px;
+                    color:#1d273b;
+                    border-bottom:1px solid #e6e7e9;
+                ">
+                    ${p.name}
+                </div>
+
+                <!-- Body -->
+                <div style="padding:8px 12px;">
+                    <div style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        font-size:12px;
+                        color:#1d273b;
+                    ">
+                        <span style="display:flex; align-items:center;">
+                            <span style="
+                                width:8px;
+                                height:8px;
+                                border-radius:50%;
+                                background:#2eca6a;
+                                display:inline-block;
+                                margin-right:6px;
+                            "></span>
+                            Pass Rate
+                        </span>
+                        <strong>${p.value.toFixed(1)}%</strong>
                     </div>
-                `;
-            }
-        },
+                </div>
+            </div>
+        `;
+    }
+},
         grid: { left: '2%', right: '4%', top: '12%', bottom: '5%', containLabel: true },
         xAxis: {
             type: 'category',
@@ -655,71 +739,107 @@ if (passChartDom) {
 // 7 top lost resoan chArt
 
 // 1. Data Calculation (Logic remains the same as your snippet)
+// 1. Filter relevant parameter columns
 const parameterColumns = headers.filter(h => 
-    h.includes('/') || h.includes('process') || h.includes('etiquettes') || 
-    h.includes('profanity') || h.includes('urgency') || h.includes('assistance') || 
-    h.includes('closing') || h.includes('SLA') || h.includes('knowledge')
+  h.includes('/') ||
+  h.includes('process') ||
+  h.includes('etiquettes') ||
+  h.includes('profanity') ||
+  h.includes('urgency') ||
+  h.includes('assistance') ||
+  h.includes('closing') ||
+  h.includes('SLA') ||
+  h.includes('knowledge')
 );
 
-const lowestParameters = parameterColumns.map(p => {
+// 2. Calculate lowest-performing parameters
+const lowestParameters = parameterColumns
+  .map(p => {
     const values = validAudits.map(a => parseFloat(a[p]) || 10);
     const avgScore = values.reduce((a, b) => a + b, 0) / (totalCalls || 1);
-    const lostMarks = (10 - avgScore).toFixed(1);
-    return { parameter: p, lostMarks: parseFloat(lostMarks), avgScore: avgScore.toFixed(1) };
-}).sort((a, b) => b.lostMarks - a.lostMarks).slice(0, 7);
+    const lostMarks = +(10 - avgScore).toFixed(1);
 
-// 2. Initialize Chart
+    return {
+      parameter: p,
+      lostMarks,
+      avgScore: avgScore.toFixed(1)
+    };
+  })
+  .sort((a, b) => b.lostMarks - a.lostMarks)
+  .slice(0, 7);
+
+// 3. Initialize chart
 const lowParamsDom = document.getElementById('lowParamsChart');
 const lowParamsChart = echarts.init(lowParamsDom);
 
-// Data mapping
-const values = lowestParameters.map(p => Number(p.lostMarks.toFixed(1)));
+// 4. Prepare chart data
+const values = lowestParameters.map(p => p.lostMarks);
 const labels = lowestParameters.map(p => p.parameter);
 
+// 5. Chart option
 const lowParamsOption = {
+  backgroundColor: 'transparent',
+
   tooltip: {
     trigger: 'axis',
     axisPointer: { type: 'shadow' },
-    backgroundColor: 'transparent', // Set to transparent because you have a custom div inside
+    backgroundColor: 'transparent',
     borderWidth: 0,
     padding: 0,
     confine: true,
-formatter: (params) => {
-  const p = lowestParameters[params[0].dataIndex];
-  return `
-    <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:280px; max-width:350px;">
-      <div style="
-        font-weight:700; 
-        color:#012970; 
-        font-size:14px; 
-        margin-bottom:10px; 
-        border-bottom:2px solid #f0f4ff; 
-        padding-bottom:8px; 
-        line-height:1.5;         /* Increased line height for better readability */
-        white-space: normal;     /* Allows text to wrap naturally */
-        word-wrap: break-word;   /* Ensures long words don't overflow */
-        display: block;          /* Changed from -webkit-box to block to allow infinite lines */
-      ">
-        ${p.parameter}
-      </div>
+    formatter: (params) => {
+      const p = lowestParameters[params[0].dataIndex];
 
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-        <span style="color:#64748b;font-size:13px;">Average Score:</span>
-        <span style="font-weight:700;color:#1e293b;">${p.avgScore} / 10</span>
-      </div>
+      return `
+        <div style="
+          min-width:220px;
+          max-width:340px;
+          background:rgba(255,255,255,0.98);
+          border:1px solid #e2e8f0;
+          border-radius:6px;
+          box-shadow:0 8px 24px rgba(0,0,0,.08);
+          font-family:Inter, system-ui, sans-serif;
+        ">
+          <!-- Header -->
+          <div style="
+            padding:8px 12px;
+            font-weight:600;
+            font-size:12px;
+            color:#1d273b;
+            border-bottom:1px solid #e6e7e9;
+            line-height:1.4;
+            white-space:normal;
+            word-break:break-word;
+          ">
+            ${p.parameter}
+          </div>
 
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-        <span style="color:#dc2626;font-size:13px;font-weight:600;">Marks Lost:</span>
-        <span style="font-weight:800;color:#dc2626;">${p.lostMarks} / 10</span>
-      </div>
+          <!-- Body -->
+          <div style="padding:8px 12px; font-size:12px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span style="color:#64748b;">Average Score</span>
+              <strong style="color:#1d273b;">${p.avgScore} / 10</strong>
+            </div>
 
-      <div style="margin-top:8px; padding-top:8px;  display:flex; justify-content:space-between;">
-        <span style="color:#475569;font-size:12px;">Improvement Potential:</span>
-        <span style="font-weight:700;color:#dc2626;">+${p.lostMarks} points</span>
-      </div>
-    </div>
-  `;
-}
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span style="color:#dc2626; font-weight:600;">Marks Lost</span>
+              <strong style="color:#dc2626;">${p.lostMarks} / 10</strong>
+            </div>
+
+            <div style="
+              display:flex;
+              justify-content:space-between;
+              padding-top:6px;
+              margin-top:6px;
+              border-top:1px dashed #f1f5f9;
+            ">
+              <span style="color:#475569;">Improvement Potential</span>
+              <strong style="color:#dc2626;">+${p.lostMarks} points</strong>
+            </div>
+          </div>
+        </div>
+      `;
+    }
   },
 
   grid: {
@@ -742,8 +862,14 @@ formatter: (params) => {
     type: 'value',
     min: 0,
     max: 10,
-    splitLine: { lineStyle: { color: '#f1f5f9', type: 'dashed' } },
-    axisLabel: { fontSize: 12, fontWeight: '600', color: '#94a3b8' }
+    splitLine: {
+      lineStyle: { color: '#f1f5f9', type: 'dashed' }
+    },
+    axisLabel: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: '#94a3b8'
+    }
   },
 
   series: [{
@@ -752,7 +878,7 @@ formatter: (params) => {
     barWidth: '65%',
     data: values,
     itemStyle: {
-      color: '#f59e0b', // Your pinkish-red Phoenix color
+      color: '#f97316', // Phoenix / Tabler orange
       borderRadius: [6, 6, 0, 0]
     },
     label: {
@@ -773,14 +899,18 @@ formatter: (params) => {
     emphasis: {
       focus: 'series',
       itemStyle: {
-        color: '#d97706' // Slightly darker highlight
+        color: '#ea580c'
       }
     }
   }]
 };
 
+// 6. Render chart
 lowParamsChart.setOption(lowParamsOption);
+
+// 7. Responsive resize
 window.addEventListener('resize', () => lowParamsChart.resize());
+
 
 
 // Top 10 Issues from Remarks - Exclude Positive Remarks
@@ -795,8 +925,8 @@ validAudits.forEach(a => {
         return ![
           'all good', 'okay', 'ok', 'good', 'perfect',
           'no issue', 'no issues', 'everything ok', 'all okay'
-        ].some(positive => lower.includes(positive));
-      })  // ← PLACE IT HERE
+        ].some(p => lower.includes(p));
+      })
       .forEach(r => {
         remarkCounts[r] = (remarkCounts[r] || 0) + 1;
       });
@@ -808,116 +938,142 @@ const topRemarks = Object.entries(remarkCounts)
   .slice(0, 10)
   .map(([issue, count]) => ({ issue, count }));
 
-// Top Remarks Chart
+// Chart Init
 const remarksDom = document.getElementById('topRemarksChart');
-if (remarksDom && typeof topRemarks !== 'undefined') {
-    const remarksChart = echarts.init(remarksDom);
+if (remarksDom && topRemarks.length) {
+  const remarksChart = echarts.init(remarksDom);
 
-    const option = {
-        backgroundColor: 'transparent',
-        tooltip: {
-            trigger: 'axis',
-            backgroundColor: 'transparent',
-            borderWidth: 0,
-            padding: 0,
-            axisPointer: { 
-                type: 'shadow', 
-                shadowStyle: { color: 'rgba(241, 245, 249, 0.5)' } 
-            },
-            formatter: function(params) {
-              const dataIndex = params[0].dataIndex;
-              const r = topRemarks[dataIndex];
-              return `
-                  <div style="padding: 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); font-family: 'Inter', sans-serif; min-width: 280px; max-width: 350px;">
-                      <div style="
-                          font-weight:700; 
-                          color:#012970; 
-                          margin-bottom:8px; 
-                          border-bottom: 1px solid #f1f5f9; 
-                          font-size:13px; 
-                          padding-bottom:8px; 
-                          line-height:1.5;         /* Better spacing for multiple lines */
-                          white-space: normal;     /* Essential: enables text wrapping */
-                          word-wrap: break-word;   /* Prevents overflow from long strings */
-                          display: block;          /* Allows height to expand naturally */
-                      ">
-                          ${r.issue}
-                      </div>
-                      
-                      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-                          <span style="color: #64748b; font-size: 13px;">Frequency:</span>
-                          <span style="font-weight: 800; color: #dc2626; font-size: 16px;">
-                              ${r.count} <small style="font-size: 10px; font-weight: 400; color: #64748b;">times</small>
-                          </span>
-                      </div>
-                  </div>
-              `;
-          }
-        },
-        grid: {
-            left: '3%',
-            right: '10%',
-            top: '5%',
-            bottom: '5%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'value',
-            splitLine: { lineStyle: { color: '#f1f5f9', type: 'dashed' } },
-            axisLabel: { color: '#94a3b8', fontSize: 11 },
-            axisLine: { show: false },
-            axisTick: { show: false }
-        },
-        yAxis: {
-            type: 'category',
-            // Map labels and truncate for the Y-axis display
-            data: topRemarks.map(r => r.issue.length > 45 ? r.issue.substring(0, 42) + '...' : r.issue),
-            inverse: true, // Highest occurrences at the top
-            axisLine: { show: true, lineStyle: { color: '#f1f5f9' } },
-            axisTick: { show: false },
-            axisLabel: {
-                color: '#012970',
-                fontSize: 12,
-                fontWeight: 600,
-                margin: 15
-            }
-        },
-        series: [{
-            name: 'Occurrences',
-            type: 'bar',
-            data: topRemarks.map(r => r.count),
-            barWidth: 22,
-            itemStyle: {
-                // Phoenix Red Gradient
-                color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                    { offset: 0, color: '#ef4444' }, // Light red end
-                    { offset: 1, color: '#b91c1c' }  // Dark red start
-                ]),
-                borderRadius: [0, 6, 6, 0] // Rounded on the right side only
-            },
-            label: {
-                show: true,
-                position: 'right',
-                formatter: '{c}',
-                fontWeight: 700,
-                color: '#b91c1c',
-                fontSize: 13,
-                distance: 10
-            },
-            emphasis: {
-                itemStyle: {
-                    color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                        { offset: 0, color: '#f87171' },
-                        { offset: 1, color: '#991b1b' }
-                    ])
-                }
-            }
-        }]
-    };
+  const option = {
+    backgroundColor: 'transparent',
 
-    remarksChart.setOption(option);
-    window.addEventListener('resize', () => remarksChart.resize());
-} 
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' },
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      padding: 0,
+      confine: true,
+
+      formatter: (params) => {
+        const r = topRemarks[params[0].dataIndex];
+
+        return `
+          <div style="
+            min-width:260px;
+            max-width:360px;
+            background:rgba(255,255,255,0.98);
+            border:1px solid #e2e8f0;
+            border-radius:6px;
+            box-shadow:0 8px 24px rgba(0,0,0,.08);
+            font-family:Inter, system-ui, sans-serif;
+          ">
+            <!-- Header -->
+            <div style="
+              padding:8px 12px;
+              font-weight:600;
+              font-size:12px;
+              color:#1d273b;
+              border-bottom:1px solid #e6e7e9;
+              line-height:1.5;
+              white-space:normal;
+              word-break:break-word;
+            ">
+              ${r.issue}
+            </div>
+
+            <!-- Body -->
+            <div style="padding:8px 12px; font-size:12px;">
+              <div style="display:flex; justify-content:space-between;">
+                <span style="color:#64748b;">Occurrences</span>
+                <strong style="color:#dc2626; font-size:14px;">
+                  ${r.count}
+                  <span style="font-size:10px; font-weight:400; color:#94a3b8;">
+                    times
+                  </span>
+                </strong>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    },
+
+    grid: {
+      left: '3%',
+      right: '10%',
+      top: '5%',
+      bottom: '5%',
+      containLabel: true
+    },
+
+    xAxis: {
+      type: 'value',
+      splitLine: {
+        lineStyle: { color: '#f1f5f9', type: 'dashed' }
+      },
+      axisLabel: {
+        color: '#94a3b8',
+        fontSize: 11,
+        fontWeight: 600
+      },
+      axisLine: { show: false },
+      axisTick: { show: false }
+    },
+
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: topRemarks.map(r =>
+        r.issue.length > 45 ? r.issue.slice(0, 42) + '...' : r.issue
+      ),
+      axisLine: {
+        show: true,
+        lineStyle: { color: '#f1f5f9' }
+      },
+      axisTick: { show: false },
+      axisLabel: {
+        color: '#1d273b',
+        fontSize: 12,
+        fontWeight: 600,
+        margin: 15
+      }
+    },
+
+    series: [{
+      name: 'Occurrences',
+      type: 'bar',
+      data: topRemarks.map(r => r.count),
+      barWidth: 22,
+      itemStyle: {
+        color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+          { offset: 0, color: '#f87171' }, // light
+          { offset: 1, color: '#b91c1c' }  // dark
+        ]),
+        borderRadius: [0, 6, 6, 0]
+      },
+      label: {
+        show: true,
+        position: 'right',
+        fontSize: 13,
+        fontWeight: 700,
+        color: '#b91c1c',
+        distance: 10
+      },
+      emphasis: {
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+            { offset: 0, color: '#fca5a5' },
+            { offset: 1, color: '#991b1b' }
+          ])
+        }
+      }
+    }]
+  };
+
+  remarksChart.setOption(option);
+  window.addEventListener('resize', () => remarksChart.resize());
+}
+
 
 // Individual Agent Trend
         const agentMonthly = {};
@@ -1071,118 +1227,225 @@ let agentTrendChartInstance = null;
    ===================================================== */
 
 function renderAgentTrend(agentKey, agentData) {
-    const chartDom = document.getElementById('agentTrendChart');
-    if (!chartDom) return;
+  const chartDom = document.getElementById('agentTrendChart');
+  if (!chartDom) return;
 
-    if (agentTrendChartInstance) {
-        if (typeof agentTrendChartInstance.dispose === 'function') agentTrendChartInstance.dispose();
+  if (agentTrendChartInstance) {
+    if (typeof agentTrendChartInstance.dispose === 'function') {
+      agentTrendChartInstance.dispose();
     }
+  }
 
-    if (!agentData || agentData.length === 0) {
-        chartDom.innerHTML = `<div class="flex items-center justify-center h-full"><p class="text-gray-500 font-medium">No data available</p></div>`;
-        return;
+  if (!agentData || agentData.length === 0) {
+    chartDom.innerHTML = `
+      <div class="flex items-center justify-center h-full">
+        <p class="text-gray-500 font-medium">No data available</p>
+      </div>`;
+    return;
+  }
+
+  agentTrendChartInstance = echarts.init(chartDom);
+
+  const months = agentData.map(d => d.month);
+  const scores = agentData.map(d => parseFloat(d.avgScore));
+
+  const improvementPerMonth = agentData.map(d => {
+    const issues = {};
+    if (d.remarks) {
+      d.remarks.forEach(r => {
+        const issue = typeof mapRemarkToImprovement === 'function'
+          ? mapRemarkToImprovement(r)
+          : r;
+        if (issue) issues[issue] = (issues[issue] || 0) + 1;
+      });
     }
+    return Object.entries(issues)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([issue, count]) => `• ${issue} (${count})`);
+  });
 
-    agentTrendChartInstance = echarts.init(chartDom);
+  const option = {
+    backgroundColor: 'transparent',
 
-    const months = agentData.map(d => d.month);
-    const scores = agentData.map(d => parseFloat(d.avgScore));
+    legend: {
+      show: true,
+      right: '5%',
+      top: '0%',
+      icon: 'circle',
+      textStyle: {
+        color: '#012970',
+        fontWeight: 700,
+        fontSize: 12,
+        fontFamily: 'Inter'
+      }
+    },
 
-    const improvementPerMonth = agentData.map(d => {
-        const issues = {};
-        if (d.remarks) {
-            d.remarks.forEach(r => {
-                const issue = typeof mapRemarkToImprovement === 'function' ? mapRemarkToImprovement(r) : r;
-                if (issue) issues[issue] = (issues[issue] || 0) + 1;
-            });
-        }
-        return Object.entries(issues).sort((a, b) => b[1] - a[1]).slice(0, 3)
-            .map(([issue, count]) => `• ${issue} (${count})`);
-    });
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      padding: 0,
+      confine: true,
+      axisPointer: {
+        type: 'line',
+        lineStyle: { color: '#cbd5e1' }
+      },
 
-    const option = {
-        backgroundColor: 'transparent',
-        // 1. DYNAMIC LEGEND
-        legend: {
-            show: true,
-            right: '5%',
-            top: '0%',
-            icon: 'circle', // Using circle for a cleaner look
-            textStyle: { 
-                color: '#012970', 
-                fontWeight: 700, 
-                fontSize: 12, 
-                fontFamily: 'Inter' 
-            }
-        },
-        tooltip: {
-            trigger: 'axis',
-            backgroundColor: 'transparent',
-            borderWidth: 0,
-            padding: 0,
-            confine: true,
-            axisPointer: { type: 'line', lineStyle: { color: '#cbd5e1' } },
-            formatter: function (params) {
-                const idx = params[0].dataIndex;
-                const month = months[idx];
-                const score = scores[idx].toFixed(2);
-                const areas = improvementPerMonth[idx];
-                
-                let areasHTML = areas.length > 0 
-                    ? areas.map(a => `<div style="color:#475569; font-size:11px; margin-top:3px;">${a}</div>`).join('')
-                    : `<div style="color:#94a3b8; font-size:11px; margin-top:3px; font-style:italic;">Consistent Performance</div>`;
+      formatter: (params) => {
+        const idx = params[0].dataIndex;
+        const month = months[idx];
+        const score = scores[idx].toFixed(2);
+        const areas = improvementPerMonth[idx];
 
-                return `
-                    <div style="padding: 14px; background: #ffffff; border: 1px solid #e0e7ff; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif; min-width: 260px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f4ff; padding-bottom: 8px; margin-bottom: 10px;">
-                            <span style="font-weight:700; color:#012970; font-size:14px;">${month}</span>
-                            <span style="font-weight:800; color:#4154f1; font-size:14px;">${score} <span style="font-size:10px; font-weight:500; color:#94a3b8;">/ 10</span></span>
-                        </div>
-                        <div>
-                            <div style="font-weight: 700; color: #1e293b; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Improvement Focus:</div>
-                            ${areasHTML}
-                        </div>
-                    </div>`;
-            }
-        },
-        grid: { left: '3%', right: '4%', bottom: '5%', top: '15%', containLabel: true },
-        xAxis: {
-            type: 'category',
-            data: months,
-            boundaryGap: false,
-            axisLine: { lineStyle: { color: '#f1f5f9' } },
-            axisLabel: { color: '#012970', fontWeight: 600, fontSize: 11 }
-        },
-        yAxis: {
-            type: 'value',
-            min: 8.0,
-            max: 10.0,
-            interval: 0.4,
-            splitLine: { lineStyle: { color: '#f1f5f9', type: 'dashed' } },
-            axisLabel: { color: '#94a3b8', fontWeight: 500, fontSize: 10, formatter: (v) => v.toFixed(1) }
-        },
-        series: [{
-            // 2. SET SERIES NAME TO AGENT NAME
-            name: agentKey, 
-            type: 'line',
-            data: scores,
-            smooth: true,
-            symbolSize: 8,
-            showSymbol: false,
-            itemStyle: { color: '#4154f1', borderColor: '#fff', borderWidth: 2 },
-            lineStyle: { width: 3, color: '#4154f1' },
-            areaStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: 'rgba(65, 84, 241, 0.3)' },
-                    { offset: 1, color: 'rgba(65, 84, 241, 0)' }
-                ])
-            },
-            emphasis: { showSymbol: true, scale: true }
-        }]
-    };
+        const areasHTML = areas.length
+          ? areas.map(a => `
+              <div style="
+                color:#475569;
+                font-size:11px;
+                line-height:1.5;
+                margin-top:4px;
+                white-space:normal;
+                word-break:break-word;
+              ">
+                ${a}
+              </div>`).join('')
+          : `
+              <div style="
+                color:#94a3b8;
+                font-size:11px;
+                margin-top:4px;
+                font-style:italic;
+              ">
+                Consistent Performance
+              </div>`;
 
-    agentTrendChartInstance.setOption(option);
+        return `
+          <div style="
+            min-width:260px;
+            max-width:360px;
+            background:rgba(255,255,255,0.98);
+            border:1px solid #e2e8f0;
+            border-radius:6px;
+            box-shadow:0 8px 24px rgba(0,0,0,.08);
+            font-family:Inter, system-ui, sans-serif;
+          ">
+            <!-- Header -->
+            <div style="
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              padding:8px 12px;
+              border-bottom:1px solid #e6e7e9;
+            ">
+              <span style="
+                font-weight:600;
+                font-size:12px;
+                color:#1d273b;
+              ">
+                ${month}
+              </span>
+
+              <span style="
+                font-weight:700;
+                font-size:13px;
+                color:#4154f1;
+              ">
+                ${score}
+                <span style="font-size:10px; font-weight:400; color:#94a3b8;">
+                  / 10
+                </span>
+              </span>
+            </div>
+
+            <!-- Body -->
+            <div style="padding:8px 12px;">
+              <div style="
+                font-size:10px;
+                font-weight:700;
+                color:#64748b;
+                text-transform:uppercase;
+                letter-spacing:.4px;
+                margin-bottom:4px;
+              ">
+                Improvement Focus
+              </div>
+
+              ${areasHTML}
+            </div>
+          </div>
+        `;
+      }
+    },
+
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '5%',
+      top: '15%',
+      containLabel: true
+    },
+
+    xAxis: {
+      type: 'category',
+      data: months,
+      boundaryGap: false,
+      axisLine: { lineStyle: { color: '#f1f5f9' } },
+      axisLabel: {
+        color: '#012970',
+        fontWeight: 600,
+        fontSize: 11
+      }
+    },
+
+    yAxis: {
+      type: 'value',
+      min: 8.0,
+      max: 10.0,
+      interval: 0.4,
+      splitLine: {
+        lineStyle: { color: '#f1f5f9', type: 'dashed' }
+      },
+      axisLabel: {
+        color: '#94a3b8',
+        fontWeight: 500,
+        fontSize: 10,
+        formatter: v => v.toFixed(1)
+      }
+    },
+
+    series: [{
+      name: agentKey,
+      type: 'line',
+      data: scores,
+      smooth: true,
+      showSymbol: false,
+      symbolSize: 8,
+      itemStyle: {
+        color: '#4154f1',
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      lineStyle: {
+        width: 3,
+        color: '#4154f1'
+      },
+      areaStyle: {
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          { offset: 0, color: 'rgba(65, 84, 241, 0.3)' },
+          { offset: 1, color: 'rgba(65, 84, 241, 0)' }
+        ])
+      },
+      emphasis: {
+        showSymbol: true,
+        scale: true
+      }
+    }]
+  };
+
+  agentTrendChartInstance.setOption(option);
 }
+
 
     loadDashboard();
     const criteriaFullNames = [
@@ -1251,40 +1514,56 @@ async function loadAndRender() {
         const option = {
             backgroundColor: 'transparent',
             tooltip: {
-                trigger: 'axis',
-                axisPointer: { type: 'shadow' },
-                backgroundColor: 'transparent',
-                borderWidth: 0,
-                padding: 0,
-                confine: true,
-                formatter: (params) => {
-                  // FIX: Use params[0] because trigger is 'axis'
-                  const d = chartData[params[0].dataIndex];
-                  return `
-                      <div style="padding:16px; background:#ffffff; border:1px solid #e0e7ff; border-radius:12px; box-shadow:0 10px 15px -3px rgba(0,0,0,.1); font-family:Inter,sans-serif; min-width:280px; max-width:320px;">
-                          <div style="
-                              font-weight:700; 
-                              color:#012970; 
-                              font-size:13px; 
-                              margin-bottom:10px; 
-                              border-bottom:2px solid #f0f4ff; 
-                              padding-bottom:8px; 
-                              line-height:1.5;         /* Better spacing for multi-line text */
-                              white-space: normal;     /* Allows text to wrap */
-                              word-wrap: break-word;   /* Prevents long words from breaking layout */
-                              display: block;          /* Allows the box to grow vertically */
-                          ">
-                              ${d.full}
-                          </div>
+                  trigger: 'axis',
+                  axisPointer: { type: 'shadow' },
+                  backgroundColor: 'transparent',
+                  borderWidth: 0,
+                  padding: 0,
+                  confine: true,
 
-                          <div style="display:flex; justify-content:space-between; align-items:center;">
-                              <span style="color:#64748b; font-size:13px;">Avg Points Lost:</span>
-                              <span style="font-weight:800; color:#dc2626; font-size:16px;">${d.lost.toFixed(3)}</span>
-                          </div>
+                  formatter: (params) => {
+                    const d = chartData[params[0].dataIndex];
 
-                      </div>`;
-              }
-            },
+                    return `
+                      <div style="
+                        min-width:260px;
+                        max-width:340px;
+                        background:rgba(255,255,255,0.98);
+                        border:1px solid #e2e8f0;
+                        border-radius:6px;
+                        box-shadow:0 8px 24px rgba(0,0,0,.08);
+                        font-family:Inter, system-ui, sans-serif;
+                      ">
+
+                        <!-- Header -->
+                        <div style="
+                          padding:8px 12px;
+                          font-weight:600;
+                          font-size:12px;
+                          color:#1d273b;
+                          border-bottom:1px solid #e6e7e9;
+                          line-height:1.5;
+                          white-space:normal;
+                          word-break:break-word;
+                        ">
+                          ${d.full}
+                        </div>
+
+                        <!-- Body -->
+                        <div style="padding:8px 12px; display:flex; justify-content:space-between; align-items:center;">
+                          <span style="color:#64748b; font-size:12px;">
+                            Avg Points Lost
+                          </span>
+
+                          <span style="font-weight:800; color:#dc2626; font-size:14px;">
+                            ${d.lost.toFixed(3)}
+                          </span>
+                        </div>
+
+                      </div>
+                    `;
+                  }
+                },
             grid: { 
                 left: '3%', 
                 right: '4%', 
