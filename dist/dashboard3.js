@@ -171,7 +171,7 @@ function createOrUpdateEChart(labels, totalData, uniqueData, elementId) {
     const chartDom = document.getElementById(elementId);
     if (!chartDom) return;
 
-    // Check if instance exists, otherwise initialize
+    // Get or create instance
     let myChart = echarts.getInstanceByDom(chartDom);
     if (!myChart) {
         myChart = echarts.init(chartDom);
@@ -179,85 +179,171 @@ function createOrUpdateEChart(labels, totalData, uniqueData, elementId) {
 
     const option = {
         tooltip: {
-            trigger: 'axis',
-            backgroundColor: 'rgba(255, 255, 255, 0.98)',
-            borderColor: '#e2e8f0',
-            borderWidth: 1,
-            textStyle: { color: '#0f172a', fontSize: 13 },
-            axisPointer: { type: 'shadow' }
-        },
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+                    borderColor: '#e2e8f0',
+                    borderWidth: 1,
+                    padding: 0,              // Important: let HTML handle spacing
+                    textStyle: { fontSize: 12 },
+                    axisPointer: {
+                        type: 'shadow',
+                        shadowStyle: { color: 'rgba(241, 245, 249, 0.6)' }
+                    },
+                    formatter: function (params) {
+                        const title = params[0].axisValue;
+
+                        const rows = params.map(p => `
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                align-items:center;
+                                margin-top:6px;
+                                color:#1d273b;
+                                font-size:12px;
+                            ">
+                                <span>
+                                    <span style="
+                                        display:inline-block;
+                                        width:8px;
+                                        height:8px;
+                                        border-radius:50%;
+                                        background:${p.color};
+                                        margin-right:6px;
+                                    "></span>
+                                    ${p.seriesName}
+                                </span>
+                                <strong>${p.value}</strong>
+                            </div>
+                        `).join('');
+
+                        return `
+                            <div style="min-width:160px">
+                                <!-- Header -->
+                                <div style="
+                                    padding:8px 12px;
+                                    font-weight:600;
+                                    color:#1d273b;
+                                    border-bottom:1px solid #e6e7e9;
+                                ">
+                                    ${title}
+                                </div>
+
+                                <!-- Body -->
+                                <div style="padding:8px 12px">
+                                    ${rows}
+                                </div>
+                            </div>
+                        `;
+                    }
+                },
+
         legend: {
             data: ['Total Calls', 'Unique Calls'],
-            right: '2%',          // Positioned at the top right
-            top: '0%', 
+            right: '0%',
+            top: '0%',
             icon: 'roundRect',
-            textStyle: { fontWeight: 500, color: '#64748b' }
+            itemWidth: 20,
+            itemHeight: 12,
+            itemGap: 20,
+            textStyle: {
+                fontSize: 12,
+                fontWeight: 500,
+                color: '#616876' // Tabler muted text
+            }
         },
+
         grid: {
-            left: '2%',
-            right: '4%',
-            bottom: '5%',
-            top: '15%',           // Increased top margin to give legend room
+            left: '0%',
+            right: '0%',
+            bottom: '0%',
+            top: '16%',
             containLabel: true
         },
+
         xAxis: {
             type: 'category',
             data: labels,
             axisTick: { show: false },
-            axisLine: { show: true, lineStyle: { color: '#e2e8f0' } },
-            axisLabel: { color: '#64748b', fontSize: 11 }
-        },
-        yAxis: {
-            type: 'value',
-            splitLine: { 
-                show: false, 
-                lineStyle: { type: 'line', color: '#f1f5f9' } 
+            axisLine: {
+                show: true,
+                lineStyle: { color: '#e6e7e9' }
             },
-            axisLabel: { 
-                show: false  // <--- Add this line to hide the numbers
-            },
-            axisLine: { 
-                show: false  // Optional: hides the vertical line as well
+            axisLabel: {
+                color: '#616876',
+                fontSize: 11,
+                margin: 12
             }
         },
+
+        yAxis: {
+            type: 'value',
+            axisLine: { show: false },
+            axisLabel: { show: false },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    type: 'dashed',
+                    color: '#f1f5f9'
+                }
+            }
+        },
+
         series: [
             {
                 name: 'Total Calls',
                 type: 'bar',
                 data: totalData,
-                itemStyle: { color: '#206bc4', borderRadius: [4, 4, 0, 0] },
-                barMaxWidth: 30,
+                barMaxWidth: 25,
+                barGap: '30%',
+                barCategoryGap: '45%',
+                itemStyle: {
+                    color: '#206bc4', // Tabler brand blue
+                    borderRadius: [3, 3, 0, 0]
+                },
                 label: {
                     show: true,
                     position: 'top',
                     color: '#206bc4',
-                    fontWeight: 'bold',
-                    fontSize: 11
+                    fontSize: 10,
+                    fontWeight: 600,
+                    distance: 8
                 }
             },
             {
                 name: 'Unique Calls',
                 type: 'bar',
                 data: uniqueData,
-                itemStyle: { color: '#cbd5e1', borderRadius: [4, 4, 0, 0] },
-                barMaxWidth: 30,
+                barMaxWidth: 25,
+                barGap: '30%',
+                barCategoryGap: '45%',
+                itemStyle: {
+                    color: '#cfd4dc', // Improved muted Tabler gray
+                    borderRadius: [3, 3, 0, 0]
+                },
                 label: {
                     show: true,
                     position: 'top',
-                    color: '#cbd5e1',
-                    fontWeight: 'bold',
-                    fontSize: 11
+                    color: '#616876',
+                    fontSize: 10,
+                    fontWeight: 600,
+                    distance: 8
                 }
             }
         ],
-        animationDuration: 1000
+
+        animationDuration: 800,
+        animationEasing: 'cubicOut'
     };
 
-    myChart.setOption(option);
+    myChart.setOption(option, true);
 
-    // Make chart responsive
-    window.addEventListener('resize', () => myChart.resize());
+    // Resize handling (safe, no duplicates)
+    if (!chartDom._resizeHandler) {
+        chartDom._resizeHandler = () => myChart.resize();
+        window.addEventListener('resize', chartDom._resizeHandler);
+    }
 }
+
 
 /* --- WRAPPERS (USE THESE IN YOUR RENDER LOGIC) --- */
 
