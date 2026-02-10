@@ -18,6 +18,7 @@
     <!-- END PLUGINS STYLES -->
     <!-- BEGIN DEMO STYLES -->
     <link href="./preview/css/demo.css?1767679296" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
       <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
@@ -1533,15 +1534,17 @@
   <div class="row row-cards row-deck g-4 mb-6">
     <!-- Total Audited Calls -->
     <div class="col-sm-6 col-lg-3">
-      <div class="card card-sm hover-lift shadow-sm transition-all">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <span class="avatar avatar-md bg-primary-lt text-primary me-3 flex-shrink-0">
-              <i class="ti ti-phone-call fs-5"></i>
+      <div class="card card-sm hover-lift shadow-sm transition-all h-100">
+        <div class="card-body py-4">
+          <div class="d-flex align-items-center gap-3">
+            <span class="avatar avatar-md bg-primary-lt text-primary flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2" />
+              </svg>
             </span>
-            <div class="flex-grow-1">
-              <div class="h3 mb-1 fw-bold text-primary" id="totalCalls">--</div>
-              <div class="text-muted small">Total Audited Calls</div>
+            <div>
+              <div class="h3 mb-1 fw-bold text-primary" id="totalCalls">0</div>
+              <div class="text-muted">Total Audited Calls</div>
             </div>
           </div>
         </div>
@@ -1550,18 +1553,29 @@
 
     <!-- Average Score -->
     <div class="col-sm-6 col-lg-3">
-      <div class="card card-sm hover-lift shadow-sm transition-all">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <span class="avatar avatar-md bg-primary-lt text-primary me-3 flex-shrink-0">
-              <i class="ti ti-star fs-5"></i>
+      <div class="card card-sm hover-lift shadow-sm transition-all h-100">
+        <div class="card-body py-4">
+          <div class="d-flex align-items-center gap-3">
+            <span class="avatar avatar-md bg-primary text-white flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               class="icon" 
+               width="24" 
+               height="24" 
+               viewBox="0 0 24 24" 
+               fill="none" 
+               stroke="currentColor" 
+               stroke-width="2" 
+               stroke-linecap="round" 
+               stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
             </span>
-            <div class="flex-grow-1">
+            <div>
               <div class="h3 mb-1 fw-bold text-primary" id="avgScore">0.0</div>
-              <div class="text-muted small d-flex align-items-center gap-2">
-                Average Score
-                <small class="text-gray-500">(out of 10.0)</small>
-              </div>
+              <div class="text-muted">
+			    Average Score
+				<small class="text-gray-500">(out of 10.0)</small>
+			  </div>
             </div>
           </div>
         </div>
@@ -1569,36 +1583,53 @@
     </div>
 
     <!-- Pass Rate -->
-    <div class="col-sm-6 col-lg-3">
-      <div class="card card-sm hover-lift shadow-sm transition-all border-warning border-opacity-25">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <span class="avatar avatar-md bg-success-lt text-success me-3 flex-shrink-0">
-              <i class="ti ti-check fs-5"></i>
-            </span>
-            <div class="flex-grow-1">
-              <div class="h3 mb-1 fw-bold text-success" id="passRate">0.0%</div>
-              <div class="text-muted small d-flex align-items-center flex-wrap gap-2">
-                Pass Rate
-                <span class="badge bg-warning text-dark">Target ≥99%</span>
-              </div>
-              <div class="progress progress-sm mt-3" style="height: 6px;">
-                <div class="progress-bar bg-success bg-gradient" role="progressbar" style="width: 0%" id="passRateBar"></div>
-              </div>
-            </div>
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-sm hover-lift shadow-sm transition-all border-warning border-opacity-25">
+    <div class="card-body">
+      <div class="d-flex align-items-center">
+        <span class="avatar avatar-md bg-success-lt text-success me-3 flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               width="24" 
+               height="24" 
+               viewBox="0 0 24 24" 
+               fill="none" 
+               stroke="currentColor" 
+               stroke-width="2" 
+               stroke-linecap="round" 
+               stroke-linejoin="round"
+               class="icon">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </span>
+        <div class="flex-grow-1">
+          <div class="h3 mb-1 fw-bold text-success" id="passRate">0.0%</div>
+          <div class="text-muted d-flex align-items-center flex-wrap gap-2">
+            Pass Rate
+            <span class="badge bg-warning text-dark">Target ≥99%</span>
+          </div>
+          <div class="progress progress-sm mt-3" style="height: 4px;">
+            <div class="progress-bar bg-success bg-gradient" role="progressbar" style="width: 0%" id="passRateBar"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <!-- Excellent/Good Rate -->
     <div class="col-sm-6 col-lg-3">
       <div class="card card-sm hover-lift shadow-sm transition-all">
         <div class="card-body">
           <div class="d-flex align-items-center">
-            <span class="avatar avatar-md bg-indigo-lt text-indigo me-3 flex-shrink-0">
-              <i class="ti ti-trophy fs-5"></i>
-            </span>
+                <span class="bg-indigo text-white avatar avatar-md">
+                  <!-- Trophy icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 21h8"></path>
+                    <path d="M12 17v4"></path>
+                    <path d="M7 4h10"></path>
+                    <path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path>
+                  </svg>
+                </span>
             <div class="flex-grow-1">
               <div class="h3 mb-1 fw-bold text-indigo" id="excellentGoodRate">0.0%</div>
               <div class="text-muted small">Excellent / Good Rate</div>

@@ -484,71 +484,61 @@ function createButterflyChart(containerId, categories, leftData, rightData, left
     },
 tooltip: {
   trigger: 'axis',
-  axisPointer: { type: 'shadow' },
-  backgroundColor: 'transparent',
-  borderWidth: 0,
-  padding: 0,
   confine: true,
-  textStyle: { color: '#31374a', fontSize: 12, fontWeight: 600 },
+  axisPointer: { type: 'shadow' },
+  backgroundColor: '#fff',
+  borderColor: '#e3e6ed',
+  borderWidth: 1,
+  formatter: function (params) {
+    const title = params[0].name;
 
-  formatter: (params) => {
-    const label = params[0].name;
-
-    let res = `
-      <div style="
-        background: rgba(255,255,255,0.98);
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        box-shadow: 0 10px 16px rgba(0,0,0,0.08);
-        font-family: Inter, system-ui, sans-serif;
-        min-width: 180px;
-        padding: 10px 14px;
-      ">
-        <!-- Header -->
-        <div style="
-          font-weight: 500;
-          color: #012970;
-          font-size: 14px;
-          border-bottom: 1.5px solid #f0f4ff;
-          padding-bottom: 6px;
-          margin-bottom: 8px;
-          line-height: 1.4;
-        ">
-          ${label}
-        </div>
-    `;
-
-    params.forEach(p => {
+    const rows = params.map(p => {
       const val = Math.abs(p.value);
       const unit = p.seriesName === 'Avg Duration' ? 's' : ' calls';
 
-      res += `
+      return `
         <div style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-top: 4px;
-          min-width: 160px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-top:6px;
+          color:#1d273b;
+          font-size:12px;
         ">
-          <span style="font-size: 12px; color: #64748b; display: flex; align-items: center; gap: 6px;">
+          <span>
             <span style="
-              display: inline-block;
-              width: 8px;
-              height: 8px;
-              border-radius: 50%;
-              background: ${p.color};
+              display:inline-block;
+              width:8px;
+              height:8px;
+              border-radius:50%;
+              background:${p.color};
+              margin-right:6px;
             "></span>
             ${p.seriesName}
           </span>
-          <span style="font-weight: 800; font-size: 13px; color: #1e293b;">
-            ${val}${unit}
-          </span>
+          <strong>${val}${unit}</strong>
         </div>
       `;
-    });
+    }).join('');
 
-    res += `</div>`;
-    return res;
+    return `
+      <div style="min-width:160px">
+        <!-- Header -->
+        <div style="
+          padding:8px 12px;
+          font-weight:600;
+          color:#1d273b;
+          border-bottom:1px solid #e6e7e9;
+        ">
+          ${title}
+        </div>
+
+        <!-- Body -->
+        <div style="padding:8px 12px">
+          ${rows}
+        </div>
+      </div>
+    `;
   }
 },
     grid: { 
@@ -635,26 +625,71 @@ function createMonthOverMonthChart() {
   // --- ECharts Configuration ---
   const option = {
     color: ['#3874ff', '#ef4444'],
-    tooltip: {
-      trigger: 'axis',
-      backgroundColor: '#fff',
-      borderColor: '#e3e6ed',
-      borderWidth: 1,
-      textStyle: { color: '#31374a', fontSize: 12, fontWeight: 600 },
-      axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(210, 220, 235, 0.2)' } },
-      formatter: function (params) {
-        let html = `<div style="margin-bottom:5px; color:#9fa6bc;">${params[0].axisValue}</div>`;
-        params.forEach(p => {
-          const value = p.seriesIndex === 1 ? (typeof formatTime === 'function' ? formatTime(p.value) : p.value + 's') : p.value.toLocaleString();
-          html += `
-            <div style="display:flex; justify-content:space-between; min-width:160px; margin-top:3px;">
-              <span><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${p.color};"></span>${p.seriesName}</span>
-              <span style="font-weight:800; margin-left:15px;">${value}</span>
-            </div>`;
-        });
-        return html;
-      }
-    },
+tooltip: {
+  trigger: 'axis',
+  backgroundColor: '#fff',
+  borderColor: '#e3e6ed',
+  borderWidth: 1,
+  axisPointer: {
+    type: 'shadow',
+    shadowStyle: { color: 'rgba(210, 220, 235, 0.2)' }
+  },
+  formatter: function (params) {
+    const title = params[0].axisValue;
+
+    const rows = params.map(p => {
+      const value =
+        p.seriesIndex === 1
+          ? (typeof formatTime === 'function'
+              ? formatTime(p.value)
+              : `${p.value}s`)
+          : p.value.toLocaleString();
+
+      return `
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-top:6px;
+          color:#1d273b;
+          font-size:12px;
+        ">
+          <span>
+            <span style="
+              display:inline-block;
+              width:8px;
+              height:8px;
+              border-radius:50%;
+              background:${p.color};
+              margin-right:6px;
+            "></span>
+            ${p.seriesName}
+          </span>
+          <strong>${value}</strong>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div style="min-width:160px">
+        <!-- Header -->
+        <div style="
+          padding:8px 12px;
+          font-weight:600;
+          color:#1d273b;
+          border-bottom:1px solid #e6e7e9;
+        ">
+          ${title}
+        </div>
+
+        <!-- Body -->
+        <div style="padding:8px 12px">
+          ${rows}
+        </div>
+      </div>
+    `;
+  }
+},
     legend: {
       show: true,
       top: '0%',
@@ -743,7 +778,7 @@ function createFCRTrendChart() {
   const chart = echarts.init(chartDom);
   chartInstances.fcrTrendChart = chart;
 
-  // --- Data Processing (Same logic as your original) ---
+  // --- Data Processing ---
   const monthlyFCR = {};
   for (const dateKey in groupedData) {
     const [y, m] = dateKey.split('-');
@@ -771,22 +806,58 @@ function createFCRTrendChart() {
   // --- ECharts Configuration ---
   const option = {
     color: ['#10b981'],
-    tooltip: {
-      trigger: 'axis',
-      backgroundColor: '#fff',
-      borderColor: '#e3e6ed',
-      borderWidth: 1,
-      textStyle: { color: '#31374a', fontSize: 12, fontWeight: 600 },
-      axisPointer: { lineStyle: { color: '#cbd5e1', width: 2 } },
-      formatter: (params) => {
-        return `
-          <div style="margin-bottom:5px; color:#9fa6bc;">${params[0].axisValue}</div>
-          <div style="display:flex; justify-content:space-between; min-width:120px;">
-            <span><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#10b981;"></span>FCR Rate</span>
-            <span style="font-weight:800; margin-left:15px;">${params[0].value}%</span>
-          </div>`;
-      }
-    },
+tooltip: {
+  trigger: 'axis',
+  backgroundColor: '#fff',
+  borderColor: '#e3e6ed',
+  borderWidth: 1,
+  axisPointer: {
+    lineStyle: { color: '#cbd5e1', width: 2 }
+  },
+  formatter: function (params) {
+    const title = params[0].axisValue;
+    const value = params[0].value;
+
+    return `
+      <div style="min-width:160px">
+        <!-- Header -->
+        <div style="
+          padding:8px 12px;
+          font-weight:600;
+          color:#1d273b;
+          border-bottom:1px solid #e6e7e9;
+        ">
+          ${title}
+        </div>
+
+        <!-- Body -->
+        <div style="padding:8px 12px">
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-top:6px;
+            color:#1d273b;
+            font-size:12px;
+          ">
+            <span>
+              <span style="
+                display:inline-block;
+                width:8px;
+                height:8px;
+                border-radius:50%;
+                background:#10b981;
+                margin-right:6px;
+              "></span>
+              FCR Rate
+            </span>
+            <strong>${value}%</strong>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+},
     grid: {
       top: '10%',
       left: '3%',
@@ -1073,26 +1144,68 @@ function createCallTrendChart() {
   // ────────────────────────────────
   const option = {
     color: ['#3b82f6', '#f59e0b', '#10b981'],  // blue, amber, green
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: { type: 'shadow' },
-      confine: true,
-      formatter: function (params) {
-        let html = `<div style="font-weight:600;margin-bottom:8px;">${params[0].name}</div>`;
-        params.forEach(p => {
-          const suffix = p.seriesName.includes('FCR') ? '%' : (p.seriesName.includes('AHT') ? 's' : '');
-          html += `
-            <div style="display:flex;justify-content:space-between;min-width:180px;margin:4px 0;">
-              <span>
-                <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p.color};margin-right:8px;"></span>
-                ${p.seriesName}
-              </span>
-              <strong>${p.value}${suffix}</strong>
-            </div>`;
-        });
-        return html;
-      }
-    },
+tooltip: {
+  trigger: 'axis',
+  confine: true,
+  axisPointer: { type: 'shadow' },
+  backgroundColor: '#fff',
+  borderColor: '#e3e6ed',
+  borderWidth: 1,
+  formatter: function (params) {
+    const title = params[0].name;
+
+    const rows = params.map(p => {
+      const suffix = p.seriesName.includes('FCR')
+        ? '%'
+        : p.seriesName.includes('AHT')
+          ? 's'
+          : '';
+
+      return `
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-top:6px;
+          color:#1d273b;
+          font-size:12px;
+        ">
+          <span>
+            <span style="
+              display:inline-block;
+              width:8px;
+              height:8px;
+              border-radius:50%;
+              background:${p.color};
+              margin-right:6px;
+            "></span>
+            ${p.seriesName}
+          </span>
+          <strong>${p.value}${suffix}</strong>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div style="min-width:160px">
+        <!-- Header -->
+        <div style="
+          padding:8px 12px;
+          font-weight:600;
+          color:#1d273b;
+          border-bottom:1px solid #e6e7e9;
+        ">
+          ${title}
+        </div>
+
+        <!-- Body -->
+        <div style="padding:8px 12px">
+          ${rows}
+        </div>
+      </div>
+    `;
+  }
+},
     legend: {
       top: 10,
       left: 'center',
