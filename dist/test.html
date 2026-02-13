@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Supabase Test - Module Version</title>
+</head>
+<body>
+
+  <h1>Supabase Login & Data Test</h1>
+
+  <button id="loginBtn">Login with Magic Link</button>
+  <button id="logoutBtn" style="margin-left: 10px;">Sign Out</button>
+  
+  <br><br>
+  
+  <button id="loadBtn" disabled>Load 5 Recent Calls (after login)</button>
+
+  <pre id="output" style="background:#f8f8f8; padding:12px; max-height:400px; overflow:auto; font-family:monospace; border: 1px solid #ccc; margin-top: 10px;"></pre>
+
+  <script type="module">
+    // 1. IMPORT directly from the CDN as a module
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+    const SUPABASE_URL = 'https://ubonrsjbcvzpoizmidlw.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_5HdtgopObCBVHwqotJEQCw_ByDIyw8v';
+
+    // 2. INITIALIZE
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const output = document.getElementById('output');
+    const loadBtn = document.getElementById('loadBtn');
+
+    // 3. DEFINE FUNCTIONS
+    async function signIn() {
+      const email = prompt("Enter your email:");
+      if (!email) return;
+
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: window.location.href }
+      });
+
+      if (error) alert("Login error: " + error.message);
+      else alert("Magic link sent! Check your inbox.");
+    }
+
+    async function signOut() {
+      await supabase.auth.signOut();
+      alert("Signed out!");
+      location.reload();
+    }
+
+    async function loadRecentCalls() {
+      output.textContent = 'Loading...';
+      const { data, error } = await supabase
+        .from('all_calls')
+        .select('call_date, phone_number, full_name, status, call_reason')
+        .order('call_date', { ascending: false })
+        .limit(5);
+
+      if (error) {
+        output.textContent = 'Error: ' + error.message;
+        output.style.color = 'red';
+      } else if (!data || data.length === 0) {
+        output.textContent = 'Success, but 0 rows returned. Check your RLS policies.';
+        output.style.color = 'orange';
+      } else {
+        output.textContent = JSON.stringify(data, null, 2);
+        output.style.color = 'green';
+      }
+    }
+
+    // 4. ATTACH EVENTS (The "Module" way)
+    document.getElementById('loginBtn').onclick = signIn;
+    document.getElementById('logoutBtn').onclick = signOut;
+    document.getElementById('loadBtn').onclick = loadRecentCalls;
+
+    // 5. AUTH STATE LISTENER
+    supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Event:', event);
+      if (session) {
+        loadBtn.disabled = false;
+        loadBtn.textContent = 'Load 5 Recent Calls (Logged in)';
+      } else {
+        loadBtn.disabled = true;
+        loadBtn.textContent = 'Load 5 Recent Calls (after login)';
+      }
+    });
+  </script>
+</body>
+</html>
