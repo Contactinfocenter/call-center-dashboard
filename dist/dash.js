@@ -1,39 +1,48 @@
-/* ================================================================
-   DASHBOARD CORE LOGIC - SUPABASE INTEGRATED
-   ================================================================
-*/
+  // ===============================
+// Supabase Configuration
+// ===============================
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-// 1. CONFIGURATION
-const BILLING_ISSUE_REASON = "Billing Issue";
-const DEFAULT_TREND_DAYS = 15;
 
-const GENERAL_ACHT_COLOR     = '#f59e0b';
-const GENERAL_VOLUME_COLOR   = '#3b82f6';
-const BILLING_ACHT_COLOR     = '#a855f7';
-const BILLING_VOLUME_COLOR   = '#06b6d4';
 
-const REGION_COLORS = { 'Rural': '#10b981', 'Urban': '#f59e0b', 'N/A': '#94a3b8' };
-const FCR_COLORS = ['#10b981', '#f97316'];
 
-let selectedDate = null;
-let groupedData = {};
-let availableDates = [];
+    const SUPABASE_URL = 'https://ubonrsjbcvzpoizmidlw.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_5HdtgopObCBVHwqotJEQCw_ByDIyw8v';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const chartInstances = {
-  avgHourlyChart: null,
-  lastDayHourlyChart: null,
-  monthRegionPie: null,
-  lastDayRegionPie: null,
-  monthButterflyCallreason: null,
-  dayButterflyCallreason: null,
-  monthBillingButterfly: null,
-  dayBillingButterfly: null,
-  monthOverMonthChart: null,
-  fcrTrendChart: null,
-  callTrendChart: null
-};
+    
+    const BILLING_ISSUE_REASON = "Billing Issue";
+    const DEFAULT_TREND_DAYS = 15;
 
-let trendDateRange = null;
+    const GENERAL_ACHT_COLOR     = '#f59e0b';
+    const GENERAL_VOLUME_COLOR   = '#3b82f6';
+    const BILLING_ACHT_COLOR     = '#a855f7';
+    const BILLING_VOLUME_COLOR   = '#06b6d4';
+
+    const REGION_COLORS = { 'Rural': '#10b981', 'Urban': '#f59e0b', 'N/A': '#94a3b8' };
+    const FCR_COLORS = ['#10b981', '#f97316'];
+
+    let selectedDate = null;
+    let groupedData = {};
+    let availableDates = [];
+
+    // Track chart instances to destroy on update
+    const chartInstances = {
+      avgHourlyChart: null,
+      lastDayHourlyChart: null,
+      monthRegionPie: null,
+      lastDayRegionPie: null,
+      monthButterflyCallreason: null,
+      dayButterflyCallreason: null,
+      monthBillingButterfly: null,
+      dayBillingButterfly: null,
+      monthOverMonthChart: null,
+      fcrTrendChart: null
+    };
+
+    chartInstances.callTrendChart = null;
+
+    let trendDateRange = null;
 
     // Utilities
     function formatTime(seconds) {
@@ -93,49 +102,34 @@ function hexToRgba(hex, opacity) {
     // Data Normalization — fixed to use row.region correctly
 function normalizeFromRows(rows) {
   const normalized = {};
-  
-  rows.forEach((row, idx) => {
-    // 1. Handle the Date correctly (Supabase format: MM/DD/YYYY or YYYY-MM-DD)
-    const rawDate = row.call_date || "";
+
+  rows.forEach((row) => {
+
+    const rawDate =
+      row.call_date ??
+      row.created_at ??
+      row.callDate ??
+      '';
+
     if (!rawDate) return;
 
-    const dateObj = new Date(rawDate);
-    if (isNaN(dateObj.getTime())) return;
+    // Always convert safely
+    const d = new Date(rawDate);
+    if (isNaN(d)) return;
 
-    // Use Option A: Local Date String (YYYY-MM-DD)
-    // This ensures 11/1/2025 becomes "2025-11-01"
-    const year = dateObj.getFullYear();
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const day = String(dateObj.getDate()).padStart(2, '0');
-    const dateKey = `${year}-${month}-${day}`;
+    const datePart = d.toISOString().split('T')[0];
 
-    // 2. Ensure the ID is unique so rows don't overwrite each other
-    const rowId = row.call_id || `row_${idx}`;
+    if (!normalized[datePart]) {
+      normalized[datePart] = [];
+    }
 
-    // 3. Map Supabase columns to Dashboard keys
-    const achtVal = Number(row.acht || 0);
-    const callRegion = normalizeRegion(row.region);
-
-    if (!normalized[dateKey]) normalized[dateKey] = {};
-    
-    normalized[dateKey][rowId] = {
-      call_date: rawDate,
-      phone_number: row.phone_number || "",
-      status: (row.status || "").toString().toUpperCase(), // FCR, A, etc.
-      full_name: row.full_name || "Unknown",
-      Region: callRegion,
-      "Call Reason": row.call_reason || "Unknown",
-      acht: achtVal,
-      comments: row.comments || "",
-      campaign_id: row.campaign_id || "",
-      ACR: row.acr || "",
-      Zone: row.zone || "",
-      Client_type: row.client_type || ""
-    };
+    normalized[datePart].push(row);
   });
-  
+
   return normalized;
 }
+
+
 
 
 // ECharts Area Chart — with destroy
@@ -1599,43 +1593,45 @@ document.querySelectorAll('.date-mirror').forEach(el => {
 
     // Fetch & Load
 async function fetchAndRefresh() {
+
   const loadingOverlay = document.getElementById('loadingOverlay');
   if (loadingOverlay) loadingOverlay.style.display = 'flex';
 
   try {
-    if (typeof supabase === 'undefined') throw new Error("Supabase not found");
 
-    // Fetch all records to build the full history
     const { data, error } = await supabase
       .from('all_calls')
-      .select('*');
+      .select('*')
+      .range(0, 9999);   // 🔥 THIS IS THE FIX
 
     if (error) throw error;
 
-    console.log("Data fetched from Supabase:", data.length, "rows");
+    console.log("Rows fetched:", data.length);
 
     groupedData = normalizeFromRows(data);
-    availableDates = Object.keys(groupedData).sort();
+
+    availableDates = Object.keys(groupedData)
+      .sort((a, b) => new Date(a) - new Date(b));
 
     if (availableDates.length) {
-      // Pick the most recent date as default
       selectedDate = availableDates[availableDates.length - 1];
-      
-      const dateEl = document.getElementById('selectedDate');
-      if (dateEl) dateEl.textContent = selectedDate;
-      
-      if (typeof fp !== 'undefined') fp.setDate(selectedDate);
+      document.getElementById('selectedDate').textContent = selectedDate;
+      fp.setDate(selectedDate);
     }
 
     renderDashboard();
     createCallTrendChart();
 
   } catch (err) {
-    console.error("Fetch Error:", err);
+    console.error(err);
+    alert("Failed to load data: " + err.message);
   } finally {
     if (loadingOverlay) loadingOverlay.style.display = 'none';
   }
 }
+
+
+
 
     const fp = flatpickr("#datePicker", {
       dateFormat: "Y-m-d",
@@ -1703,6 +1699,6 @@ document
   });
 
 
-// Ensure these lines at the very bottom of your file stay as they are:
-document.getElementById('btnReload').addEventListener('click', fetchAndRefresh);
-document.addEventListener('DOMContentLoaded', fetchAndRefresh);
+    document.getElementById('btnReload').addEventListener('click', fetchAndRefresh);
+
+    document.addEventListener('DOMContentLoaded', fetchAndRefresh);

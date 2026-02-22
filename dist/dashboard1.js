@@ -141,7 +141,6 @@ function createEChartsAreaChart(containerId, seriesData, categories) {
   const chart = echarts.init(el);
   chartInstances[containerId] = chart;
 
-  // Phoenix v1.24.0 Color Palette
   const colors = ['#3874ff', '#f59e0b', '#10b981']; 
   const comparisonColor = '#cbd0dd'; // Used for the dashed line if needed
 
@@ -482,65 +481,65 @@ function createButterflyChart(containerId, categories, leftData, rightData, left
       },
 
     },
-tooltip: {
-  trigger: 'axis',
-  confine: true,
-  axisPointer: { type: 'shadow' },
-  backgroundColor: '#fff',
-  borderColor: '#e3e6ed',
-  borderWidth: 1,
-  formatter: function (params) {
-    const title = params[0].name;
+          tooltip: {
+            trigger: 'axis',
+            confine: true,
+            axisPointer: { type: 'shadow' },
+            backgroundColor: '#fff',
+            borderColor: '#e3e6ed',
+            borderWidth: 1,
+            formatter: function (params) {
+              const title = params[0].name;
 
-    const rows = params.map(p => {
-      const val = Math.abs(p.value);
-      const unit = p.seriesName === 'Avg Duration' ? 's' : ' calls';
+              const rows = params.map(p => {
+                const val = Math.abs(p.value);
+                const unit = p.seriesName === 'Avg Duration' ? 's' : ' calls';
 
-      return `
-        <div style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          margin-top:6px;
-          color:#1d273b;
-          font-size:12px;
-        ">
-          <span>
-            <span style="
-              display:inline-block;
-              width:8px;
-              height:8px;
-              border-radius:50%;
-              background:${p.color};
-              margin-right:6px;
-            "></span>
-            ${p.seriesName}
-          </span>
-          <strong>${val}${unit}</strong>
-        </div>
-      `;
-    }).join('');
+                return `
+                  <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-top:6px;
+                    color:#1d273b;
+                    font-size:12px;
+                  ">
+                    <span>
+                      <span style="
+                        display:inline-block;
+                        width:8px;
+                        height:8px;
+                        border-radius:50%;
+                        background:${p.color};
+                        margin-right:6px;
+                      "></span>
+                      ${p.seriesName}
+                    </span>
+                    <strong>${val}${unit}</strong>
+                  </div>
+                `;
+              }).join('');
 
-    return `
-      <div style="min-width:160px">
-        <!-- Header -->
-        <div style="
-          padding:8px 12px;
-          font-weight:600;
-          color:#1d273b;
-          border-bottom:1px solid #e6e7e9;
-        ">
-          ${title}
-        </div>
+              return `
+                <div style="min-width:160px">
+                  <!-- Header -->
+                  <div style="
+                    padding:8px 12px;
+                    font-weight:600;
+                    color:#1d273b;
+                    border-bottom:1px solid #e6e7e9;
+                  ">
+                    ${title}
+                  </div>
 
-        <!-- Body -->
-        <div style="padding:8px 12px">
-          ${rows}
-        </div>
-      </div>
-    `;
-  }
-},
+                  <!-- Body -->
+                  <div style="padding:8px 12px">
+                    ${rows}
+                  </div>
+                </div>
+              `;
+            }
+          },
     grid: { 
       top: '15%',    // Increased padding to fit the legend
       bottom: '2%', 

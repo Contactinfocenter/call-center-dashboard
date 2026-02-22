@@ -1360,59 +1360,15 @@
     </script>
     <!-- END PAGE SCRIPTS -->
     <!-- ECharts CDN -->
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
-    <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+ 
 
-    const SUPABASE_URL = 'https://ubonrsjbcvzpoizmidlw.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_5HdtgopObCBVHwqotJEQCw_ByDIyw8v';
-    
-    // 1. Initialize Supabase
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-    // 2. MAKE IT GLOBAL so dashboard1.js can use it
-    window.supabase = supabase;
 
-    const authContainer = document.getElementById('auth-container');
-    const dashboard = document.getElementById('dashboard');
-
-    // --- AUTH LOGIC ---
-    document.getElementById('loginBtn').onclick = async () => {
-        const email = prompt("Enter email:");
-        if (email) {
-            await supabase.auth.signInWithOtp({ 
-                email, 
-                options: { emailRedirectTo: window.location.href } 
-            });
-            alert("Check your email for the login link!");
-        }
-    };
-
-    document.getElementById('logoutBtn').onclick = async () => {
-        await supabase.auth.signOut();
-        location.reload();
-    };
-
-    // --- SESSION CHECKER ---
-    // This part shows the dashboard if logged in, or the login box if not
-    supabase.auth.onAuthStateChange((event, session) => {
-        if (session) {
-            if(authContainer) authContainer.style.display = 'none';
-            if(dashboard) dashboard.style.display = 'block';
-            
-            // This triggers the fetchAndRefresh() inside your dashboard1.js
-            if (typeof fetchAndRefresh === 'function') {
-                fetchAndRefresh();
-            }
-        } else {
-            if(authContainer) authContainer.style.display = 'block';
-            if(dashboard) dashboard.style.display = 'none';
-        }
-    });
-</script>
-
-<script src="dash.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="dashboardv1.js" defer></script>
     
   </body>
 </html>

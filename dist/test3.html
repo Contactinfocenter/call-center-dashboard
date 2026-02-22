@@ -3,129 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Call Center Dashboard - Secure</title>
+  <title>Call Center Dashboard - Supabase Live</title>
   <style>
-    :root {
-      --primary: #4f46e5;
-      --bg: #f3f4f6;
-      --card: white;
-      --text: #1f2937;
-      --muted: #6b7280;
-    }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      margin: 0;
-      padding: 20px;
-      color: var(--text);
-    }
+    :root { --primary: #4f46e5; --bg: #f3f4f6; --card: white; --text: #1f2937; --muted: #6b7280; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
     .container { max-width: 1200px; margin: 0 auto; }
-
-    /* Login Overlay */
-    #auth-container {
-      max-width: 400px;
-      margin: 100px auto;
-      background: var(--card);
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    #auth-container h2 { margin-bottom: 8px; }
-    #auth-container p { color: var(--muted); margin-bottom: 24px; }
-
-    /* Dashboard Layout */
+    #auth-container { max-width: 400px; margin: 100px auto; background: var(--card); padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
     #dashboard { display: none; }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
-    }
-    h1 { margin: 0; font-size: 1.875rem; }
-
-    /* Stats Grid - 9 Feb 2026 */
-    .stats-section {
-      margin-bottom: 40px;
-    }
-    .stats-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .stat-card {
-      background: var(--card);
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      text-align: center;
-    }
-    .stat-card .emoji { font-size: 2rem; margin-bottom: 8px; }
-    .stat-card h3 {
-      margin: 0 0 8px;
-      font-size: 0.875rem;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .stat-card .value {
-      font-size: 2.25rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    /* Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--card);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    }
-    th {
-      background: #f9fafb;
-      text-align: left;
-      padding: 12px 16px;
-      font-weight: 600;
-      color: var(--muted);
-    }
-    td {
-      padding: 12px 16px;
-      border-top: 1px solid #f3f4f6;
-    }
-    .status-pill {
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .stat-card { background: var(--card); padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--primary); }
+    table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #eee; }
+    .status-pill { padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
     .status-completed { background: #d1fae5; color: #065f46; }
     .status-other { background: #fef3c7; color: #92400e; }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    #loginBtn { background: var(--primary); color: white; }
-    #logoutBtn { background: #ef4444; color: white; }
-    #loadBtn { background: #10b981; color: white; }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    button { padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; background: var(--primary); color: white; }
+    #logoutBtn { background: #ef4444; }
   </style>
 </head>
 <body>
 
   <div id="auth-container">
     <h2>Secure Access</h2>
-    <p>Sign in to view call center analytics</p>
+    <p>Sign in to view analytics</p>
     <button id="loginBtn">Login with Magic Link</button>
   </div>
 
@@ -135,50 +37,17 @@
       <button id="logoutBtn">Sign Out</button>
     </header>
 
-    <!-- 9 Feb 2026 Stats -->
-    <section class="stats-section">
-      <div class="stats-title">9 February 2026 Summary</div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="emoji">📞</div>
-          <h3>Total Calls</h3>
-          <div class="value" id="total-calls">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="emoji">👤</div>
-          <h3>Unique Callers</h3>
-          <div class="value" id="unique-callers">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="emoji">🧑‍💼</div>
-          <h3>Active Agents</h3>
-          <div class="value" id="active-agents">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="emoji">⏱️</div>
-          <h3>Avg Handle Time</h3>
-          <div class="value" id="avg-ht">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="emoji">✅</div>
-          <h3>FCR %</h3>
-          <div class="value" id="fcr-percent">—</div>
-        </div>
-      </div>
-    </section>
+    <div class="stats-grid">
+      <div class="stat-card"><h3>Total Calls</h3><div class="value" id="total-calls">—</div></div>
+      <div class="stat-card"><h3>Unique Callers</h3><div class="value" id="unique-callers">—</div></div>
+      <div class="stat-card"><h3>Active Agents</h3><div class="value" id="active-agents">—</div></div>
+      <div class="stat-card"><h3>Avg Handle Time</h3><div class="value" id="avg-ht">—</div></div>
+      <div class="stat-card"><h3>FCR %</h3><div class="value" id="fcr-percent">—</div></div>
+    </div>
 
-    <!-- Recent Calls Table -->
-    <h2>Recent Calls</h2>
+    <h2>Recent Calls (9 Feb 2026)</h2>
     <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Full Name</th>
-          <th>Phone</th>
-          <th>Reason</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Date</th><th>Full Name</th><th>Phone</th><th>Reason</th><th>Status</th></tr></thead>
       <tbody id="tableBody"></tbody>
     </table>
   </div>
@@ -188,164 +57,67 @@
 
     const SUPABASE_URL = 'https://ubonrsjbcvzpoizmidlw.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_5HdtgopObCBVHwqotJEQCw_ByDIyw8v';
-
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const authContainer = document.getElementById('auth-container');
     const dashboard = document.getElementById('dashboard');
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
 
-    // ──── AUTH LOGIC ────
-    loginBtn.onclick = async () => {
-      loginBtn.disabled = true;
-      loginBtn.textContent = 'Sending...';
+    // ──── DATA FETCHING ────
+    async function refreshDashboard() {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '<tr><td colspan="5">Loading data...</td></tr>';
 
-      const email = prompt("Enter your email:");
-      if (!email) {
-        loginBtn.disabled = false;
-        loginBtn.textContent = 'Login with Magic Link';
-        return;
+      // 1. Get Stats via RPC
+      const { data: stats, error: sErr } = await supabase.rpc('get_feb9_stats').single();
+      if (stats) {
+        document.getElementById('total-calls').textContent = stats.total_calls;
+        document.getElementById('unique-callers').textContent = stats.unique_callers;
+        document.getElementById('active-agents').textContent = stats.active_agents;
+        document.getElementById('avg-ht').textContent = stats.avg_handle_time.toFixed(1) + 's';
+        document.getElementById('fcr-percent').textContent = stats.fcr_percentage + '%';
       }
 
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: { emailRedirectTo: window.location.href }
-      });
+      // 2. Get 9 Feb Table Data (Filtered to exact date)
+      const { data: calls, error: cErr } = await supabase
+        .from('all_calls')
+        .select('*')
+        .gte('call_date', '2026-02-09T00:00:00')
+        .lt('call_date', '2026-02-10T00:00:00')
+        .order('call_date', { ascending: false });
 
-      if (error) {
-        alert("Login error: " + error.message);
-      } else {
-        alert("Magic link sent! Check your email (including spam).");
+      if (calls) {
+        tbody.innerHTML = calls.map(c => `
+          <tr>
+            <td>${new Date(c.call_date).toLocaleTimeString()}</td>
+            <td><strong>${c.full_name}</strong></td>
+            <td>${c.phone_number}</td>
+            <td>${c.call_reason || '—'}</td>
+            <td><span class="status-pill ${c.status === 'FCR' || c.status === 'A' ? 'status-completed' : 'status-other'}">${c.status}</span></td>
+          </tr>
+        `).join('');
       }
+    }
 
-      loginBtn.disabled = false;
-      loginBtn.textContent = 'Login with Magic Link';
+    // ──── AUTH & STATE ────
+    document.getElementById('loginBtn').onclick = async () => {
+      const email = prompt("Email:");
+      if (email) await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+      alert("Check your email!");
     };
 
-    logoutBtn.onclick = async () => {
+    document.getElementById('logoutBtn').onclick = async () => {
       await supabase.auth.signOut();
       location.reload();
     };
 
-    // ──── DASHBOARD DATA ────
-    async function loadFeb9Stats() {
-      const { data, error } = await supabase
-        .rpc('get_feb9_stats')  // We'll create this RPC next
-        .single();
-
-      if (error) {
-        console.error('Stats error:', error);
-        return;
-      }
-
-      document.getElementById('total-calls').textContent = data.total_calls;
-      document.getElementById('unique-callers').textContent = data.unique_callers;
-      document.getElementById('active-agents').textContent = data.active_agents;
-      document.getElementById('avg-ht').textContent = data.avg_handle_time ? data.avg_handle_time.toFixed(2) + ' s' : '—';
-      document.getElementById('fcr-percent').textContent = data.fcr_percentage ? data.fcr_percentage + '%' : '—';
-    }
-
-    async function refreshRecentCalls() {
-      const tbody = document.getElementById('tableBody');
-      tbody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
-
-      const { data, error } = await supabase
-        .from('all_calls')
-        .select('call_date, full_name, phone_number, call_reason, status')
-        .order('call_date', { ascending: false })
-        .limit(50);
-
-      if (error) {
-        tbody.innerHTML = `<tr><td colspan="5">Error: ${error.message}</td></tr>`;
-        return;
-      }
-
-      tbody.innerHTML = data.map(call => {
-        const date = new Date(call.call_date).toLocaleDateString('en-GB');
-        const statusClass = call.status === 'FCR' ? 'status-completed' : 'status-other';
-        return `
-          <tr>
-            <td>${date}</td>
-            <td><strong>${call.full_name}</strong></td>
-            <td>${call.phone_number}</td>
-            <td>${call.call_reason || '—'}</td>
-            <td><span class="status-pill ${statusClass}">${call.status}</span></td>
-          </tr>
-        `;
-      }).join('');
-    }
-
-    async function refreshDashboard() {
-  const output = document.getElementById('output') || document.createElement('pre'); // fallback
-  output.textContent = 'Loading 9 Feb 2026 data...';
-
-  // Single efficient query for all metrics
-  const { data: stats, error: statsError } = await supabase
-    .rpc('get_feb9_stats')  // ← assumes you created this function
-    .single();
-
-  if (statsError) {
-    output.textContent = 'Stats error: ' + statsError.message;
-    return;
-  }
-
-  // Update stats cards
-  document.getElementById('count-total').textContent = stats.total_calls;
-  document.getElementById('unique-callers').textContent = stats.unique_callers;
-  document.getElementById('active-agents').textContent = stats.active_agents;
-  document.getElementById('avg-ht').textContent = stats.avg_handle_time ? stats.avg_handle_time.toFixed(2) + ' s' : '—';
-  document.getElementById('fcr-percent').textContent = stats.fcr_percentage ? stats.fcr_percentage + '%' : '—';
-
-  // Load recent calls (limited to that day)
-  const { data: calls, error: callsError } = await supabase
-    .from('all_calls')
-    .select('call_date, full_name, phone_number, call_reason, status')
-    .eq('call_date::date', '2026-02-09')
-    .order('call_date', { ascending: false })
-    .limit(50);
-
-  if (callsError) {
-    output.textContent = 'Calls error: ' + callsError.message;
-    return;
-  }
-
-  const tbody = document.getElementById('tableBody');
-  tbody.innerHTML = calls.length === 0
-    ? '<tr><td colspan="5">No calls on 9 Feb 2026</td></tr>'
-    : calls.map(call => {
-        const date = new Date(call.call_date).toLocaleDateString('en-GB');
-        const statusClass = call.status === 'FCR' ? 'status-completed' : 'status-other';
-        return `
-          <tr>
-            <td>${date}</td>
-            <td><strong>${call.full_name}</strong></td>
-            <td>${call.phone_number}</td>
-            <td>${call.call_reason || '—'}</td>
-            <td><span class="status-pill ${statusClass}">${call.status}</span></td>
-          </tr>
-        `;
-      }).join('');
-}
-
-    // ──── STATE MANAGEMENT ────
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         authContainer.style.display = 'none';
         dashboard.style.display = 'block';
-        await loadFeb9Stats();
-        await refreshRecentCalls();
+        refreshDashboard();
       } else {
         authContainer.style.display = 'block';
         dashboard.style.display = 'none';
-      }
-    });
-
-    // Initial check
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        loadFeb9Stats();
-        refreshRecentCalls();
       }
     });
   </script>
