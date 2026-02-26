@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Login - Dashboard</title>
+  <link href="./dist/css/tabler.min.css" rel="stylesheet"/>
+</head>
+<body class=" d-flex flex-column">
+
+<div class="page page-center">
+  <div class="container container-tight py-4">
+    <div class="card card-md">
+      <div class="card-body">
+
+        <h2 class="h2 text-center mb-4">Login</h2>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="Enter email">
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Enter password">
+        </div>
+
+        <div class="form-footer">
+          <button onclick="login()" class="btn btn-primary w-100">
+            Sign in
+          </button>
+        </div>
+
+        <div class="text-danger mt-3 text-center" id="errorMsg"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+  const supabase = createClient(
+    'https://ubonrsjbcvzpoizmidlw.supabase.co',
+    'sb_publishable_5HdtgopObCBVHwqotJEQCw_ByDIyw8v'
+  )
+
+  window.login = async () => {
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    if (error) {
+      document.getElementById("errorMsg").innerText = error.message
+    } else {
+      window.location.href = "indexa.html"
+    }
+  }
+</script>
+
+</body>
+</html>

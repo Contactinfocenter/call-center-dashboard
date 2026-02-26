@@ -26,6 +26,44 @@
 
     <!-- Flatpickr JS (add before your custom script) -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+  const supabase = createClient(
+    'https://ubonrsjbcvzpoizmidlw.supabase.co',
+    'sb_publishable_5HdtgopObCBVHwqotJEQCw_ByDIyw8v'
+  )
+
+  // 1. Initial Check: If no session, go to login immediately
+  const { data: { session: initialSession } } = await supabase.auth.getSession();
+  if (!initialSession) {
+    window.location.href = "login.html";
+  }
+
+  // 2. Auth State Listener: Handles the actual redirect on Sign Out
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT' || !session) {
+      // Small delay ensures the session is fully cleared before moving
+      window.location.href = "login.html";
+    }
+  });
+
+  // 3. Logout Button Logic
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.onclick = async (e) => {
+      e.preventDefault(); // Prevents jumpy behavior if it's an <a> tag
+      const { error } = await supabase.auth.signOut();
+      if (error) console.error('Error signing out:', error.message);
+    };
+  }
+
+  // 4. Dashboard Logic (only runs if session exists)
+  if (initialSession && typeof refreshDashboard === 'function') {
+    refreshDashboard();
+  }
+</script>
     <!-- BEGIN CUSTOM FONT -->
     <style>
       @import url("https://rsms.me/inter/inter.css");
@@ -1297,8 +1335,13 @@
           </div>
         </div>
       </form>
+      <!--
       <button id="loginBtn">Login with Magic Link</button> 
+      <button onclick="logout()" class="btn btn-outline-danger btn-sm">Logout</button>
+       -->
       <button id="logoutBtn">Sign Out</button>
+     
+      
     </div>
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="./dist/js/tabler.min.js?1767679296" defer></script>
@@ -1369,6 +1412,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="dashboardv1.js" defer></script>
+
+
     
   </body>
 </html>

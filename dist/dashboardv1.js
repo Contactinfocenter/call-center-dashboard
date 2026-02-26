@@ -1081,3 +1081,4 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(id)?.addEventListener('change', fetchAndRefresh);
     });
 });
+
